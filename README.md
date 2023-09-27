@@ -1,2 +1,2 @@
 # Trivia
-Es para el videojuego de trivias de CMI
+Es para el videojuego Digimentore de trivias de CMI
