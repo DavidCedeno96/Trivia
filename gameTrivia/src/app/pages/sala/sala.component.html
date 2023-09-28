@@ -1,0 +1,103 @@
+<body >
+    <div class="container-fluid" >
+        <div class="row" >
+            <div class="col-8 py-3">
+                <!-- Contenido izquierdo -->
+                <div class="container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3D5057" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        ::before
+                        
+                      </svg>
+                </div>
+              </div>
+            </div>
+        </div>
+  <!-- Nombre sala -->
+  <div class="container">
+    <div class="row">
+
+        <div class="col">
+            <h2 class="text-center py-3" style="color: white; font-weight: bold;">{{miSala.nombre}}</h2>
+        </div>    
+      </div>
+    <div class="row"  style=" vertical-align: middle; display: flex;
+    justify-content: flex-end; ">
+        
+        <!-- Botonera -->
+        
+        <div class="col-lg-2 text-end px-3 py-3">
+            <button class="btn btn-primary d-flex text-end px-4" >
+                   
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill mx-2 my-1" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                  </svg>
+                  Pregunta
+            </button>
+        </div>
+        <div class="col-3 text-end px-3 py-3">
+            <button class="btn btn-primary d-flex text-end px-4" >
+                   
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill mx-2 my-1" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                  </svg>
+                  Pregunta
+            </button>
+        </div>
+        <div class="col-3 text-end px-3 py-3">
+            <button class="btn btn-primary d-flex text-end px-4" >
+                   
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill mx-2 my-1" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                  </svg>
+                  Pregunta
+            </button>
+        </div>
+        
+    
+  </div>  
+
+  <!-- SALAS CREADAS -->
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto">
+         <div class="card my-2" *ngFor="let pregunta of preguntasSala">
+          <div class="card-body">
+            <div class="row align-items-center ">
+              <div class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5">
+                <img src="assets/Icons/IconoPregunta.svg" alt="Icono" class="icono-svgP" >
+              </div>
+              <div class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3">
+                {{ pregunta.nombre }}
+              </div>
+              <div class="col-sm-12 col-lg-5 text-end">
+                
+                
+                  <button type="button" class="btn btn-secondary mx-1"> 
+                    <img src="assets/Icons/Editar.svg" alt="Icono" class="icono-svg2" >
+                    Editar</button>
+                  <button type="button" class="btn btn-secondary mx-1 my-2">
+                    <img src="assets/Icons/Basurero.svg" alt="Icono" class="icono-svg2" >
+                    Eliminar</button>
+                  
+                
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+  
+  </div>
+
+  <div class="flexcontainer">
+   
+  </div>
+  
+  
+  
+  
+
+</body>
+
