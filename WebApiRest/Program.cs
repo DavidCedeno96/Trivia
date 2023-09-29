@@ -1,7 +1,44 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//CORS
+var origen = builder.Configuration.GetSection("AllowedHosts").ToString();
+var misReglasCors = "ReglasCors";
+builder.Services.AddCors(option =>
+    option.AddPolicy(name: misReglasCors,
+    builder =>
+    {
+        builder.WithOrigins(origen)
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    })
+    
+);
 
+//JWT
+builder.Configuration.AddJsonFile("appsettings.json");
+var secretKey = builder.Configuration.GetSection("settings").GetSection("secretKey").ToString();
+var keyBytes = Encoding.UTF8.GetBytes(secretKey);
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    config.RequireHttpsMetadata = false; // es para https
+    config.SaveToken = true;
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -15,6 +52,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//CORS
+app.UseCors(misReglasCors);
+
+//JWT
+app.UseAuthentication();
 
 app.UseAuthorization();
 

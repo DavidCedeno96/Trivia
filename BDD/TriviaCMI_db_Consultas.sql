@@ -108,3 +108,8 @@ exec sp_U_Usuario
 @info = '',
 @error = ''
 
+exec sp_B_UsuarioLogin	
+@correo = 'david@gmail.com',
+@clave = 'admin',
+@info = '',
+@error = ''
