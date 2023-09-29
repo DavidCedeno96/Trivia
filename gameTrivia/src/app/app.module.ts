@@ -17,6 +17,8 @@ import { IniciarSesionComponent } from './pages/iniciar-sesion/iniciar-sesion.co
 import { AdminComponent } from './pages/admin/admin.component';
 import { CrearSalaComponent } from './pages/crear-sala/crear-sala.component';
 import { SalaComponent } from './pages/sala/sala.component';
+import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta.component';
+import { PlayerComponent } from './pages/player/player.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { SalaComponent } from './pages/sala/sala.component';
     IniciarSesionComponent,
     AdminComponent,
     CrearSalaComponent,
-    SalaComponent,    
+    SalaComponent,
+    EditarPreguntaComponent,
+    PlayerComponent,    
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,9 @@ import { SalaComponent } from './pages/sala/sala.component';
       {path: 'Administrador', component: AdminComponent},
       {path: 'CrearSala', component: CrearSalaComponent},
       {path: 'Sala', component: SalaComponent},
+      {path: 'Editar_pregunta', component: EditarPreguntaComponent},
+      {path: 'MisSalas', component: PlayerComponent},
+      
       
     ]),
 

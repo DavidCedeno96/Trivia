@@ -88,3 +88,22 @@ body {
   margin-right: 5px; /* Opcional: espacio entre el icono y el texto */    
 }
 
+/*BOTON CIRCULAR*/
+.btn-circle {
+  background-color: #3D5057;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Hace que el botón sea circular */
+  text-align: center;
+  padding: 0; /* Ajusta el espacio interno del botón */
+  
+  color: #fff;
+}
+.btn-circle:hover {
+  background-color: #2F3A40; /* Color más oscuro cuando el mouse pasa por encima */
+}
+
+.btn-circle:active {
+  background-color: #1F292F; /* Color más oscuro cuando se hace clic */
+}
+

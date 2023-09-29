@@ -1,0 +1,81 @@
+body {
+    background-color: #DC8127;
+  }
+  .btn-primary {
+      background-color: #3D5057;
+      border: none;
+      font-weight: bold;
+    }
+    #btnIngresar:active,
+    #btnIngresar:focus {
+      background-color: #DC8127; /* Naranja */
+      border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
+      border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+      border-radius: 28px;
+    }
+
+    .formText{
+        font-weight: bold;
+    }
+  
+  .card {
+      background-color:  #F0F0F0;
+      border-radius: 25px; 
+    }
+    .card h5 {
+      color: #3D5057; /* Cambia el color del texto a blanco */
+      font-weight: bold; /* Aplica el estilo en negrita */
+      text-decoration: underline; /* Aplica un subrayado */
+      text-underline-offset: 12px;
+    }
+    .card label {
+      color: white; /* Cambia el color del texto a blanco */
+    }
+    
+  .form-control {
+      border-radius: 25px; 
+    }
+
+    .radio-buttons {
+        
+        align-items: center;
+    }
+
+    .radio-button {
+        margin-right: 20px; /* Espacio entre botones */
+    }
+
+    .radio-button input[type="radio"] {
+        transform: scale(2); /* Ajusta el tamaño del botón de radio */
+    }
+
+    .radio-button label {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        padding-left: 10px; /* Espacio para el icono de check */
+        font-size: 20px; /* Tamaño de fuente para el texto del botón de radio */
+    }
+
+    .radio-button label:before {
+        content: "";
+        display: inline-block;
+        width: 20px; /* Tamaño del icono de check */
+        height: 20px; /* Tamaño del icono de check */
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .radio-button input[type="radio"]:checked + label:before {
+        background-color: #007bff; /* Color de fondo cuando está seleccionado */
+        border-color: #007bff;
+        content: "\2713"; /* Código de verificación Unicode */
+        font-size: 16px; /* Tamaño de fuente para el icono de check */
+        text-align: center;
+        color: #fff;
+        border: none;
+    }
