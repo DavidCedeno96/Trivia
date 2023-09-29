@@ -14,16 +14,19 @@
                 </div>
     
     
-                <form>
+                <form (ngSubmit)="onSubmit()">
+                  <!-- MAIL USUARIO -->
                   
                     <div class="mb-3 px-md-5">
-                      <input type="text" class="form-control" id="usermail" placeholder="Ingresa tu correo">
+                      <input [(ngModel)]="nuevoUsuario.correo" type="email" class="form-control" id="usermail" placeholder="Ingresa tu correo" name="mailUsuario" required>
                     </div>
+                     <!-- PASSWORD USUARIO -->
                     <div class="mb-3 px-md-5">
-                      <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+                      <input [(ngModel)]="nuevoUsuario.constrasena" type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"name="passwordUsuario"  required>
                     </div>
+                    <!-- NAME USUARIO -->
                     <div class="mb-3 px-md-5">
-                        <input type="text" class="form-control" id="username" placeholder="Ingresa tu nombre de jugador">
+                        <input [(ngModel)]="nuevoUsuario.nombre" type="text" class="form-control" id="username" placeholder="Ingresa tu nombre de jugador" name="nombreUsuario" required>
                       </div>
                   
                   

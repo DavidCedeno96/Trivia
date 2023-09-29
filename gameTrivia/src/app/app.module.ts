@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { RouterModule } from '@angular/router';
 
+// Este es para la apiRest
+import { HttpClientModule } from '@angular/common/http';
 
 //Componentes de Primeng
 import { ButtonModule } from 'primeng/button';
@@ -20,6 +22,9 @@ import { SalaComponent } from './pages/sala/sala.component';
 import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta.component';
 import { PlayerComponent } from './pages/player/player.component';
 
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -31,12 +36,14 @@ import { PlayerComponent } from './pages/player/player.component';
     CrearSalaComponent,
     SalaComponent,
     EditarPreguntaComponent,
-    PlayerComponent,    
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ButtonModule,
+    HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
       {path: 'Iniciar_Sesion', component: IniciarSesionComponent},
       {path: 'Administrador', component: AdminComponent},
