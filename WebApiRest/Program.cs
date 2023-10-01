@@ -1,26 +1,27 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApiRest.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //CORS
-var origen = builder.Configuration.GetSection("AllowedHosts").ToString();
+var origins = builder.Configuration.GetSection("AllowedHosts").Get<string>();
 var misReglasCors = "ReglasCors";
 builder.Services.AddCors(option =>
     option.AddPolicy(name: misReglasCors,
     builder =>
-    {
-        builder.WithOrigins(origen)
-        .AllowAnyMethod()
+    { 
+        builder.WithOrigins(origins.Split(";")) // => Este tambien acepta una lista de strings
+        .WithMethods("GET","POST","PUT","DELETE")
         .AllowAnyHeader();
     })
-    
 );
 
 //JWT
 builder.Configuration.AddJsonFile("appsettings.json");
-var secretKey = builder.Configuration.GetSection("settings").GetSection("secretKey").ToString();
-var keyBytes = Encoding.UTF8.GetBytes(secretKey);
+var settings = builder.Configuration.GetSection("settings").Get<Settings>();
+var keyBytes = Encoding.UTF8.GetBytes(settings.SecretKey);
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

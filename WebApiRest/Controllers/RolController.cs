@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WebApiRest.Data;
 using WebApiRest.Models;
 
 namespace WebApiRest.Controllers
 {
+    [EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     [ApiController]
     public class RolController : ControllerBase
