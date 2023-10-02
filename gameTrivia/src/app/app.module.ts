@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 //Componentes de Primeng
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -23,7 +25,9 @@ import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta
 import { PlayerComponent } from './pages/player/player.component';
 
 import { FormsModule } from '@angular/forms';
+import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -37,20 +41,25 @@ import { FormsModule } from '@angular/forms';
     SalaComponent,
     EditarPreguntaComponent,
     PlayerComponent,
+    IngresarImagenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ButtonModule,
+    DialogModule,
+    NgxDropzoneModule,
+    ToastModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       {path: 'Iniciar_Sesion', component: IniciarSesionComponent},
-      {path: 'Administrador', component: AdminComponent},
-      {path: 'CrearSala', component: CrearSalaComponent},
-      {path: 'Sala', component: SalaComponent},
-      {path: 'Editar_pregunta', component: EditarPreguntaComponent},
-      {path: 'MisSalas', component: PlayerComponent},
+      {path: 'Administrador', component: AdminComponent, canActivate:[authGuard]},
+      {path: 'CrearSala', component: CrearSalaComponent, canActivate:[authGuard]},
+      {path: 'Sala', component: SalaComponent, canActivate:[authGuard]},
+      {path: 'Editar_pregunta', component: EditarPreguntaComponent, canActivate:[authGuard]},      
+      {path: 'Ingresar_Imagen', component: IngresarImagenComponent, canActivate:[authGuard]},
+      {path: 'MisSalas', component: PlayerComponent, canActivate:[authGuard]},
       
       
     ]),
@@ -59,4 +68,5 @@ import { FormsModule } from '@angular/forms';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { }import { authGuard } from './auth.guard';
+

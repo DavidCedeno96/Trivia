@@ -12,14 +12,17 @@
               </div>
             </div>
 
+            <div class="mb-3 px-md-5" *ngIf="existeError" style="color: rgb(255, 255, 255);">  Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.
+            </div>   
 
-            <form>
+
+            <form (ngSubmit)="onSubmit()">
               
                 <div class="mb-3 px-md-5">
-                  <input type="text" class="form-control" id="usermail" placeholder="Ingresa tu correo">
+                  <input [(ngModel)]="loginUsuario.correo"  type="text" class="form-control" id="usermail" placeholder="Ingresa tu correo" name="mailUsuario" required>
                 </div>
                 <div class="mb-3 px-md-5">
-                  <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+                  <input [(ngModel)]="loginUsuario.contrasena" type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"  name="contrasena" required>
                 </div>
               
               
