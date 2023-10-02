@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApiRest.Data;
 using WebApiRest.Models;
+using WebApiRest.Utilities;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiRest.Controllers
 {
@@ -15,26 +17,21 @@ namespace WebApiRest.Controllers
     public class UsuarioController : ControllerBase
     {
         readonly UsuarioData data = new();
+        private bool validForm = true;
         private readonly string secretKey;
 
         public UsuarioController(IConfiguration configuration)
         {
             secretKey = configuration.GetSection("settings").GetSection("secretKey").ToString();
-        }   
+        }
 
+        [Authorize]
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
         public IActionResult GetList([FromRoute] int estados)
         {
             UsuarioList result = data.GetUsuarioList(estados);
-            if (result.Error > 0)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { result });
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status200OK, new { result });
-            }
+            return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
@@ -43,17 +40,14 @@ namespace WebApiRest.Controllers
         {
             // Aqui Validar las expresiones regulares que sea un correo y la contraseña
             UsuarioList result = data.Login(usuario);
-            if(result.Error > 0)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { result });
-            }
-            else
-            {
+            if(result.Error == 0)
+            {                
                 var keyBytes = Encoding.ASCII.GetBytes(secretKey);
                 var claims = new ClaimsIdentity();
                 claims.AddClaim(new Claim("correo", result.Lista[0].Correo));  //ClaimTypes.NameIdentifier
-                claims.AddClaim(new Claim("id", result.Lista[0].IdUsuario.ToString()));                                                
+                claims.AddClaim(new Claim("id", result.Lista[0].IdUsuario.ToString()));
                 claims.AddClaim(new Claim("nombre", result.Lista[0].Nombre));
+                claims.AddClaim(new Claim("idRol", result.Lista[0].IdRol.ToString()));
                 claims.AddClaim(new Claim("rol", result.Lista[0].Rol));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -67,26 +61,24 @@ namespace WebApiRest.Controllers
                 string tokenCreado = tokenHandler.WriteToken(tokenConfig);
                 result.Info = tokenCreado;
                 result.Lista = null;
-                return StatusCode(StatusCodes.Status200OK, new { result });
             }
+
+            return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("create")]
         public IActionResult CreateItem([FromBody] Usuario usuario)
         {
-            Response result = new();
-            // Aqui Validar las expresiones regulares
-
-            result = data.CreateUsuario(usuario);
-            if(result.Error > 0)
+            Response result;            
+            // Aqui Validar las expresiones regulares            
+            result = VF.ValidarUsuario(usuario);
+            if(result.Error == 0)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { result });
+                result = data.CreateUsuario(usuario);
             }
-            else
-            {
-                return StatusCode(StatusCodes.Status200OK, new { result });
-            }
+            
+            return StatusCode(StatusCodes.Status200OK, new { result });
         }        
     }
 }

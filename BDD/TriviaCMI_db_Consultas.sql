@@ -76,8 +76,16 @@ Insert into Rol (nombre) values
 ('Administrador'),
 ('Jugador')
 
-Insert into Usuario (nombre, apellido, correo, clave, idRol) values
-('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
+Insert into ModoJuego (nombre, imagen) values 
+('Challenger','img1.jpg'),
+('Supervivencia','img2.jpg')
+
+
+Insert into Sala (nombre, imagen, idModoJuego) values
+('Sala 1', 'imge1.jpg', 1)
+
+--Insert into Usuario (nombre, apellido, correo, clave, idRol) values
+--('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
 ------------------------------------------------------------------------------------
 ---- ROL ---------------------------------------------
 exec sp_B_Rol
@@ -87,15 +95,15 @@ exec sp_B_Rol
 
 ---- USUARIO ---------------------------------------------
 exec sp_B_Usuario
-@estados = 0,
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
 
 exec sp_C_Usuario
-@nombre = 'Paulina',
-@correo = 'Gomez',
-@clave = '123',
-@idRol = 2,
+@nombre = 'Admin',
+@correo = 'admin@admin.com',
+@clave = 'AdminCMI',
+@idRol = 1,
 @info = '',
 @error = ''
 
@@ -111,5 +119,21 @@ exec sp_U_Usuario
 exec sp_B_UsuarioLogin	
 @correo = 'david@gmail.com',
 @clave = 'admin',
+@info = '',
+@error = '' 
+---- SALA ---------------------------------------------
+select * from ModoJuego
+Select * from Sala
+
+exec sp_B_Sala
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
+@info = '',
+@error = ''
+
+exec sp_C_Sala	
+@nombre = 'Sala 3',
+@imagen = '',
+@descripcion = '',
+@idModoJuego = 2,
 @info = '',
 @error = ''

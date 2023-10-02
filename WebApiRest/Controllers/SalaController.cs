@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApiRest.Data;
 using WebApiRest.Models;
@@ -10,15 +11,19 @@ namespace WebApiRest.Controllers
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class RolController : ControllerBase
+    public class SalaController : ControllerBase
     {
-        readonly RolData data = new();
 
-        [HttpGet]
-        [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetList([FromRoute] int estados)
+        readonly SalaData data = new();
+
+        [HttpPost]
+        [Route("create")]
+        public IActionResult CreateItem([FromBody] Sala sala)
         {
-            RolList result = data.GetRolList(estados);
+            Response result = new();
+            // Aqui Validar las expresiones regulares
+
+            result = data.CreateSala(sala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

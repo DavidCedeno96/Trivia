@@ -89,15 +89,17 @@ namespace WebApiRest.Data
                 {
                     lista.Add(new Usuario()
                     {
-                        IdUsuario = Convert.ToInt32(dr["IdUsuario"].ToString()),
+                        IdUsuario = Convert.ToInt32(dr["idUsuario"].ToString()),
                         Nombre = dr["nombre"].ToString(),
-                        Correo = dr["correo"].ToString(),                        
+                        Correo = dr["correo"].ToString(),
+                        IdRol = Convert.ToInt32(dr["idRol"].ToString()),
                         Rol = dr["rol"].ToString(),                        
                     });
                 }
+                dr.NextResult();
 
-                usuarioList.Info = WC.GetSatisfactorio();
-                usuarioList.Error = 0;
+                usuarioList.Info = cmd.Parameters["@info"].Value.ToString();
+                usuarioList.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                
                 usuarioList.Lista = lista;
             }
             catch (Exception ex)
@@ -124,9 +126,9 @@ namespace WebApiRest.Data
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
-            cmd.Parameters.AddWithValue("@correo", usuario.Correo);
-            cmd.Parameters.AddWithValue("@clave", usuario.Contrasena);
+            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(usuario.Nombre));
+            cmd.Parameters.AddWithValue("@correo", WC.GetTrim(usuario.Correo));
+            cmd.Parameters.AddWithValue("@clave", WC.GetTrim(usuario.Contrasena));
             cmd.Parameters.AddWithValue("@idRol", usuario.IdRol);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
