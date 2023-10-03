@@ -1,78 +1,125 @@
-<body >
-    <div class="container-fluid" >
-        <div class="row" >
-            <div class="col-8 py-3">
-                <!-- Contenido izquierdo -->
-                <img src="assets/Imagenes Empresa/cmiTriviaGray.png" alt="Imagen" class="img-fluid img-thumbnail" style="height: 40px; width: auto;">
-              </div>
-              <div class="col-4 text-end text-right align-items-center py-4" >
-                <!-- Contenido derecho -->
-                <button class="btn btn-primary d-flex text-end px-4" style="float: right;">
-                   
-                    <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg">
-                      Salir
-                </button>
-              </div>
-      
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-8 py-3">
+        <!-- Contenido izquierdo -->
+        <img
+          src="assets/Imagenes Empresa/cmiTriviaGray.png"
+          alt="Imagen"
+          class="img-fluid img-thumbnail"
+          style="height: 40px; width: auto"
+        />
+      </div>
+      <div class="col-4 text-end text-right align-items-center py-4">
+        <!-- Contenido derecho -->
+        <button
+          class="btn btn-primary d-flex text-end px-4"
+          style="float: right"
+        >
+          <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
+          Salir
+        </button>
+      </div>
     </div>
   </div>
   <!-- TITULO Y BUSCADOR -->
   <div class="container">
     <div class="row">
-
-        <div class="col">
-            <h2 class="text-center py-3" style="color: white; font-weight: bold;">Gestión de Salas</h2>
-        </div>    
+      <div class="col">
+        <h2 class="text-center py-3" style="color: white; font-weight: bold">
+          Gestión de Salas
+        </h2>
       </div>
-    <div class="row"  style=" vertical-align: middle;">
-        <div class="col-lg-1 col-sm-2 px-3 py-1 py-lg-4 " style="color: white; font-weight: bold;">
-            Buscar
+    </div>
+    <div class="row" style="vertical-align: middle">
+      <div
+        class="col-lg-1 col-sm-2 px-3 py-1 py-lg-4"
+        style="color: white; font-weight: bold"
+      >
+        Buscar
+      </div>
+      <!-- Buscador de Salas -->
+      <div class="col-lg-9 col-sm-10 py-lg-3">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Id/Nombre de la Sala"
+          />
+          <button class="btn btn-primary" type="button">
+            <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
+          </button>
         </div>
-        <!-- Buscador de Salas -->
-        <div class="col-lg-9 col-sm-10 py-lg-3" >
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Id/Nombre de la Sala">
-              <button class="btn btn-primary" type="button"> <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" ></button>
-            </div>
-        </div>
-        <div class="col-lg-2 col-sm-8 text-end px-3 py-3">
-            <button class="btn btn-primary d-flex text-end px-4" >
-                   
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill mx-2 my-1" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                  </svg>
-                  Sala
-            </button>
-        </div>
-    
-  </div>  
+      </div>
+      <div class="col-lg-2 col-sm-8 text-end px-3 py-3">
+        <button
+          class="btn btn-primary d-flex text-end px-4"
+          routerLink="/CrearSala"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-plus-circle-fill mx-2 my-1"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
+          Sala
+        </button>
+      </div>
+    </div>
 
-  <!-- SALAS CREADAS -->
-  <div class="container">
-    <div class="row">
-      <div class="mx-auto">
-        <div class="card my-2" *ngFor="let sala of misSalas">
-          <div class="card-body">
-            <div class="row align-items-center ">
-              <div class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5">
-                <img [src]="sala.imagen" alt="Imagen" class="img-fluid imagen-lg imagen-md imagen-sm">
-              </div>
-              <div class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3">
-                {{ sala.nombre }}
-              </div>
-              <div class="col-sm-12 col-lg-5 text-end">
-                
-                
-                  <button type="button" class="btn btn-secondary mx-1"> 
-                    <img src="assets/Icons/Editar.svg" alt="Icono" class="icono-svg2" >
-                    Editar</button>
+    <!-- SALAS CREADAS -->
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto">
+          <div class="card my-2" *ngFor="let sala of misSalas">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div
+                  class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5"
+                >
+                  <img
+                    [src]="sala.imagen"
+                    alt="Imagen"
+                    class="img-fluid imagen-lg imagen-md imagen-sm"
+                  />
+                </div>
+                <div
+                  class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3"
+                >
+                  {{ sala.nombre }}
+                </div>
+                <div class="col-sm-12 col-lg-5 text-end">
+                  <button type="button" class="btn btn-secondary mx-1">
+                    <img
+                      src="assets/Icons/Editar.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Editar
+                  </button>
                   <button type="button" class="btn btn-secondary mx-1 my-2">
-                    <img src="assets/Icons/Basurero.svg" alt="Icono" class="icono-svg2" >
-                    Eliminar</button>
+                    <img
+                      src="assets/Icons/Basurero.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Eliminar
+                  </button>
                   <button type="button" class="btn btn-secondary mx-1 my-2">
-                    <img src="assets/Icons/Trofeo.svg" alt="Icono" class="icono-svg2" >
-                    Resultados</button>
-                
+                    <img
+                      src="assets/Icons/Trofeo.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Resultados
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -80,16 +127,6 @@
       </div>
     </div>
   </div>
-  
-  </div>
 
-  <div class="flexcontainer">
-   
-  </div>
-  
-  
-  
-  
-
+  <div class="flexcontainer"></div>
 </body>
-

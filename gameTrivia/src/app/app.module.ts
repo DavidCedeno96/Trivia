@@ -24,11 +24,10 @@ import { SalaComponent } from './pages/sala/sala.component';
 import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta.component';
 import { PlayerComponent } from './pages/player/player.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
-
 
 @NgModule({
   declarations: [
@@ -49,24 +48,42 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ButtonModule,
     DialogModule,
     NgxDropzoneModule,
+    ReactiveFormsModule,
     ToastModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: 'Iniciar_Sesion', component: IniciarSesionComponent},
-      {path: 'Administrador', component: AdminComponent, canActivate:[authGuard]},
-      {path: 'CrearSala', component: CrearSalaComponent, canActivate:[authGuard]},
-      {path: 'Sala', component: SalaComponent, canActivate:[authGuard]},
-      {path: 'Editar_pregunta', component: EditarPreguntaComponent, canActivate:[authGuard]},      
-      {path: 'Ingresar_Imagen', component: IngresarImagenComponent, canActivate:[authGuard]},
-      {path: 'MisSalas', component: PlayerComponent, canActivate:[authGuard]},
-      
-      
+      { path: 'Iniciar_Sesion', component: IniciarSesionComponent },
+      {
+        path: 'Administrador',
+        component: AdminComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'CrearSala',
+        component: CrearSalaComponent,
+        canActivate: [authGuard],
+      },
+      { path: 'Sala', component: SalaComponent, canActivate: [authGuard] },
+      {
+        path: 'Editar_pregunta',
+        component: EditarPreguntaComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'Ingresar_Imagen',
+        component: IngresarImagenComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'MisSalas',
+        component: PlayerComponent,
+        canActivate: [authGuard],
+      },
     ]),
-
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }import { authGuard } from './auth.guard';
-
+export class AppModule {}
+import { authGuard } from './auth.guard';

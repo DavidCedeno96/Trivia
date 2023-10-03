@@ -6,25 +6,20 @@ import { Usuario } from '../model/UsuarioModel';
 import { LoginUsuario } from '../model/LoginModel';
 import { Router } from '@angular/router';
 
-
 @Injectable({
-  providedIn: 'root'
-
+  providedIn: 'root',
 })
 export class UsuarioService {
-  
-  private apiURL: string  = environment.URL; //API DE LA URL
-  private endPoint: string = this.apiURL+'/usuario'; //Para crear el usuario
+  private apiURL: string = environment.URL + '/usuario'; //Para crear el usuario
 
-  constructor(private http:HttpClient, private router: Router) { 
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   crearUsuario(modelo: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.endPoint}/Create`,modelo);
+    return this.http.post<Usuario>(`${this.apiURL}/Create`, modelo);
   }
 
   loginUsuario(modelo: LoginUsuario): Observable<LoginUsuario> {
-    return this.http.post<LoginUsuario>(`${this.endPoint}/auth`,modelo);
+    return this.http.post<LoginUsuario>(`${this.apiURL}/auth`, modelo);
   }
 
   loggedIn() {
@@ -42,6 +37,4 @@ export class UsuarioService {
   getRol() {
     return localStorage.getItem('rol');
   }
-
-
 }
