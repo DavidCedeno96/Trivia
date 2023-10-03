@@ -16,18 +16,17 @@ namespace WebApiRest.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        readonly UsuarioData data = new();
-        private bool validForm = true;
-        private readonly string secretKey;
+        readonly UsuarioData data = new();        
+        readonly Settings settings = new();    
 
         public UsuarioController(IConfiguration configuration)
         {
-            secretKey = configuration.GetSection("settings").GetSection("secretKey").ToString();
+            settings = configuration.GetSection("settings").Get<Settings>();            
         }
-
-        [Authorize]
-        [HttpGet]
+        
+        [HttpGet]        
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize]
         public IActionResult GetList([FromRoute] int estados)
         {
             UsuarioList result = data.GetUsuarioList(estados);
@@ -37,12 +36,12 @@ namespace WebApiRest.Controllers
         [HttpPost]
         [Route("auth")]
         public IActionResult LoginUsuario([FromBody] Usuario usuario)
-        {
-            // Aqui Validar las expresiones regulares que sea un correo y la contraseña
+        {            
             UsuarioList result = data.Login(usuario);
+
             if(result.Error == 0)
             {                
-                var keyBytes = Encoding.ASCII.GetBytes(secretKey);
+                var keyBytes = Encoding.ASCII.GetBytes(settings.SecretKey);
                 var claims = new ClaimsIdentity();
                 claims.AddClaim(new Claim("correo", result.Lista[0].Correo));  //ClaimTypes.NameIdentifier
                 claims.AddClaim(new Claim("id", result.Lista[0].IdUsuario.ToString()));
@@ -52,7 +51,7 @@ namespace WebApiRest.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = claims,
-                    Expires = DateTime.UtcNow.AddMinutes(300), //Tiempo de expiracion del token en minutos
+                    Expires = DateTime.UtcNow.AddMinutes(settings.TimeExpTokenMin), //Tiempo de expiracion del token en minutos
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
 
@@ -70,9 +69,8 @@ namespace WebApiRest.Controllers
         [Route("create")]
         public IActionResult CreateItem([FromBody] Usuario usuario)
         {
-            Response result;            
-            // Aqui Validar las expresiones regulares            
-            result = VF.ValidarUsuario(usuario);
+            Response result = VF.ValidarUsuario(usuario);
+
             if(result.Error == 0)
             {
                 result = data.CreateUsuario(usuario);

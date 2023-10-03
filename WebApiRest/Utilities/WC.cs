@@ -4,37 +4,63 @@
     {
 
         private static readonly string satisfactorio = "Ok";
-        private static readonly string errorNombre = "Ingrese un nombre válido, no se permiten números o caracteres especiales";
+        private static readonly string errorArchivo = "Tipo de archivo no permitido";
+        private static readonly string archivoExistente = "El archivo ya existe";
+        private static readonly string errorLetrasNumeros = "solo se permiten letras y números";
+        private static readonly string errorLetras = "solo se permiten letras";
         private static readonly string errorCorreo = "Ingrese un correo válido";
         private static readonly string errorClave = "La contraseña debe tener al menos 5 caracteres de longitud, contener al menos un número, contener al menos una letra mayúscula, contener al menos una letra minúscula o solo los siguientes caracteres #@_-.";
-        private static readonly string invalid = "cacarteres invalidos <>";
+        private static readonly string invalid = "cacarteres invalidos";
 
         public static string GetRutaImagen(IWebHostEnvironment env, string nombreImagen, string nombreCarpeta)
         {
-            string rutaPrincipal = Path.Combine(env.ContentRootPath, "Content", "Img", nombreCarpeta);
+            string rutaPrincipal = Path.Combine(env.ContentRootPath, "Content", "Images", nombreCarpeta);
             return Path.Combine(rutaPrincipal, nombreImagen);
         }
 
         public static string GetTrim(string cadena)
         {
-            if (string.IsNullOrEmpty(cadena))
-            {
-                return null;
-            }
-            else
+            if (cadena != null)
             {
                 return cadena.Trim();
             }
+            return null;
+        }
+        
+        public static bool GetArchivoPermitido(string tipos, string nombreArchivo)
+        {
+            string extension = Path.GetExtension(nombreArchivo);
+            List<string> tiposList = tipos.Split("/").ToList();
+            foreach (string tipo in tiposList)
+            {
+                if (extension.Contains(tipo))
+                {
+                    return true;
+                }
+            }   
+            
+            return false;
         }
 
         public static string GetSatisfactorio()
         {
             return satisfactorio;
         }
-
-        public static string GetErrorNombre()
+        public static string GetErrorArchivo()
         {
-            return errorNombre;
+            return errorArchivo;
+        }
+        public static string GetArchivoExistente()
+        {
+            return archivoExistente;
+        }
+        public static string GetErrorLetrasNumeros()
+        {
+            return errorLetrasNumeros;
+        }
+        public static string GetErrorLetras()
+        {
+            return errorLetras;
         }
         public static string GetErrorCorreo()
         {

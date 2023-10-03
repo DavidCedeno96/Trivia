@@ -28,8 +28,8 @@ builder.Services.AddAuthentication(config =>
     config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(config =>
 {
-    config.RequireHttpsMetadata = false; // es para https
-    config.SaveToken = true;
+    config.RequireHttpsMetadata = settings.HttpsClient; // es para https
+    config.SaveToken = false;
     config.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,

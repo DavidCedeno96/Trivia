@@ -14,7 +14,7 @@ namespace WebApiRest.Utilities
             if (!RE.ValidRE(usuario.Nombre, "palabras"))
             {
                 result.Error = 1;
-                result.Info = WC.GetErrorNombre();
+                result.Info = "En el nombre "+ WC.GetErrorLetras();
                 validForm = false;
             }
             if (!RE.ValidRE(usuario.Correo, "email"))
@@ -41,8 +41,34 @@ namespace WebApiRest.Utilities
                 result.Error = 0;
                 result.Info = WC.GetSatisfactorio();
             }
-
             return result;
-        } 
+        }
+        
+        public static Response ValidarSala(Sala sala)
+        {
+            Response result = new();
+            if (!RE.ValidRE(sala.Nombre, "palabras_numeros"))
+            {
+                result.Error = 1;
+                result.Info = "En el nombre " + WC.GetErrorLetrasNumeros();
+            }
+            if (!RE.ValidRE(sala.Imagen, "invalid"))
+            {
+                result.Error = 1;
+                result.Info = "La imagen tiene " + WC.GetInvalid();
+            }
+            if (!RE.ValidRE(sala.Descripcion, "invalid"))
+            {
+                result.Error = 1;
+                result.Info = "La descripción tiene " + WC.GetInvalid();
+            }
+
+            if (validForm)
+            {
+                result.Error = 0;
+                result.Info = WC.GetSatisfactorio();
+            }
+            return result;
+        }
     }
 }

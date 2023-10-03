@@ -11,12 +11,28 @@ namespace WebApiRest.Utilities
             Contener al menos un número.
             Contener al menos una letra mayúscula.
             Contener al menos una letra minúscula.
+            Y solo los siguientes caracteres #@_-.
          */
 
         private static readonly string palabras = "^[a-zA-ZáÁéÉíÍóÓúÚüÜñÑ\\s]+$";
+        private static readonly string palabrasNumeros = @"^[\p{L}\s\d]+$";
         private static readonly string email = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
         private static readonly string clave = @"^(?=.*[A-Z]+)(?=.*[a-z]+)(?=.*\d+)[#@_\-\.a-zA-Z\d]{5,}$";
-        private static readonly string caracterInvalido = @"^[^<>]+$";
+        private static readonly string invalid = @"^[^<>]+$";        
+
+        public static bool ValidRE(string text, string nombrePatron) 
+        {                               
+            if (string.IsNullOrEmpty(text))
+            {
+                return true;
+            }
+
+            Regex regex = Patron(nombrePatron);
+
+            Match match = regex.Match(text.Trim());
+
+            return match.Success;
+        }
 
         private static Regex Patron(string patron)
         {
@@ -26,6 +42,11 @@ namespace WebApiRest.Utilities
                 case "palabras":
                     {
                         regex = new Regex(palabras);
+                        break;
+                    }
+                case "palabras_numeros":
+                    {
+                        regex = new Regex(palabrasNumeros);
                         break;
                     }
                 case "email":
@@ -40,7 +61,7 @@ namespace WebApiRest.Utilities
                     }
                 case "invalid":
                     {
-                        regex = new Regex(caracterInvalido);
+                        regex = new Regex(invalid);
                         break;
                     }
                 default:
@@ -52,19 +73,5 @@ namespace WebApiRest.Utilities
 
             return regex;
         }
-
-        public static bool ValidRE(string text, string patron) 
-        {
-            Regex regex = Patron(patron);                   
-
-            if (string.IsNullOrEmpty(text))
-            {
-                return true;
-            }
-
-            Match match = regex.Match(text.Trim());
-
-            return match.Success;
-        }        
     }
 }
