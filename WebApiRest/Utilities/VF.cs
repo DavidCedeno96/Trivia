@@ -7,7 +7,7 @@ namespace WebApiRest.Utilities
     {
         private static bool validForm = true;        
 
-        //Crear Usuario
+        // Crear Usuario
         public static Response ValidarUsuario(Usuario usuario)
         {
             Response result = new();
@@ -44,6 +44,7 @@ namespace WebApiRest.Utilities
             return result;
         }
         
+        // Crear Sala
         public static Response ValidarSala(Sala sala)
         {
             Response result = new();
@@ -51,16 +52,19 @@ namespace WebApiRest.Utilities
             {
                 result.Error = 1;
                 result.Info = "En el nombre " + WC.GetErrorLetrasNumeros();
+                validForm = false;
             }
             if (!RE.ValidRE(sala.Imagen, "invalid"))
             {
                 result.Error = 1;
                 result.Info = "La imagen tiene " + WC.GetInvalid();
+                validForm = false;
             }
             if (!RE.ValidRE(sala.Descripcion, "invalid"))
             {
                 result.Error = 1;
                 result.Info = "La descripción tiene " + WC.GetInvalid();
+                validForm = false;
             }
 
             if (validForm)

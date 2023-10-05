@@ -37,6 +37,16 @@
           </h2>
         </div>
       </div>
+      <div>
+        <!-- Mensaje error -->
+        <div
+          class="mb-3 px-md-5"
+          *ngIf="existeError"
+          style="color: rgb(255, 255, 255)"
+        >
+          {{ result }}
+        </div>
+      </div>
       <div class="row mx-4" style="vertical-align: middle">
         <div class="row g-3">
           <div class="col-12 col-lg-6">

@@ -16,4 +16,10 @@
     <Folder Include="Content\Images\Sala\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Content\Images\Sala\default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,4 @@
+C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\obj\Release\net6.0\PubTmp\Out\Content\Images\Sala\default.png
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\obj\Release\net6.0\PubTmp\Out\WebApiRest.exe
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\obj\Release\net6.0\PubTmp\Out\appsettings.json

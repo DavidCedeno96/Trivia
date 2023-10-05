@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { data } from 'jquery';
+import { Router } from '@angular/router';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 
@@ -13,16 +13,22 @@ export class CrearSalaComponent {
   notSelectCard: boolean = false;
   selectedFile: File | null = null;
 
+  existeError: boolean = false;
+  result: string = '';
+
   nuevaSala: Sala = {
     idSala: 1,
     nombre: '',
     imagen: '',
     descripcion: '',
-    idModoJuego: '',
+    idModoJuego: 0,
+    modoJuego: '',
     estado: 1,
+    fecha_creacion: '',
+    fecha_modificacion: '',
   };
 
-  constructor(private salaServicio: SalaService) {}
+  constructor(private salaServicio: SalaService, private router: Router) {}
 
   selectCard(id: number) {
     this.selectedCard = id; // Cambia la tarjeta seleccionada al hacer clic
@@ -31,6 +37,7 @@ export class CrearSalaComponent {
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile?.name);
   }
 
   CrearSala() {
@@ -40,22 +47,30 @@ export class CrearSalaComponent {
     }
 
     const formData = new FormData();
-    formData.append('nombre', this.nuevaSala.nombre);
-    formData.append('descripcion', this.nuevaSala.descripcion);
+    formData.append('nombre', this.nuevaSala.nombre.trim());
+    formData.append('descripcion', this.nuevaSala.descripcion.trim());
     formData.append('idModoJuego', this.selectedCard.toString());
     if (this.selectedFile) {
       formData.append('archivo', this.selectedFile);
     }
 
-    this.salaServicio.crearUsuario(formData).subscribe({
+    this.salaServicio.crearSala(formData).subscribe({
       next: (data: any) => {
-        console.log(data);
+        const { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+          this.router.navigate(['/Administrador']);
+        }
       },
       error: (e) => {
-        console.log(e);
+        //console.log(e);
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
       },
     });
-
-    console.log(formData.getAll('file'));
   }
 }

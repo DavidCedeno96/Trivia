@@ -41,11 +41,7 @@
       <!-- Buscador de Salas -->
       <div class="col-lg-9 col-sm-10 py-lg-3">
         <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Id/Nombre de la Sala"
-          />
+          <input type="text" class="form-control" placeholder="Sala..." />
           <button class="btn btn-primary" type="button">
             <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
           </button>
@@ -73,6 +69,15 @@
       </div>
     </div>
 
+    <!-- Mensaje error -->
+    <div
+      class="mb-3 px-md-5"
+      *ngIf="existeError"
+      style="color: rgb(255, 255, 255)"
+    >
+      {{ result }}
+    </div>
+
     <!-- SALAS CREADAS -->
     <div class="container">
       <div class="row">
@@ -84,7 +89,8 @@
                   class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5"
                 >
                   <img
-                    [src]="sala.imagen"
+                    [src]="getImageSala(sala.imagen)"
+                    onerror="this.src='assets/Imagenes Juego/Imagen test.png'"
                     alt="Imagen"
                     class="img-fluid imagen-lg imagen-md imagen-sm"
                   />
@@ -92,7 +98,7 @@
                 <div
                   class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3"
                 >
-                  {{ sala.nombre }}
+                  {{ sala.nombre }} - {{ sala.modoJuego }}
                 </div>
                 <div class="col-sm-12 col-lg-5 text-end">
                   <button type="button" class="btn btn-secondary mx-1">

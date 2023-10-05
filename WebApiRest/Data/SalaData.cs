@@ -71,9 +71,9 @@ namespace WebApiRest.Data
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@nombre", sala.Nombre);
-            cmd.Parameters.AddWithValue("@imagen", sala.Imagen);
-            cmd.Parameters.AddWithValue("@descripcion", sala.Descripcion);
+            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(sala.Nombre));
+            cmd.Parameters.AddWithValue("@imagen", WC.GetTrim(sala.Imagen));
+            cmd.Parameters.AddWithValue("@descripcion", WC.GetTrim(sala.Descripcion));
             cmd.Parameters.AddWithValue("@idModoJuego", sala.IdModoJuego);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;

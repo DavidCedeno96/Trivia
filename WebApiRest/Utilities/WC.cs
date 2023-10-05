@@ -24,7 +24,7 @@
             {
                 return cadena.Trim();
             }
-            return null;
+            return "";
         }
         
         public static bool GetArchivoPermitido(string tipos, string nombreArchivo)
@@ -40,6 +40,37 @@
             }   
             
             return false;
+        }
+
+        public static string GetContentType(string nombreArchivo)
+        {
+            var extension = Path.GetExtension(nombreArchivo);
+            string contentType;
+            switch (extension.ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    {
+                        contentType = "image/jpeg";
+                        break;
+                    }                    
+                case ".png":
+                    {
+                        contentType = "image/png";
+                        break;
+                    }                    
+                case ".gif":
+                    {
+                        contentType = "image/gif";
+                        break;
+                    }                    
+                default:
+                    {
+                        contentType = "application/octet-stream"; // Tipo MIME genérico si el formato no se reconoce.
+                        break;
+                    }                    
+            }
+            return contentType;
         }
 
         public static string GetSatisfactorio()

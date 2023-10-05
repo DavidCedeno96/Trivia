@@ -38,3 +38,4 @@ C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Release\net6.0\Content\Images\Sala\default.png

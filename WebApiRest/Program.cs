@@ -4,23 +4,25 @@ using System.Text;
 using WebApiRest.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
+var origins = builder.Configuration.GetSection("AllowedHosts").Get<string>();
+var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 
 //CORS
-var origins = builder.Configuration.GetSection("AllowedHosts").Get<string>();
 var misReglasCors = "ReglasCors";
 builder.Services.AddCors(option =>
     option.AddPolicy(name: misReglasCors,
     builder =>
-    { 
+    {
         builder.WithOrigins(origins.Split(";")) // => Este tambien acepta una lista de strings
-        .WithMethods("GET","POST","PUT","DELETE")
-        .AllowAnyHeader();
+            .WithMethods("GET", "POST", "PUT", "DELETE")
+            .AllowAnyHeader();
+
+        //.WithHeaders("Authorization") // Permitir el encabezado Authorization
+        //.AllowCredentials();
     })
 );
 
 //JWT
-builder.Configuration.AddJsonFile("appsettings.json");
-var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 var keyBytes = Encoding.UTF8.GetBytes(settings.SecretKey);
 builder.Services.AddAuthentication(config =>
 {
