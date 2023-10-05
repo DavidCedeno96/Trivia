@@ -1,0 +1,80 @@
+
+body {
+    
+    background-color: #F0F0F0;
+    min-height: calc(100vh - 1px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
+     /* Agrega un relleno opcional para separar el contenido del borde */
+    box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
+  
+  }
+  .img-thumbnail {
+    padding: 0.25rem;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.btn-primary {
+    background-color: #3D5057;
+    border: none;
+    font-weight: bold;
+    border-radius: 25px;
+  }
+  .btn-primary:active,:focus {
+    background-color: #DC8127; /* Naranja */
+    border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
+    border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+    border-radius: 28px;
+  }
+ 
+  .btn-secondary {
+    background-color: #DC8127;
+    border: none;
+    font-weight: bold;
+    border-radius: 25px;    
+    
+  }
+  .btn-secondary:active,:focus {
+    background-color: #3D5057; /* Naranja */
+    /* Color del borde si deseas cambiarlo también */
+   
+    border-radius: 25px;
+    border: 3px solid  #DC8127; /* Borde negro de 1 píxel */
+    border-radius: 28px;
+  }
+
+  h2 {
+    color: #3D5057;
+  }
+
+ 
+
+    /* Estilo para dispositivos LG */
+@media (min-width: 992px) {
+    .imagen-lg {
+        max-width: 40%; /* Ajusta el ancho máximo para dispositivos LG y mayores */
+    height: auto; /* Mantiene la proporción de aspecto original */
+  
+    }  
+
+  }
+
+  @media (min-width: 577px) and (max-width: 991px) {
+    .imagen-md {
+      max-width: 60%; /* Ajusta el ancho máximo para dispositivos MD */
+      height: auto; /* Mantiene la proporción de aspecto original */
+    }
+  }
+  
+
+  
+  /* Estilo para dispositivos SM */
+  @media (max-width: 576px) {
+    
+    .imagen-sm {
+        max-width: 70%; /* Ajusta el ancho máximo para dispositivos SM */
+    height: auto; /* Mantiene la proporción de aspecto original */
+  
+    }
+   
+  }
+

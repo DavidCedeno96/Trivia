@@ -1,10 +1,10 @@
 
 body {
     
-    background-color: #ffa600;
-    /*height: 100vh;*/
-    margin: 0;
-    padding: 0;
+  background-color: #ffa600;
+  min-height: calc(100vh - 50px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
+  padding: 20px; /* Agrega un relleno opcional para separar el contenido del borde */
+  box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
   }
   .img-thumbnail {
     padding: 0.25rem;

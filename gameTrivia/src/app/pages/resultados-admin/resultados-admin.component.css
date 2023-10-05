@@ -102,9 +102,7 @@
   .imagen-lg {
     height: 300px; /* Altura específica para dispositivos LG */
   }
-  .imagen-sm {
-    /* No es necesario establecer una altura específica para SM aquí, ya que la altura predeterminada se aplicará */
-  }
+ 
   .centrar-verticalmente {
     display: flex;
     justify-content: center;
@@ -112,11 +110,16 @@
   }
 }
 
+/* Estilos personalizados para dispositivos de tamaño medio (md) */
+@media (min-width: 768px) {
+  .imagen-md {
+    height: 200px; /* Altura específica para dispositivos SM */
+  }
+}
+
 /* Estilo para dispositivos SM */
 @media (max-width: 768px) {
-  .imagen-lg {
-    /* No es necesario establecer una altura específica para LG aquí, ya que la altura predeterminada se aplicará */
-  }
+  
   .imagen-sm {
     height: 150px; /* Altura específica para dispositivos SM */
   }
@@ -125,6 +128,24 @@
     justify-content: center;
     align-items: center;
   }
+}
+
+.btn-primary {
+  background-color: #3D5057;
+  border: none;
+  font-weight: bold;
+  border-radius: 25px;
+  font-size: 24px;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus
+{
+  background-color: #DC8127; /* Naranja */
+  border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
+  border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+  
 }
 
  

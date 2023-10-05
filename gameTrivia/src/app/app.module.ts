@@ -32,6 +32,13 @@ import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen
 
 import { authGuard } from './auth.guard';
 
+import { InicioSalaComponent } from './pages/inicio-sala/inicio-sala.component';
+import { ChallengersGameComponent } from './pages/challengers-game/challengers-game.component';
+import { EsperarJChallengersComponent } from './components/esperar-jchallengers/esperar-jchallengers.component';
+import { PreguntaGameComponent } from './components/pregunta-game/pregunta-game.component';
+import { PosicionPlayerComponent } from './components/posicion-player/posicion-player.component';
+import { RankingChallengerComponent } from './components/ranking-challenger/ranking-challenger.component';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +53,12 @@ import { authGuard } from './auth.guard';
     PlayerComponent,
     IngresarImagenComponent,
     ResultadosAdminComponent,
+    InicioSalaComponent,
+    ChallengersGameComponent,
+    EsperarJChallengersComponent,
+    PreguntaGameComponent,
+    PosicionPlayerComponent,
+    RankingChallengerComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +103,17 @@ import { authGuard } from './auth.guard';
         component: ResultadosAdminComponent,
         //canActivate: [authGuard],
       },
+      {
+        path: 'InicioSala',
+        component: InicioSalaComponent,
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'JuegoChallengers',
+        component: ChallengersGameComponent,
+        //canActivate: [authGuard],
+      },
+      
     ]),
   ],
   providers: [],

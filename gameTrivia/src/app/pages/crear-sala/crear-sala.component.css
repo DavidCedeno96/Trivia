@@ -26,7 +26,7 @@ body {
     background-color: #DC8127; /* Naranja */
     border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
     border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
-    
+    padding: 10px 20px;
   }
   
   
