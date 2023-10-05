@@ -130,6 +130,12 @@ exec sp_B_Sala
 @info = '',
 @error = ''
 
+exec sp_B_SalaByAll	
+@buscar = 'supervi',
+@estados = 0,
+@info = '',
+@error = ''
+
 exec sp_C_Sala	
 @nombre = 'Sala 3',
 @imagen = '',

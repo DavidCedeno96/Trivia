@@ -51,6 +51,7 @@
         <button
           class="btn btn-primary d-flex text-end px-4"
           routerLink="/CrearSala"
+          [queryParams]="{ type: 'crear' }"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +102,11 @@
                   {{ sala.nombre }} - {{ sala.modoJuego }}
                 </div>
                 <div class="col-sm-12 col-lg-5 text-end">
-                  <button type="button" class="btn btn-secondary mx-1">
+                  <button
+                    type="button"
+                    class="btn btn-secondary mx-1"
+                    routerLink="/Sala"
+                  >
                     <img
                       src="assets/Icons/Editar.svg"
                       alt="Icono"

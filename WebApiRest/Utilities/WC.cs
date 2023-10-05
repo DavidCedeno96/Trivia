@@ -3,14 +3,15 @@
     public static class WC
     {
 
-        private static readonly string satisfactorio = "Ok";
-        private static readonly string errorArchivo = "Tipo de archivo no permitido";
+        private static readonly string satisfactorio = "Satisfactorio";        
         private static readonly string archivoExistente = "El archivo ya existe";
-        private static readonly string errorLetrasNumeros = "solo se permiten letras y números";
-        private static readonly string errorLetras = "solo se permiten letras";
+        private static readonly string errorArchivo = "Tipo de archivo no permitido";        
+        private static readonly string errorLetrasNumeros = "Solo se permiten letras y números";
+        private static readonly string errorLetras = "Solo se permiten letras";
         private static readonly string errorCorreo = "Ingrese un correo válido";
-        private static readonly string errorClave = "La contraseña debe tener al menos 5 caracteres de longitud, contener al menos un número, contener al menos una letra mayúscula, contener al menos una letra minúscula o solo los siguientes caracteres #@_-.";
-        private static readonly string invalid = "cacarteres invalidos";
+        private static readonly string errorClave = "Debe tener al menos 5 caracteres de longitud, contener al menos un número, contener al menos una letra mayúscula, contener al menos una letra minúscula o solo los siguientes caracteres #@_-.";
+        private static readonly string invalid = "Cacarteres invalidos";
+        private static readonly string max50 = "Máximo 50 caracteres";
 
         public static string GetRutaImagen(IWebHostEnvironment env, string nombreImagen, string nombreCarpeta)
         {
@@ -73,6 +74,10 @@
         public static string GetInvalid()
         {
             return invalid;
+        }
+        public static string GetMax50()
+        {
+            return max50;
         }
     }
 }

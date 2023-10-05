@@ -18,7 +18,8 @@ namespace WebApiRest.Utilities
         private static readonly string palabrasNumeros = @"^[\p{L}\s\d]+$";
         private static readonly string email = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
         private static readonly string clave = @"^(?=.*[A-Z]+)(?=.*[a-z]+)(?=.*\d+)[#@_\-\.a-zA-Z\d]{5,}$";
-        private static readonly string invalid = @"^[^<>]+$";        
+        private static readonly string invalid = @"^[^<>]+$";
+        private static readonly string caracteres50 = @"^.{1,50}$";         
 
         public static bool ValidRE(string text, string nombrePatron) 
         {                               
@@ -62,6 +63,11 @@ namespace WebApiRest.Utilities
                 case "invalid":
                     {
                         regex = new Regex(invalid);
+                        break;
+                    }
+                case "50":
+                    {
+                        regex = new Regex(caracteres50);
                         break;
                     }
                 default:

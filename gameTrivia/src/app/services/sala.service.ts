@@ -38,11 +38,6 @@ export class SalaService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append(
-      'Access-Control-Allow-Headers',
-      'X-Requested-With,content-type'
-    );
     headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post<FormData>(`${this.apiURL}/create`, formData, {
       headers: headers,

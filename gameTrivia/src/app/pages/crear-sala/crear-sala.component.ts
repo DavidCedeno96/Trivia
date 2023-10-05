@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 
@@ -8,10 +8,11 @@ import { SalaService } from 'src/app/services/sala.service';
   templateUrl: './crear-sala.component.html',
   styleUrls: ['./crear-sala.component.css'],
 })
-export class CrearSalaComponent {
+export class CrearSalaComponent implements OnInit {
   selectedCard: number = 0; // Inicialmente, ninguna tarjeta está seleccionada
   notSelectCard: boolean = false;
   selectedFile: File | null = null;
+  type: string = '';
 
   existeError: boolean = false;
   result: string = '';
@@ -28,7 +29,30 @@ export class CrearSalaComponent {
     fecha_modificacion: '',
   };
 
-  constructor(private salaServicio: SalaService, private router: Router) {}
+  constructor(
+    private salaServicio: SalaService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.type = params['type'];
+    });
+    switch (this.type) {
+      case 'crear': {
+        break;
+      }
+      case 'editar': {
+        this.cargarData();
+        break;
+      }
+      default: {
+        this.router.navigate(['/Administrador']);
+        break;
+      }
+    }
+  }
 
   selectCard(id: number) {
     this.selectedCard = id; // Cambia la tarjeta seleccionada al hacer clic
@@ -40,7 +64,28 @@ export class CrearSalaComponent {
     console.log(this.selectedFile?.name);
   }
 
-  CrearSala() {
+  UpsertSala() {
+    switch (this.type) {
+      case 'crear': {
+        this.crearNuevaSala();
+        break;
+      }
+      case 'editar': {
+        this.editarSala();
+        break;
+      }
+      default: {
+        this.router.navigate(['/Administrador']);
+        break;
+      }
+    }
+  }
+
+  cargarData() {
+    console.log('Aqui cargar los datos en el form');
+  }
+
+  crearNuevaSala() {
     if (this.selectedCard === 0) {
       this.notSelectCard = true;
       return;
@@ -57,9 +102,9 @@ export class CrearSalaComponent {
 
     this.salaServicio.crearSala(formData).subscribe({
       next: (data: any) => {
-        const { info, error } = data.result;
+        const { info, error, campo } = data.result;
         this.result = info;
-        console.log(info);
+        console.log(info, campo);
         if (error > 0) {
           this.existeError = true;
         } else {
@@ -74,5 +119,9 @@ export class CrearSalaComponent {
         }
       },
     });
+  }
+
+  editarSala() {
+    console.log('Aqui editar');
   }
 }

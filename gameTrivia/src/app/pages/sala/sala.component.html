@@ -1,24 +1,43 @@
-<body justify-content-center align-items-center vh-100 >
-    <div class="container-fluid" >
-        <div class="row" >
-            <div class="col-8 py-3 mx-2">
-                <!-- Contenido izquierdo -->
-                <button class="btn-circle my-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                  </svg>
-                </button>
-               
-              </div>
-            </div>
-        </div>
+<body justify-content-center align-items-center vh-100>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-8 py-3 mx-2">
+        <!-- Contenido izquierdo -->
+        <button class="btn-circle my-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="35"
+            height="35"
+            fill="currentColor"
+            class="bi bi-arrow-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- Nombre sala -->
   <div class="container">
     <div class="row">
       <div class="col-6 mx-auto text-center">
-        <h2 class="d-inline-block py-3" style="color: white; font-weight: bold;">{{miSala.nombre}}</h2>
-        
-        <button class="btn btn-primary2  float-right mx-2"><img src="assets/Icons/Editar.svg" alt="Icono" class="icono-svgP"></button>
+        <h2 class="d-inline-block py-3" style="color: white; font-weight: bold">
+          {{ miSala.nombre }}
+        </h2>
+
+        <button class="btn btn-primary2 float-right mx-2">
+          <img
+            src="assets/Icons/Editar.svg"
+            alt="Icono"
+            class="icono-svgP"
+            routerLink="/CrearSala"
+            [queryParams]="{ type: 'editar' }"
+          />
+        </button>
       </div>
     </div>
 
@@ -35,75 +54,96 @@
     </div> -->
 
     <div class="row">
-      <div class="col-5 mx-2" style="color: white;  font-weight: bold;" >Id: {{miSala.idSala}}</div>
-      <div class="col-6 mx-2" style="text-align: right; float: right; color: white;  font-weight: bold;">Modo: {{miSala.idModoJuego}}</div>
+      <div class="col-5 mx-2" style="color: white; font-weight: bold">
+        Id: {{ miSala.idSala }}
+      </div>
+      <div
+        class="col-6 mx-2"
+        style="text-align: right; float: right; color: white; font-weight: bold"
+      >
+        Modo: {{ miSala.idModoJuego }}
+      </div>
     </div>
-<!-- BOTONERA -->
-      <div class="row justify-content-end">
-        <div class="col-auto">
-          <button class="btn btn-primary d-flex text-end px-3 my-2" >
-                   
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle-fill mx-2 my-1" viewBox="0 0 16 16">
-              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-            </svg>
+    <!-- BOTONERA -->
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button class="btn btn-primary d-flex text-end px-3 my-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-plus-circle-fill mx-2 my-1"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
 
-              Nueva pregunta
+          Nueva pregunta
         </button>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary d-flex text-end px-3 my-2 py-2" >
-                   
-            <img  src="assets/Icons/Importar2.svg" alt="Icono" class="icono-svg" >
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary d-flex text-end px-3 my-2 py-2">
+          <img src="assets/Icons/Importar2.svg" alt="Icono" class="icono-svg" />
 
-              Importar preguntas
+          Importar preguntas
         </button>
-        </div>
-        <!-- <div class="col-auto">
+      </div>
+      <!-- <div class="col-auto">
           <button class="btn btn-primary d-flex text-end px-3 my-2" >
             <img  src="assets/Icons/Imagen.svg" alt="Icono" class="icono-svg" >
 
               Imagen
         </button>
         </div> -->
-      </div>
-  
-    
+    </div>
 
-  <!-- SALAS CREADAS -->
-  <div class="container">
-    <div class="row">
-      <div class="mx-auto">
-         <div class="card my-2" *ngFor="let pregunta of preguntasSala">
-          <div class="card-body">
-            <div class="row align-items-center ">
-              <div class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5">
-                <img src="assets/Icons/IconoPregunta.svg" alt="Icono" class="icono-svgP" >
-              </div>
-              <div class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3">
-                {{ pregunta.nombre }}
-              </div>
-              <div class="col-sm-12 col-lg-5 text-end">
-                
-                
-                  <button type="button" class="btn btn-secondary mx-1"> 
-                    <img src="assets/Icons/Editar.svg" alt="Icono" class="icono-svg2" >
-                    Editar</button>
+    <!-- SALAS CREADAS -->
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto">
+          <div class="card my-2" *ngFor="let pregunta of preguntasSala">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div
+                  class="col-sm-12 col-lg-2 align-items-center text-center px-sm-5"
+                >
+                  <img
+                    src="assets/Icons/IconoPregunta.svg"
+                    alt="Icono"
+                    class="icono-svgP"
+                  />
+                </div>
+                <div
+                  class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3"
+                >
+                  {{ pregunta.nombre }}
+                </div>
+                <div class="col-sm-12 col-lg-5 text-end">
+                  <button type="button" class="btn btn-secondary mx-1">
+                    <img
+                      src="assets/Icons/Editar.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Editar
+                  </button>
                   <button type="button" class="btn btn-secondary mx-1 my-2">
-                    <img src="assets/Icons/Basurero.svg" alt="Icono" class="icono-svg2" >
-                    Eliminar</button>                  
-                
+                    <img
+                      src="assets/Icons/Basurero.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Eliminar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   </div>
-  
-  </div>
-
-  
-  
-
 </body>
-

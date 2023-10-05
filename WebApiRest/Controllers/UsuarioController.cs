@@ -24,7 +24,7 @@ namespace WebApiRest.Controllers
             settings = configuration.GetSection("settings").Get<Settings>();            
         }
         
-        [HttpGet]        
+        [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize]
         public IActionResult GetList([FromRoute] int estados)

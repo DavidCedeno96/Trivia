@@ -39,28 +39,17 @@ namespace WebApiRest.Controllers
             Response result = VF.ValidarSala(sala);
             string rutaArchivo = "";
 
-            if (archivo != null)
+            if (archivo != null && result.Error == 0)
             {
-                if (!WC.GetArchivoPermitido("jpg/jpeg/png", archivo.FileName))
-                {
-                    result.Error = 1;
-                    result.Info = WC.GetErrorArchivo();
-                }
-
+                result = VF.ValidarArchivo(_env, archivo, "jpg/jpeg/png", nombreCarpeta);
                 rutaArchivo = WC.GetRutaImagen(_env, archivo.FileName, nombreCarpeta);
-                if (System.IO.File.Exists(rutaArchivo))
-                {
-                    result.Error = 1;
-                    result.Info = WC.GetArchivoExistente();
-                }
 
                 sala.Imagen = archivo.FileName.Trim();
             }
             else
             {
                 sala.Imagen = "";
-            }
-
+            }            
 
             if (result.Error == 0)
             {
