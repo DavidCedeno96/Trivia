@@ -51,6 +51,7 @@ export class CrearSalaComponent {
     formData.append('descripcion', this.nuevaSala.descripcion.trim());
     formData.append('idModoJuego', this.selectedCard.toString());
     if (this.selectedFile) {
+      console.log('si envio la imagen');
       formData.append('archivo', this.selectedFile);
     }
 
@@ -58,6 +59,7 @@ export class CrearSalaComponent {
       next: (data: any) => {
         const { info, error } = data.result;
         this.result = info;
+        console.log(info);
         if (error > 0) {
           this.existeError = true;
         } else {

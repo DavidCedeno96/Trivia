@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiURL: string = environment.URL + '/usuario'; //Para crear el usuario
+  private apiURL: string = environment.URL + '/api/usuario'; //Para crear el usuario
 
   constructor(private http: HttpClient, private router: Router) {}
 

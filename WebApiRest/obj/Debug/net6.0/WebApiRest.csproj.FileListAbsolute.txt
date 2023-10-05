@@ -83,4 +83,5 @@ C:\Users\David\Documents\GitHub\Trivia\WebApiRest\obj\Debug\net6.0\refint\WebApi
 C:\Users\David\Documents\GitHub\Trivia\WebApiRest\obj\Debug\net6.0\WebApiRest.pdb
 C:\Users\David\Documents\GitHub\Trivia\WebApiRest\obj\Debug\net6.0\WebApiRest.genruntimeconfig.cache
 C:\Users\David\Documents\GitHub\Trivia\WebApiRest\obj\Debug\net6.0\ref\WebApiRest.dll
-C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Debug\net6.0\Content\Images\Sala\default.png
+C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Debug\net6.0\WebApiRest.staticwebassets.runtime.json
+C:\Users\Alejandro\OneDrive - Digimentore SA\Escritorio\GitHub\Trivia\WebApiRest\bin\Debug\net6.0\wwwroot\Content\Images\Sala\default.png

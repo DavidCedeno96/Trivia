@@ -36,7 +36,6 @@ namespace WebApiRest.Controllers
         [Route("create")]
         public IActionResult CreateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
         {
-
             Response result = VF.ValidarSala(sala);
             string rutaArchivo = "";
 
@@ -69,7 +68,7 @@ namespace WebApiRest.Controllers
                 if (result.Error == 0 && !rutaArchivo.Equals(""))
                 {
                     FileStream fileStream = new(rutaArchivo, FileMode.Create); // => Aqui creamos la imagen
-                    archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path
+                    archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path                  
                 }
             }
 

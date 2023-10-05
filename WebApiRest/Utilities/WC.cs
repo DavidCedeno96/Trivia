@@ -14,7 +14,7 @@
 
         public static string GetRutaImagen(IWebHostEnvironment env, string nombreImagen, string nombreCarpeta)
         {
-            string rutaPrincipal = Path.Combine(env.ContentRootPath, "Content", "Images", nombreCarpeta);
+            string rutaPrincipal = Path.Combine(env.ContentRootPath, "wwwroot", "Content", "Images", nombreCarpeta);
             return Path.Combine(rutaPrincipal, nombreImagen);
         }
 
@@ -40,37 +40,6 @@
             }   
             
             return false;
-        }
-
-        public static string GetContentType(string nombreArchivo)
-        {
-            var extension = Path.GetExtension(nombreArchivo);
-            string contentType;
-            switch (extension.ToLower())
-            {
-                case ".jpg":
-                case ".jpeg":
-                    {
-                        contentType = "image/jpeg";
-                        break;
-                    }                    
-                case ".png":
-                    {
-                        contentType = "image/png";
-                        break;
-                    }                    
-                case ".gif":
-                    {
-                        contentType = "image/gif";
-                        break;
-                    }                    
-                default:
-                    {
-                        contentType = "application/octet-stream"; // Tipo MIME genérico si el formato no se reconoce.
-                        break;
-                    }                    
-            }
-            return contentType;
         }
 
         public static string GetSatisfactorio()

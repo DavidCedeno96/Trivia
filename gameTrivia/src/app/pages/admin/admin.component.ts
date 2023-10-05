@@ -40,6 +40,7 @@ export class AdminComponent implements OnInit {
 
   getImageSala(nombreImagen: string): string {
     let image = `${this.salaServicio.getURLImages()}/${nombreImagen}`;
+    console.log(image);
     return image;
   }
 }

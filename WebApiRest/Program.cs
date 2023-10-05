@@ -4,6 +4,7 @@ using System.Text;
 using WebApiRest.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var origins = builder.Configuration.GetSection("AllowedHosts").Get<string>();
 var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 
@@ -55,6 +56,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Crear una nueva carpeta llamada wwwroot
+//Guardar una nueva imagen default.png => propiedades => Copiar en el directorio de salida => Copiar siempre
+//Recuperar imagenes del wwwroot/Content
+app.UseStaticFiles();
 
 //CORS
 app.UseCors(misReglasCors);

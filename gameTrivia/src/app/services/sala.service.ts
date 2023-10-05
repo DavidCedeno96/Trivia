@@ -9,8 +9,8 @@ import { Sala } from '../model/SalaModel';
   providedIn: 'root',
 })
 export class SalaService {
-  private apiURL: string = environment.URL + '/sala'; //Para crear el usuario
-  private apiURLImages: string = environment.URL + '/image/sala';
+  private apiURL: string = environment.URL + '/api/sala'; //Para crear el usuario
+  private apiURLImages: string = environment.URL + '/Content/Images/Sala';
 
   constructor(
     private http: HttpClient,
@@ -38,6 +38,12 @@ export class SalaService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append(
+      'Access-Control-Allow-Headers',
+      'X-Requested-With,content-type'
+    );
+    headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post<FormData>(`${this.apiURL}/create`, formData, {
       headers: headers,
     });
