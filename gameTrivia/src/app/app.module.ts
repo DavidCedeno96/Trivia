@@ -10,9 +10,9 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 //Componentes de Primeng
-import { ButtonModule } from 'primeng/button';
+/* import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog'; */
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -23,11 +23,15 @@ import { CrearSalaComponent } from './pages/crear-sala/crear-sala.component';
 import { SalaComponent } from './pages/sala/sala.component';
 import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta.component';
 import { PlayerComponent } from './pages/player/player.component';
+import { ResultadosAdminComponent } from './pages/resultados-admin/resultados-admin.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
-import { NgxDropzoneModule } from 'ngx-dropzone';
+//import { NgxDropzoneModule } from 'ngx-dropzone';
+
+import { authGuard } from './auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -41,15 +45,16 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     EditarPreguntaComponent,
     PlayerComponent,
     IngresarImagenComponent,
+    ResultadosAdminComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
+    /* ButtonModule,
     DialogModule,
     NgxDropzoneModule,
-    ReactiveFormsModule,
-    ToastModule,
+    ToastModule, */
+    ReactiveFormsModule,    
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -80,10 +85,15 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
         component: PlayerComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'Resultados',
+        component: ResultadosAdminComponent,
+        //canActivate: [authGuard],
+      },
     ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-import { authGuard } from './auth.guard';
+

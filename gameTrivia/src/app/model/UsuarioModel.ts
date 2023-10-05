@@ -3,7 +3,8 @@ export interface Usuario {
     nombre: string;
     correo: string;
     contrasena: string;
-    idRol: number;    
+    idRol: number;
+    iniciales: string;    
   }
 
   

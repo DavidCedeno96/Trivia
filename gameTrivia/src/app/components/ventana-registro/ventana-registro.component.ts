@@ -19,14 +19,13 @@ export class VentanaRegistroComponent implements OnInit{
 
   bool: boolean = false;
 
-  //Inputs
-  //mailUsuario: string = "";
- // passwordUsuario: string = "";
-  //nombreUsuario: string = "";
+  //Inputs  
   nuevoUsuario: Usuario = {idUsuario: 0, nombre: "",
     correo: "",
     contrasena: "",
-    idRol: 2   };
+    idRol: 2,
+    iniciales: ""
+     };
   //respuesta: Result = {info:"", error:0};
   //PARA EL MENSAJE DE ERROR
   errorEncontrado: string = "";
@@ -67,6 +66,10 @@ export class VentanaRegistroComponent implements OnInit{
     console.log('nombre Usuario:', this.nombreUsuario); */
     //console.log(this.nuevoUsuario);
     //Del servicio aplicamos la función crear usuario
+
+    this.nuevoUsuario.iniciales=this.obtenerIniciales(this.nuevoUsuario.nombre);
+
+
     this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
       next:(data:any)=>{
         const {info, error} = data.result;
@@ -88,26 +91,51 @@ export class VentanaRegistroComponent implements OnInit{
         console.log(e);        
       }
     });
-  }
-  
+  }  
 
   // Método para cambiar el valor del booleano y emitir el evento
   onClickCambiar() {
     this.isLoginH.emit(true); // Puedes emitir 'true' o 'false' según tu lógica
   }
 
+  obtenerIniciales(nombre:string) {
+    // Divide el nombre en palabras utilizando espacio como separador
+    const palabras = nombre.split(' ');
+  
+    // Verifica si hay al menos una palabra en el nombre
+    if (palabras.length >= 1) {
+      // Inicializa una variable para almacenar las iniciales
+      let iniciales = '';
+      if(palabras.length>1){
+        // Recorre las palabras y obtiene las iniciales de las dos primeras
+        for (let i = 0; i < Math.min(palabras.length, 2); i++) {
+          const palabra = palabras[i];
+          if (palabra.length > 0) {
+            iniciales += palabra[0].toUpperCase();
+          }
+        }    
 
+      }else{
+        for (let i = 0; i < palabras.length; i++) {
+          const palabra = palabras[i];
+          if (palabra.length > 0) {
+            iniciales += palabra[0].toUpperCase();
+          }
+        }
 
-  openFormModal() {
-    this.formModal.show();
+      }
+      return iniciales;
+  
+      
+    }else{
+      // En caso de que el nombre esté vacío o no contenga palabras
+    return '';
+
+    }
+  
+    
   }
 
 
-
-
-  //FUNCIONES PARA CONTROLAR EL MODAL
-
-
-  
 
 }
