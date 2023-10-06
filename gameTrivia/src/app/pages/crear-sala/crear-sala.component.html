@@ -40,9 +40,9 @@
       <div>
         <!-- Mensaje error -->
         <div
-          class="mb-3 px-md-5"
+          class="mb-3 px-md-5 text-center"
           *ngIf="existeError"
-          style="color: rgb(255, 255, 255)"
+          style="color: rgb(0, 0, 0)"
         >
           {{ result }}
         </div>
@@ -54,8 +54,8 @@
             <div class="input-group">
               <input
                 type="text"
-                class="form-control"
-                placeholder="Nombre de la Sala"
+                class="form-control custom-placeholder"
+                placeholder="Nombre de la Sala *"
                 [(ngModel)]="nuevaSala.nombre"
                 name="nombre"
                 required
@@ -89,7 +89,7 @@
         <!-- Subtitulo-->
         <div class="col">
           <h3 class="text-center py-3" style="color: white; font-weight: bold">
-            Elija el modo de juego
+            Elija el modo de juego *
           </h3>
         </div>
       </div>
@@ -144,7 +144,7 @@
           </div>
         </div>
         <div class="text-center mt-3" *ngIf="notSelectCard">
-          <h4 style="color: white; font-weight: bold">
+          <h4 style="color: white;">
             Seleccione el modo de juego
           </h4>
         </div>

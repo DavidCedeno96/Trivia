@@ -52,3 +52,12 @@ body {
   .card p {
     color: white;
   }
+
+  .custom-placeholder::placeholder {
+    color: #DC8127;
+  }
+
+  .input-group input[type="file"]::-webkit-file-upload-button {
+    background-color: #3D5057; /* Cambia el color del fondo del botón */
+    color: white; /* Cambia el color del texto del botón */
+  }
