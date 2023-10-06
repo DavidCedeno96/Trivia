@@ -1,4 +1,4 @@
-<body class="justify-content-center align-items-center vh-100" >
+<body class="justify-content-center align-items-center" >
   <div class="container-fluid">
     <div class="row">
       <div class="col-8 py-3">
@@ -96,12 +96,29 @@
                     class="img-fluid imagen-lg imagen-md imagen-sm"
                   />
                 </div>
+                <!-- Información de las salas -->
                 <div
-                  class="col-sm-12 col-lg-5 align-items-center text-center text-lg-start my-3"
-                >
-                  {{ sala.nombre }} - {{ sala.modoJuego }}
+                  class="col-sm-12 col-lg-6 align-items-center text-center text-lg-start my-3">
+                  <div class="container">
+                    <div class="row">
+                      <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-2">
+                        <strong>Id:</strong>
+                         {{sala.idSala}}
+                      </div>
+                      <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-10">
+                        <strong>Sala:</strong>
+                         {{ sala.nombre }}
+                      </div>
+                      <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-6">
+                        <strong>Modo:</strong>
+                         {{ sala.modoJuego }}
+                      </div>
+                    </div>
+                  </div>
+                   
                 </div>
-                <div class="col-sm-12 col-lg-5 text-end">
+                 <!-- Botones -->
+                <div class="col-sm-12 col-lg-4 text-end">
                   <button
                     type="button"
                     class="btn btn-secondary mx-1"

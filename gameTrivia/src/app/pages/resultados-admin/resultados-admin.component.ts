@@ -10,6 +10,7 @@ export class ResultadosAdminComponent {
 
   testname:string="Carlos";
   testIniciales:string = "";
+  numJugadores:number = 0;
 //Lista auxiliar para los jugadores
   listaJugadores: PuntosJugador[]=[
     {iniciales: "CI",  
@@ -61,6 +62,7 @@ export class ResultadosAdminComponent {
 
   constructor(){
     this.testIniciales=this.obtenerIniciales(this.testname);
+    this.numJugadores=this.listaJugadores.length;
 
   }
 

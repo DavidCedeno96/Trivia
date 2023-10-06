@@ -60,7 +60,7 @@
   }
 
   .custom-badge {
-    background-color: #3D5057 !important; /* Color de fondo personalizado para el badge */
+    background-color: #54585B !important; /* Color de fondo personalizado para el badge */
     color: white; /* Color del texto dentro del badge */
   }
 
@@ -131,7 +131,7 @@
 }
 
 .btn-primary {
-  background-color: #3D5057;
+  background-color: #54585B;
   border: none;
   font-weight: bold;
   border-radius: 25px;
@@ -144,8 +144,11 @@
 {
   background-color: #DC8127; /* Naranja */
   border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-  border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+  border: 3px solid  #54585B; /* Borde negro de 1 píxel */
   
+}
+h4 {
+  color: #54585B;
 }
 
  
