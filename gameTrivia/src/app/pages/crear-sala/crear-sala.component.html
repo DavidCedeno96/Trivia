@@ -1,9 +1,9 @@
 <body class="justify-content-center align-items-center vh-100">
-  <div class="container-white py-2 ">
+  <div class="container-white py-2">
     <div class="row">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-8  pt-2">
+          <div class="col-8 pt-2">
             <!-- Contenido izquierdo -->
             <a [routerLink]="['/Administrador']">
               <div class="container">
@@ -22,28 +22,25 @@
                 </svg>
               </div>
             </a>
-            
           </div>
         </div>
       </div>
-
     </div>
     <div class="row text-center">
-      <div class="col"><img src="assets/Imagenes Empresa/Logo_App.png" style="height: 80px;width: auto;" alt="Imagen" class="image-inside-container">
+      <div class="col">
+        <img
+          src="assets/Imagenes Empresa/Logo_App.png"
+          style="height: 80px; width: auto"
+          alt="Imagen"
+          class="image-inside-container"
+        />
       </div>
-      
     </div>
-    
-    
   </div>
 
-  <div class="container-with-shadow">
-    
-  </div>
+  <div class="container-with-shadow"></div>
 
   <div class="container">
-    
-
     <!-- Instruccion para editar -->
     <form
       class="container"
@@ -54,7 +51,7 @@
       <div class="row">
         <div class="col">
           <h2 class="text-center py-3" style="color: white; font-weight: bold">
-            Crear Sala
+            {{ titulo }}
           </h2>
         </div>
       </div>
@@ -121,12 +118,11 @@
             id="challenger"
             class="card py-3 px-2 mx-2"
             [style.background-color]="
-              selectedCard === 1 ? '#3D5057' : '#FFFFFF' 
+              selectedCard === 1 ? '#3D5057' : '#FFFFFF'
             "
             (click)="selectCard(1)"
             style="cursor: pointer"
           >
-            
             <img
               class="imagen2-lg imagen2-md imagen2-sm"
               src="assets/Imagenes Juego/ChallengerNaranja.png"
@@ -134,7 +130,7 @@
             />
             <p
               class="card-title text-center"
-              [style.color]="selectedCard === 1 ? '#FFFFFF' : '#ffa600'" 
+              [style.color]="selectedCard === 1 ? '#FFFFFF' : '#ffa600'"
               [style.font-weight]="selectedCard === 1 ? 'bold' : 'normal'"
             >
               Challenger
@@ -142,7 +138,6 @@
           </div>
         </div>
         <div class="col-6">
-
           <div
             id="supervivencia"
             class="card py-3 px-2 mx-2"
@@ -150,8 +145,8 @@
               selectedCard === 2 ? '#3D5057' : '#FFFFFF'
             "
             (click)="selectCard(2)"
-            style="cursor: pointer">
-            
+            style="cursor: pointer"
+          >
             <img
               class="imagen2-lg imagen2-md imagen2-sm"
               src="assets/Imagenes Juego/SupervivenciaNaranja.png"
@@ -161,19 +156,18 @@
             <p
               class="card-title text-center"
               [style.color]="selectedCard === 2 ? '#FFFFFF' : '#ffa600'"
-              [style.font-weight]="selectedCard === 2 ? 'bold' : 'normal'">
+              [style.font-weight]="selectedCard === 2 ? 'bold' : 'normal'"
+            >
               Supervivencia
             </p>
           </div>
         </div>
         <div class="text-center mt-3" *ngIf="notSelectCard">
-          <h4 style="color: white;">
-            Seleccione el modo de juego
-          </h4>
+          <h4 style="color: white">Seleccione el modo de juego</h4>
         </div>
         <div class="container" style="height: 30px"></div>
         <div class="container text-center">
-          <button type="submit" class="btn btn-primary  px-5 btn-lg">
+          <button type="submit" class="btn btn-primary px-5 btn-lg">
             Guardar
           </button>
         </div>

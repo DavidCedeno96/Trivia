@@ -13,7 +13,8 @@ export class CrearSalaComponent implements OnInit {
   notSelectCard: boolean = false;
   selectedFile: File | null = null;
   type: string = '';
-  imageSala: string = '';
+  //imageSala: string = '';
+  titulo: string = '';
 
   existeError: boolean = false;
   result: string = '';
@@ -43,13 +44,16 @@ export class CrearSalaComponent implements OnInit {
     });
     switch (this.type) {
       case 'crear': {
+        this.titulo = 'Crear Sala';
         break;
       }
       case 'editar': {
+        this.titulo = 'Editar Sala';
         this.cargarData(this.nuevaSala.idSala);
         break;
       }
       default: {
+        this.titulo = '';
         this.router.navigate(['/Administrador']);
         break;
       }
@@ -98,9 +102,9 @@ export class CrearSalaComponent implements OnInit {
         } else {
           //no hay error
           this.nuevaSala = sala;
-          this.imageSala = `${this.salaServicio.getURLImages()}/${
+          /* this.imageSala = `${this.salaServicio.getURLImages()}/${
             this.nuevaSala.imagen
-          }`;
+          }`; */
           this.selectedCard = this.nuevaSala.idModoJuego;
         }
       },

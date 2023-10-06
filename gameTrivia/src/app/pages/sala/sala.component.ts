@@ -49,6 +49,8 @@ export class SalaComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.miSala.idSala = params['idSala'];
     });
+
+    this.cargarData(this.miSala.idSala);
   }
 
   cargarData(idSala: number) {
