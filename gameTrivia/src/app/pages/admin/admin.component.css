@@ -38,3 +38,13 @@ body {
     border-radius: 15px ;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); 
   }
+
+  .input-group {
+    border-radius: 25px;  
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+  
+  }
+  .form-control {
+    border-radius: 15px;  
+  
+  }
