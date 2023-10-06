@@ -1,7 +1,7 @@
 
 body {
     
-  background-color: #F29523;
+  background-color: #EFEFEF;
   min-height: calc(100vh - 10px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
   
   box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
@@ -48,3 +48,38 @@ body {
     border-radius: 15px;  
   
   }
+
+  .container-orange {
+    background-color: #DC8127;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  
+.image-inside-container {
+  width: 100%;
+  height: auto;
+}
+
+.container-with-shadow {
+  height: 4px;
+  width: 100%;
+  background-color: #DC8127;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2); /* Sombra solo en la parte superior */
+  
+  
+  
+  z-index: 1; /* Asegura que esté por encima del contenido */
+}
+
+.input-group {
+  border-radius: 25px;  
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}
+.form-control {
+  border-radius: 15px;  
+
+}
+  
