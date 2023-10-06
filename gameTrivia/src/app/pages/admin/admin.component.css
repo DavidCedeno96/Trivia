@@ -1,7 +1,7 @@
 
 body {
     
-  background-color: #ffa600;
+  background-color: #F29523;
   min-height: calc(100vh - 10px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
   
   box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
@@ -16,17 +16,25 @@ body {
     background-color: #3D5057;
     border: none;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
   }
-  #btnIngresar:active,
-  #btnIngresar:focus {
+  .btn-primary:active,:focus {
     background-color: #DC8127; /* Naranja */
     border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-    border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
     border-radius: 28px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
   }
  
   .btn-secondary {
     font-weight: bold;
     font-size: 12px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); 
+    
+  }
+
+  .card {
+    border-radius: 15px ;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); 
   }

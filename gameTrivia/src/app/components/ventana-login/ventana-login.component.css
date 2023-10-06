@@ -10,13 +10,15 @@ body {
   #btnIngresar:focus {
     background-color: #DC8127; /* Naranja */
     border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-    border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
     border-radius: 28px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
   }
 
 .card {
     background-color: #F38901;
     border-radius: 25px; 
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2); 
+
   }
   .card h5 {
     color: #3D5057; /* Cambia el color del texto a blanco */
@@ -30,7 +32,10 @@ body {
   
 .form-control {
     border-radius: 25px; 
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
   }
+
+  
 
 
   

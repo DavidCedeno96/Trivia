@@ -13,20 +13,24 @@ body {
 }
 
 .btn-primary {
-    background-color: #3D5057;
-    border: none;
-    font-weight: bold;
-    border-radius: 10px;
+    background-color: #ffffff;
+    border: none;    
+    border-radius: 20px;
+    color: #F29523;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
   }
 
   .btn-primary:hover,
   .btn-primary:active,
   .btn-primary:focus
   {
-    background-color: #DC8127; /* Naranja */
-    border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-    border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+    background-color: #F29523; /* Naranja */
     padding: 10px 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+    color: #3D5057;
+    font-weight: bold;
+
   }
   
   
@@ -47,6 +51,7 @@ body {
 
   .card {
     border-radius: 35px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
   }
 
   .card p {
@@ -110,6 +115,10 @@ body {
 .input-group {
   border-radius: 25px;  
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}
+.form-control {
+  border-radius: 15px;  
 
 }
 
