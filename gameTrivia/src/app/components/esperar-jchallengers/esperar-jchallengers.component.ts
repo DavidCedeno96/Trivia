@@ -10,6 +10,7 @@ export class EsperarJChallengersComponent {
   testname:string="Carlos";
   testIniciales:string = "";
   numJugadores:number = 0;
+  tamanoSala: number = 40;
 //Lista auxiliar para los jugadores
   listaJugadores: PuntosJugador[]=[
     {iniciales: "CI",  
