@@ -32,7 +32,7 @@ create table ModoJuego(
 
 create table Sala(
 	idSala int identity(1,1) primary key,
-	nombre varchar(20) not null,
+	nombre varchar(40) not null,
 	imagen varchar(50),
 	descripcion varchar(200),
 	idModoJuego int references ModoJuego(idModoJuego) not null,
@@ -123,7 +123,6 @@ exec sp_B_UsuarioLogin
 @error = '' 
 ---- SALA ---------------------------------------------
 select * from ModoJuego
-Select * from Sala
 
 exec sp_B_Sala
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1

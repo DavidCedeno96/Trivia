@@ -1,4 +1,4 @@
-<body class="justify-content-center align-items-center" >
+<body class="justify-content-center align-items-center">
   <div class="container-fluid">
     <div class="row">
       <div class="col-8 py-3">
@@ -91,39 +91,39 @@
                 >
                   <img
                     [src]="getImageSala(sala.imagen)"
-                    onerror="this.src='assets/Imagenes Juego/Imagen test.png'"
+                    onerror="this.src='assets/Imagenes Juego/ImagenDefault.png'"
                     alt="Imagen"
                     class="img-fluid imagen-lg imagen-md imagen-sm"
                   />
                 </div>
                 <!-- Información de las salas -->
                 <div
-                  class="col-sm-12 col-lg-6 align-items-center text-center text-lg-start my-3">
+                  class="col-sm-12 col-lg-6 align-items-center text-center text-lg-start my-3"
+                >
                   <div class="container">
                     <div class="row">
                       <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-2">
                         <strong>Id:</strong>
-                         {{sala.idSala}}
+                        {{ sala.idSala }}
                       </div>
                       <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-10">
                         <strong>Sala:</strong>
-                         {{ sala.nombre }}
+                        {{ sala.nombre }}
                       </div>
                       <div class="py-sm-0 py-lg-2 col-sm-12 col-lg-6">
                         <strong>Modo:</strong>
-                         {{ sala.modoJuego }}
+                        {{ sala.modoJuego }}
                       </div>
                     </div>
                   </div>
-                   
                 </div>
-                 <!-- Botones -->
+                <!-- Botones -->
                 <div class="col-sm-12 col-lg-4 text-end">
                   <button
                     type="button"
                     class="btn btn-secondary mx-1"
                     routerLink="/Sala"
-                    [queryParams]="{idSala:sala.idSala}"
+                    [queryParams]="{ idSala: sala.idSala }"
                   >
                     <img
                       src="assets/Icons/Editar.svg"

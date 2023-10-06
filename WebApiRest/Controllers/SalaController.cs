@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiRest.Data;
 using WebApiRest.Models;
 using WebApiRest.Utilities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApiRest.Controllers
 {
@@ -28,6 +29,14 @@ namespace WebApiRest.Controllers
         public IActionResult GetList([FromRoute] int estados)
         {
             SalaList result = data.GetSalaList(estados);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpGet]
+        [Route("list/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
+        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala)
+        {
+            SalaItem result = data.GetSala(estados,idSala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
@@ -56,10 +65,66 @@ namespace WebApiRest.Controllers
                 result = data.CreateSala(sala);
                 if (result.Error == 0 && !rutaArchivo.Equals(""))
                 {
-                    FileStream fileStream = new(rutaArchivo, FileMode.Create); // => Aqui creamos la imagen
+                    //Aqui creamos una nueva imagen
+                    FileStream fileStream = new(rutaArchivo, FileMode.Create);
                     archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path                  
                 }
             }
+
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public IActionResult UpdateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
+        {
+            Response result = VF.ValidarSala(sala);
+            string rutaArchivo = "";
+
+            if (archivo != null && result.Error == 0)
+            {
+                result = VF.ValidarArchivo(_env, archivo, "jpg/jpeg/png", nombreCarpeta);
+                rutaArchivo = WC.GetRutaImagen(_env, archivo.FileName, nombreCarpeta);
+
+                sala.Imagen = archivo.FileName.Trim();
+            }
+            else
+            {
+                sala.Imagen = "";
+            }
+
+            SalaItem resultItem = data.GetSala(0, sala.IdSala);            
+
+            if (result.Error == 0)
+            {
+
+                result.Error = resultItem.Error;
+                result.Info = resultItem.Info;
+
+                if (result.Error == 0)
+                {
+                    result = data.UpdateSala(sala);
+                    if (result.Error == 0 && !rutaArchivo.Equals(""))
+                    {
+                        string imagenAnterior = resultItem.Sala.Imagen;
+
+                        //Aqui eliminamos el archivo anterior
+                        string rutaArchivoAnterior = WC.GetRutaImagen(_env, imagenAnterior, nombreCarpeta);
+                        if (System.IO.File.Exists(rutaArchivoAnterior))
+                        {
+                            System.IO.File.Delete(rutaArchivoAnterior);
+                        }
+
+                        //Aqui creamos una nueva imagen
+                        FileStream fileStream = new(rutaArchivo, FileMode.Create);
+                        archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path                   
+                    }
+                }
+                else
+                {
+                    result.Campo = "idSala";
+                }                             
+            }            
 
             return StatusCode(StatusCodes.Status200OK, new { result });
         }

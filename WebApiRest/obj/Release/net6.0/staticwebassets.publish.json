@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jv5Q+L3N8wd6ldq8ZQcTwz1w6bRmawh+HNACwfJiegc=",
+  "Hash": "ggItYvfwLl7IHj0Z1UKM4y2FYncVMUsi7PZqa0H9ZkA=",
   "Source": "WebApiRest",
   "BasePath": "_content/WebApiRest",
   "Mode": "Default",
@@ -136,6 +136,23 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\default.png"
     },
     {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/empresa-automatizada.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
@@ -253,6 +270,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/que es y para que sirve la hiperautomatizacion.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Recurso 69.png",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/Recurso 69.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Recurso 69.png"
     },
     {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png",

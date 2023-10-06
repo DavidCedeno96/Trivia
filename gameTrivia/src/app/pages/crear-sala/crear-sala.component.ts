@@ -13,6 +13,7 @@ export class CrearSalaComponent implements OnInit {
   notSelectCard: boolean = false;
   selectedFile: File | null = null;
   type: string = '';
+  imageSala: string = '';
 
   existeError: boolean = false;
   result: string = '';
@@ -38,13 +39,14 @@ export class CrearSalaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
+      this.nuevaSala.idSala = params['idSala'];
     });
     switch (this.type) {
       case 'crear': {
         break;
       }
       case 'editar': {
-        this.cargarData();
+        this.cargarData(this.nuevaSala.idSala);
         break;
       }
       default: {
@@ -65,6 +67,11 @@ export class CrearSalaComponent implements OnInit {
   }
 
   UpsertSala() {
+    if (this.selectedCard === 0) {
+      this.notSelectCard = true;
+      return;
+    }
+
     switch (this.type) {
       case 'crear': {
         this.crearNuevaSala();
@@ -81,26 +88,70 @@ export class CrearSalaComponent implements OnInit {
     }
   }
 
-  cargarData() {
-    console.log('Aqui cargar los datos en el form');
+  cargarData(idSala: number) {
+    this.salaServicio.itemSala(0, idSala).subscribe({
+      next: (data: any) => {
+        const { info, error, sala } = data.result;
+        this.result = info;
+        if (error > 0) {
+          //hay error
+        } else {
+          //no hay error
+          this.nuevaSala = sala;
+          this.imageSala = `${this.salaServicio.getURLImages()}/${
+            this.nuevaSala.imagen
+          }`;
+          this.selectedCard = this.nuevaSala.idModoJuego;
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
   }
 
   crearNuevaSala() {
-    if (this.selectedCard === 0) {
-      this.notSelectCard = true;
-      return;
-    }
-
     const formData = new FormData();
     formData.append('nombre', this.nuevaSala.nombre.trim());
     formData.append('descripcion', this.nuevaSala.descripcion.trim());
     formData.append('idModoJuego', this.selectedCard.toString());
     if (this.selectedFile) {
-      console.log('si envio la imagen');
       formData.append('archivo', this.selectedFile);
     }
 
     this.salaServicio.crearSala(formData).subscribe({
+      next: (data: any) => {
+        const { info, error, campo } = data.result;
+        this.result = info;
+        //console.log(info, campo);
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+          this.router.navigate(['/Administrador']);
+        }
+      },
+      error: (e) => {
+        //console.log(e);
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  editarSala() {
+    const formData = new FormData();
+    formData.append('idSala', this.nuevaSala.idSala.toString());
+    formData.append('nombre', this.nuevaSala.nombre.trim());
+    formData.append('descripcion', this.nuevaSala.descripcion.trim());
+    formData.append('idModoJuego', this.selectedCard.toString());
+    if (this.selectedFile) {
+      formData.append('archivo', this.selectedFile);
+    }
+    this.salaServicio.editarSala(formData).subscribe({
       next: (data: any) => {
         const { info, error, campo } = data.result;
         this.result = info;
@@ -119,9 +170,5 @@ export class CrearSalaComponent implements OnInit {
         }
       },
     });
-  }
-
-  editarSala() {
-    console.log('Aqui editar');
   }
 }

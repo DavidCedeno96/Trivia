@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fjTqKJtv74gemU6oFnDM7bJdQHBTFegcCGItczyk+J8=",
+  "Hash": "+rmgTmeOdsntORmH31sg6NqaaV4PhnrVwlrZcylX98E=",
   "Source": "WebApiRest",
   "BasePath": "_content/WebApiRest",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\.png",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\.png"
+    },
     {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\6762.png",
       "SourceId": "WebApiRest",
@@ -117,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\default.png"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/empresa-automatizada.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg"
     },
     {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png",
@@ -236,6 +270,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/que es y para que sirve la hiperautomatizacion.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Recurso 69.png",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Images/Sala/Recurso 69.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Recurso 69.png"
     },
     {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png",

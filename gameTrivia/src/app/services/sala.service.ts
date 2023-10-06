@@ -30,16 +30,31 @@ export class SalaService {
     });
   }
 
-  /* crearUsuario(modelo: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiURL}/Create`, modelo);
-  } */
+  itemSala(estados: number, idSala: number): Observable<Sala> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<Sala>(`${this.apiURL}/list/${estados}/${idSala}`, {
+      headers: headers,
+    });
+  }
 
   crearSala(formData: FormData): Observable<FormData> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    headers.append('Access-Control-Allow-Credentials', 'true');
+    //headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post<FormData>(`${this.apiURL}/create`, formData, {
+      headers: headers,
+    });
+  }
+
+  editarSala(formData: FormData): Observable<FormData> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    //headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.put<FormData>(`${this.apiURL}/update`, formData, {
       headers: headers,
     });
   }
