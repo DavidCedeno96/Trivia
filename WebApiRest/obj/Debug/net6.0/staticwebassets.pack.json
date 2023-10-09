@@ -1,0 +1,113 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\3.PNG",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\3.PNG"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\6762.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\6762.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\ArrozImportacion250723.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\ArrozImportacion250723.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\PORTADA GENERAL.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Recurso 69.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\Recurso 69.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Sql Server.PNG",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\Sql Server.PNG"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\acerca de sesa.docx",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\acerca de sesa.docx"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\barrio.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\barrio.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\boton.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\boton.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\default.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\empresa-automatizada.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\label.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\label.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lista-computacion.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\lista-computacion.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lock.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\lock.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\moneda.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\moneda.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\rwshpm327mzi.png"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\tortuga.jpg",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\tortuga.jpg"
+    },
+    {
+      "Id": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\user-icon.png",
+      "PackagePath": "staticwebassets\\Content\\Images\\Sala\\user-icon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.WebApiRest.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.WebApiRest.props",
+      "PackagePath": "build\\WebApiRest.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.WebApiRest.props",
+      "PackagePath": "buildMultiTargeting\\WebApiRest.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.WebApiRest.props",
+      "PackagePath": "buildTransitive\\WebApiRest.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pregunta, Sala } from 'src/app/model/SalaModel';
+import { PreguntaService } from 'src/app/services/pregunta.service';
 import { SalaService } from 'src/app/services/sala.service';
 
 @Component({
@@ -11,6 +12,9 @@ import { SalaService } from 'src/app/services/sala.service';
 export class SalaComponent implements OnInit {
   existeError: boolean = false;
   result: string = '';
+
+  existeErrorPregunta: boolean = false;
+  resultPregunta: string = '';
 
   miSala: Sala = {
     idSala: 1,
@@ -27,20 +31,17 @@ export class SalaComponent implements OnInit {
   preguntasSala: Pregunta[] = [
     {
       idPregunta: 1,
-      nombre:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has',
+      nombre: '¿Porque deberia escribir Hola mundo?',
+      idSala: 1,
       estado: 1,
-    },
-    {
-      idPregunta: 2,
-      nombre:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has',
-      estado: 1,
+      fecha_creacion: '',
+      fecha_modificacion: '',
     },
   ];
 
   constructor(
     private salaServicio: SalaService,
+    private preguntaServicio: PreguntaService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -50,18 +51,21 @@ export class SalaComponent implements OnInit {
       this.miSala.idSala = params['idSala'];
     });
 
-    this.cargarData(this.miSala.idSala);
+    this.cargarInfoSala(this.miSala.idSala);
+    this.cargarPreguntas(this.miSala.idSala);
   }
 
-  cargarData(idSala: number) {
+  cargarInfoSala(idSala: number) {
     this.salaServicio.itemSala(0, idSala).subscribe({
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;
         if (error > 0) {
           //hay error
+          this.existeError = true;
         } else {
           //no hay error
+          this.existeError = false;
           this.miSala = sala;
         }
       },
@@ -72,5 +76,26 @@ export class SalaComponent implements OnInit {
       },
     });
   }
+
+  cargarPreguntas(idSala: number) {
+    this.preguntaServicio.listaPreguntaByIdSala(0, idSala).subscribe({
+      next: (data: any) => {
+        const { info, error, lista } = data.result;
+        this.resultPregunta = info;
+        if (error > 0) {
+          this.existeErrorPregunta = true;
+        } else {
+          this.existeErrorPregunta = false;
+          this.preguntasSala = lista;
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
   //  const salaEncontrada = salas.find((sala) => sala.idSala === idSala);
 }

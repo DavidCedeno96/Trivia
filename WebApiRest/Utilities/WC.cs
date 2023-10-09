@@ -16,7 +16,7 @@
         public static string GetRutaImagen(IWebHostEnvironment env, string nombreImagen, string nombreCarpeta)
         {
             string rutaPrincipal = Path.Combine(env.ContentRootPath, "wwwroot", "Content", "Images", nombreCarpeta);
-            return Path.Combine(rutaPrincipal, nombreImagen);
+            return Path.Combine(rutaPrincipal, nombreImagen.Trim());
         }
 
         public static string GetTrim(string cadena)
@@ -30,7 +30,7 @@
         
         public static bool GetArchivoPermitido(string tipos, string nombreArchivo)
         {
-            string extension = Path.GetExtension(nombreArchivo);
+            string extension = Path.GetExtension(nombreArchivo.ToLower());
             List<string> tiposList = tipos.Split("/").ToList();
             foreach (string tipo in tiposList)
             {

@@ -11,8 +11,10 @@ namespace WebApiRest.Data
 
         public SalaList GetSalaList(int estados)
         {
-            SalaList salaList = new();
-            List<Sala> lista = new();
+            SalaList list = new() {
+                Lista = new()
+            };
+
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
             SqlCommand cmd = new("sp_B_Sala", sqlConnection)
@@ -30,7 +32,7 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new Sala()
+                    list.Lista.Add(new Sala()
                     {
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         Nombre = dr["nombre"].ToString(),                        
@@ -43,29 +45,28 @@ namespace WebApiRest.Data
                     });
                 }
 
-                salaList.Info = WC.GetSatisfactorio();
-                salaList.Error = 0;
-                salaList.Lista = lista;
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;                
             }
             catch (Exception ex)
             {
-                salaList.Info = ex.Message;
-                salaList.Error = 1;
-                salaList.Lista = null;
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
             }
             finally
             {
                 sqlConnection.Close();
             }
 
-            return salaList;
+            return list;
         }
 
 
         public SalaItem GetSala(int estados, int idSala)
         {
-            SalaItem salaItem = new();
-            Sala item = new();
+            SalaItem item = new();      
+            
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
             SqlCommand cmd = new("sp_B_SalaById", sqlConnection)
@@ -84,7 +85,7 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    item = new Sala()
+                    item.Sala = new Sala()
                     {
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         Nombre = dr["nombre"].ToString(),
@@ -99,22 +100,21 @@ namespace WebApiRest.Data
                 }
                 dr.NextResult();
 
-                salaItem.Info = cmd.Parameters["@info"].Value.ToString();
-                salaItem.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                
-                salaItem.Sala = item;
+                item.Info = cmd.Parameters["@info"].Value.ToString();
+                item.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                                
             }
             catch (Exception ex)
             {
-                salaItem.Info = ex.Message;
-                salaItem.Error = 1;
-                salaItem.Sala = null;
+                item.Info = ex.Message;
+                item.Error = 1;
+                item.Sala = null;
             }
             finally
             {
                 sqlConnection.Close();
             }
 
-            return salaItem;
+            return item;
         }
 
         public Response CreateSala(Sala sala)
@@ -200,6 +200,36 @@ namespace WebApiRest.Data
 
         }
 
+        public Response DeleteSala(int idSala) {
+            Response response = new();
+
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+            SqlCommand cmd = new("sp_D_Sala", sqlConnection) {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@idSala", idSala);            
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try {
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+
+                response.Info = cmd.Parameters["@info"].Value.ToString();
+                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+
+            } catch (Exception ex) {
+                response.Info = ex.Message;
+                response.Error = 1;
+            } finally {
+                sqlConnection.Close();
+            }
+
+            return response;
+
+        }
 
     }
 }

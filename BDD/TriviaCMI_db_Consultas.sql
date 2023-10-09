@@ -84,6 +84,19 @@ Insert into ModoJuego (nombre, imagen) values
 Insert into Sala (nombre, imagen, idModoJuego) values
 ('Sala 1', 'imge1.jpg', 1)
 
+Insert into Pregunta (nombre, idSala) values
+('¿Cuántos litros de sangre tiene una persona adulta?',14),
+('¿Quién es el autor de la frase "Pienso, luego existo"?',14),
+('¿Cuál es el país más grande y el más pequeño del mundo?',14),
+('¿Cuál es el grupo de palabras escritas correctamente?',14),
+('¿Cuál es el libro más vendido en el mundo después de la Biblia?',14)
+
+insert into Opcion (nombre, correcta, idPregunta) values
+('Tiene entre 2 y 4 litros',0,1),
+('Tiene entre 4 y 6 litros',1,1),
+('Tiene 10 litros',0,1),
+('Tiene 7 litros',0,1)
+
 --Insert into Usuario (nombre, apellido, correo, clave, idRol) values
 --('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
 ------------------------------------------------------------------------------------
@@ -129,6 +142,12 @@ exec sp_B_Sala
 @info = '',
 @error = ''
 
+exec sp_B_SalaById
+@idSala = 10,
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
+@info = '',
+@error = ''
+
 exec sp_B_SalaByAll	
 @buscar = 'supervi',
 @estados = 0,
@@ -140,5 +159,55 @@ exec sp_C_Sala
 @imagen = '',
 @descripcion = '',
 @idModoJuego = 2,
+@info = '',
+@error = ''
+
+exec sp_U_Sala -- Aqui falta poner la fecha de modificacion = getDate()
+@idSala = 12,
+@nombre = 'edit otra vez jeje',
+@imagen = 'myImage2.png',
+@descripcion = 'desc 1',
+@idModoJuego = 2,
+@info = '', -- en el info devolver la antigua imagen => 'Registro editado satisfactoriamente, old_image: image.png' 
+@error = ''
+
+---- PREGUNTA ---------------------------------------------
+-- new SPs
+exec sp_B_Pregunta	
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
+@info = '',
+@error = ''
+
+exec sp_B_PreguntaByIdSala	
+@idSala = 14,
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
+@info = '',
+@error = ''
+
+exec sp_C_Pregunta
+@nombre = '¿Esta es otra nueva pregunta, si o no?',
+@idSala = 14,
+@info = '',
+@error = ''
+
+exec sp_U_Pregunta
+@idPregunta = 10,
+@nombre = '¿Esta pregunta si se editó otra vez?',
+@idSala = 14,
+@info = '',
+@error = ''
+
+exec sp_D_Pregunta
+@idPregunta = 11,	
+@info = '',
+@error = ''
+
+---- OPCION ---------------------------------------------
+Select * from Opcion
+
+exec sp_C_Opcion	
+@nombre = 'Esta es otra opcion',	
+@correcta = 0,	
+@idPregunta = 2,	
 @info = '',
 @error = ''

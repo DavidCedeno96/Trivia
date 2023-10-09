@@ -67,7 +67,7 @@ namespace WebApiRest.Controllers
                 {
                     //Aqui creamos una nueva imagen
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
-                    archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path                  
+                    archivo.CopyTo(fileStream);
                 }
             }
 
@@ -86,45 +86,31 @@ namespace WebApiRest.Controllers
                 result = VF.ValidarArchivo(_env, archivo, "jpg/jpeg/png", nombreCarpeta);
                 rutaArchivo = WC.GetRutaImagen(_env, archivo.FileName, nombreCarpeta);
 
-                sala.Imagen = archivo.FileName.Trim();
+                sala.Imagen = WC.GetTrim(archivo.FileName);
             }
             else
             {
                 sala.Imagen = "";
             }
 
-            SalaItem resultItem = data.GetSala(0, sala.IdSala);            
-
             if (result.Error == 0)
             {
+                result = data.UpdateSala(sala);
+                if (result.Error == 0 && !rutaArchivo.Equals("")) {
+                    string imagenAnterior = result.Info.Split(":")[1];
+                    result.Info = result.Info.Split(",")[0];
 
-                result.Error = resultItem.Error;
-                result.Info = resultItem.Info;
-
-                if (result.Error == 0)
-                {
-                    result = data.UpdateSala(sala);
-                    if (result.Error == 0 && !rutaArchivo.Equals(""))
-                    {
-                        string imagenAnterior = resultItem.Sala.Imagen;
-
-                        //Aqui eliminamos el archivo anterior
-                        string rutaArchivoAnterior = WC.GetRutaImagen(_env, imagenAnterior, nombreCarpeta);
-                        if (System.IO.File.Exists(rutaArchivoAnterior))
-                        {
-                            System.IO.File.Delete(rutaArchivoAnterior);
-                        }
-
-                        //Aqui creamos una nueva imagen
-                        FileStream fileStream = new(rutaArchivo, FileMode.Create);
-                        archivo.CopyTo(fileStream); // => Aqui guarda la imagen en el path                   
+                    //Aqui eliminamos el archivo anterior
+                    string rutaArchivoAnterior = WC.GetRutaImagen(_env, imagenAnterior, nombreCarpeta);
+                    if (System.IO.File.Exists(rutaArchivoAnterior)) {
+                        System.IO.File.Delete(rutaArchivoAnterior);
                     }
+
+                    //Aqui creamos una nueva imagen
+                    FileStream fileStream = new(rutaArchivo, FileMode.Create);
+                    archivo.CopyTo(fileStream);
                 }
-                else
-                {
-                    result.Campo = "idSala";
-                }                             
-            }            
+            }        
 
             return StatusCode(StatusCodes.Status200OK, new { result });
         }

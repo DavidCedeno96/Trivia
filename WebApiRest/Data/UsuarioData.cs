@@ -2,10 +2,6 @@
 using System.Data;
 using WebApiRest.Models;
 using WebApiRest.Utilities;
-using Microsoft.OpenApi.Validations;
-using System.Text;
-using Microsoft.AspNetCore.DataProtection;
-using System.Security.Claims;
 
 namespace WebApiRest.Data
 {
@@ -15,8 +11,10 @@ namespace WebApiRest.Data
 
         public UsuarioList GetUsuarioList(int estados)
         {
-            UsuarioList usuarioList = new();
-            List<Usuario> lista = new();
+            UsuarioList list = new() {
+                Lista = new()
+            };
+            
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
             SqlCommand cmd = new("sp_B_Usuario", sqlConnection)
@@ -34,7 +32,7 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new Usuario()
+                    list.Lista.Add(new Usuario()
                     {
                         IdUsuario = Convert.ToInt32(dr["IdUsuario"].ToString()),
                         Nombre = dr["nombre"].ToString(),
@@ -47,28 +45,27 @@ namespace WebApiRest.Data
                     });
                 }
 
-                usuarioList.Info = WC.GetSatisfactorio();
-                usuarioList.Error = 0;
-                usuarioList.Lista = lista;
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;                
             }
             catch (Exception ex)
             {
-                usuarioList.Info = ex.Message;
-                usuarioList.Error = 1;
-                usuarioList.Lista = null;
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
             }
             finally
             {
                 sqlConnection.Close();
             }
 
-            return usuarioList;
+            return list;
         }
 
-        public UsuarioList Login(Usuario usuario)
+        public UsuarioItem Login(Usuario usuario)
         {
-            UsuarioList usuarioList = new();
-            List<Usuario> lista = new();
+            UsuarioItem item = new();
+            
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
             SqlCommand cmd = new("sp_B_UsuarioLogin", sqlConnection)
@@ -87,33 +84,32 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new Usuario()
+                    item.Usuario = new Usuario()
                     {
                         IdUsuario = Convert.ToInt32(dr["idUsuario"].ToString()),
                         Nombre = dr["nombre"].ToString(),
                         Correo = dr["correo"].ToString(),
                         IdRol = Convert.ToInt32(dr["idRol"].ToString()),
                         Rol = dr["rol"].ToString(),                        
-                    });
+                    };
                 }
                 dr.NextResult();
 
-                usuarioList.Info = cmd.Parameters["@info"].Value.ToString();
-                usuarioList.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                
-                usuarioList.Lista = lista;
+                item.Info = cmd.Parameters["@info"].Value.ToString();
+                item.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                
             }
             catch (Exception ex)
             {
-                usuarioList.Info = ex.Message;
-                usuarioList.Error = 1;
-                usuarioList.Lista = null;
+                item.Info = ex.Message;
+                item.Error = 1;
+                item.Usuario = null;
             }
             finally
             {
                 sqlConnection.Close();
             }
 
-            return usuarioList;
+            return item;
         }
 
         public Response CreateUsuario (Usuario usuario)

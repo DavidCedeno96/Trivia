@@ -37,17 +37,17 @@ namespace WebApiRest.Controllers
         [Route("auth")]
         public IActionResult LoginUsuario([FromBody] Usuario usuario)
         {            
-            UsuarioList result = data.Login(usuario);
+            UsuarioItem result = data.Login(usuario);
 
             if(result.Error == 0)
             {                
                 var keyBytes = Encoding.ASCII.GetBytes(settings.SecretKey);
                 var claims = new ClaimsIdentity();
-                claims.AddClaim(new Claim("correo", result.Lista[0].Correo));  //ClaimTypes.NameIdentifier
-                claims.AddClaim(new Claim("id", result.Lista[0].IdUsuario.ToString()));
-                claims.AddClaim(new Claim("nombre", result.Lista[0].Nombre));
-                claims.AddClaim(new Claim("idRol", result.Lista[0].IdRol.ToString()));
-                claims.AddClaim(new Claim("rol", result.Lista[0].Rol));
+                claims.AddClaim(new Claim("correo", result.Usuario.Correo));  //ClaimTypes.NameIdentifier
+                claims.AddClaim(new Claim("id", result.Usuario.IdUsuario.ToString()));
+                claims.AddClaim(new Claim("nombre", result.Usuario.Nombre));
+                claims.AddClaim(new Claim("idRol", result.Usuario.IdRol.ToString()));
+                claims.AddClaim(new Claim("rol", result.Usuario.Rol));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = claims,
@@ -59,7 +59,7 @@ namespace WebApiRest.Controllers
                 var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
                 string tokenCreado = tokenHandler.WriteToken(tokenConfig);
                 result.Info = tokenCreado;
-                result.Lista = null;
+                result.Usuario = null;
             }
 
             return StatusCode(StatusCodes.Status200OK, new { result });

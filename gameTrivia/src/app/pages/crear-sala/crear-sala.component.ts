@@ -105,6 +105,9 @@ export class CrearSalaComponent implements OnInit {
           /* this.imageSala = `${this.salaServicio.getURLImages()}/${
             this.nuevaSala.imagen
           }`; */
+          if (this.nuevaSala.descripcion === 'N/A') {
+            this.nuevaSala.descripcion = '';
+          }
           this.selectedCard = this.nuevaSala.idModoJuego;
         }
       },

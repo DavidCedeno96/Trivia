@@ -67,7 +67,11 @@
     <!-- BOTONERA -->
     <div class="row justify-content-end">
       <div class="col-auto">
-        <button class="btn btn-primary d-flex text-end px-3 my-2">
+        <button
+          class="btn btn-primary d-flex text-end px-3 my-2"
+          routerLink="/Editar_pregunta"
+          [queryParams]="{ type: 'nuevo', idSala: miSala.idSala }"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -100,8 +104,26 @@
         </div> -->
     </div>
 
-    <!-- SALAS CREADAS -->
-    <div class="container">
+    <!-- Mensaje error -->
+    <div
+      class="my-3 px-md-5 text-center"
+      *ngIf="existeError"
+      style="color: rgb(0, 0, 0)"
+    >
+      <b>{{ result }}</b>
+    </div>
+
+    <!-- Mensaje error Preguntas -->
+    <div
+      class="my-3 alert alert-light"
+      role="alert"
+      *ngIf="existeErrorPregunta"
+    >
+      <b>{{ resultPregunta }}</b>
+    </div>
+
+    <!-- Preguntas -->
+    <div class="container" *ngIf="!existeErrorPregunta">
       <div class="row">
         <div class="mx-auto">
           <div class="card my-2" *ngFor="let pregunta of preguntasSala">

@@ -6,7 +6,7 @@ namespace WebApiRest.Utilities
     public static class VF 
     {        
 
-        // Crear Usuario
+        // Usuario
         public static Response ValidarUsuario(Usuario usuario)
         {
             Response result = new();
@@ -48,7 +48,7 @@ namespace WebApiRest.Utilities
             return result;
         }
         
-        // Crear Sala
+        // Sala
         public static Response ValidarSala(Sala sala)
         {
             Response result = new();
@@ -75,7 +75,44 @@ namespace WebApiRest.Utilities
             }
             return result;
         }
-        
+
+        // Pregunta
+        public static Response ValidarPregunta(Pregunta pregunta) {
+            Response result = new();
+            bool validForm = true;
+            if (!RE.ValidRE(pregunta.Nombre, "invalid")) {
+                result.Error = 1;
+                result.Info = WC.GetInvalid();
+                result.Campo = "nombre pregunta";
+                validForm = false;
+            }
+
+            if (validForm) {
+                result.Error = 0;
+                result.Info = WC.GetSatisfactorio();
+            }
+            return result;
+        }
+
+        // Pregunta
+        public static Response ValidarOpcion(Opcion opcion) {
+            Response result = new();
+            bool validForm = true;
+            if (!RE.ValidRE(opcion.Nombre, "invalid")) {
+                result.Error = 1;
+                result.Info = WC.GetInvalid();
+                result.Campo = "nombre opcion";
+                validForm = false;
+            }
+
+            if (validForm) {
+                result.Error = 0;
+                result.Info = WC.GetSatisfactorio();
+            }
+            return result;
+        }
+
+        // archivos
         public static Response ValidarArchivo(IWebHostEnvironment _env, IFormFile archivo, string tipos, string nombreCarpeta)
         {
             Response result = new();

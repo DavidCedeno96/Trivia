@@ -4,7 +4,6 @@ using WebApiRest.Models;
 using WebApiRest.Utilities;
 
 
-
 namespace WebApiRest.Data
 {
     public class RolData
@@ -13,8 +12,10 @@ namespace WebApiRest.Data
 
         public RolList GetRolList(int estados)
         {
-            RolList rolList = new();
-            List<Rol> lista = new();
+            RolList list = new() {
+                Lista = new()
+            };
+            
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
             SqlCommand cmd = new("sp_B_Rol", sqlConnection)
@@ -32,7 +33,7 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    lista.Add(new Rol()
+                    list.Lista.Add(new Rol()
                     {
                         IdRol = Convert.ToInt32(dr["idRol"].ToString()),
                         Nombre = dr["nombre"].ToString(),
@@ -42,22 +43,21 @@ namespace WebApiRest.Data
                     });
                 }
 
-                rolList.Info = WC.GetSatisfactorio();
-                rolList.Error = 0;
-                rolList.Lista = lista;
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;                
             }           
             catch (Exception ex)
             {
-                rolList.Info = ex.Message;
-                rolList.Error = 1;
-                rolList.Lista = null;
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
             }
             finally
             {
                 sqlConnection.Close();
             }
 
-            return rolList;
+            return list;
         }
     }
 }
