@@ -1,37 +1,70 @@
-<body justify-content-center align-items-center vh-100>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-8 py-3 mx-2">
-        <!-- Contenido izquierdo -->
-        <button class="btn-circle my-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="35"
-            height="35"
-            fill="currentColor"
-            class="bi bi-arrow-left"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
-          </svg>
-        </button>
+<body justify-content-center align-items-center>
+  
+    <div class="container-orange py-2">
+      <div class="row">
+        <div class="col-8 pt-2">
+          <!-- Contenido izquierdo -->
+          <a [routerLink]="['/Administrador']">
+            <button class="btn-circle m-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                fill="currentColor"
+                class="bi bi-arrow-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                />
+              </svg>
+            </button>
+          </a>
+        </div>
       </div>
+      
+      
+      <div class="row text-center my-4">
+        <div class="col">
+          <img
+            src="assets/Imagenes Empresa/LogoBlanco_App.png"
+            style="height: 80px; width: auto"
+            alt="Imagen"
+            class="image-inside-container"
+          />
+        </div>    
+      </div>
+  
+    
+  
+      <!-- Mensaje error -->
+      <div
+        class="mb-3 px-md-5"
+        *ngIf="existeError"
+        style="color: #3D5057"
+      >
+        {{ result }}
+      </div>
+      
+      
+  
     </div>
-  </div>
+  
+    <div class="container-with-shadow"></div> 
+    
+  
   <!-- Nombre sala -->
   <div class="container">
     <div class="row">
       <div class="col-6 mx-auto text-center">
-        <h2 class="d-inline-block py-3" style="color: white; font-weight: bold">
+        <h2 class="d-inline-block py-3" style="color: #3D5057; font-weight: bold">
           {{ miSala.nombre }}
         </h2>
 
         <button class="btn btn-primary2 float-right mx-2">
           <img
-            src="assets/Icons/Editar.svg"
+            src="assets/Icons/EditarGris.svg"
             alt="Icono"
             class="icono-svgP"
             routerLink="/CrearSala"
@@ -54,12 +87,12 @@
     </div> -->
 
     <div class="row">
-      <div class="col-5 mx-2" style="color: white; font-weight: bold">
+      <div class="col-5 mx-2" style="color: #3D5057; font-weight: bold">
         Id: {{ miSala.idSala }}
       </div>
       <div
         class="col-6 mx-2"
-        style="text-align: right; float: right; color: white; font-weight: bold"
+        style="text-align: right; float: right; color: #3D5057; font-weight: bold"
       >
         Modo: {{ miSala.modoJuego }}
       </div>
@@ -67,11 +100,7 @@
     <!-- BOTONERA -->
     <div class="row justify-content-end">
       <div class="col-auto">
-        <button
-          class="btn btn-primary d-flex text-end px-3 my-2"
-          routerLink="/Editar_pregunta"
-          [queryParams]="{ type: 'nuevo', idSala: miSala.idSala }"
-        >
+        <button class="btn btn-primary d-flex text-end px-3 my-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -104,26 +133,8 @@
         </div> -->
     </div>
 
-    <!-- Mensaje error -->
-    <div
-      class="my-3 px-md-5 text-center"
-      *ngIf="existeError"
-      style="color: rgb(0, 0, 0)"
-    >
-      <b>{{ result }}</b>
-    </div>
-
-    <!-- Mensaje error Preguntas -->
-    <div
-      class="my-3 alert alert-light"
-      role="alert"
-      *ngIf="existeErrorPregunta"
-    >
-      <b>{{ resultPregunta }}</b>
-    </div>
-
-    <!-- Preguntas -->
-    <div class="container" *ngIf="!existeErrorPregunta">
+    <!-- SALAS CREADAS -->
+    <div class="container">
       <div class="row">
         <div class="mx-auto">
           <div class="card my-2" *ngFor="let pregunta of preguntasSala">
