@@ -39,6 +39,8 @@
                       class="form-control"
                       id="Question"
                       placeholder="Escriba la pregunta"
+                      name="pregunta"
+                      [(ngModel)]="pregutaOpciones.pregunta.nombre"
                       required
                     />
                   </div>
@@ -77,6 +79,7 @@
                         id="radio1"
                         name="radios"
                         value="opcion1"
+                        required
                       />
                     </div>
                   </div>
@@ -135,6 +138,7 @@
                         id="radio3"
                         name="radios"
                         value="opcion3"
+                        required
                       />
                     </div>
                   </div>

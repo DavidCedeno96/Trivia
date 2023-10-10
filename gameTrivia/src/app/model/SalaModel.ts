@@ -30,5 +30,5 @@ export interface Opcion {
 
 export interface Pregunta_OpcionList {
   pregunta: Pregunta;
-  opcionList: [];
+  opcionList: Opcion[];
 }

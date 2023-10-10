@@ -22,7 +22,16 @@ export class EditarPreguntaComponent implements OnInit {
       fecha_creacion: '',
       fecha_modificacion: '',
     },
-    opcionList: [],
+    opcionList: [
+      {
+        idOpcion: 0,
+        nombre: '',
+        correcta: 0,
+        estado: 0,
+        fecha_creacion: '',
+        fecha_modificacion: '',
+      },
+    ],
   };
 
   constructor(
@@ -34,11 +43,11 @@ export class EditarPreguntaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
-      //this.nuevaSala.idSala = params['idSala'];
+      this.pregutaOpciones.pregunta.idSala = params['idSala'];
     });
-
-    console.log(this.pregutaOpciones);
   }
 
-  UpsertSala() {}
+  UpsertSala() {
+    console.log(this.pregutaOpciones);
+  }
 }
