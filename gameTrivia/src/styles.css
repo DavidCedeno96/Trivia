@@ -107,3 +107,11 @@ body {
   background-color: #1F292F; /* Color más oscuro cuando se hace clic */
 }
 
+.containerJuego {
+  
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el elemento body */
+  
+}
+
+
+

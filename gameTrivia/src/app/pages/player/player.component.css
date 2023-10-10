@@ -1,9 +1,8 @@
 
 body {
     
-  background-color: #ffa600;
-  min-height: calc(100vh - 50px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
-  padding: 20px; /* Agrega un relleno opcional para separar el contenido del borde */
+  background-color: #EFEFEF;
+  min-height: calc(100vh + 10px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
   box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
   }
   .img-thumbnail {
@@ -16,17 +15,59 @@ body {
     background-color: #3D5057;
     border: none;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
   }
-  #btnIngresar:active,
-  #btnIngresar:focus {
+  .btn-primary:active,:focus {
     background-color: #DC8127; /* Naranja */
-    border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-    border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
-    border-radius: 28px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
   }
  
   .btn-secondary {
     font-weight: bold;
     font-size: 12px;
   }
+
+  .container-orange {
+    background-color: #DC8127;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  
+.image-inside-container {
+  width: 100%;
+  height: auto;
+}
+
+.container-with-shadow {
+  height: 4px;
+  width: 100%;
+  background-color: #DC8127;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2); /* Sombra solo en la parte superior */
+  
+  
+  
+  z-index: 1; /* Asegura que esté por encima del contenido */
+}
+
+.input-group {
+  border-radius: 25px;  
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}
+.form-control {
+  border-radius: 15px;  
+
+}
+
+.card {
+  border-radius: 20px;  
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+
+}

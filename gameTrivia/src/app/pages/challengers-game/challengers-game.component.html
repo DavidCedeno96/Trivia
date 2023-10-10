@@ -1,1 +1,74 @@
-<app-esperar-jchallengers ></app-esperar-jchallengers>
+<!-- <app-esperar-jchallengers ></app-esperar-jchallengers>
+ --><!-- BOTONES EN FORMA SENOSOIDAL
+ -->
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+<body class="sinusoidal-container">
+  <div class="containerFondo">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <h5 class="modal-title">Modal title</h5>
+          
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                  <div class="col">
+                      Opciones
+                  </div>
+              </div>
+  
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+  
+          </div>
+        </div>
+      </div>
+      <div  *ngIf="mostrarAlert" class="alert alert-success text-center" role="alert">
+          A simple success alert—check it out!
+        </div>
+  
+     
+    </div>
+  
+   <div class="container-fluid ">
+      <div class="my-4" *ngFor="let boton of botones" >
+        <ng-container *ngIf="boton.tipo === 'boton'">
+          <button class="sinusoidal-button"         
+              [style.left.px]="boton.x"
+              [style.top.px]="boton.y"
+              (click)="activarBoton(boton.id, 1)"
+              id="boton-{{ boton.id }}">
+              <div class="containerImg">
+                <img [src]="boton.svg" alt="Botón">
+              <span class="numero">{{ boton.id }}</span>
+  
+              </div>  
+           </button>
+  
+        </ng-container>
+  
+        <ng-container *ngIf="boton.tipo === 'imagen'">
+          <img [src]="boton.rutaImagen" alt="Imagen Adicional" [style.left.px]="boton.x" [style.top.px]="boton.y" style="height: 100px; position: relative;">
+  
+  
+        </ng-container>
+              
+              
+      </div> 
+  </div>
+  
+
+  </div>
+  
+</body>
+ 
+
+ 
+ 

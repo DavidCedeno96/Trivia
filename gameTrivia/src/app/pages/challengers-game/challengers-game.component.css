@@ -1,0 +1,45 @@
+/* .sinusoidal-container {
+  background-image: url('../../../assets/Imagenes Juego/PatronGame.png');
+  background-repeat: repeat;
+  background-size: 100% auto; 
+  background-position: 0 0;
+  margin: 0;
+  padding: 0;
+      
+  } */
+  
+  .sinusoidal-button {
+    position: relative;
+    background-color: transparent; /* Color predeterminado del botón */
+    color: white;
+    border: none;
+    /*padding: 10px 20px;*/
+    width: 90px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Animación de cambio de color */
+
+  }
+
+ /*  .sinusoidal-button.active {
+     
+  }
+ */
+  
+  .numero {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
+    color: #fff; /* Color del texto del número */
+  }
+
+
+  .container-fluid{
+    background-color: transparent; /* Elimina el fondo blanco */
+
+
+  }
+
+  

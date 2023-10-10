@@ -15,27 +15,34 @@
   .custom-container {
     height: 150px; /* Altura en pantallas pequeñas */
   }
+  .scrollable-list {
+    max-height: 250px;  
+  }
 }
 
-  @media (max-width: 767.98px) {
-    .scrollable-list {
-      max-height: 300px;
-    }
+@media (min-width: 577px) and (max-width: 991px) {
+  .scrollable-list {
+    max-height: 250px;  
   }
+}
+
   
   /* Tamaño en pantallas grandes ("lg") */
   @media (min-width: 992px) {
     .scrollable-list {
-      max-height: 700px;
+      max-height: 450px;
+    }
+    .container-ranking{
+      max-height: 600px;
     }
   }
 
 .odd {
-    background-color: #ffb85c; /* Fondo de color naranja para elementos impares */
+    background-color: #E3E3E3; /* Fondo de color naranja para elementos impares */
   }
   
   .even {
-    background-color: #ffd69f; /* Fondo de color azul para elementos pares */
+    background-color: #F3F3F4; /* Fondo de color azul para elementos pares */
   }
   
   .circle-badge {
@@ -57,11 +64,13 @@
     text-align: left; /* Alineación del texto a la izquierda */
     margin-left: 10px; /* Espacio entre el círculo y el texto */
     font-weight: bold;
+    font-size: small;
   }
 
   .custom-badge {
     background-color: #54585B !important; /* Color de fondo personalizado para el badge */
     color: white; /* Color del texto dentro del badge */
+    
   }
 
   .number-text {
@@ -76,9 +85,11 @@
   }
 
   .container-ranking {
-    border-radius: 10px; /* Puedes ajustar el valor según el nivel de redondeo deseado */
+    border-radius: 20px; /* Puedes ajustar el valor según el nivel de redondeo deseado */
     padding: 20px; /* Puedes ajustar el relleno según tus necesidades */
     border: 1px solid #ccc; /* Puedes agregar un borde opcional si lo deseas */
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
   }
 
 
@@ -136,6 +147,8 @@
   font-weight: bold;
   border-radius: 25px;
   font-size: 24px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
 }
 
 .btn-primary:hover,
@@ -143,14 +156,43 @@
 .btn-primary:focus
 {
   background-color: #DC8127; /* Naranja */
-  border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-  border: 3px solid  #54585B; /* Borde negro de 1 píxel */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
   
 }
 h4 {
   color: #54585B;
 }
 
- 
+.card {
+  
+  border: 1px solid #ccc;
+  overflow: hidden; /* Para asegurar que el contenido no se desborde */  
+  flex-direction: column;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}
+
+.card-top {
+  background-color: orange;
+  text-align: center;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Para asegurar que la imagen cubra todo el contenedor */
+}
+
+.card-bottom {
+  background-color: white;
+}
+
+.player-text {
+  color: white;
+}
+
+
   
  

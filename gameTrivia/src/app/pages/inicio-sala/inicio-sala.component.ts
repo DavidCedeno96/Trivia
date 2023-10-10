@@ -11,6 +11,7 @@ export class InicioSalaComponent {
 
   nombreSala: string = "Mi sala";
   idSala: number = 0;
+  imagenSala: string = "assets/Imagenes Juego/ImagenDefault.png";
 
   myForm: FormGroup;
   submitted = false; // Agrega la propiedad "submitted" y inicialízala en falso
