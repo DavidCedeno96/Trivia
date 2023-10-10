@@ -134,6 +134,7 @@ export class CrearSalaComponent implements OnInit {
         this.result = info;
         //console.log(info, campo);
         if (error > 0) {
+          this.result += '_' + campo;
           this.existeError = true;
         } else {
           this.existeError = false;

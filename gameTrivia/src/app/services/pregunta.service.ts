@@ -31,15 +31,33 @@ export class PreguntaService {
     );
   }
 
+  listaPregOpciones(
+    estados: number,
+    idPregunta: number
+  ): Observable<Pregunta_OpcionList> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<Pregunta_OpcionList>(
+      `${this.apiURL}/pregOpc/${estados}/${idPregunta}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
   crearPreguntaOpciones(
     pregunta_opcionList: Pregunta_OpcionList
   ): Observable<Pregunta_OpcionList> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    const body = JSON.stringify(pregunta_opcionList);
-    return this.http.post<Pregunta_OpcionList>(`${this.apiURL}/create`, body, {
-      headers: headers,
-    });
+    return this.http.post<Pregunta_OpcionList>(
+      `${this.apiURL}/create`,
+      pregunta_opcionList,
+      {
+        headers: headers,
+      }
+    );
   }
 }

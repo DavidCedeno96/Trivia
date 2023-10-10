@@ -94,6 +94,57 @@ namespace WebApiRest.Data {
             return list;
         }
 
+        public PreguntaItem GetPregunta(int estados, int idPregunta)
+        {
+            PreguntaItem item = new();
+
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+
+            SqlCommand cmd = new("sp_B_PreguntaById", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@idPregunta", idPregunta);
+            cmd.Parameters.AddWithValue("@estados", estados);
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    item.Pregunta = new Pregunta()
+                    {
+                        IdPregunta = Convert.ToInt32(dr["idPregunta"].ToString()),                        
+                        Nombre = dr["nombre"].ToString(),
+                        IdSala = Convert.ToInt32(dr["idSala"].ToString()),                                                
+                        Estado = Convert.ToInt16(dr["estado"].ToString()),
+                        FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                    };
+                }
+                dr.NextResult();
+
+                item.Info = cmd.Parameters["@info"].Value.ToString();
+                item.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                item.Info = ex.Message;
+                item.Error = 1;
+                item.Pregunta = null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return item;
+        }
+
         public Response CreatePregunta(Pregunta pregunta) {
             Response response = new();
 

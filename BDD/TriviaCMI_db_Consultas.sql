@@ -85,11 +85,11 @@ Insert into Sala (nombre, imagen, idModoJuego) values
 ('Sala 1', 'imge1.jpg', 1)
 
 Insert into Pregunta (nombre, idSala) values
-('¿Cuántos litros de sangre tiene una persona adulta?',14),
-('¿Quién es el autor de la frase "Pienso, luego existo"?',14),
-('¿Cuál es el país más grande y el más pequeño del mundo?',14),
-('¿Cuál es el grupo de palabras escritas correctamente?',14),
-('¿Cuál es el libro más vendido en el mundo después de la Biblia?',14)
+('¿Cuántos litros de sangre tiene una persona adulta?',75),
+('¿Quién es el autor de la frase "Pienso, luego existo"?',75),
+('¿Cuál es el país más grande y el más pequeño del mundo?',75),
+('¿Cuál es el grupo de palabras escritas correctamente?',75),
+('¿Cuál es el libro más vendido en el mundo después de la Biblia?',75)
 
 insert into Opcion (nombre, correcta, idPregunta) values
 ('Tiene entre 2 y 4 litros',0,1),
@@ -162,7 +162,7 @@ exec sp_C_Sala
 @info = '',
 @error = ''
 
-exec sp_U_Sala -- Aqui falta poner la fecha de modificacion = getDate()
+exec sp_U_Sala
 @idSala = 12,
 @nombre = 'edit otra vez jeje',
 @imagen = 'myImage2.png',
@@ -179,7 +179,13 @@ exec sp_B_Pregunta
 @error = ''
 
 exec sp_B_PreguntaByIdSala	
-@idSala = 14,
+@idSala = 75,
+@estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
+@info = '',
+@error = ''
+
+exec sp_B_PreguntaById	
+@idPregunta = 7,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -205,9 +211,23 @@ exec sp_D_Pregunta
 ---- OPCION ---------------------------------------------
 Select * from Opcion
 
+exec sp_B_OpcionByIdPregunta
+@idPregunta = 6,
+@estados = 0,
+@info = '',
+@error = ''
+
 exec sp_C_Opcion	
 @nombre = 'Esta es otra opcion',	
 @correcta = 0,	
 @idPregunta = 2,	
+@info = '',
+@error = ''
+
+exec sp_U_Opcion
+@idOpcion = 0,
+@nombre = 'otra opcion que se agregó',	
+@correcta = 0,	
+@idPregunta = 6,
 @info = '',
 @error = ''

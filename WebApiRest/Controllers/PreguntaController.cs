@@ -30,6 +30,16 @@ namespace WebApiRest.Controllers {
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
+        [HttpGet]
+        [Route("pregOpc/{estados}/{idPregunta}")] //{authorId:int:min(1)} {lcid:int=1033}
+        public IActionResult GetPregunta_OpcionList([FromRoute] int estados, [FromRoute] int idPregunta)
+        {
+            PreguntaItem resultPregunta = dataPregunta.GetPregunta(estados, idPregunta);
+            OpcionList resultOpcion = dataOpcion.GetOpcionList(estados, idPregunta);
+
+            return StatusCode(StatusCodes.Status200OK, new { resultPregunta, resultOpcion });
+        }
+
         [HttpPost]
         [Route("create")]
         public IActionResult CreateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
@@ -56,23 +66,54 @@ namespace WebApiRest.Controllers {
             } else if(resultPregunta.Error > 0) {
                 result.Error = 1;
                 result.Info = resultPregunta.Info;
+                result.Campo = resultPregunta.Campo;
             } else if (resultOpcion.Error > 0) {
                 result.Error = 1;
                 result.Info = resultOpcion.Info;
+                result.Campo = resultOpcion.Campo;
             }
 
-            return StatusCode(StatusCodes.Status200OK, new { result });
-
-            //return StatusCode(StatusCodes.Status200OK, new { pregunta_opcionList });
+            return StatusCode(StatusCodes.Status200OK, new { result });            
         }
 
         [HttpPut]
         [Route("update")]
-        public IActionResult UpdateItem([FromBody] Pregunta pregunta) {
-            Response result = VF.ValidarPregunta(pregunta);
+        public IActionResult UpdateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
 
-            if (result.Error == 0) {
-                result = dataPregunta.UpdatePregunta(pregunta);
+            Response resultPregunta = VF.ValidarPregunta(pregunta_opcionList.Pregunta);
+            Response resultOpcion = new();
+            Response result = new();
+            foreach (var item in pregunta_opcionList.OpcionList)
+            {
+                resultOpcion = VF.ValidarOpcion(item);
+                if (resultOpcion.Error > 0)
+                {
+                    break;
+                }
+            }
+
+            if (resultPregunta.Error == 0 && resultOpcion.Error == 0)
+            {
+                result = dataPregunta.UpdatePregunta(pregunta_opcionList.Pregunta);
+                if (result.Error == 0)
+                {                    
+                    foreach (var item in pregunta_opcionList.OpcionList)
+                    {                        
+                        result = dataOpcion.UpdateOpcion(item);                        
+                    }
+                }
+            }
+            else if (resultPregunta.Error > 0)
+            {
+                result.Error = 1;
+                result.Info = resultPregunta.Info;
+                result.Campo = resultPregunta.Campo;
+            }
+            else if (resultOpcion.Error > 0)
+            {
+                result.Error = 1;
+                result.Info = resultOpcion.Info;
+                result.Campo = resultOpcion.Campo;
             }
 
             return StatusCode(StatusCodes.Status200OK, new { result });

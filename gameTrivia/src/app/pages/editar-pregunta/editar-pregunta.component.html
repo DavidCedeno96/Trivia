@@ -11,6 +11,7 @@
             >
               <div class="row justify-content-end">
                 <button
+                  type="button"
                   class="btn-circle my-2"
                   style="float: right; align-items: flex-end"
                 >
@@ -30,6 +31,15 @@
                 </button>
               </div>
 
+              <!-- Mensaje error -->
+              <div
+                class="mb-3 px-md-5 text-center"
+                *ngIf="existeError"
+                style="color: rgb(0, 0, 0)"
+              >
+                {{ result }}
+              </div>
+
               <div class="row">
                 <div class="col-12">
                   <div class="m-2 formText">Pregunta</div>
@@ -41,6 +51,8 @@
                       placeholder="Escriba la pregunta"
                       name="pregunta"
                       [(ngModel)]="pregutaOpciones.pregunta.nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
                       required
                     />
                   </div>
@@ -68,6 +80,10 @@
                       class="form-control"
                       id="opcion1"
                       placeholder="Escriba la opción"
+                      name="opcionA"
+                      [(ngModel)]="pregutaOpciones.opcionList[0].nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
                       required
                     />
                   </div>
@@ -78,7 +94,8 @@
                         type="radio"
                         id="radio1"
                         name="radios"
-                        value="opcion1"
+                        value="A"
+                        (change)="opcionCorrecta($event)"
                         required
                       />
                     </div>
@@ -98,6 +115,10 @@
                       class="form-control"
                       id="opcion2"
                       placeholder="Escriba la opción"
+                      name="opcionB"
+                      [(ngModel)]="pregutaOpciones.opcionList[1].nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
                       required
                     />
                   </div>
@@ -108,7 +129,8 @@
                         type="radio"
                         id="radio2"
                         name="radios"
-                        value="opcion2"
+                        value="B"
+                        (change)="opcionCorrecta($event)"
                       />
                     </div>
                   </div>
@@ -127,7 +149,10 @@
                       class="form-control"
                       id="opcion3"
                       placeholder="Escriba la opción"
-                      required
+                      name="opcionC"
+                      [(ngModel)]="pregutaOpciones.opcionList[2].nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
                     />
                   </div>
                   <div class="col-3 py-2">
@@ -137,8 +162,8 @@
                         type="radio"
                         id="radio3"
                         name="radios"
-                        value="opcion3"
-                        required
+                        value="C"
+                        (change)="opcionCorrecta($event)"
                       />
                     </div>
                   </div>
@@ -156,7 +181,10 @@
                       class="form-control"
                       id="opcion4"
                       placeholder="Escriba la opción"
-                      required
+                      name="opcionD"
+                      [(ngModel)]="pregutaOpciones.opcionList[3].nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
                     />
                   </div>
                   <div class="col-3 py-2">
@@ -166,8 +194,8 @@
                         type="radio"
                         id="radio4"
                         name="radios"
-                        value="opcion4"
-                        required
+                        value="D"
+                        (change)="opcionCorrecta($event)"
                       />
                     </div>
                   </div>
