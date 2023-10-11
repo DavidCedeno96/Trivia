@@ -27,7 +27,6 @@
  */
   
   .numero {
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -38,8 +37,48 @@
 
   .container-fluid{
     background-color: transparent; /* Elimina el fondo blanco */
-
-
   }
 
+  button.respuesta-correcta {
+    background-color: #4CAF50; /* Verde para respuestas correctas */
+  }
+  
+  button.respuesta-incorrecta {
+    background-color: #FF5733; /* Rojo para respuestas incorrectas */
+  }
+  
+  button.respuesta-bloqueada {
+    cursor: not-allowed; /* Cambia el cursor para indicar que el botón está bloqueado */
+  }
+
+  .btn-secondary {
+    background-color: #F29523;
+    border: none;    
+    border-radius: 20px;
+    color: #ffffff;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+  
+  }
+  
+ /*  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary:focus
+  {
+    background-color: #F29523; 
+    padding: 10px 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+    color: #3D5057;
+    font-weight: bold;
+  
+  }
+     */
+
+
+  
+
+  .modal-content{
+    border-radius: 35px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+  }
+    
   

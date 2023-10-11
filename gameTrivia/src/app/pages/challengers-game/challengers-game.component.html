@@ -4,38 +4,93 @@
 <!-- Button trigger modal -->
 <!-- Button trigger modal -->
 
-  
-  <!-- Modal -->
 <body class="sinusoidal-container">
   <div class="containerFondo">
+     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog">
-        <div class="modal-content">
+      <div class="modal-dialog modal-dialog-centered">
 
-          <h5 class="modal-title">Modal title</h5>
-          
-          <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                  <div class="col">
-                      Opciones
+        <div class="col">
+          <div class="row">
+            <div class="modal-content">
+              <div class="moda-header">
+               <!--  <div class="col">
+                  <div class="row">
+                    {{countdown}}
                   </div>
+                </div> -->
+                
+                <div class="modal-title m-4 ">
+
+                  <div class="row my-2">
+                    <div class="col-6 ml-2">
+                      {{numPreguntasContestadas+1}}/{{listaDePreguntas.length}}
+                    </div>
+                    <div class="col-6 te" style="color: orange; text-align: right;">
+                      {{countdown}} <strong style="font-size: small;">SEGUNDOS</strong> 
+                    </div>
+                  </div>
+
+                  <div class="row text-center">
+                    <div class="col">
+                      <h5 style="font-weight: bold;">
+                        {{preguntaTexto}}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+
               </div>
-  
+                        
+              <div class="modal-body">
+                <div class="container">
+                  <div class="row">
+                      <div class="col text-center">
+                        <div *ngFor="let miOpcion of actualOpcionList; let i = index">
+                          <button type="button" class="btn btn-secondary btn-block text-center my-2"
+                            (click)="closeModal(i)"
+                            [ngClass]="{'respuesta-correcta': miOpcion.correcta==1 && botonSeleccionado[i], 'respuesta-incorrecta': miOpcion.correcta==0 && botonSeleccionado[i], 
+                          }">
+                            {{ miOpcion.nombre }} 
+                          </button>
+                        </div>
+                      </div>
+                  </div>
+      
+                </div>
+              </div>
+             <!--  <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closeModal(1)">Close</button>
+      
+              </div> -->
             </div>
           </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-  
+
+          <div class="col py-2">
+            <div class="row">
+              <div  *ngIf="mostrarAlert" class="alert alert-success text-center" role="alert">
+                ¡GENIAL!
+              </div>
+              <div  *ngIf="mostrarWrongAlert" class="alert alert-danger text-center" role="alert">
+                Respuesta Equivocada
+              </div>
+
+            </div>
           </div>
+
+        
         </div>
+
+
+        
+      
       </div>
-      <div  *ngIf="mostrarAlert" class="alert alert-success text-center" role="alert">
-          A simple success alert—check it out!
-        </div>
+      
   
      
     </div>
+
+     <!-- Botones fondo -->
   
    <div class="container-fluid ">
       <div class="my-4" *ngFor="let boton of botones" >
@@ -43,27 +98,22 @@
           <button class="sinusoidal-button"         
               [style.left.px]="boton.x"
               [style.top.px]="boton.y"
-              (click)="activarBoton(boton.id, 1)"
+             
               id="boton-{{ boton.id }}">
               <div class="containerImg">
                 <img [src]="boton.svg" alt="Botón">
-              <span class="numero">{{ boton.id }}</span>
-  
+              <span class="numero">{{ boton.id }}</span>  
               </div>  
-           </button>
-  
+           </button>  
         </ng-container>
   
         <ng-container *ngIf="boton.tipo === 'imagen'">
-          <img [src]="boton.rutaImagen" alt="Imagen Adicional" [style.left.px]="boton.x" [style.top.px]="boton.y" style="height: 100px; position: relative;">
-  
-  
+          <img [src]="boton.rutaImagen" alt="Imagen Adicional" [style.left.px]="boton.x" [style.top.px]="boton.y" style="height: 100px; position: relative;">  
         </ng-container>
               
               
       </div> 
-  </div>
-  
+  </div> 
 
   </div>
   
