@@ -62,13 +62,20 @@ body {
 
     input[type="radio"] {
       appearance: none;
-      appearance: none;
-   border-radius: 50%;
-   border: 2px solid rgb(36, 36, 36);
-   width: 15px;
-   height: 15px;
-      
-  }
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgb(36, 36, 36);
+      border-radius: 50%;
+      background-color: transparent; /* Fondo transparente para que el botón de radio sea visible */
+      margin-right: 5px; /* Espacio entre el botón y el texto */
+      position: relative;
+      top: 3px; /* Ajuste la posición vertical según sea necesario */
+    }
+    
+    /* Estilo para el botón de radio seleccionado */
+    input[type="radio"]:checked {
+      background-color: #ff7300; /* Cambia el color de fondo cuando se selecciona */
+    }
     .radio-button label {
         display: inline-block;
         cursor: pointer;
