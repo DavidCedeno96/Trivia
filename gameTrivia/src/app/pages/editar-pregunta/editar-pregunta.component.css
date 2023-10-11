@@ -1,17 +1,22 @@
 body {
-    background-color: #DC8127;
+  background-color: #DC8127;
+  min-height: calc(100vh - 1px); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
+   /* Agrega un relleno opcional para separar el contenido del borde */
+  box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
+
   }
   .btn-primary {
       background-color: #3D5057;
       border: none;
       font-weight: bold;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
     }
-    #btnIngresar:active,
-    #btnIngresar:focus {
-      background-color: #DC8127; /* Naranja */
-      border-color: #DC8127; /* Color del borde si deseas cambiarlo también */
-      border: 3px solid  #3D5057; /* Borde negro de 1 píxel */
+    #btn-primary:active, :focus {
+      background-color: #DC8127; /* Naranja */      
       border-radius: 28px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+      
     }
 
     .formText{
@@ -21,6 +26,8 @@ body {
   .card {
       background-color:  #F0F0F0;
       border-radius: 25px; 
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
     }
     .card h5 {
       color: #3D5057; /* Cambia el color del texto a blanco */
@@ -33,12 +40,15 @@ body {
     }
     
   .form-control {
+    background-color: white; /* Naranja */    
       border-radius: 25px; 
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
     }
 
-    .radio-buttons {
-        
+    .radio-buttons {        
         align-items: center;
+
     }
 
     .radio-button {
@@ -47,8 +57,18 @@ body {
 
     .radio-button input[type="radio"] {
         transform: scale(2); /* Ajusta el tamaño del botón de radio */
+        
     }
 
+    input[type="radio"] {
+      appearance: none;
+      appearance: none;
+   border-radius: 50%;
+   border: 2px solid rgb(36, 36, 36);
+   width: 15px;
+   height: 15px;
+      
+  }
     .radio-button label {
         display: inline-block;
         cursor: pointer;
@@ -57,6 +77,7 @@ body {
         font-size: 20px; /* Tamaño de fuente para el texto del botón de radio */
     }
 
+    
     .radio-button label:before {
         content: "";
         display: inline-block;
@@ -70,12 +91,8 @@ body {
         transform: translateY(-50%);
     }
 
-    .radio-button input[type="radio"]:checked + label:before {
-        background-color: #007bff; /* Color de fondo cuando está seleccionado */
-        border-color: #007bff;
-        content: "\2713"; /* Código de verificación Unicode */
-        font-size: 16px; /* Tamaño de fuente para el icono de check */
-        text-align: center;
-        color: #fff;
-        border: none;
-    }
+  
+    :host ::ng-deep .p-dropdown {
+      border-radius: 20px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+  }

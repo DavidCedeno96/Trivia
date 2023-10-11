@@ -1,6 +1,7 @@
 <body>
-  <div class="container">
-    <div class="row justify-content-center align-items-center vh-100">
+ 
+  <div class="container py-4">
+    <div class="row justify-content-center align-items-center ">
       <div>
         <div class="card py-3 px-3">
           <div class="card-body">
@@ -41,7 +42,7 @@
               </div>
 
               <div class="row">
-                <div class="col-12">
+                <div class="col-sm-12 col-lg-9">
                   <div class="m-2 formText">Pregunta</div>
                   <div>
                     <input
@@ -57,6 +58,28 @@
                     />
                   </div>
                 </div>
+
+                <div class="col-sm-12 col-lg-3">
+                  <div class="container">
+                    <div class="row py-2">
+                      <div class="col" style="font-weight: bold;">
+                        Número de opciones
+
+                      </div>
+                    </div>
+
+                    <div class="row py-2">
+                      <div class="col">
+                        <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Seleccionar" [virtualScroll]="true" [virtualScrollItemSize]="20"></p-dropdown>
+                     
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                
               </div>
 
               <div class="container" style="height: 20px"></div>
@@ -72,7 +95,7 @@
                 </div>
               </div>
 
-              <div class="radio-buttons">
+              <div class="">
                 <div class="row">
                   <div class="col-9">
                     <input
@@ -88,8 +111,9 @@
                     />
                   </div>
                   <div class="col-3 py-2">
-                    <div class="radio-button" style="text-align: center">
+                    <div class="radio-button" style="text-align: center;">
                       <input
+
                         style="height: 50"
                         type="radio"
                         id="radio1"

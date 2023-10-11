@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 /* import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'; */
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -63,11 +67,13 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DropdownModule,
     /* ButtonModule,
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
+    BrowserAnimationsModule,    
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([

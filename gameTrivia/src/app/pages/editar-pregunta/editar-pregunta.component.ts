@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
+import { SelectItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-editar-pregunta',
@@ -9,6 +11,10 @@ import { PreguntaService } from 'src/app/services/pregunta.service';
   styleUrls: ['./editar-pregunta.component.css'],
 })
 export class EditarPreguntaComponent implements OnInit {
+
+  items: SelectItem[]=[];    
+  selectedItem: string | undefined;
+
   type: string = '';
   //imageSala: string = '';
   titulo: string = '';
@@ -70,7 +76,13 @@ export class EditarPreguntaComponent implements OnInit {
     private preguntaServicio: PreguntaService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+
+    this.items = [];
+    this.items.push({ label: "2", value: 2 });
+    this.items.push({ label: "3", value: 3 });
+    this.items.push({ label: "4", value: 4 });
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
