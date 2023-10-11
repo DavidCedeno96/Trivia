@@ -59,11 +59,12 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
 
   opcioTest1:Opcion = {
     idOpcion: 1,
-  nombre: "Primera opción para responder a la pregunta",
-  correcta: 0, //0 para falso; 1 verdadero
-  estado: 0,
-  fecha_creacion: "",
-  fecha_modificacion: "",
+    nombre: "Primera opción para responder a la pregunta",
+    correcta: 0,
+    estado: 0,
+    fecha_creacion: "",
+    fecha_modificacion: "",
+    idPregunta: 0
   };
 
   opcioTest2:Opcion = {
@@ -73,6 +74,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
     estado: 0,
     fecha_creacion: "",
     fecha_modificacion: "",
+    idPregunta: 0
   };
 
   
