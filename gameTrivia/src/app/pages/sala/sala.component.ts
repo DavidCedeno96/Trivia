@@ -3,11 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Pregunta, Sala } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 import { SalaService } from 'src/app/services/sala.service';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 
 @Component({
   selector: 'app-sala',
   templateUrl: './sala.component.html',
   styleUrls: ['./sala.component.css'],
+  providers: [ConfirmationService, MessageService],
 })
 export class SalaComponent implements OnInit {
   existeError: boolean = false;
@@ -43,7 +49,9 @@ export class SalaComponent implements OnInit {
     private salaServicio: SalaService,
     private preguntaServicio: PreguntaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -93,6 +101,17 @@ export class SalaComponent implements OnInit {
         if (e.status === 401) {
           this.router.navigate(['/']);
         }
+      },
+    });
+  }
+
+  confirmEliminar() {
+    this.confirmationService.confirm({
+      message: '¿Seguro desea eliminar la pregunta?',
+      header: 'Confirmación Eliminar',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        console.log('Eliminado');
       },
     });
   }

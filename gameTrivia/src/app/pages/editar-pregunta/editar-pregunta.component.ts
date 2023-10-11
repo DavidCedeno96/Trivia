@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Opcion, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
-import { SelectItem } from 'primeng/api';
+//import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-editar-pregunta',
@@ -10,11 +10,10 @@ import { SelectItem } from 'primeng/api';
   styleUrls: ['./editar-pregunta.component.css'],
 })
 export class EditarPreguntaComponent implements OnInit {
-  items: SelectItem[] = [];
-  selectedItem: string | undefined;
+  //items: SelectItem[] = [];
+  //selectedItem: string | undefined;
 
   type: string = '';
-  //imageSala: string = '';
   titulo: string = '';
 
   existeError: boolean = false;
@@ -32,44 +31,7 @@ export class EditarPreguntaComponent implements OnInit {
       fecha_creacion: '',
       fecha_modificacion: '',
     },
-    opcionList: [
-      /* // Opcion A
-      {
-        idOpcion: 0,
-        nombre: '',
-        correcta: 0,
-        estado: 0,
-        fecha_creacion: '',
-        fecha_modificacion: '',
-      },
-      // Opcion B
-      {
-        idOpcion: 0,
-        nombre: '',
-        correcta: 0,
-        estado: 0,
-        fecha_creacion: '',
-        fecha_modificacion: '',
-      },
-      // Opcion C
-      {
-        idOpcion: 0,
-        nombre: '',
-        correcta: 0,
-        estado: 0,
-        fecha_creacion: '',
-        fecha_modificacion: '',
-      },
-      // Opcion D
-      {
-        idOpcion: 0,
-        nombre: '',
-        correcta: 0,
-        estado: 0,
-        fecha_creacion: '',
-        fecha_modificacion: '',
-      }, */
-    ],
+    opcionList: [],
   };
 
   constructor(
@@ -272,5 +234,9 @@ export class EditarPreguntaComponent implements OnInit {
       return this.pregutaOpciones.opcionList.length - 1;
     }
     return 0;
+  }
+
+  atras() {
+    history.back();
   }
 }

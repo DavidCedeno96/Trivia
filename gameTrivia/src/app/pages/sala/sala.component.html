@@ -180,7 +180,11 @@
                     />
                     Editar
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1 my-2">
+                  <button
+                    type="button"
+                    class="btn btn-secondary mx-1 my-2"
+                    (click)="confirmEliminar()"
+                  >
                     <img
                       src="assets/Icons/Basurero.svg"
                       alt="Icono"
@@ -196,4 +200,6 @@
       </div>
     </div>
   </div>
+
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 </body>
