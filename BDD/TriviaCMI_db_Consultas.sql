@@ -210,7 +210,7 @@ exec sp_D_Pregunta
 Select * from Opcion
 
 exec sp_B_OpcionByIdPregunta
-@idPregunta = 12,
+@idPregunta = 17,
 @estados = 0,
 @info = '',
 @error = ''

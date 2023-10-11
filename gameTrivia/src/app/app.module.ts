@@ -14,9 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'; */
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -42,7 +41,6 @@ import { EsperarJChallengersComponent } from './components/esperar-jchallengers/
 import { PreguntaGameComponent } from './components/pregunta-game/pregunta-game.component';
 import { PosicionPlayerComponent } from './components/posicion-player/posicion-player.component';
 import { RankingChallengerComponent } from './components/ranking-challenger/ranking-challenger.component';
-
 
 @NgModule({
   declarations: [
@@ -72,8 +70,9 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
+    ConfirmDialogModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -119,11 +118,9 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
         component: ChallengersGameComponent,
         //canActivate: [authGuard],
       },
-      
     ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
