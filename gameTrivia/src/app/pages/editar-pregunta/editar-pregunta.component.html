@@ -1,7 +1,6 @@
 <body>
- 
   <div class="container py-4">
-    <div class="row justify-content-center align-items-center ">
+    <div class="row justify-content-center align-items-center">
       <div>
         <div class="card py-3 px-3">
           <div class="card-body">
@@ -10,12 +9,9 @@
               #form
               (ngSubmit)="form.checkValidity() ? UpsertSala() : null"
             >
-              <div class="row justify-content-end">
-                <button
-                  type="button"
-                  class="btn-circle my-2"
-                  style="float: right; align-items: flex-end"
-                >
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="m-0 mx-lg-auto">{{ titulo }}</h2>
+                <button type="button" class="btn-circle my-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="35"
@@ -59,32 +55,85 @@
                   </div>
                 </div>
 
-                <div class="col-sm-12 col-lg-3">
+                <div class="col-12 col-lg-3">
                   <div class="container">
                     <div class="row py-2">
-                      <div class="col" style="font-weight: bold;">
+                      <div class="col" style="font-weight: bold">
                         Número de opciones
-
                       </div>
                     </div>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      required
+                      (change)="selectTotalOpciones($event)"
+                      [selectedIndex]="totalOpciones()"
+                    >
+                      <option value="" selected>Seleccione...</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
 
-                    <div class="row py-2">
+                    <!-- <div class="row py-2">
                       <div class="col">
-                        <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Seleccionar" [virtualScroll]="true" [virtualScrollItemSize]="20"></p-dropdown>
-                     
+                        <p-dropdown
+                          [options]="items"
+                          [(ngModel)]="selectedItem"
+                          placeholder="Seleccionar"
+                          [virtualScroll]="true"
+                          [virtualScrollItemSize]="20"
+                        ></p-dropdown>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
-
-
-
-                
               </div>
 
               <div class="container" style="height: 20px"></div>
 
-              <div class="row">
+              <div
+                *ngFor="let pregunta of pregutaOpciones.opcionList; index as i"
+              >
+                <div class="row g-3">
+                  <div class="col-9 mb-3">
+                    <div class="ms-3 formText">Opción {{ opcion[i] }}</div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Escriba la opción"
+                      name="Opcion{{ opcion[i] }}"
+                      [(ngModel)]="pregutaOpciones.opcionList[i].nombre"
+                      title="Ingresa un texto válido no se permiten los caracteres <, >, o ="
+                      pattern="^[^<>=]*$"
+                      required
+                    />
+                  </div>
+                  <div class="col-3 mb-3">
+                    <div
+                      class="mb-3 formText"
+                      style="text-align: center; height: 17px"
+                    >
+                      <span *ngIf="i == 0" class="d-none d-lg-grid"
+                        >Elija la opción correcta</span
+                      >
+                    </div>
+                    <div class="radio-button" style="text-align: center">
+                      <input
+                        style="height: 50"
+                        type="radio"
+                        name="opciones"
+                        value="{{ i }}"
+                        (change)="opcionCorrecta($event)"
+                        [checked]="pregutaOpciones.opcionList[i].correcta"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row">
                 <div class="col-9">
                   <div class="m-2 formText">Opción A</div>
                 </div>
@@ -111,15 +160,15 @@
                     />
                   </div>
                   <div class="col-3 py-2">
-                    <div class="radio-button" style="text-align: center;">
+                    <div class="radio-button" style="text-align: center">
                       <input
-
                         style="height: 50"
                         type="radio"
                         id="radio1"
                         name="radios"
-                        value="A"
+                        value="0"
                         (change)="opcionCorrecta($event)"
+                        [checked]="pregutaOpciones.opcionList[0].correcta"
                         required
                       />
                     </div>
@@ -153,8 +202,9 @@
                         type="radio"
                         id="radio2"
                         name="radios"
-                        value="B"
+                        value="1"
                         (change)="opcionCorrecta($event)"
+                        [checked]="pregutaOpciones.opcionList[1].correcta"
                       />
                     </div>
                   </div>
@@ -186,8 +236,9 @@
                         type="radio"
                         id="radio3"
                         name="radios"
-                        value="C"
+                        value="2"
                         (change)="opcionCorrecta($event)"
+                        [checked]="pregutaOpciones.opcionList[2].correcta"
                       />
                     </div>
                   </div>
@@ -218,13 +269,14 @@
                         type="radio"
                         id="radio4"
                         name="radios"
-                        value="D"
+                        value="3"
                         (change)="opcionCorrecta($event)"
+                        [checked]="pregutaOpciones.opcionList[3].correcta"
                       />
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div>
                 <button

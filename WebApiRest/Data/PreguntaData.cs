@@ -184,9 +184,8 @@ namespace WebApiRest.Data {
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@idPregunta", pregunta.IdSala);
-            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(pregunta.Nombre));
-            cmd.Parameters.AddWithValue("@idSala", pregunta.IdSala);
+            cmd.Parameters.AddWithValue("@idPregunta", pregunta.IdPregunta);
+            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(pregunta.Nombre));            
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;

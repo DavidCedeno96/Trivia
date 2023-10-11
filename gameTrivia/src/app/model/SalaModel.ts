@@ -24,6 +24,7 @@ export interface Opcion {
   nombre: string;
   correcta: number; //0 para falso; 1 verdadero
   estado: number;
+  idPregunta: number;
   fecha_creacion: string;
   fecha_modificacion: string;
 }

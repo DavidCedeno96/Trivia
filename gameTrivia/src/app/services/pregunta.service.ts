@@ -60,4 +60,19 @@ export class PreguntaService {
       }
     );
   }
+
+  editarPreguntaOpciones(
+    pregunta_opcionList: Pregunta_OpcionList
+  ): Observable<Pregunta_OpcionList> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.put<Pregunta_OpcionList>(
+      `${this.apiURL}/update`,
+      pregunta_opcionList,
+      {
+        headers: headers,
+      }
+    );
+  }
 }

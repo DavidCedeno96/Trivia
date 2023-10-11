@@ -172,20 +172,19 @@ exec sp_U_Sala
 @error = ''
 
 ---- PREGUNTA ---------------------------------------------
--- new SPs
 exec sp_B_Pregunta	
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
 
 exec sp_B_PreguntaByIdSala	
-@idSala = 75,
+@idSala = 76,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
 
 exec sp_B_PreguntaById	
-@idPregunta = 7,
+@idPregunta = 12,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -198,8 +197,7 @@ exec sp_C_Pregunta
 
 exec sp_U_Pregunta
 @idPregunta = 10,
-@nombre = '¿Esta pregunta si se editó otra vez?',
-@idSala = 14,
+@nombre = '¿pregunta?',
 @info = '',
 @error = ''
 
@@ -212,7 +210,7 @@ exec sp_D_Pregunta
 Select * from Opcion
 
 exec sp_B_OpcionByIdPregunta
-@idPregunta = 6,
+@idPregunta = 12,
 @estados = 0,
 @info = '',
 @error = ''
@@ -226,8 +224,24 @@ exec sp_C_Opcion
 
 exec sp_U_Opcion
 @idOpcion = 0,
-@nombre = 'otra opcion que se agregó',	
+@nombre = 'op h..',	
 @correcta = 0,	
-@idPregunta = 6,
+@idPregunta = 12,
 @info = '',
 @error = ''
+
+exec sp_D_OpcionByIdPregunta	
+@idPregunta = 12,
+@idOpcion = 38,
+@info = '',
+@error = ''
+
+
+---delete from Opcion where idOpcion = 50
+
+Select * from Opcion
+where idPregunta = 12
+
+Select * from Opcion
+where idPregunta = 12 and
+idOpcion > 38

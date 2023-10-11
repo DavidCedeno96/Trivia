@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Pregunta_OpcionList } from 'src/app/model/SalaModel';
+import { Opcion, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 import { SelectItem } from 'primeng/api';
-
 
 @Component({
   selector: 'app-editar-pregunta',
@@ -11,8 +10,7 @@ import { SelectItem } from 'primeng/api';
   styleUrls: ['./editar-pregunta.component.css'],
 })
 export class EditarPreguntaComponent implements OnInit {
-
-  items: SelectItem[]=[];    
+  items: SelectItem[] = [];
   selectedItem: string | undefined;
 
   type: string = '';
@@ -22,6 +20,8 @@ export class EditarPreguntaComponent implements OnInit {
   existeError: boolean = false;
   result: string = '';
   auxIdPregunta: number = 0;
+  auxOpcionList: Opcion[] = [];
+  opcion: string[] = ['A', 'B', 'C', 'D'];
 
   pregutaOpciones: Pregunta_OpcionList = {
     pregunta: {
@@ -33,7 +33,7 @@ export class EditarPreguntaComponent implements OnInit {
       fecha_modificacion: '',
     },
     opcionList: [
-      // Opcion A
+      /* // Opcion A
       {
         idOpcion: 0,
         nombre: '',
@@ -68,7 +68,7 @@ export class EditarPreguntaComponent implements OnInit {
         estado: 0,
         fecha_creacion: '',
         fecha_modificacion: '',
-      },
+      }, */
     ],
   };
 
@@ -77,11 +77,10 @@ export class EditarPreguntaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-
-    this.items = [];
-    this.items.push({ label: "2", value: 2 });
-    this.items.push({ label: "3", value: 3 });
-    this.items.push({ label: "4", value: 4 });
+    /* this.items = [];
+    this.items.push({ label: '2', value: 2 });
+    this.items.push({ label: '3', value: 3 });
+    this.items.push({ label: '4', value: 4 }); */
   }
 
   ngOnInit(): void {
@@ -93,6 +92,7 @@ export class EditarPreguntaComponent implements OnInit {
     switch (this.type) {
       case 'crear': {
         this.titulo = 'Crear Pregunta';
+        this.auxIdPregunta = 0;
         break;
       }
       case 'editar': {
@@ -110,7 +110,6 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   UpsertSala() {
-    //this.quitarOpcionesVacias();
     switch (this.type) {
       case 'crear': {
         this.crearNuevaPregunta();
@@ -131,7 +130,17 @@ export class EditarPreguntaComponent implements OnInit {
     this.preguntaServicio.listaPregOpciones(0, idPregunta).subscribe({
       next: (data: any) => {
         const { resultOpcion, resultPregunta } = data;
-        console.log(resultOpcion, resultPregunta);
+        const { lista } = resultOpcion;
+        const { pregunta } = resultPregunta;
+        if (resultPregunta.error > 0) {
+        } else {
+          this.pregutaOpciones.pregunta = pregunta;
+        }
+        if (resultOpcion.error > 0) {
+        } else {
+          this.pregutaOpciones.opcionList = lista;
+          this.auxOpcionList = lista;
+        }
       },
       error: (e) => {
         if (e.status === 401) {
@@ -148,7 +157,6 @@ export class EditarPreguntaComponent implements OnInit {
         next: (data: any) => {
           const { info, error, campo } = data.result;
           this.result = info;
-          //console.log(info, campo);
           if (error > 0) {
             this.result += '_' + campo;
             this.existeError = true;
@@ -165,35 +173,48 @@ export class EditarPreguntaComponent implements OnInit {
       });
   }
 
-  editarPregunta() {}
-
-  /* quitarOpcionesVacias(){
-    this.pregutaOpciones.opcionList.forEach(element => {
-      if(element.nombre === ''){
-        
-      }            
-    });
-  } */
+  editarPregunta() {
+    this.preguntaServicio
+      .editarPreguntaOpciones(this.pregutaOpciones)
+      .subscribe({
+        next: (data: any) => {
+          const { info, error, campo } = data.result;
+          this.result = info;
+          if (error > 0) {
+            this.result += '_' + campo;
+            this.existeError = true;
+          } else {
+            this.existeError = false;
+            history.back();
+          }
+        },
+        error: (e) => {
+          if (e.status === 401) {
+            this.router.navigate(['/']);
+          }
+        },
+      });
+  }
 
   opcionCorrecta(event: Event) {
     const valorSeleccionado = (event.target as HTMLInputElement).value;
     this.pregutaOpciones.opcionList.forEach((element) => {
       element.correcta = 0;
     });
-    switch (valorSeleccionado) {
-      case 'A': {
+    switch (Number(valorSeleccionado)) {
+      case 0: {
         this.pregutaOpciones.opcionList[0].correcta = 1;
         break;
       }
-      case 'B': {
+      case 1: {
         this.pregutaOpciones.opcionList[1].correcta = 1;
         break;
       }
-      case 'C': {
+      case 2: {
         this.pregutaOpciones.opcionList[2].correcta = 1;
         break;
       }
-      case 'D': {
+      case 3: {
         this.pregutaOpciones.opcionList[3].correcta = 1;
         break;
       }
@@ -203,5 +224,53 @@ export class EditarPreguntaComponent implements OnInit {
         break;
       }
     }
+  }
+
+  selectTotalOpciones(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    switch (Number(selectedValue)) {
+      case 2: {
+        this.pregutaOpciones.opcionList = this.opcionItem(2);
+        break;
+      }
+      case 3: {
+        this.pregutaOpciones.opcionList = this.opcionItem(3);
+        break;
+      }
+      case 4: {
+        this.pregutaOpciones.opcionList = this.opcionItem(4);
+        break;
+      }
+      default: {
+        this.pregutaOpciones.opcionList = [];
+        break;
+      }
+    }
+  }
+
+  opcionItem(num: number): Opcion[] {
+    var item = [];
+    for (let i = 0; i < num; i++) {
+      item.push({
+        idOpcion: 0,
+        nombre: '',
+        correcta: 0,
+        estado: 0,
+        idPregunta: this.auxIdPregunta,
+        fecha_creacion: '',
+        fecha_modificacion: '',
+      });
+      if (this.auxOpcionList.length > 0 && i < this.auxOpcionList.length) {
+        item[i] = this.auxOpcionList[i];
+      }
+    }
+    return item;
+  }
+
+  totalOpciones() {
+    if (this.pregutaOpciones.opcionList.length) {
+      return this.pregutaOpciones.opcionList.length - 1;
+    }
+    return 0;
   }
 }

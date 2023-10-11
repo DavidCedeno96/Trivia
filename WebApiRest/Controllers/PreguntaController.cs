@@ -101,6 +101,13 @@ namespace WebApiRest.Controllers {
                     {                        
                         result = dataOpcion.UpdateOpcion(item);                        
                     }
+                    if(result.Error == 0)
+                    {
+                        int ultimoIdOpcion = Convert.ToInt32(result.Info.Split(":")[1]);
+                        int idPregunta = pregunta_opcionList.Pregunta.IdPregunta;
+                        //Aqui elimina los que no pertencen
+                        result = dataOpcion.DeleteOpcion(ultimoIdOpcion, idPregunta);
+                    }
                 }
             }
             else if (resultPregunta.Error > 0)
