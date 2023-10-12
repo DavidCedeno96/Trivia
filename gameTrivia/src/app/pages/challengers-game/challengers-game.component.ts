@@ -1,4 +1,4 @@
-import { Component, HostListener,  Renderer2, ElementRef, OnInit, AfterViewInit   } from '@angular/core';
+import { Component, HostListener,  Renderer2, ElementRef, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 
 declare var bootstrap: any;
@@ -9,7 +9,10 @@ declare var bootstrap: any;
   templateUrl: './challengers-game.component.html',
   styleUrls: ['./challengers-game.component.css']
 })
-export class ChallengersGameComponent implements OnInit, AfterViewInit     {
+export class ChallengersGameComponent implements OnInit, AfterViewInit {
+
+  @Output() numVentanaH = new EventEmitter<number>();
+
 
   //mostrarModal: boolean = false;
   
@@ -24,7 +27,11 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
     "assets/Imagenes Juego/Industria.png",
     "assets/Imagenes Juego/Granja.png",
     "assets/Imagenes Juego/Planta.png",
-    "assets/Imagenes Juego/Campero.png"];  
+    "assets/Imagenes Juego/Campero.png",
+    "assets/Imagenes Juego/Cajero.png",
+  ];
+  
+  imagenFinal: string = "assets/Imagenes Juego/CasaFinal.png";
 
   numImagenesColocadas: number = 0;
 
@@ -82,6 +89,10 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
     pregunta: this.preguntaActual,
   opcionList:[this.opcioTest1, this.opcioTest2, this.opcioTest1],
   };
+  preguntaOpcionTest: Pregunta_OpcionList = {
+    pregunta: this.preguntaActual,
+  opcionList:[this.opcioTest1, this.opcioTest2],
+  };
 
   listaDePreguntas: Pregunta_OpcionList[] = [];
 
@@ -99,6 +110,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
 
   //TEMPORIZADOR Y SUMA DEL TIEMPO QUE SE DEMORQA EN RESPONDER
 
+  numIntervaloImg: number = 4;
   countdown: number = 20; // Temporizador principal en segundos
   
   mainTimerInterval: any;
@@ -109,22 +121,33 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
   tiempoDelJugador: number = 0;
   isTimerRunning: boolean = false;
 
+  juegoTerminado: boolean = false;
+
 
   constructor(private renderer: Renderer2, private el: ElementRef) {
-    
+
+      
     this.numPreguntasContestadas = 0;
     this.puntosGanados = 0;
-    this. puedeResponder = true;
-    this.tiempoDelJugador = 0;
+    this.puedeResponder = true;
+    this.tiempoDelJugador = 0;//Tiempo que se demora en contestar las preguntas, esto se acumula
     //Test para las preguntas
+    /* this.listaDePreguntas.push(this.preguntaOpcionTest);  
+    this.listaDePreguntas.push(this.preguntaOpcionActual);
+    this.listaDePreguntas.push(this.preguntaOpcionTest);  */  
     for (let index = 0; index < this.cantidadDeBotones; index++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);            
     }
-    this.numImagenesColocadas = 0; 
+    if(this.listaDePreguntas.length>20){
+      this.numIntervaloImg=5;
+
+    }
+    this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
+    this.cantidadDeBotones = this.listaDePreguntas.length;//La cantidad de botones es igual a la cantidad de preguntas
     this.rellenarPregunta(1);  
     this.updateCenters(window.innerWidth);
     this.generateButtons();
-    console.log(this.listaDePreguntas);     
+    //console.log(this.listaDePreguntas);     
   }
 
   ngOnInit(){
@@ -182,6 +205,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
     if (this.puedeResponder) {
       this.userClicked=true;
       this.stopTimer(); // Detiene el temporizador principal
+      this.userClickTime = new Date();
       this.puedeResponder = false;      
       
       this.botonSeleccionado[id]=true;
@@ -224,14 +248,25 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
 
   pasarAOtraPregunta(){
 
-    setTimeout(() => {
-      this.activarBoton(this.numPreguntasContestadas+1,1);
-      this.rellenarPregunta(this.numPreguntasContestadas+1); 
-    }, 3500);
+    console.log(this.numPreguntasContestadas);
+    console.log(this.listaDePreguntas.length);
 
-    setTimeout(() => {
-      this.mostrarModal(); 
-    }, 4000);
+    if (this.numPreguntasContestadas+1 < this.listaDePreguntas.length) {
+      setTimeout(() => {
+        this.activarBoton(this.numPreguntasContestadas+1,1);
+        this.rellenarPregunta(this.numPreguntasContestadas+1); 
+      }, 3500);
+  
+      setTimeout(() => {
+        this.mostrarModal(); 
+      }, 4000);
+            
+    }else{
+      setTimeout(() => {
+        this.onClickCambiar(); 
+      }, 2000);
+            
+    }   
 
   }
 
@@ -273,16 +308,26 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
 
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
       const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
-      const y = this.centroY + i * 20;      
+      const y = this.centroY + i * 20;    
+      var x2 = 0; 
+      var y2 = 0; 
+        
 
       // Agrega una imagen adicional cada 3 botones
-    if (i % 4 === 0 && i !== this.cantidadDeBotones) {  
+    if (i % this.numIntervaloImg === 0 && i !== this.cantidadDeBotones) {  
       this.numImagenesColocadas++;
       this.cantidadDeBotones++;
       const rutaSelect = this.imagenes[this.numImagenesColocadas-1];    
       this.botones.push({ id: 'imagen-' + i, x, y, svg:"", tipo: 'imagen', rutaImagen: rutaSelect });
     }else{
       this.botones.push({ id: i-this.numImagenesColocadas,  x, y, svg: this.svgInactivo, tipo: "boton", rutaImagen: "" });
+
+    }
+    // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
+    if(i == this.cantidadDeBotones){
+       x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i+1));
+       y2 = this.centroY + (i+1) * 20;   
+      this.botones.push({ id: 'imagen-FINAL', x: x2, y: y2, svg:"", tipo: 'imagen', rutaImagen: this.imagenFinal });
 
     }
     }
@@ -352,6 +397,23 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit     {
     this.countdown = 20; // Reiniciar el tiempo en segundos
     this.userClicked = false; // Reiniciar el estado del usuario
     this.startMainTimer(); // Iniciar nuevamente el temporizador principal
+  }
+
+  onClickCambiar() {
+    this.juegoTerminado=true;
+
+    //RESULTADO RECOPILADOS
+    console.log("Tiempo transcurrido="+this.tiempoDelJugador);
+    console.log("Puntos Jugador="+this.puntosGanados);
+    console.log("Juego terminado="+this.juegoTerminado)
+
+    //Cuando finalicé el juego directo a esta ventana
+    this.musicaFondo?.pause();
+    // @ts-ignore
+    this.musicaFondo.currentTime = 0;
+    this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    
+    
   }
 
 }

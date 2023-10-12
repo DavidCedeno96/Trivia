@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,26 +13,43 @@ export class InicioSalaComponent {
   idSala: number = 0;
   imagenSala: string = "assets/Imagenes Juego/ImagenDefault.png";
 
-  myForm: FormGroup;
-  submitted = false; // Agrega la propiedad "submitted" y inicialízala en falso
+  @Output() numVentanaH = new EventEmitter<number>();
+  isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
+
+  onClickCambiar() {
+    if(!this.isFinalizoJuego){
+      this.numVentanaH.emit(2); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    }
+    if(this.isFinalizoJuego){
+      this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    }
+    
+  }
+
+  onClickCambiarTest() {   
+   
+      this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    
+    
+  }
 
 
+ // myForm: FormGroup;
+ // submitted = false; // Agrega la propiedad "submitted" y inicialízala en falso
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+
+/*   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.myForm = this.fb.group({
       inputName: ['', Validators.required],
       inputZip: ['', Validators.required],
     });
-  }
+  } */
 
-  onSubmit() {
-    this.submitted = true; // Cuando se hace clic en el botón de envío, establece "submitted" en verdadero
+ /*  onSubmit() {
+    this.submitted = true; 
     this.cdr.detectChanges();
-    if (this.myForm.invalid) {
-      // Si el formulario es inválido, no hagas nada aquí o muestra un mensaje de error personalizado
+    if (this.myForm.invalid) {      
       return;
-    }
-
-    // Continúa con la lógica para enviar el formulario si es válido
-  }
+    }   
+  } */
 }

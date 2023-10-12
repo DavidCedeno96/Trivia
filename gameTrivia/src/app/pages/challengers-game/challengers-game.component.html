@@ -76,18 +76,11 @@
               </div>
 
             </div>
-          </div>
-
-        
-        </div>
-
-
-        
+          </div>        
+        </div>     
       
-      </div>
-      
-  
-     
+      </div>    
+
     </div>
 
      <!-- Botones fondo -->
@@ -97,8 +90,7 @@
         <ng-container *ngIf="boton.tipo === 'boton'">
           <button class="sinusoidal-button"         
               [style.left.px]="boton.x"
-              [style.top.px]="boton.y"
-             
+              [style.top.px]="boton.y"             
               id="boton-{{ boton.id }}">
               <div class="containerImg">
                 <img [src]="boton.svg" alt="Botón">
@@ -108,11 +100,11 @@
         </ng-container>
   
         <ng-container *ngIf="boton.tipo === 'imagen'">
-          <img [src]="boton.rutaImagen" alt="Imagen Adicional" [style.left.px]="boton.x" [style.top.px]="boton.y" style="height: 100px; position: relative;">  
-        </ng-container>
+          <img [src]="boton.rutaImagen" alt="Imagen Adicional" [style.left.px]="boton.x" [style.top.px]="boton.y" style="height: 100px; position: relative;" [style.height.px]="(boton.tipo === 'imagen' && boton.id === 'imagen-FINAL') ? 270 : 150"
+          >  
+        </ng-container>            
               
-              
-      </div> 
+      </div>      
   </div> 
 
   </div>
