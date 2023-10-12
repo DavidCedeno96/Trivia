@@ -34,7 +34,7 @@ export class VentanaLoginComponent {
       next: (data: any) => {
         const { info, error } = data.result;
         //this.respuesta = data.result;
-        console.log(info, error);
+        //console.log(info, error);
 
         if (error > 0) {
           // hay error

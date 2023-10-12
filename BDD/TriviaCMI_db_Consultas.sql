@@ -171,6 +171,11 @@ exec sp_U_Sala
 @info = '', -- en el info devolver la antigua imagen => 'Registro editado satisfactoriamente, old_image: image.png' 
 @error = ''
 
+exec sp_D_Sala	
+@idSala = 72,	
+@info = '',
+@error = ''
+
 ---- PREGUNTA ---------------------------------------------
 exec sp_B_Pregunta	
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
@@ -178,7 +183,7 @@ exec sp_B_Pregunta
 @error = ''
 
 exec sp_B_PreguntaByIdSala	
-@idSala = 76,
+@idSala = 72,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -202,7 +207,7 @@ exec sp_U_Pregunta
 @error = ''
 
 exec sp_D_Pregunta
-@idPregunta = 11,	
+@idPregunta = 0,	
 @info = '',
 @error = ''
 
@@ -210,7 +215,7 @@ exec sp_D_Pregunta
 Select * from Opcion
 
 exec sp_B_OpcionByIdPregunta
-@idPregunta = 17,
+@idPregunta = 12,
 @estados = 0,
 @info = '',
 @error = ''
@@ -231,17 +236,7 @@ exec sp_U_Opcion
 @error = ''
 
 exec sp_D_OpcionByIdPregunta	
-@idPregunta = 12,
-@idOpcion = 38,
+@idPregunta = 0,
+@idOpcion = 0,
 @info = '',
 @error = ''
-
-
----delete from Opcion where idOpcion = 50
-
-Select * from Opcion
-where idPregunta = 12
-
-Select * from Opcion
-where idPregunta = 12 and
-idOpcion > 38

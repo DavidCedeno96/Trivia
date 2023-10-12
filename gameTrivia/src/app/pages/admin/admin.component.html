@@ -6,6 +6,7 @@
         <button
           class="btn btn-primary d-flex text-end px-4"
           style="float: right"
+          (click)="cerrarSesion()"
         >
           <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
           Salir
@@ -34,8 +35,13 @@
       <!-- Buscador de Salas -->
       <div class="col-lg-9 col-sm-10 py-lg-3">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Sala..." />
-          <button class="btn btn-primary" type="button">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Sala..."
+            [(ngModel)]="textoBuscar"
+          />
+          <button class="btn btn-primary" type="button" (click)="buscar()">
             <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
           </button>
         </div>
@@ -129,7 +135,11 @@
                     />
                     Editar
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1 my-2">
+                  <button
+                    type="button"
+                    class="btn btn-secondary mx-1 my-2"
+                    (click)="confirmEliminar(sala.idSala)"
+                  >
                     <img
                       src="assets/Icons/Basurero.svg"
                       alt="Icono"
@@ -157,6 +167,25 @@
       </div>
     </div>
   </div>
+  <p-toast [styleClass]="'col-10 col-md-6 col-lg-3'"></p-toast>
+  <p-confirmDialog #cd [styleClass]="'col-10 col-md-4'">
+    <ng-template pTemplate="footer">
+      <button
+        type="button"
+        class="btn btn-primary me-2"
+        pButton
+        label="Cancelar"
+        (click)="cd.reject()"
+      ></button>
+      <button
+        type="button"
+        pButton
+        class="btn btn-primary"
+        label="Aceptar"
+        (click)="cd.accept()"
+      ></button>
+    </ng-template>
+  </p-confirmDialog>
 
   <div class="flexcontainer"></div>
 </body>

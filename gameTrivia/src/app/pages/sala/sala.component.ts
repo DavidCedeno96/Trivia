@@ -3,11 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Pregunta, Sala } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 import { SalaService } from 'src/app/services/sala.service';
-import {
-  ConfirmationService,
-  MessageService,
-  ConfirmEventType,
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sala',
@@ -21,6 +17,7 @@ export class SalaComponent implements OnInit {
 
   existeErrorPregunta: boolean = false;
   resultPregunta: string = '';
+  dialogEliminar: boolean = false;
 
   miSala: Sala = {
     idSala: 1,
@@ -105,14 +102,41 @@ export class SalaComponent implements OnInit {
     });
   }
 
-  confirmEliminar() {
+  eliminarPregunta(idPregunta: number) {
+    this.preguntaServicio.eliminarPreguntaOpciones(idPregunta).subscribe({
+      next: (data: any) => {
+        const { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo eliminar la pregunta',
+          });
+        } else {
+          this.existeError = false;
+          this.cargarPreguntas(this.miSala.idSala);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Satisfactorio',
+            detail: 'Pregunta eliminada',
+          });
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  confirmEliminar(idPregunta: number) {
     this.confirmationService.confirm({
       message: '¿Seguro desea eliminar la pregunta?',
       header: 'Confirmación Eliminar',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        console.log('Eliminado');
-      },
+      accept: () => this.eliminarPregunta(idPregunta),
     });
   }
 

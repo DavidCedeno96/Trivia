@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiRest.Data;
 using WebApiRest.Models;
 using WebApiRest.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApiRest.Controllers
 {
@@ -37,6 +36,14 @@ namespace WebApiRest.Controllers
         public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala)
         {
             SalaItem result = data.GetSala(estados,idSala);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public IActionResult GetSearch([FromQuery] int estados, [FromQuery] string buscar)
+        {
+            SalaList result = data.GetSalaList(estados, buscar);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
@@ -112,6 +119,14 @@ namespace WebApiRest.Controllers
                 }
             }        
 
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public IActionResult DeleteItem([FromQuery] int idSala)
+        {
+            Response result = data.DeleteSala(idSala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

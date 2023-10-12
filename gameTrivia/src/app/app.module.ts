@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'; */
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Ventanas creadas
@@ -71,6 +72,7 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
     NgxDropzoneModule,
     ToastModule, */
     ConfirmDialogModule,
+    ToastModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,

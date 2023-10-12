@@ -75,4 +75,16 @@ export class PreguntaService {
       }
     );
   }
+
+  eliminarPreguntaOpciones(idPregunta: number): Observable<number> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.delete<number>(
+      `${this.apiURL}/delete?idPregunta=${idPregunta}`,
+      {
+        headers: headers,
+      }
+    );
+  }
 }

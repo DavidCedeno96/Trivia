@@ -128,7 +128,7 @@ namespace WebApiRest.Controllers {
 
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteItem([FromBody] int idPregunta) {
+        public IActionResult DeleteItem([FromQuery] int idPregunta) {
             Response result = dataPregunta.DeletePregunta(idPregunta);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }

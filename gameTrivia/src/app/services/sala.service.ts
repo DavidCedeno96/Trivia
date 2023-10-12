@@ -30,6 +30,18 @@ export class SalaService {
     });
   }
 
+  listaSalaSearch(estados: number, buscar: string): Observable<Sala[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<Sala[]>(
+      `${this.apiURL}/list?estados=${estados}&buscar=${buscar}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
   itemSala(estados: number, idSala: number): Observable<Sala> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
@@ -55,6 +67,15 @@ export class SalaService {
     });
     headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.put<FormData>(`${this.apiURL}/update`, formData, {
+      headers: headers,
+    });
+  }
+
+  eliminarSala(idSala: number): Observable<number> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.delete<number>(`${this.apiURL}/delete?idSala=${idSala}`, {
       headers: headers,
     });
   }
