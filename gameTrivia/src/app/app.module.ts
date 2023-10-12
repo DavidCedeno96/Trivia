@@ -42,6 +42,7 @@ import { EsperarJChallengersComponent } from './components/esperar-jchallengers/
 import { PreguntaGameComponent } from './components/pregunta-game/pregunta-game.component';
 import { PosicionPlayerComponent } from './components/posicion-player/posicion-player.component';
 import { RankingChallengerComponent } from './components/ranking-challenger/ranking-challenger.component';
+import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
     PreguntaGameComponent,
     PosicionPlayerComponent,
     RankingChallengerComponent,
+    EntradaSalaComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,6 +120,11 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
       {
         path: 'JuegoChallengers',
         component: ChallengersGameComponent,
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'EntradaSala',
+        component: EntradaSalaComponent,
         //canActivate: [authGuard],
       },
     ]),
