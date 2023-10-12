@@ -240,3 +240,19 @@ exec sp_D_OpcionByIdPregunta
 @idOpcion = 0,
 @info = '',
 @error = ''
+
+
+----------------------------------------------------------------------------
+select * from Sala where idSala = 76
+select * from Pregunta where idSala = 76
+select * from Opcion where idPregunta = 7
+select * from Opcion where idPregunta = 11
+select * from Opcion where idPregunta = 16
+
+
+
+select * from Sala where idSala = 75
+select * from Pregunta where idSala = 75
+select * from Opcion where idPregunta = 1
+select * from Opcion where idPregunta = 2
+select * from Opcion where idPregunta = 3

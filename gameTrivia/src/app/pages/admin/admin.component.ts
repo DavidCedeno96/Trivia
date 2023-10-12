@@ -13,6 +13,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class AdminComponent implements OnInit {
   misSalas: Sala[] = [];
+  auxMisSalas: Sala[] = [];
   existeError: boolean = false;
   result: string = '';
   textoBuscar: string = '';
@@ -41,6 +42,7 @@ export class AdminComponent implements OnInit {
           // no hay error
           this.existeError = false;
           this.misSalas = lista;
+          this.auxMisSalas = lista;
         }
       },
       error: (e) => {
@@ -53,7 +55,39 @@ export class AdminComponent implements OnInit {
   }
 
   buscar() {
-    console.log(this.textoBuscar);
+    if (this.textoBuscar.trim() !== '') {
+      this.salaServicio.listaSalaSearch(0, this.textoBuscar.trim()).subscribe({
+        next: (data: any) => {
+          const { info, error, lista } = data.result;
+          this.result = info;
+          if (error > 0) {
+            this.existeError = true;
+          } else {
+            this.existeError = false;
+            this.misSalas = lista;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Satisfactorio',
+              detail: 'Sala/s Entontrada/s',
+            });
+          }
+        },
+        error: (e) => {
+          if (e.status === 401) {
+            this.router.navigate(['/']);
+          }
+        },
+      });
+    } else {
+      this.misSalas = this.auxMisSalas;
+    }
+  }
+
+  verSalasAll(event: Event) {
+    const valueText = (event.target as HTMLInputElement).value;
+    if (valueText.trim() === '') {
+      this.misSalas = this.auxMisSalas;
+    }
   }
 
   getImageSala(nombreImagen: string): string {

@@ -40,6 +40,39 @@ namespace WebApiRest.Controllers {
             return StatusCode(StatusCodes.Status200OK, new { resultPregunta, resultOpcion });
         }
 
+        [HttpGet]
+        [Route("listPregOpc/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
+        public IActionResult GetPreguntaList_opcionList([FromRoute] int estados, [FromRoute] int idSala)
+        {
+            PreguntaList resultPregList = dataPregunta.GetPreguntaList(estados, idSala);            
+            PreguntaList_opciones result = new()
+            {
+                List = new(),
+                Info = resultPregList.Info,
+                Error = resultPregList.Error
+            };
+
+            if (result.Error == 0)
+            {                
+                for (int i = 0; i < resultPregList.Lista.Count; i++)
+                {
+                    int idPregunta = resultPregList.Lista[i].IdPregunta;
+                    PreguntaItem resultPregunta = dataPregunta.GetPregunta(estados, idPregunta);
+                    OpcionList resultOpcion = dataOpcion.GetOpcionList(estados, idPregunta);
+
+                    result.List.Add(new Pregunta_OpcionList()
+                    {
+                        Info = resultPregunta.Info + " - " + resultOpcion.Info,                        
+                        Error = resultPregunta.Error == 0 && resultOpcion.Error == 0 ? 0 : 1,
+                        Pregunta = resultPregunta.Pregunta,
+                        OpcionList = resultOpcion.Lista
+                    });
+                }
+            }            
+             
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
         [HttpPost]
         [Route("create")]
         public IActionResult CreateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {

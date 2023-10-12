@@ -1,46 +1,59 @@
-import { Component, HostListener,  Renderer2, ElementRef, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Renderer2,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 
 declare var bootstrap: any;
 
-
 @Component({
   selector: 'app-challengers-game',
   templateUrl: './challengers-game.component.html',
-  styleUrls: ['./challengers-game.component.css']
+  styleUrls: ['./challengers-game.component.css'],
 })
 export class ChallengersGameComponent implements OnInit, AfterViewInit {
-
   @Output() numVentanaH = new EventEmitter<number>();
 
-
   //mostrarModal: boolean = false;
-  
+
   //Ruta de imagenes de los botones
-  svgActivo:string="assets/Icons/btnGameActivo.svg";
-  svgInactivo:string="assets/Icons/btnGameInactivo.svg";
-  svgVisitado:string="assets/Icons/btnGameVisitado.svg";
+  svgActivo: string = 'assets/Icons/btnGameActivo.svg';
+  svgInactivo: string = 'assets/Icons/btnGameInactivo.svg';
+  svgVisitado: string = 'assets/Icons/btnGameVisitado.svg';
 
   //Ruta de las imagenes que van entre los botones
-  imagenes:string[]=[
-    "assets/Imagenes Juego/Barco.png",
-    "assets/Imagenes Juego/Industria.png",
-    "assets/Imagenes Juego/Granja.png",
-    "assets/Imagenes Juego/Planta.png",
-    "assets/Imagenes Juego/Campero.png",
-    "assets/Imagenes Juego/Cajero.png",
+  imagenes: string[] = [
+    'assets/Imagenes Juego/Barco.png',
+    'assets/Imagenes Juego/Industria.png',
+    'assets/Imagenes Juego/Granja.png',
+    'assets/Imagenes Juego/Planta.png',
+    'assets/Imagenes Juego/Campero.png',
+    'assets/Imagenes Juego/Cajero.png',
   ];
-  
-  imagenFinal: string = "assets/Imagenes Juego/CasaFinal.png";
+
+  imagenFinal: string = 'assets/Imagenes Juego/CasaFinal.png';
 
   numImagenesColocadas: number = 0;
 
   //Para creara los botones y las imagenes
 
-  botones: { id: any, svg: string, tipo: string, rutaImagen: string, x: number, y: number }[] = [];
+  botones: {
+    id: any;
+    svg: string;
+    tipo: string;
+    rutaImagen: string;
+    x: number;
+    y: number;
+  }[] = [];
 
   //Para las posiciones senosoidales
-  
+
   centroX: number = 20;
   centroY: number = 20;
   cantidadDeBotones = 20;
@@ -51,59 +64,58 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
 
   mostrarAlert = false;
   mostrarWrongAlert = false;
-  modalElement:any;
-  modal:any;
+  modalElement: any;
+  modal: any;
 
   //Para colocar las preguntas
   preguntaActual: Pregunta = {
     idPregunta: 0,
-    nombre: "Mi primera Pregunta de prueba",
+    nombre: 'Mi primera Pregunta de prueba',
     idSala: 0,
     estado: 0,
-    fecha_creacion: "",
-    fecha_modificacion: "",
+    fecha_creacion: '',
+    fecha_modificacion: '',
   };
 
-  opcioTest1:Opcion = {
+  opcioTest1: Opcion = {
     idOpcion: 1,
-    nombre: "Primera opción para responder a la pregunta",
+    nombre: 'Primera opción para responder a la pregunta',
     correcta: 0,
     estado: 0,
-    fecha_creacion: "",
-    fecha_modificacion: "",
-    idPregunta: 0
+    fecha_creacion: '',
+    fecha_modificacion: '',
+    idPregunta: 0,
   };
 
-  opcioTest2:Opcion = {
+  opcioTest2: Opcion = {
     idOpcion: 2,
-    nombre: "Segunda opción para responder a la pregunta",
+    nombre: 'Segunda opción para responder a la pregunta',
     correcta: 1, //0 para falso; 1 verdadero
     estado: 0,
-    fecha_creacion: "",
-    fecha_modificacion: "",
-    idPregunta: 0
+    fecha_creacion: '',
+    fecha_modificacion: '',
+    idPregunta: 0,
   };
 
-  
   preguntaOpcionActual: Pregunta_OpcionList = {
     pregunta: this.preguntaActual,
-  opcionList:[this.opcioTest1, this.opcioTest2, this.opcioTest1],
+    opcionList: [this.opcioTest1, this.opcioTest2, this.opcioTest1],
   };
   preguntaOpcionTest: Pregunta_OpcionList = {
     pregunta: this.preguntaActual,
-  opcionList:[this.opcioTest1, this.opcioTest2],
+    opcionList: [this.opcioTest1, this.opcioTest2],
   };
 
   listaDePreguntas: Pregunta_OpcionList[] = [];
 
- // numPreguntaActual: number = 0;
-  preguntaTexto: string = "";
-  actualOpcionList: any[]=[];
-  botonSeleccionado: boolean[]=[];
+  // numPreguntaActual: number = 0;
+  preguntaTexto: string = '';
+  actualOpcionList: any[] = [];
+  botonSeleccionado: boolean[] = [];
 
   numPreguntasContestadas: number = 0;
   puntosGanados: number = 0;
-  puedeResponder: boolean = true;  
+  puedeResponder: boolean = true;
 
   //MUSICA
   musicaFondo: HTMLAudioElement | null = null;
@@ -112,7 +124,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
 
   numIntervaloImg: number = 4;
   countdown: number = 20; // Temporizador principal en segundos
-  
+
   mainTimerInterval: any;
   userClicked: boolean = false;
   startTime: Date = new Date('2023-10-10T10:00:00');
@@ -123,72 +135,67 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
 
   juegoTerminado: boolean = false;
 
-
   constructor(private renderer: Renderer2, private el: ElementRef) {
-
-      
     this.numPreguntasContestadas = 0;
     this.puntosGanados = 0;
     this.puedeResponder = true;
-    this.tiempoDelJugador = 0;//Tiempo que se demora en contestar las preguntas, esto se acumula
+    this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
     //Test para las preguntas
     /* this.listaDePreguntas.push(this.preguntaOpcionTest);  
     this.listaDePreguntas.push(this.preguntaOpcionActual);
-    this.listaDePreguntas.push(this.preguntaOpcionTest);  */  
-    for (let index = 0; index < this.cantidadDeBotones; index++) {
-      this.listaDePreguntas.push(this.preguntaOpcionActual);            
-    }
-    if(this.listaDePreguntas.length>20){
-      this.numIntervaloImg=5;
+    this.listaDePreguntas.push(this.preguntaOpcionTest);  */
 
+    //AQUI QUITAR EL FOR Y PONER LAS PREGUNTAS DE LA BASE DE DATOS LA LISTA this.listaDePreguntas
+    for (let index = 0; index < this.cantidadDeBotones; index++) {
+      this.listaDePreguntas.push(this.preguntaOpcionActual);
+    }
+    if (this.listaDePreguntas.length > 20) {
+      this.numIntervaloImg = 5;
     }
     this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
-    this.cantidadDeBotones = this.listaDePreguntas.length;//La cantidad de botones es igual a la cantidad de preguntas
-    this.rellenarPregunta(1);  
+    this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
+    this.rellenarPregunta(1);
     this.updateCenters(window.innerWidth);
     this.generateButtons();
-    //console.log(this.listaDePreguntas);     
+    //console.log(this.listaDePreguntas);
   }
 
-  ngOnInit(){
-     //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR    
-     this.musicaFondo = new Audio();
-     this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
-     this.musicaFondo.loop = true;
-     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-     this.musicaFondo.play();    
+  ngOnInit() {
+    //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
+    this.musicaFondo = new Audio();
+    this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
+    this.musicaFondo.loop = true;
+    this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
+    this.musicaFondo.play();
 
     setTimeout(() => {
       this.mostrarModal();
       //console.log("Entro");
-    },3000);       
+    }, 3000);
   }
 
-  ngAfterViewInit(){
-    
-  }
+  ngAfterViewInit() {}
 
-  rellenarPregunta(numPregunta:number){
+  rellenarPregunta(numPregunta: number) {
     console.log(numPregunta);
     setTimeout(() => {
       this.quitarSeleccionado();
-      const PreguntaActual = this.listaDePreguntas[numPregunta-1]
-      this.preguntaTexto=PreguntaActual.pregunta.nombre;
+      const PreguntaActual = this.listaDePreguntas[numPregunta - 1];
+      this.preguntaTexto = PreguntaActual.pregunta.nombre;
       this.actualOpcionList = PreguntaActual.opcionList;
       //Activamos el primer boton del camino
-      if(numPregunta==1){
-        this.activarBoton(1,1);      }
-      
-    },1000);   
+      if (numPregunta == 1) {
+        this.activarBoton(1, 1);
+      }
+    }, 1000);
   }
 
-  quitarSeleccionado(){
-    const reiniciarSeleccionados: boolean[]=[];
+  quitarSeleccionado() {
+    const reiniciarSeleccionados: boolean[] = [];
     for (let i = 0; i < this.actualOpcionList.length; i++) {
-      reiniciarSeleccionados.push(false);     
+      reiniciarSeleccionados.push(false);
     }
     this.botonSeleccionado = reiniciarSeleccionados;
-
   }
 
   mostrarModal() {
@@ -198,76 +205,72 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.modal.show();
     //this.musicaFondo.play();
     //TIEMPO
-    this.startTime = new Date();//CAPTURAMOS LA HORA QUE EMPIEZA EN MILISENGOS
+    this.startTime = new Date(); //CAPTURAMOS LA HORA QUE EMPIEZA EN MILISENGOS
   }
 
-  closeModal(id:number) {
+  closeModal(id: number) {
     if (this.puedeResponder) {
-      this.userClicked=true;
+      this.userClicked = true;
       this.stopTimer(); // Detiene el temporizador principal
       this.userClickTime = new Date();
-      this.puedeResponder = false;      
-      
-      this.botonSeleccionado[id]=true;
+      this.puedeResponder = false;
+
+      this.botonSeleccionado[id] = true;
       const respuestaSeleccionada = this.actualOpcionList[id];
-      this.tiempoDelJugador += (this.userClickTime.getTime() - this.startTime.getTime());
+      this.tiempoDelJugador +=
+        this.userClickTime.getTime() - this.startTime.getTime();
       console.log(this.tiempoDelJugador);
       if (respuestaSeleccionada.correcta === 1) {
-      // La respuesta es correcta, puedes reproducir un sonido, cambiar el color, etc.
+        // La respuesta es correcta, puedes reproducir un sonido, cambiar el color, etc.
         this.puntosGanados++;
         this.mostrarAlert = true;
         this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
 
         setTimeout(() => {
-          this.mostrarAlert = false;     
+          this.mostrarAlert = false;
           this.modal.hide();
           this.numPreguntasContestadas++;
-          this.puedeResponder=true;
-          this.countdown=20;
+          this.puedeResponder = true;
+          this.countdown = 20;
         }, 3000); // 3000 milisegundos = 3 segundos
-      }else{
+      } else {
         this.preguntaMalConstestada();
       }
 
-      this.pasarAOtraPregunta();      
+      this.pasarAOtraPregunta();
     }
-            
   }
 
-  preguntaMalConstestada(){
+  preguntaMalConstestada() {
     this.mostrarWrongAlert = true;
-        this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
-        setTimeout(() => {
-          this.mostrarWrongAlert = false;     
-          this.modal.hide();
-          this.numPreguntasContestadas++;
-          this.puedeResponder=true;
-          this.countdown=20;
-        }, 3000); // 3000 milisegundos = 3 segundos
+    this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
+    setTimeout(() => {
+      this.mostrarWrongAlert = false;
+      this.modal.hide();
+      this.numPreguntasContestadas++;
+      this.puedeResponder = true;
+      this.countdown = 20;
+    }, 3000); // 3000 milisegundos = 3 segundos
   }
 
-  pasarAOtraPregunta(){
-
+  pasarAOtraPregunta() {
     console.log(this.numPreguntasContestadas);
     console.log(this.listaDePreguntas.length);
 
-    if (this.numPreguntasContestadas+1 < this.listaDePreguntas.length) {
+    if (this.numPreguntasContestadas + 1 < this.listaDePreguntas.length) {
       setTimeout(() => {
-        this.activarBoton(this.numPreguntasContestadas+1,1);
-        this.rellenarPregunta(this.numPreguntasContestadas+1); 
+        this.activarBoton(this.numPreguntasContestadas + 1, 1);
+        this.rellenarPregunta(this.numPreguntasContestadas + 1);
       }, 3500);
-  
-      setTimeout(() => {
-        this.mostrarModal(); 
-      }, 4000);
-            
-    }else{
-      setTimeout(() => {
-        this.onClickCambiar(); 
-      }, 2000);
-            
-    }   
 
+      setTimeout(() => {
+        this.mostrarModal();
+      }, 4000);
+    } else {
+      setTimeout(() => {
+        this.onClickCambiar();
+      }, 2000);
+    }
   }
 
   reproducirSonido(nombreArchivo: string) {
@@ -276,7 +279,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     audio.load();
     audio.play();
   }
-  
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -285,56 +287,77 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   updateCenters(windowWidth: number) {
-    if (windowWidth >= 1200) { // xl
+    if (windowWidth >= 1200) {
+      // xl
       this.centroX = 700;
       //this.centroY = 200;
-    } else if (windowWidth >= 992) { // lg
+    } else if (windowWidth >= 992) {
+      // lg
       this.centroX = 580;
       //this.centroY = 150;
-    } else if (windowWidth >= 768) { // md
+    } else if (windowWidth >= 768) {
+      // md
       this.centroX = 300;
       //this.centroY = 100;
-    } else { // sm
+    } else {
+      // sm
       this.centroX = 100;
-      this.amplitud = 110
+      this.amplitud = 110;
       //this.centroY = 50;
     }
-
   }
 
   generateButtons() {
-    
-    this.frecuencia =  4 * Math.PI / this.cantidadDeBotones;
+    this.frecuencia = (4 * Math.PI) / this.cantidadDeBotones;
 
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
       const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
-      const y = this.centroY + i * 20;    
-      var x2 = 0; 
-      var y2 = 0; 
-        
+      const y = this.centroY + i * 20;
+      var x2 = 0;
+      var y2 = 0;
 
       // Agrega una imagen adicional cada 3 botones
-    if (i % this.numIntervaloImg === 0 && i !== this.cantidadDeBotones) {  
-      this.numImagenesColocadas++;
-      this.cantidadDeBotones++;
-      const rutaSelect = this.imagenes[this.numImagenesColocadas-1];    
-      this.botones.push({ id: 'imagen-' + i, x, y, svg:"", tipo: 'imagen', rutaImagen: rutaSelect });
-    }else{
-      this.botones.push({ id: i-this.numImagenesColocadas,  x, y, svg: this.svgInactivo, tipo: "boton", rutaImagen: "" });
-
-    }
-    // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
-    if(i == this.cantidadDeBotones){
-       x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i+1));
-       y2 = this.centroY + (i+1) * 20;   
-      this.botones.push({ id: 'imagen-FINAL', x: x2, y: y2, svg:"", tipo: 'imagen', rutaImagen: this.imagenFinal });
-
-    }
+      if (i % this.numIntervaloImg === 0 && i !== this.cantidadDeBotones) {
+        this.numImagenesColocadas++;
+        this.cantidadDeBotones++;
+        const rutaSelect = this.imagenes[this.numImagenesColocadas - 1];
+        this.botones.push({
+          id: 'imagen-' + i,
+          x,
+          y,
+          svg: '',
+          tipo: 'imagen',
+          rutaImagen: rutaSelect,
+        });
+      } else {
+        this.botones.push({
+          id: i - this.numImagenesColocadas,
+          x,
+          y,
+          svg: this.svgInactivo,
+          tipo: 'boton',
+          rutaImagen: '',
+        });
+      }
+      // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
+      if (i == this.cantidadDeBotones) {
+        x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i + 1));
+        y2 = this.centroY + (i + 1) * 20;
+        this.botones.push({
+          id: 'imagen-FINAL',
+          x: x2,
+          y: y2,
+          svg: '',
+          tipo: 'imagen',
+          rutaImagen: this.imagenFinal,
+        });
+      }
     }
   }
 
   updateButtonPositions() {
-    const buttons = this.el.nativeElement.querySelectorAll('.sinusoidal-button');
+    const buttons =
+      this.el.nativeElement.querySelectorAll('.sinusoidal-button');
     this.botones.forEach((button, index) => {
       this.renderer.setStyle(buttons[index], 'left', button.x + 'px');
       this.renderer.setStyle(buttons[index], 'top', button.y + 'px');
@@ -342,20 +365,20 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   activarBoton(id: number, imgCambio: number) {
-    const boton = this.botones.find(b => b.id === id);
+    const boton = this.botones.find((b) => b.id === id);
     if (boton) {
       switch (imgCambio) {
         case 1:
-         boton.svg=this.svgActivo;
+          boton.svg = this.svgActivo;
           break;
-       /*  case 2:
+        /*  case 2:
           boton.svg=this.svgInactivo;
           break;
         case 3:
           boton.svg=this.svgVisitado;
           break; */
         default:
-          boton.svg=this.svgActivo;
+          boton.svg = this.svgActivo;
           break;
       }
       // Hacer scroll hacia el botón activado
@@ -390,7 +413,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     clearInterval(this.mainTimerInterval); // Detiene el temporizador principal
     //this.countdown=20;
     this.isTimerRunning = false; // Marca que el temporizador ya no está en funcionamiento
-
   }
 
   resetTimer() {
@@ -400,20 +422,17 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   onClickCambiar() {
-    this.juegoTerminado=true;
+    this.juegoTerminado = true;
 
     //RESULTADO RECOPILADOS
-    console.log("Tiempo transcurrido="+this.tiempoDelJugador);
-    console.log("Puntos Jugador="+this.puntosGanados);
-    console.log("Juego terminado="+this.juegoTerminado)
+    console.log('Tiempo transcurrido=' + this.tiempoDelJugador);
+    console.log('Puntos Jugador=' + this.puntosGanados);
+    console.log('Juego terminado=' + this.juegoTerminado);
 
     //Cuando finalicé el juego directo a esta ventana
     this.musicaFondo?.pause();
     // @ts-ignore
     this.musicaFondo.currentTime = 0;
     this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
-    
-    
   }
-
 }

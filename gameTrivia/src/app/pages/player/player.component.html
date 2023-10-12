@@ -1,20 +1,18 @@
-<body class="justify-content-center align-items-center" >
+<body class="justify-content-center align-items-center">
   <div class="container-orange py-2">
     <div class="row">
-       <!-- Contenido derecho -->
-       <div class="col mx-2">
+      <!-- Contenido derecho -->
+      <div class="col mx-2">
         <button
-       class="btn btn-primary d-flex text-end px-4"
-       style="float: right"
-     >
-       <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
-       Salir
-     </button>
-
-       </div>
-       
+          class="btn btn-primary d-flex text-end px-4"
+          style="float: right"
+        >
+          <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
+          Salir
+        </button>
+      </div>
     </div>
-    
+
     <div class="row text-center my-4">
       <div class="col">
         <img
@@ -23,7 +21,7 @@
           alt="Imagen"
           class="image-inside-container"
         />
-      </div>    
+      </div>
     </div>
 
     <div class="row mx-2 my-2" style="vertical-align: middle">
@@ -36,69 +34,72 @@
       <!-- Buscador de Salas -->
       <div class="col-lg-11 col-sm-10 py-lg-3">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Id/Nombre de la Sala" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Sala..."
+            [(ngModel)]="textoBuscar"
+            (keyup.enter)="buscar()"
+          />
           <button class="btn btn-primary" type="button">
             <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
           </button>
         </div>
       </div>
-      
-    </div>    
-    
+    </div>
 
+    <!-- Mensaje error -->
+    <div
+      class="mb-3 px-md-5"
+      *ngIf="existeError"
+      style="color: rgb(255, 255, 255)"
+    >
+      {{ result }}
+    </div>
   </div>
 
-  <div class="container-with-shadow"></div>  
+  <div class="container-with-shadow"></div>
   <!-- TITULO Y BUSCADOR -->
-  <div class="container">
-    
-  
-
-   
-  </div>
-  <div class="container my-3">  
-
-  <!-- SALAS  -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6"  *ngFor="let sala of misSalas">
-        <a [routerLink]="['/InicioSala']" style="text-decoration: none;">
-          <div class="card my-2">
-            <div class="card-body">
-              <div class="row align-items-center ">
-                <div class="col-sm-6 col-lg-6 align-items-center text-center px-sm-5">
-                  <img [src]="sala.imagen" alt="Imagen" class=" imagen-lg imagen-sm">
-                </div>
-                <div class="col-sm-6 col-lg-6 align-items-center text-center text-lg-start my-3">
-                  <div class="container">
-                    <div class="row">
-                      {{ sala.nombre }}
-                    </div>
-                    <div class="row">
-                      id: {{sala.idSala}}
-                    </div>
-  
+  <div class="container"></div>
+  <div class="container my-3">
+    <!-- SALAS  -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" *ngFor="let sala of misSalas">
+          <a
+            routerLink="/EntradaSala"
+            [queryParams]="{ idSala: sala.idSala }"
+            style="text-decoration: none"
+          >
+            <div class="card my-2">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div
+                    class="col-sm-6 col-lg-6 align-items-center text-center px-sm-5"
+                  >
+                    <img
+                      [src]="getImageSala(sala.imagen)"
+                      onerror="this.src='assets/Imagenes Juego/ImagenDefault.png'"
+                      alt="Imagen"
+                      class="imagen-lg imagen-sm"
+                    />
                   </div>
-                  
+                  <div
+                    class="col-sm-6 col-lg-6 align-items-center text-center text-lg-start my-3"
+                  >
+                    <div class="container">
+                      <div class="row">
+                        {{ sala.nombre }}
+                      </div>
+                      <div class="row">id: {{ sala.idSala }}</div>
+                    </div>
+                  </div>
                 </div>
-                
               </div>
             </div>
-          </div>
-        
-        </a>
-        
+          </a>
+        </div>
       </div>
     </div>
   </div>
-  
-  </div>
-
- 
-  
-  
-  
-  
-
 </body>
-

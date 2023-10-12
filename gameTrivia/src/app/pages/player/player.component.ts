@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Sala } from 'src/app/model/SalaModel';
+import { SalaService } from 'src/app/services/sala.service';
 
 @Component({
   selector: 'app-player',
@@ -7,28 +9,37 @@ import { Sala } from 'src/app/model/SalaModel';
   styleUrls: ['./player.component.css'],
 })
 export class PlayerComponent {
-  misSalas: Sala[] = [
-    {
-      idSala: 1,
-      nombre: 'Mi primera sala',
-      imagen: 'assets/Imagenes Juego/Imagen test.png',
-      descripcion: 'Descripcion Sala',
-      idModoJuego: 0,
-      modoJuego: 'Challenger',
-      estado: 1,
-      fecha_creacion: '',
-      fecha_modificacion: '',
-    },
-    {
-      idSala: 2,
-      nombre: 'Mi segunda sala',
-      imagen: 'assets/Imagenes Juego/Imagen test.png',
-      descripcion: 'Descripcion Sala',
-      idModoJuego: 0,
-      modoJuego: 'Challenger',
-      estado: 1,
-      fecha_creacion: '',
-      fecha_modificacion: '',
-    },
-  ];
+  misSalas: Sala[] = [];
+  textoBuscar: string = '';
+  existeError: boolean = false;
+  result: string = '';
+
+  constructor(private router: Router, private salaServicio: SalaService) {}
+
+  buscar() {
+    if (this.textoBuscar.trim() !== '') {
+      this.salaServicio.listaSalaSearch(1, this.textoBuscar.trim()).subscribe({
+        next: (data: any) => {
+          const { info, error, lista } = data.result;
+          this.result = info;
+          if (error > 0) {
+            this.existeError = true;
+          } else {
+            this.existeError = false;
+            this.misSalas = lista;
+          }
+        },
+        error: (e) => {
+          if (e.status === 401) {
+            this.router.navigate(['/']);
+          }
+        },
+      });
+    }
+  }
+
+  getImageSala(nombreImagen: string): string {
+    let imageUrl = `${this.salaServicio.getURLImages()}/${nombreImagen}`;
+    return imageUrl;
+  }
 }

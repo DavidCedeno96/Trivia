@@ -1,68 +1,74 @@
 <body class="justify-content-center align-items-center vh-100">
-    <div class="container-fluid">
-      <div class="row align-items-center">
-        <div class="col-12 py-3">
-          <!-- Contenido izquierdo foto -->
-          <img
-            src="assets/Imagenes Empresa/cmiTriviaGray.png"
-            alt="Imagen"
-            class="img-fluid img-thumbnail"
-            style="height: 40px; width: auto"
-          />
-        </div>
-        <!-- TITULO-->
-        <div class="col-sm-12 col-lg-12 text-center ">
-            <h2 class="text-center py-3" style="font-weight: bold">
-                {{nombreSala}}
-              </h2>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-12 py-3">
+        <!-- Contenido izquierdo foto -->
+        <img
+          src="assets/Imagenes Empresa/cmiTriviaGray.png"
+          alt="Imagen"
+          class="img-fluid img-thumbnail"
+          style="height: 40px; width: auto"
+        />
+      </div>
+      <!-- TITULO-->
+      <div class="col-sm-12 col-lg-12 text-center">
+        <h2 class="text-center py-3" style="font-weight: bold">
+          {{ miSala.nombre }}
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" style="vertical-align: middle">
+      <div
+        class="col-lg-1 col-sm-2 px-3 py-1 py-lg-2"
+        style="color: #3d5057; font-weight: bold"
+      >
+        ID: {{ miSala.idSala }}
+      </div>
+    </div>
+
+    <!-- IMAGEN -->
+
+    <div class="row">
+      <div class="col text-center m-4">
+        <img
+          [src]="getImageSala(miSala.imagen)"
+          onerror="this.src='assets/Imagenes Juego/ImagenDefault.png'"
+          alt="imagen de la clase"
+          class="imagen-sm imagen-md imagen-lg"
+        />
+      </div>
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="row">
+      <div class="col align-items-center">
+        <div class="text-center">
+          <button
+            class="btn btn-secondary btn-lg px-5"
+            (click)="onClickCambiar()"
+          >
+            Jugar
+          </button>
         </div>
       </div>
     </div>
-   
-    <div class="container">
-      
-      <div class="row" style="vertical-align: middle">
-        <div
-          class="col-lg-1 col-sm-2 px-3 py-1 py-lg-2"
-          style="color: #3D5057; font-weight: bold">
-          ID: {{idSala}}
-        </div>        
-      </div>
 
-      <!-- IMAGEN -->
-
-      <div class="row">
-        <div class="col text-center m-4">
-            <img [src]="imagenSala" alt="imagen de la clase" class="imagen-sm imagen-md imagen-lg ">
-        </div>
-
-      </div>
-
-      <!-- BOTONES -->
-
-      <div class="row">
-        <div class="col align-items-center">
-            <div class="text-center">
-                <button class="btn btn-secondary btn-lg px-5" 
-                (click)="onClickCambiar()">         
-                    Jugar
-                  </button>
-              </div>            
+    <div class="row">
+      <div class="col align-items-center my-2">
+        <div class="text-center">
+          <button
+            class="btn btn-primary btn-lg px-5"
+            (click)="onClickCambiarTest()"
+          >
+            <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
+            Salir
+          </button>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col align-items-center my-2">
-            <div class="text-center">
-                <button  class="btn btn-primary btn-lg px-5"  (click)="onClickCambiarTest()">
-                    <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
-                    Salir
-                  </button> 
-              </div>            
-        </div>
-      </div>
-
     </div>
-
-  </body>
-  
+  </div>
+</body>

@@ -40,6 +40,8 @@
             class="form-control"
             placeholder="Sala..."
             [(ngModel)]="textoBuscar"
+            (input)="verSalasAll($event)"
+            (keyup.enter)="buscar()"
           />
           <button class="btn btn-primary" type="button" (click)="buscar()">
             <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
@@ -48,6 +50,7 @@
       </div>
       <div class="col-lg-2 col-sm-8 text-end px-3 py-3">
         <button
+          type="button"
           class="btn btn-primary d-flex text-end px-4"
           routerLink="/CrearSala"
           [queryParams]="{ type: 'crear' }"
