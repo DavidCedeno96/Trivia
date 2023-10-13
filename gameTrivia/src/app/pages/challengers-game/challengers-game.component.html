@@ -4,7 +4,7 @@
 <!-- Button trigger modal -->
 <!-- Button trigger modal -->
 
-<body class="sinusoidal-container">
+<body class="sinusoidal-container" id="sinusoidal-container">
   <div class="containerFondo">
      <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -86,7 +86,7 @@
      <!-- Botones fondo -->
   
    <div class="container-fluid ">
-      <div class="my-4" *ngFor="let boton of botones" >
+      <div *ngFor="let boton of botones" >
         <ng-container *ngIf="boton.tipo === 'boton'">
           <button class="sinusoidal-button"         
               [style.left.px]="boton.x"

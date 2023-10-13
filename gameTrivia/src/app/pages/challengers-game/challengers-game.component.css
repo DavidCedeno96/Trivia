@@ -1,12 +1,14 @@
-/* .sinusoidal-container {
+.sinusoidal-container {
+  width:100%;
+  height: 500px;;
   background-image: url('../../../assets/Imagenes Juego/PatronGame.png');
   background-repeat: repeat;
-  background-size: 100% auto; 
-  background-position: 0 0;
+  background-size: contain; /* el fondo se ajusta al contenedor*/
+  background-position: center center;
   margin: 0;
   padding: 0;
-      
-  } */
+  background-attachment: fixed;
+  }
   
   .sinusoidal-button {
     position: relative;

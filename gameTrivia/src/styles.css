@@ -113,5 +113,10 @@ body {
   
 }
 
+body.modal-open {
+  overflow: hidden; /* Esto ya evita el desplazamiento vertical */
+  padding-right: 0 !important; /* Establece el padding-right a 0 */
+}
+
 
 

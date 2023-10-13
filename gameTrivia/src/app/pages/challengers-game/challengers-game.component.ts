@@ -148,16 +148,18 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.listaDePreguntas.push(this.preguntaOpcionTest);  */
 
     //AQUI QUITAR EL FOR Y PONER LAS PREGUNTAS DE LA BASE DE DATOS LA LISTA this.listaDePreguntas
-    /* for (let index = 0; index < this.cantidadDeBotones; index++) {
+    /*for (let index = 0; index < this.cantidadDeBotones; index++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
     } */
 
     //this.listaDePreguntas = this.PreguntasList;
     //console.log(this.listaDePreguntas, this.PreguntasList);
+     /*
 
-    /* if (this.listaDePreguntas.length > 20) {
+     if (this.listaDePreguntas.length > 20) {
       this.numIntervaloImg = 5;
     }
+   
     this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
     this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
     this.rellenarPregunta(1);
@@ -167,6 +169,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    
     //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
     this.musicaFondo = new Audio();
     this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
@@ -189,9 +192,23 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.updateCenters(window.innerWidth);
     this.generateButtons();
     //console.log(this.PreguntasList);
+    
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    // Obtén el elemento .sinusoidal-container por su ID
+    const sinusoidalContainer = document.getElementById('sinusoidal-container');
+    // Establece la altura deseada en píxeles
+    const alturaDeseada = this.listaDePreguntas.length*130+this.numImagenesColocadas*160+290; // Cambia esto al valor que necesites
+
+    // Verifica si el elemento se encontró antes de intentar establecer la altura
+    if (sinusoidalContainer) {
+      console.log("Num preguntas"+this.listaDePreguntas.length);
+      sinusoidalContainer.style.height = alturaDeseada + 'px';
+      console.log("Num preguntas"+this.listaDePreguntas.length);
+
+    }
+  }
 
   rellenarPregunta(numPregunta: number) {
     console.log(numPregunta);
