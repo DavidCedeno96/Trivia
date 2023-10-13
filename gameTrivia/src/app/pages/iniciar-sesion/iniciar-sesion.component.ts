@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -9,16 +9,25 @@ import { MessageService } from 'primeng/api';
 })
 export class IniciarSesionComponent {
   isLogin: boolean = true;
+  isVideoEnded: boolean = false;
+
+  @ViewChild('videoHorizontal') videoHorizontal!: ElementRef;
+  @ViewChild('videoVertical') videoVertical!: ElementRef;
+
+  playVideo(video: any) {
+    if (video) {
+      video.play();
+    }
+  }  
+
   cambiarBoolLogin(nuevoValor: boolean) {
     this.isLogin = nuevoValor;
   }
 
- /*  constructor(private messageService: MessageService){
+  vidEnded(){
+    console.log("Entro al video");
+    this.isVideoEnded = true;
 
-  } */
-
-/*   show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-} */
+  }
 
 }
