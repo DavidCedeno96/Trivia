@@ -168,12 +168,12 @@ exec sp_U_Sala
 @imagen = 'myImage2.png',
 @descripcion = 'desc 1',
 @idModoJuego = 2,
-@info = '', -- en el info devolver la antigua imagen => 'Registro editado satisfactoriamente, old_image: image.png' 
+@info = '', 
 @error = ''
 
 exec sp_U_SalaByEstado	
-@idSala = 0,
-@estado = 1,
+@idSala = 10,
+@estado = 0,
 @info = '',
 @error = ''
 
@@ -207,7 +207,7 @@ exec sp_C_Pregunta
 @error = ''
 
 exec sp_U_Pregunta
-@idPregunta = 10,
+@idPregunta = 0,
 @nombre = '¿pregunta?',
 @info = '',
 @error = ''
@@ -254,10 +254,3 @@ select * from Pregunta where idSala = 76
 select * from Opcion where idPregunta = 7
 select * from Opcion where idPregunta = 11
 select * from Opcion where idPregunta = 16
-
-
-
-select * from Sala where idSala = 77
-select * from Pregunta where idSala = 77
-select * from Opcion where idPregunta = 26
-select * from Opcion where idPregunta = 28

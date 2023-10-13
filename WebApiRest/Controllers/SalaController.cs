@@ -122,6 +122,14 @@ namespace WebApiRest.Controllers
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
+        [HttpPut]
+        [Route("updateEstado")]
+        public IActionResult UpdateItemEstado([FromBody] Sala sala)
+        {
+            Response result = data.UpdateSalaEstado(sala);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
         [HttpDelete]
         [Route("delete")]
         public IActionResult DeleteItem([FromQuery] int idSala)
