@@ -89,7 +89,7 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   cargarData(idPregunta: number) {
-    this.preguntaServicio.listaPregOpciones(0, idPregunta).subscribe({
+    this.preguntaServicio.PregOpcLista(0, idPregunta).subscribe({
       next: (data: any) => {
         const { resultOpcion, resultPregunta } = data;
         const { lista } = resultOpcion;

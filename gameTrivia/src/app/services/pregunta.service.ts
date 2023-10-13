@@ -31,7 +31,7 @@ export class PreguntaService {
     );
   }
 
-  listaPregOpciones(
+  PregOpcLista(
     estados: number,
     idPregunta: number
   ): Observable<Pregunta_OpcionList> {
@@ -40,6 +40,21 @@ export class PreguntaService {
     });
     return this.http.get<Pregunta_OpcionList>(
       `${this.apiURL}/pregOpc/${estados}/${idPregunta}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  PregListOpList(
+    estados: number,
+    idSala: number
+  ): Observable<Pregunta_OpcionList[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<Pregunta_OpcionList[]>(
+      `${this.apiURL}/listPregOpc/${estados}/${idSala}`,
       {
         headers: headers,
       }

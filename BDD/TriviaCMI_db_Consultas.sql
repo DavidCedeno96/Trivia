@@ -251,8 +251,7 @@ select * from Opcion where idPregunta = 16
 
 
 
-select * from Sala where idSala = 75
-select * from Pregunta where idSala = 75
-select * from Opcion where idPregunta = 1
-select * from Opcion where idPregunta = 2
-select * from Opcion where idPregunta = 3
+select * from Sala where idSala = 77
+select * from Pregunta where idSala = 77
+select * from Opcion where idPregunta = 26
+select * from Opcion where idPregunta = 28

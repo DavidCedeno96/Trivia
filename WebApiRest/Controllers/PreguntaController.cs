@@ -44,6 +44,7 @@ namespace WebApiRest.Controllers {
         [Route("listPregOpc/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
         public IActionResult GetPreguntaList_opcionList([FromRoute] int estados, [FromRoute] int idSala)
         {
+            bool hayErrorlist = false;
             PreguntaList resultPregList = dataPregunta.GetPreguntaList(estados, idSala);            
             PreguntaList_opciones result = new()
             {
@@ -67,6 +68,15 @@ namespace WebApiRest.Controllers {
                         Pregunta = resultPregunta.Pregunta,
                         OpcionList = resultOpcion.Lista
                     });
+                    if(result.List[i].Error > 0)
+                    {
+                        hayErrorlist = true;
+                    }
+                    if (hayErrorlist)
+                    {
+                        result.Error = 1;
+                        result.Info = "En la lista hay errores";
+                    }                    
                 }
             }            
              

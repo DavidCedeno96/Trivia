@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
+  Input,
 } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 
@@ -19,6 +20,7 @@ declare var bootstrap: any;
 })
 export class ChallengersGameComponent implements OnInit, AfterViewInit {
   @Output() numVentanaH = new EventEmitter<number>();
+  @Input() PreguntasList: Pregunta_OpcionList[] = [];
 
   //mostrarModal: boolean = false;
 
@@ -146,9 +148,12 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.listaDePreguntas.push(this.preguntaOpcionTest);  */
 
     //AQUI QUITAR EL FOR Y PONER LAS PREGUNTAS DE LA BASE DE DATOS LA LISTA this.listaDePreguntas
-    for (let index = 0; index < this.cantidadDeBotones; index++) {
+    /* for (let index = 0; index < this.cantidadDeBotones; index++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
-    }
+    } */
+
+    this.listaDePreguntas = this.PreguntasList;
+    console.log(this.listaDePreguntas, this.PreguntasList);
     if (this.listaDePreguntas.length > 20) {
       this.numIntervaloImg = 5;
     }
