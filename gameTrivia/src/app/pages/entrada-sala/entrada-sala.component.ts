@@ -11,7 +11,7 @@ import { PreguntaService } from 'src/app/services/pregunta.service';
 export class EntradaSalaComponent implements OnInit {
   numVentana: number = 1;
   idSala: number = 0;
-  errorDataResult: number = 0;
+  errorResultPreOp: number = 0;
   preList_opcList: Pregunta_OpcionList[] = [];
 
   constructor(
@@ -40,8 +40,8 @@ export class EntradaSalaComponent implements OnInit {
     this.preguntaServicio.PregListOpList(1, idSala).subscribe({
       next: (data: any) => {
         const { error, list } = data.result;
-        console.log(data);
-        this.errorDataResult = error;
+        //console.log(data);
+        this.errorResultPreOp = error;
         this.preList_opcList = list;
       },
       error: (e) => {

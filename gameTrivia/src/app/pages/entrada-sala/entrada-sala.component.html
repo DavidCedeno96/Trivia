@@ -1,5 +1,6 @@
 <app-inicio-sala
   (numVentanaH)="cambiarnumVentana($event)"
+  [errorResultDataPregOpc]="errorResultPreOp"
   *ngIf="numVentana == 1"
 ></app-inicio-sala>
 <app-challengers-game

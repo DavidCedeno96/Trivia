@@ -49,7 +49,7 @@
         <div class="text-center">
           <button
             class="btn btn-secondary btn-lg px-5"
-            (click)="onClickCambiar()"
+            (click)="validarDataPregOpc()"
           >
             Jugar
           </button>
@@ -71,4 +71,16 @@
       </div>
     </div>
   </div>
+
+  <p-confirmDialog #cd [styleClass]="'col-10 col-md-4'">
+    <ng-template pTemplate="footer">
+      <button
+        type="button"
+        pButton
+        class="btn btn-primary"
+        label="Ok"
+        (click)="cd.accept()"
+      ></button>
+    </ng-template>
+  </p-confirmDialog>
 </body>

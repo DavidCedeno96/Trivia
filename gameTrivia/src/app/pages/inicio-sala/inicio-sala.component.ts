@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,11 +9,13 @@ import { SalaService } from 'src/app/services/sala.service';
   selector: 'app-inicio-sala',
   templateUrl: './inicio-sala.component.html',
   styleUrls: ['./inicio-sala.component.css'],
+  providers: [ConfirmationService],
 })
 export class InicioSalaComponent implements OnInit {
   //nombreSala: string = 'Mi sala!';
   //idSala: number = 0;
   //imagenSala: string = 'assets/Imagenes Juego/ImagenDefault.png';
+  @Input() errorResultDataPregOpc: number = 0;
   existeError: boolean = false;
   result: string = '';
 
@@ -41,7 +44,8 @@ export class InicioSalaComponent implements OnInit {
   constructor(
     private salaServicio: SalaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService
   ) {}
 
   cargarInfoSala(idSala: number) {
@@ -69,6 +73,19 @@ export class InicioSalaComponent implements OnInit {
   getImageSala(nombreImagen: string): string {
     let imageUrl = `${this.salaServicio.getURLImages()}/${nombreImagen}`;
     return imageUrl;
+  }
+
+  validarDataPregOpc() {
+    if (this.errorResultDataPregOpc > 0) {
+      this.confirmationService.confirm({
+        message:
+          'Posibles errores: la sala no tiene preguntas, las preguntas no tienen opciones o la sala no existe',
+        header: 'Hay errores en la lista de preguntas y opciones',
+        accept: () => {},
+      });
+    } else {
+      this.onClickCambiar();
+    }
   }
 
   onClickCambiar() {
