@@ -171,6 +171,12 @@ exec sp_U_Sala
 @info = '', -- en el info devolver la antigua imagen => 'Registro editado satisfactoriamente, old_image: image.png' 
 @error = ''
 
+exec sp_U_SalaByEstado	
+@idSala = 0,
+@estado = 1,
+@info = '',
+@error = ''
+
 exec sp_D_Sala	
 @idSala = 72,	
 @info = '',
