@@ -67,11 +67,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6" *ngFor="let sala of misSalas">
-          <a
+          <!-- <a
             routerLink="/EntradaSala"
             [queryParams]="{ idSala: sala.idSala }"
             style="text-decoration: none"
-          >
+          > -->
             <div class="card my-2">
               <div class="card-body">
                 <div class="row align-items-center">
@@ -92,15 +92,40 @@
                       <div class="row">
                         {{ sala.nombre }}
                       </div>
-                      <div class="row">id: {{ sala.idSala }}</div>
+                      <button class="btn btn-primary btn-md my-2" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="abrirModal(sala.idSala)">Ingresar</button>
+                      <!-- <div class="row">id: {{ sala.idSala }}</div> -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </a>
+         <!--  </a> -->
         </div>
       </div>
     </div>
   </div>
+
+<!--   MODAL-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" style="background-color: rgba(0, 0, 0, 0.5); ">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ingresar a la Sala</h1>
+        
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="ingresarSala()" #salaForm="ngForm">
+          <div class="mb-3">
+            <label for="codigo" class="form-label">ID de acceso:</label>
+            <input style="background-color: #fff;" type="text" class="form-control" id="codigo" name="codigo" ngModel required>
+          </div>
+          <button type="button" class="btn btn-secondary  mx-2" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-secondary" style="color: white;" data-bs-dismiss="modal">Ingresar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>

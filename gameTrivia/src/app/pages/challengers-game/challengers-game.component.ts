@@ -43,6 +43,9 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
 
   numImagenesColocadas: number = 0;
 
+  //Menjsae error
+  Mensaje_error: string="Respuesta equivocada";
+
   //Para creara los botones y las imagenes
 
   botones: {
@@ -59,8 +62,8 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   centroX: number = 20;
   centroY: number = 20;
   cantidadDeBotones = 20;
-  amplitud = 100;
-  frecuencia = 0; // Ajusta la frecuencia según la cantidad de botones
+  amplitud = 50;
+  frecuencia = 10; // Ajusta la frecuencia según la cantidad de botones
 
   //Para el modal
 
@@ -268,6 +271,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
           this.countdown = 20;
         }, 3000); // 3000 milisegundos = 3 segundos
       } else {
+        this.Mensaje_error = "Respuesta equivocada"
         this.preguntaMalConstestada();
       }
 
@@ -323,7 +327,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   updateCenters(windowWidth: number) {
     if (windowWidth >= 1200) {
       // xl
-      this.centroX = 700;
+      this.centroX = 650;
       //this.centroY = 200;
     } else if (windowWidth >= 992) {
       // lg
@@ -331,18 +335,18 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
       //this.centroY = 150;
     } else if (windowWidth >= 768) {
       // md
-      this.centroX = 300;
+      this.centroX = 320;
       //this.centroY = 100;
     } else {
       // sm
-      this.centroX = 100;
-      this.amplitud = 110;
+      this.centroX = 120;
+      this.amplitud = 40;
       //this.centroY = 50;
     }
   }
 
   generateButtons() {
-    this.frecuencia = (4 * Math.PI) / this.cantidadDeBotones;
+    this.frecuencia = (2 * Math.PI) / this.cantidadDeBotones;
 
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
       const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
@@ -438,6 +442,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
           this.preguntaMalConstestada();
           this.stopTimer();
           this.pasarAOtraPregunta();
+          this.Mensaje_error = "Se acabo el tiempo"
         }
       }, 1000); // El temporizador principal se actualiza cada segundo (1000 ms)
     }

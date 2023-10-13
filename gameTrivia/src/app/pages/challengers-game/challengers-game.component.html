@@ -4,84 +4,89 @@
 <!-- Button trigger modal -->
 <!-- Button trigger modal -->
 
-<body class="sinusoidal-container" id="sinusoidal-container">
-  <div class="containerFondo">
-     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-2" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    
 
-        <div class="col">
-          <div class="row">
-            <div class="modal-content">
-              <div class="moda-header">
-               <!--  <div class="col">
-                  <div class="row">
-                    {{countdown}}
-                  </div>
-                </div> -->
-                
-                <div class="modal-title m-4 ">
-
-                  <div class="row my-2">
-                    <div class="col-6 ml-2">
-                      {{numPreguntasContestadas+1}}/{{listaDePreguntas.length}}
-                    </div>
-                    <div class="col-6 te" style="color: orange; text-align: right;">
-                      {{countdown}} <strong style="font-size: small;">SEGUNDOS</strong> 
-                    </div>
-                  </div>
-
-                  <div class="row text-center">
-                    <div class="col">
-                      <h5 style="font-weight: bold;">
-                        {{preguntaTexto}}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-
+    <div class="col">
+      <div class="row">
+        <div class="modal-content">
+          <div class="moda-header">
+           <!--  <div class="col">
+              <div class="row">
+                {{countdown}}
               </div>
-                        
-              <div class="modal-body">
-                <div class="container">
-                  <div class="row">
-                      <div class="col text-center">
-                        <div *ngFor="let miOpcion of actualOpcionList; let i = index">
-                          <button type="button" class="btn btn-secondary btn-block text-center my-2"
-                            (click)="closeModal(i)"
-                            [ngClass]="{'respuesta-correcta': miOpcion.correcta==1 && botonSeleccionado[i], 'respuesta-incorrecta': miOpcion.correcta==0 && botonSeleccionado[i], 
-                          }">
-                            {{ miOpcion.nombre }} 
-                          </button>
-                        </div>
-                      </div>
-                  </div>
-      
+            </div> -->
+            
+            <div class="modal-title m-4 ">
+
+              <div class="row my-2">
+                <div class="col-6 ml-2">
+                  {{numPreguntasContestadas+1}}/{{listaDePreguntas.length}}
+                </div>
+                <div class="col-6 te" style="color: orange; text-align: right;">
+                  {{countdown}} <strong style="font-size: small;">SEGUNDOS</strong> 
                 </div>
               </div>
-             <!--  <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" (click)="closeModal(1)">Close</button>
-      
-              </div> -->
+
+              <div class="row text-center">
+                <div class="col">
+                  <h5 style="font-weight: bold;">
+                    {{preguntaTexto}}
+                  </h5>
+                </div>
+              </div>
+            </div>
+
+          </div>
+                    
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                  <div class="col text-center">
+                    <div *ngFor="let miOpcion of actualOpcionList; let i = index">
+                      <button type="button" class="btn btn-secondary btn-block text-center my-2"
+                        (click)="closeModal(i)"
+                        [ngClass]="{'respuesta-correcta': miOpcion.correcta==1 && botonSeleccionado[i], 'respuesta-incorrecta': miOpcion.correcta==0 && botonSeleccionado[i], 
+                      }">
+                        {{ miOpcion.nombre }} 
+                      </button>
+                    </div>
+                  </div>
+              </div>
+  
             </div>
           </div>
+         <!--  <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal(1)">Close</button>
+  
+          </div> -->
+        </div>
+      </div>
 
-          <div class="col py-2">
-            <div class="row">
-              <div  *ngIf="mostrarAlert" class="alert alert-success text-center" role="alert">
-                ¡GENIAL!
-              </div>
-              <div  *ngIf="mostrarWrongAlert" class="alert alert-danger text-center" role="alert">
-                Respuesta Equivocada
-              </div>
+      <div class="col py-2">
+        <div class="row">
+          <div  *ngIf="mostrarAlert" class="alert alert-success text-center" role="alert">
+            ¡GENIAL!
+          </div>
+          <div  *ngIf="mostrarWrongAlert" class="alert alert-danger text-center" role="alert">
+            <!-- Respuesta Equivocada -->
+            {{Mensaje_error}}
+          </div>
 
-            </div>
-          </div>        
-        </div>     
-      
-      </div>    
+        </div>
+      </div>        
+    </div>     
+  
+  </div>    
 
-    </div>
+</div>
+
+
+<body class="sinusoidal-container" id="sinusoidal-container">
+  <div class="containerFondo">
+     
 
      <!-- Botones fondo -->
   

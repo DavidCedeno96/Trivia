@@ -17,6 +17,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from 'primeng/dialog';
+
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -73,6 +75,7 @@ import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.componen
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
+    DialogModule,
     ConfirmDialogModule,
     ToastModule,
     ReactiveFormsModule,
