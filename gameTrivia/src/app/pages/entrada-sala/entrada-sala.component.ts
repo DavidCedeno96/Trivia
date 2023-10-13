@@ -41,6 +41,7 @@ export class EntradaSalaComponent implements OnInit {
       next: (data: any) => {
         const { error, list } = data.result;
         console.log(data);
+        this.errorDataResult = error;
         this.preList_opcList = list;
       },
       error: (e) => {

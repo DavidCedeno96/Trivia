@@ -152,16 +152,17 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
     } */
 
-    this.listaDePreguntas = this.PreguntasList;
-    console.log(this.listaDePreguntas, this.PreguntasList);
-    if (this.listaDePreguntas.length > 20) {
+    //this.listaDePreguntas = this.PreguntasList;
+    //console.log(this.listaDePreguntas, this.PreguntasList);
+
+    /* if (this.listaDePreguntas.length > 20) {
       this.numIntervaloImg = 5;
     }
     this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
     this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
     this.rellenarPregunta(1);
     this.updateCenters(window.innerWidth);
-    this.generateButtons();
+    this.generateButtons(); */
     //console.log(this.listaDePreguntas);
   }
 
@@ -177,6 +178,17 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
       this.mostrarModal();
       //console.log("Entro");
     }, 3000);
+    this.listaDePreguntas = this.PreguntasList;
+
+    if (this.listaDePreguntas.length > 20) {
+      this.numIntervaloImg = 5;
+    }
+    this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
+    this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
+    this.rellenarPregunta(1);
+    this.updateCenters(window.innerWidth);
+    this.generateButtons();
+    //console.log(this.PreguntasList);
   }
 
   ngAfterViewInit() {}
