@@ -254,3 +254,7 @@ select * from Pregunta where idSala = 76
 select * from Opcion where idPregunta = 7
 select * from Opcion where idPregunta = 11
 select * from Opcion where idPregunta = 16
+
+------
+--SPs Actualizados
+-- sp_C_Sala

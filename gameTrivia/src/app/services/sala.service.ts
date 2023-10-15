@@ -71,6 +71,15 @@ export class SalaService {
     });
   }
 
+  editarEstado(sala: Sala): Observable<Sala> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.put<Sala>(`${this.apiURL}/updateEstado`, sala, {
+      headers: headers,
+    });
+  }
+
   eliminarSala(idSala: number): Observable<number> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,

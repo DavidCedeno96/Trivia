@@ -162,8 +162,22 @@
                   <button type="button" class="btn btn-secondary mx-1 my-2">
                     Compartir
                   </button>
-                  <button type="button" class="btn btn-success mx-1 my-2">
+
+                  <button
+                    *ngIf="sala.estado === 1"
+                    type="button"
+                    class="btn btn-success mx-1 my-2"
+                    (click)="cambiarEstado(0, sala.idSala)"
+                  >
                     Activado
+                  </button>
+                  <button
+                    *ngIf="sala.estado === 0"
+                    type="button"
+                    class="btn btn-danger mx-1 my-2"
+                    (click)="cambiarEstado(1, sala.idSala)"
+                  >
+                    Desactivado
                   </button>
                 </div>
               </div>

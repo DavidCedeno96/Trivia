@@ -18,6 +18,18 @@ export class AdminComponent implements OnInit {
   result: string = '';
   textoBuscar: string = '';
 
+  salaItem: Sala = {
+    idSala: 0,
+    nombre: '',
+    imagen: '',
+    descripcion: '',
+    idModoJuego: 0,
+    modoJuego: '',
+    estado: 0,
+    fecha_creacion: '',
+    fecha_modificacion: '',
+  };
+
   constructor(
     private salaServicio: SalaService,
     private usuarioServicio: UsuarioService,
@@ -93,6 +105,38 @@ export class AdminComponent implements OnInit {
   getImageSala(nombreImagen: string): string {
     let imageUrl = `${this.salaServicio.getURLImages()}/${nombreImagen}`;
     return imageUrl;
+  }
+
+  cambiarEstado(estado: number, idSala: number) {
+    this.salaItem.estado = estado;
+    this.salaItem.idSala = idSala;
+    this.salaServicio.editarEstado(this.salaItem).subscribe({
+      next: (data: any) => {
+        const { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error de conexión',
+          });
+        } else {
+          this.existeError = false;
+          this.cargarSalas();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Satisfactorio',
+            detail: estado === 1 ? 'Sala Activada' : 'Sala Desactivada',
+          });
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
   }
 
   eliminarSala(idSala: number) {

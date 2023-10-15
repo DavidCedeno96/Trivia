@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aYgjweeufBcTAo+vzKo5AnI6Js/QWO0fiD2r7GipBM8=",
+  "Hash": "yGRhDo9XgOIln2TqX5vuh/dMKLX3whxcm9OxAxr4754=",
   "Source": "WebApiRest",
   "BasePath": "_content/WebApiRest",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "WebApiRest\\wwwroot",
       "Source": "WebApiRest",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/.png",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\3.PNG",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\3.PNG",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/3.PNG",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\3.PNG"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\6762.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\6762.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/6762.png",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\6762.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\acerca de sesa.docx",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\acerca de sesa.docx",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/acerca de sesa.docx",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\acerca de sesa.docx"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\ArrozImportacion250723.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\ArrozImportacion250723.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/ArrozImportacion250723.jpg",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\ArrozImportacion250723.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\barrio.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\barrio.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/barrio.jpg",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\barrio.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\boton.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\boton.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/boton.png",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\boton.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/default.png",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\default.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/empresa-automatizada.jpg",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\empresa-automatizada.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/Escudo_del_Capitan_America.png",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Escudo_del_Capitan_America.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Esta es una imagen de prueba de mas de cincuenta caracteres solo para ver si funciona ojala.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\fondoCert-d9be4241-350b-429c-a0ad-154622c67080.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\label.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\label.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/label.png",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\label.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lista-computacion.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lista-computacion.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/lista-computacion.jpg",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\lista-computacion.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lock.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\lock.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/lock.png",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\lock.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\moneda.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\moneda.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/moneda.png",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\moneda.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/PORTADA GENERAL.jpg",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\PORTADA GENERAL.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/que es y para que sirve la hiperautomatizacion.png",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\que es y para que sirve la hiperautomatizacion.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Recurso 69.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Recurso 69.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/Recurso 69.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Recurso 69.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/rwshpm327mzi.png",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\rwshpm327mzi.png"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Sql Server.PNG",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\Sql Server.PNG",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/Sql Server.PNG",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\Sql Server.PNG"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\tortuga.jpg",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\tortuga.jpg",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/tortuga.jpg",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Images\\Sala\\tortuga.jpg"
     },
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\user-icon.png",
+      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\user-icon.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/user-icon.png",
       "AssetKind": "All",
