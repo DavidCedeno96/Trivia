@@ -7,11 +7,17 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
-  Input,
+  Input, ViewChild,
+  ViewChildren, QueryList
 } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 
+
+
 declare var bootstrap: any;
+declare var LeaderLine: any;
+
+
 
 @Component({
   selector: 'app-challengers-game',
@@ -19,8 +25,20 @@ declare var bootstrap: any;
   styleUrls: ['./challengers-game.component.css'],
 })
 export class ChallengersGameComponent implements OnInit, AfterViewInit {
+
+  valoresXsenSave: number[] = [];
+
+  @ViewChild('elementoVehiculo', { static: true }) elementoVehiculo?: ElementRef;
+  indiceActual = 0;
+
+
+  @ViewChildren('elementoImagen') elementosImagen?: QueryList<ElementRef>;
+
+
   @Output() numVentanaH = new EventEmitter<number>();
   @Input() PreguntasList: Pregunta_OpcionList[] = [];
+
+  EdificiosCount: number[] = [];
 
   //mostrarModal: boolean = false;
 
@@ -53,8 +71,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     svg: string;
     tipo: string;
     rutaImagen: string;
-    x: number;
-    y: number;
+    
   }[] = [];
 
   //Para las posiciones senosoidales
@@ -145,30 +162,8 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.puntosGanados = 0;
     this.puedeResponder = true;
     this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
-    //Test para las preguntas
-    /* this.listaDePreguntas.push(this.preguntaOpcionTest);  
-    this.listaDePreguntas.push(this.preguntaOpcionActual);
-    this.listaDePreguntas.push(this.preguntaOpcionTest);  */
-
-    //AQUI QUITAR EL FOR Y PONER LAS PREGUNTAS DE LA BASE DE DATOS LA LISTA this.listaDePreguntas
-    /*for (let index = 0; index < this.cantidadDeBotones; index++) {
-      this.listaDePreguntas.push(this.preguntaOpcionActual);
-    } */
-
-    //this.listaDePreguntas = this.PreguntasList;
-    //console.log(this.listaDePreguntas, this.PreguntasList);
-     /*
-
-     if (this.listaDePreguntas.length > 20) {
-      this.numIntervaloImg = 5;
-    }
-   
-    this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
-    this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
-    this.rellenarPregunta(1);
-    this.updateCenters(window.innerWidth);
-    this.generateButtons(); */
-    //console.log(this.listaDePreguntas);
+    //const line = new LeaderLine();
+  
   }
 
   ngOnInit() {
@@ -178,13 +173,27 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
     this.musicaFondo.loop = true;
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-    this.musicaFondo.play();
+    this.musicaFondo.play();    
 
     setTimeout(() => {
-      this.mostrarModal();
+      //this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
       //console.log("Entro");
     }, 3000);
+
     this.listaDePreguntas = this.PreguntasList;
+
+    //Para las imagenes de los edificios principales
+
+    const OpNumEdif = this.listaDePreguntas.length*3/5.75;
+    var numberOfItems = 0;    
+
+    if (OpNumEdif % 1 >= 0.5) {
+      numberOfItems = Math.ceil(OpNumEdif);
+    } else {
+       numberOfItems = Math.trunc(OpNumEdif);
+      }
+      this.EdificiosCount = Array.from({ length: numberOfItems }, (_, index) => index);  
+      console.log(this.EdificiosCount);
 
     if (this.listaDePreguntas.length > 20) {
       this.numIntervaloImg = 5;
@@ -206,11 +215,57 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
 
     // Verifica si el elemento se encontró antes de intentar establecer la altura
     if (sinusoidalContainer) {
-      console.log("Num preguntas"+this.listaDePreguntas.length);
+      //console.log("Num preguntas"+this.listaDePreguntas.length);
       sinusoidalContainer.style.height = alturaDeseada + 'px';
-      console.log("Num preguntas"+this.listaDePreguntas.length);
-
+      //console.log("Num preguntas"+this.listaDePreguntas.length);
     }
+
+    setTimeout(() => {
+      this.adjustLines();
+    }, 500);
+
+    window.addEventListener('resize', () => {
+      this.adjustLines();
+    });
+
+    
+
+    for (let i = 0; i < this.listaDePreguntas.length-1; i++) {
+      this.valoresXsenSave.push(this.calculateMargin(i));      
+    }
+
+    console.log(this.valoresXsenSave);  
+
+
+    
+  }
+
+  adjustLines() {
+    if (this.elementosImagen) {
+      const elementos = this.elementosImagen.toArray();
+
+      for (let i = 0; i < elementos.length - 1; i++) {
+        console.log("LINEAS");
+        const linea = new LeaderLine(elementos[i].nativeElement, elementos[i + 1].nativeElement, {dash: {animation: true}});
+        
+        linea.show('draw');
+        linea.setOptions({
+          
+          color: '#b9b9b9',
+          size: 15,
+          endPlug: 'behind', // Terminación en cuadrado (sin flecha)
+          path: 'straight', // Línea recta, sin curvas
+          dash: {
+            animation: {
+              duration: 2500, // Duración en milisegundos
+              timing: 'linear', // Función de temporización, por ejemplo, 'linear', 'ease-in', 'ease-out', etc.
+            },
+          },
+          
+        });
+      }
+    }
+
   }
 
   rellenarPregunta(numPregunta: number) {
@@ -318,11 +373,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     audio.play();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.updateCenters((event.target as Window).innerWidth);
-    this.updateButtonPositions();
-  }
+
 
   updateCenters(windowWidth: number) {
     if (windowWidth >= 1200) {
@@ -346,61 +397,43 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   generateButtons() {
-    this.frecuencia = (2 * Math.PI) / this.cantidadDeBotones;
+    //this.frecuencia = (2 * Math.PI) / this.cantidadDeBotones;
 
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
-      const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
+      /* const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
       const y = this.centroY + i * 20;
       var x2 = 0;
-      var y2 = 0;
+      var y2 = 0; */
 
-      // Agrega una imagen adicional cada 3 botones
-      if (i % this.numIntervaloImg === 0 && i !== this.cantidadDeBotones) {
-        this.numImagenesColocadas++;
-        this.cantidadDeBotones++;
-        const rutaSelect = this.imagenes[this.numImagenesColocadas - 1];
-        this.botones.push({
-          id: 'imagen-' + i,
-          x,
-          y,
+      // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
+      if (i == this.cantidadDeBotones) {
+      /*   x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i + 1));
+        y2 = this.centroY + (i + 1) * 20; */
+        /* this.botones.push({
+          id: 'imagen-FINAL',         
           svg: '',
           tipo: 'imagen',
-          rutaImagen: rutaSelect,
-        });
-      } else {
+          rutaImagen: this.imagenFinal,
+        }); */
+      }else{
         this.botones.push({
           id: i - this.numImagenesColocadas,
-          x,
-          y,
           svg: this.svgInactivo,
           tipo: 'boton',
           rutaImagen: '',
         });
       }
-      // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
-      if (i == this.cantidadDeBotones) {
-        x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i + 1));
-        y2 = this.centroY + (i + 1) * 20;
-        this.botones.push({
-          id: 'imagen-FINAL',
-          x: x2,
-          y: y2,
-          svg: '',
-          tipo: 'imagen',
-          rutaImagen: this.imagenFinal,
-        });
-      }
     }
   }
 
-  updateButtonPositions() {
+/*   updateButtonPositions() {
     const buttons =
       this.el.nativeElement.querySelectorAll('.sinusoidal-button');
     this.botones.forEach((button, index) => {
       this.renderer.setStyle(buttons[index], 'left', button.x + 'px');
       this.renderer.setStyle(buttons[index], 'top', button.y + 'px');
     });
-  }
+  } */
 
   activarBoton(id: number, imgCambio: number) {
     const boton = this.botones.find((b) => b.id === id);
@@ -474,4 +507,55 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.musicaFondo.currentTime = 0;
     this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
   }
+
+  calculateMargin(index: number): number {
+    const amplitude = 100; // Ajusta la amplitud del coseno según sea necesario
+    const frequency = 1; // Ajusta la frecuencia del coseno según sea necesario
+    const res = Math.round(amplitude * Math.cos(frequency * index))
+    //console.log(index+" margin "+res);
+    
+    return res;
+  }
+
+  calculateMargin2(index: number): number {
+    if(index % 2 == 0){
+      return 0;     
+      
+    }else{
+      
+      if(index % 3 == 0){
+        return -220;
+      }
+      else{
+        return 150;
+      }
+    }
+  }
+
+  //FUNCION PARA MOVER EL AUTO
+  avanzarVehiculo() {
+    if (this.indiceActual < this.botones.length - 1) {
+      this.indiceActual++;
+      this.colocarVehiculoEnBoton(this.indiceActual);
+    }
+  }
+
+  colocarVehiculoEnBoton(indice:number) {
+    if (indice < this.botones.length) {
+      const boton = this.botones[indice];
+      const elementoBoton = document.getElementById('boton-' + boton.id);
+
+      if (elementoBoton && this.elementoVehiculo) {
+        const coordenadasBoton = elementoBoton.getBoundingClientRect();
+        const coordenadasVehiculo = this.elementoVehiculo.nativeElement.getBoundingClientRect();
+
+        const distanciaX = coordenadasBoton.left - coordenadasVehiculo.left + coordenadasBoton.width / 2 - coordenadasVehiculo.width / 2;
+        const distanciaY = coordenadasBoton.top - coordenadasVehiculo.top + coordenadasBoton.height / 2 - coordenadasVehiculo.height / 2;
+
+        this.elementoVehiculo.nativeElement.style.transition = 'transform 0.5s linear';
+        this.elementoVehiculo.nativeElement.style.transform = `translate(${distanciaX}px, ${distanciaY}px)`;
+      }
+    }
+  }
+
 }
