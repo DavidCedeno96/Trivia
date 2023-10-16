@@ -1,5 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -16,7 +18,7 @@ export class PlayerComponent {
   textoBuscar: string = '';
   existeError: boolean = false;
   result: string = '';
-  idSalaSeleccionada: number | null = null;
+  idSalaSeleccionada: number = 0;
 
   modalElement: any;
   modal: any;
@@ -25,6 +27,8 @@ export class PlayerComponent {
     private router: Router,
     private usuarioServicio: UsuarioService,
     private salaServicio: SalaService,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService,
     private el: ElementRef
   ) {
     //this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
@@ -33,6 +37,7 @@ export class PlayerComponent {
 
   buscar() {
     if (this.textoBuscar.trim() !== '') {
+      this.constantsService.loading(true);
       this.salaServicio.listaSalaSearch(1, this.textoBuscar.trim()).subscribe({
         next: (data: any) => {
           const { info, error, lista } = data.result;
@@ -43,6 +48,7 @@ export class PlayerComponent {
             this.existeError = false;
             this.misSalas = lista;
           }
+          this.constantsService.loading(false);
         },
         error: (e) => {
           if (e.status === 401) {
@@ -58,6 +64,12 @@ export class PlayerComponent {
     return imageUrl;
   }
 
+  cambiarPag(ruta: string, id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
+    let params = { idSala };
+    this.router.navigate([ruta], { queryParams: params });
+  }
+
   abrirModal(idSala: number) {
     this.idSalaSeleccionada = idSala;
   }
@@ -66,9 +78,10 @@ export class PlayerComponent {
     // Aquí puedes agregar la lógica para verificar si el código es correcto
     if (this.codigoIngresadoEsCorrecto()) {
       // Navega a la sala con los query params
-      this.router.navigate(['/EntradaSala'], {
+      /* this.router.navigate(['/EntradaSala'], {
         queryParams: { idSala: this.idSalaSeleccionada },
-      });
+      }); */
+      this.cambiarPag('/EntradaSala', this.idSalaSeleccionada);
       // Cierra el modal
       this.modal.hide();
       //document.getElementById('exampleModal')?.click();

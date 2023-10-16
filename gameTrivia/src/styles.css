@@ -1,14 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 body {
-    font-family: "Century Gothic", sans-serif;
-  }
+  font-family: "Century Gothic", sans-serif;
+}
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
 .btn-primary {
-  border-radius: 25px; 
+  border-radius: 25px;
 }
 /* Controlar el tamaño de las imagenes */
 .imagen-lg {
@@ -75,42 +74,40 @@ body {
 .icono-svg {
   width: 25px; /* Ajusta el ancho según tus necesidades */
   height: 25px; /* Ajusta la altura según tus necesidades */
-  margin-right: 10px; /* Opcional: espacio entre el icono y el texto */    
+  margin-right: 10px; /* Opcional: espacio entre el icono y el texto */
 }
 .icono-svg2 {
   width: 20px; /* Ajusta el ancho según tus necesidades */
   height: 20px; /* Ajusta la altura según tus necesidades */
-  margin-right: 5px; /* Opcional: espacio entre el icono y el texto */    
+  margin-right: 5px; /* Opcional: espacio entre el icono y el texto */
 }
 .icono-svgP {
   width: 50px; /* Ajusta el ancho según tus necesidades */
   height: 50px; /* Ajusta la altura según tus necesidades */
-  margin-right: 5px; /* Opcional: espacio entre el icono y el texto */    
+  margin-right: 5px; /* Opcional: espacio entre el icono y el texto */
 }
 
 /*BOTON CIRCULAR*/
 .btn-circle {
-  background-color: #3D5057;
+  background-color: #3d5057;
   width: 50px;
   height: 50px;
   border-radius: 50%; /* Hace que el botón sea circular */
   text-align: center;
   padding: 0; /* Ajusta el espacio interno del botón */
-  
+
   color: #fff;
 }
 .btn-circle:hover {
-  background-color: #2F3A40; /* Color más oscuro cuando el mouse pasa por encima */
+  background-color: #2f3a40; /* Color más oscuro cuando el mouse pasa por encima */
 }
 
 .btn-circle:active {
-  background-color: #1F292F; /* Color más oscuro cuando se hace clic */
+  background-color: #1f292f; /* Color más oscuro cuando se hace clic */
 }
 
 .containerJuego {
-  
   background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el elemento body */
-  
 }
 
 body.modal-open {
@@ -118,5 +115,19 @@ body.modal-open {
   padding-right: 0 !important; /* Establece el padding-right a 0 */
 }
 
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
-
+.hidden {
+  display: none;
+}

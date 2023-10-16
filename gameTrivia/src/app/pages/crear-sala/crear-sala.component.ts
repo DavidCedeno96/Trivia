@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 
@@ -34,13 +36,19 @@ export class CrearSalaComponent implements OnInit {
   constructor(
     private salaServicio: SalaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
-      this.nuevaSala.idSala = params['idSala'];
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      if (idSala === '') {
+        history.back();
+      }
+      this.nuevaSala.idSala = parseInt(idSala);
     });
     switch (this.type) {
       case 'crear': {
@@ -48,6 +56,7 @@ export class CrearSalaComponent implements OnInit {
         break;
       }
       case 'editar': {
+        this.constantsService.loading(true);
         this.titulo = 'Editar Sala';
         this.cargarData(this.nuevaSala.idSala);
         break;
@@ -75,7 +84,7 @@ export class CrearSalaComponent implements OnInit {
       this.notSelectCard = true;
       return;
     }
-
+    this.constantsService.loading(true);
     switch (this.type) {
       case 'crear': {
         this.crearNuevaSala();
@@ -97,10 +106,13 @@ export class CrearSalaComponent implements OnInit {
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;
+        console.log(this.result);
         if (error > 0) {
           //hay error
+          this.existeError = true;
         } else {
           //no hay error
+          this.existeError = false;
           this.nuevaSala = sala;
           /* this.imageSala = `${this.salaServicio.getURLImages()}/${
             this.nuevaSala.imagen
@@ -110,10 +122,13 @@ export class CrearSalaComponent implements OnInit {
           }
           this.selectedCard = this.nuevaSala.idModoJuego;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
           this.router.navigate(['/']);
+        } else if (e.status == 400) {
+          history.back();
         }
       },
     });
@@ -140,6 +155,7 @@ export class CrearSalaComponent implements OnInit {
           this.existeError = false;
           this.router.navigate(['/Administrador']);
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         //console.log(e);
@@ -170,6 +186,7 @@ export class CrearSalaComponent implements OnInit {
           this.existeError = false;
           this.router.navigate(['/Administrador']);
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         //console.log(e);

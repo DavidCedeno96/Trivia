@@ -4,6 +4,8 @@ import { Pregunta, Sala } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 import { SalaService } from 'src/app/services/sala.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { EncryptionService } from 'src/app/encryption.service';
+import { ConstantsService } from 'src/app/constants.service';
 
 @Component({
   selector: 'app-sala',
@@ -48,12 +50,19 @@ export class SalaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {}
 
   ngOnInit(): void {
+    this.constantsService.loading(true);
     this.route.queryParams.subscribe((params) => {
-      this.miSala.idSala = params['idSala'];
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      if (idSala === '') {
+        history.back();
+      }
+      this.miSala.idSala = parseInt(idSala);
     });
 
     this.cargarInfoSala(this.miSala.idSala);
@@ -73,6 +82,7 @@ export class SalaComponent implements OnInit {
           this.existeError = false;
           this.miSala = sala;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -93,6 +103,7 @@ export class SalaComponent implements OnInit {
           this.existeErrorPregunta = false;
           this.preguntasSala = lista;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -103,6 +114,7 @@ export class SalaComponent implements OnInit {
   }
 
   eliminarPregunta(idPregunta: number) {
+    this.constantsService.loading(true);
     this.preguntaServicio.eliminarPreguntaOpciones(idPregunta).subscribe({
       next: (data: any) => {
         const { info, error } = data.result;
@@ -123,6 +135,7 @@ export class SalaComponent implements OnInit {
             detail: 'Pregunta eliminada',
           });
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -138,6 +151,13 @@ export class SalaComponent implements OnInit {
       header: 'Confirmación Eliminar',
       accept: () => this.eliminarPregunta(idPregunta),
     });
+  }
+
+  cambiarPag(ruta: string, type: string, id1: number, id2: number) {
+    let idSala = this.encryptionService.encrypt(id1.toString());
+    let idPregunta = this.encryptionService.encrypt(id2.toString());
+    let params = { type, idSala, idPregunta };
+    this.router.navigate([ruta], { queryParams: params });
   }
 
   //  const salaEncontrada = salas.find((sala) => sala.idSala === idSala);

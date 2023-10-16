@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -35,8 +37,13 @@ export class InicioSalaComponent implements OnInit {
   isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
 
   ngOnInit(): void {
+    this.constantsService.loading(true);
     this.route.queryParams.subscribe((params) => {
-      this.miSala.idSala = params['idSala'];
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      if (idSala === '') {
+        history.back();
+      }
+      this.miSala.idSala = parseInt(idSala);
     });
     this.cargarInfoSala(this.miSala.idSala);
   }
@@ -45,7 +52,9 @@ export class InicioSalaComponent implements OnInit {
     private salaServicio: SalaService,
     private router: Router,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {}
 
   cargarInfoSala(idSala: number) {
@@ -61,6 +70,7 @@ export class InicioSalaComponent implements OnInit {
           this.existeError = false;
           this.miSala = sala;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {

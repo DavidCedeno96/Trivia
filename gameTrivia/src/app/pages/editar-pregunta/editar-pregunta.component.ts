@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Opcion, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 //import { SelectItem } from 'primeng/api';
@@ -37,7 +39,9 @@ export class EditarPreguntaComponent implements OnInit {
   constructor(
     private preguntaServicio: PreguntaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {
     /* this.items = [];
     this.items.push({ label: '2', value: 2 });
@@ -48,8 +52,13 @@ export class EditarPreguntaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
-      this.pregutaOpciones.pregunta.idSala = parseInt(params['idSala']);
-      this.auxIdPregunta = parseInt(params['idPregunta']);
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      let idPregunta = this.encryptionService.decrypt(params['idPregunta']);
+      if (idSala === '' || idPregunta === '') {
+        history.back();
+      }
+      this.pregutaOpciones.pregunta.idSala = parseInt(idSala);
+      this.auxIdPregunta = parseInt(idPregunta);
     });
     switch (this.type) {
       case 'crear': {
@@ -58,6 +67,7 @@ export class EditarPreguntaComponent implements OnInit {
         break;
       }
       case 'editar': {
+        this.constantsService.loading(true);
         this.titulo = 'Editar Pregunta';
         this.pregutaOpciones.pregunta.idPregunta = this.auxIdPregunta;
         this.cargarData(this.auxIdPregunta);
@@ -72,6 +82,7 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   UpsertSala() {
+    this.constantsService.loading(true);
     switch (this.type) {
       case 'crear': {
         this.crearNuevaPregunta();
@@ -103,6 +114,7 @@ export class EditarPreguntaComponent implements OnInit {
           this.pregutaOpciones.opcionList = lista;
           this.auxOpcionList = lista;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -126,6 +138,7 @@ export class EditarPreguntaComponent implements OnInit {
             this.existeError = false;
             history.back();
           }
+          this.constantsService.loading(false);
         },
         error: (e) => {
           if (e.status === 401) {
@@ -149,10 +162,13 @@ export class EditarPreguntaComponent implements OnInit {
             this.existeError = false;
             history.back();
           }
+          this.constantsService.loading(false);
         },
         error: (e) => {
           if (e.status === 401) {
             this.router.navigate(['/']);
+          } else if (e.status === 400) {
+            history.back();
           }
         },
       });
@@ -163,50 +179,20 @@ export class EditarPreguntaComponent implements OnInit {
     this.pregutaOpciones.opcionList.forEach((element) => {
       element.correcta = 0;
     });
-    switch (Number(valorSeleccionado)) {
-      case 0: {
-        this.pregutaOpciones.opcionList[0].correcta = 1;
-        break;
-      }
-      case 1: {
-        this.pregutaOpciones.opcionList[1].correcta = 1;
-        break;
-      }
-      case 2: {
-        this.pregutaOpciones.opcionList[2].correcta = 1;
-        break;
-      }
-      case 3: {
-        this.pregutaOpciones.opcionList[3].correcta = 1;
-        break;
-      }
-      default: {
-        console.log('Opcion Incorrecta');
-        history.back();
-        break;
-      }
+    if (Number(valorSeleccionado) < 4) {
+      this.pregutaOpciones.opcionList[Number(valorSeleccionado)].correcta = 1;
+    } else {
+      console.log('Opcion Incorrecta');
+      history.back();
     }
   }
 
   selectTotalOpciones(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    switch (Number(selectedValue)) {
-      case 2: {
-        this.pregutaOpciones.opcionList = this.opcionItem(2);
-        break;
-      }
-      case 3: {
-        this.pregutaOpciones.opcionList = this.opcionItem(3);
-        break;
-      }
-      case 4: {
-        this.pregutaOpciones.opcionList = this.opcionItem(4);
-        break;
-      }
-      default: {
-        this.pregutaOpciones.opcionList = [];
-        break;
-      }
+    if (Number(selectedValue) < 5) {
+      this.pregutaOpciones.opcionList = this.opcionItem(Number(selectedValue));
+    } else {
+      this.pregutaOpciones.opcionList = [];
     }
   }
 
@@ -230,7 +216,7 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   totalOpciones() {
-    if (this.pregutaOpciones.opcionList.length) {
+    if (this.pregutaOpciones.opcionList.length > 0) {
       return this.pregutaOpciones.opcionList.length - 1;
     }
     return 0;

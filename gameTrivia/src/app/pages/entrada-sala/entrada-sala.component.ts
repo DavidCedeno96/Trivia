@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
 
@@ -17,7 +19,9 @@ export class EntradaSalaComponent implements OnInit {
   constructor(
     private preguntaServicio: PreguntaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {
     this.numVentana = 1;
   }
@@ -30,8 +34,13 @@ export class EntradaSalaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.constantsService.loading(true);
     this.route.queryParams.subscribe((params) => {
-      this.idSala = params['idSala'];
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      if (idSala === '') {
+        history.back();
+      }
+      this.idSala = parseInt(idSala);
     });
     this.dataPregListOpcList(this.idSala);
   }
@@ -43,6 +52,7 @@ export class EntradaSalaComponent implements OnInit {
         //console.log(data);
         this.errorResultPreOp = error;
         this.preList_opcList = list;
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {

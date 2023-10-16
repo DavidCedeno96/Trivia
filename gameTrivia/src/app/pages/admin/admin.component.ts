@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConstantsService } from 'src/app/constants.service';
+import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -35,10 +37,13 @@ export class AdminComponent implements OnInit {
     private usuarioServicio: UsuarioService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private encryptionService: EncryptionService,
+    private constantsService: ConstantsService
   ) {}
 
   ngOnInit(): void {
+    this.constantsService.loading(true);
     this.cargarSalas();
   }
 
@@ -56,6 +61,7 @@ export class AdminComponent implements OnInit {
           this.misSalas = lista;
           this.auxMisSalas = lista;
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         //console.log(e);
@@ -68,6 +74,7 @@ export class AdminComponent implements OnInit {
 
   buscar() {
     if (this.textoBuscar.trim() !== '') {
+      this.constantsService.loading(true);
       this.salaServicio.listaSalaSearch(0, this.textoBuscar.trim()).subscribe({
         next: (data: any) => {
           const { info, error, lista } = data.result;
@@ -83,6 +90,7 @@ export class AdminComponent implements OnInit {
               detail: 'Sala/s Entontrada/s',
             });
           }
+          this.constantsService.loading(false);
         },
         error: (e) => {
           if (e.status === 401) {
@@ -108,6 +116,7 @@ export class AdminComponent implements OnInit {
   }
 
   cambiarEstado(estado: number, idSala: number) {
+    this.constantsService.loading(true);
     this.salaItem.estado = estado;
     this.salaItem.idSala = idSala;
     this.salaServicio.editarEstado(this.salaItem).subscribe({
@@ -130,6 +139,7 @@ export class AdminComponent implements OnInit {
             detail: estado === 1 ? 'Sala Activada' : 'Sala Desactivada',
           });
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -140,6 +150,7 @@ export class AdminComponent implements OnInit {
   }
 
   eliminarSala(idSala: number) {
+    this.constantsService.loading(true);
     this.salaServicio.eliminarSala(idSala).subscribe({
       next: (data: any) => {
         const { info, error } = data.result;
@@ -160,6 +171,7 @@ export class AdminComponent implements OnInit {
             detail: 'Sala eliminada',
           });
         }
+        this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -175,6 +187,12 @@ export class AdminComponent implements OnInit {
       header: 'Confirmación Eliminar',
       accept: () => this.eliminarSala(idSala),
     });
+  }
+
+  cambiarPag(ruta: string, id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
+    let params = { idSala };
+    this.router.navigate([ruta], { queryParams: params });
   }
 
   cerrarSesion() {
