@@ -14,7 +14,7 @@ export class ConstantsService {
       } else {
         setTimeout(() => {
           loading.classList.add('hidden');
-        }, 1500);
+        }, 300);
       }
     }
   }

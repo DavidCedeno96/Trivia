@@ -113,6 +113,10 @@ export class SalaComponent implements OnInit {
     });
   }
 
+  guardarPreguntas() {
+    console.log('Guardar preguntas...');
+  }
+
   eliminarPregunta(idPregunta: number) {
     this.constantsService.loading(true);
     this.preguntaServicio.eliminarPreguntaOpciones(idPregunta).subscribe({

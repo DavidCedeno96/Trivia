@@ -143,7 +143,7 @@ exec sp_B_Sala
 @error = ''
 
 exec sp_B_SalaById
-@idSala = 10,
+@idSala = 0,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -163,7 +163,7 @@ exec sp_C_Sala
 @error = ''
 
 exec sp_U_Sala
-@idSala = 12,
+@idSala = 0,
 @nombre = 'edit otra vez jeje',
 @imagen = 'myImage2.png',
 @descripcion = 'desc 1',
@@ -172,13 +172,13 @@ exec sp_U_Sala
 @error = ''
 
 exec sp_U_SalaByEstado	
-@idSala = 10,
+@idSala = 0,
 @estado = 0,
 @info = '',
 @error = ''
 
 exec sp_D_Sala	
-@idSala = 72,	
+@idSala = 0,	
 @info = '',
 @error = ''
 
@@ -202,7 +202,7 @@ exec sp_B_PreguntaById
 
 exec sp_C_Pregunta
 @nombre = '¿Esta es otra nueva pregunta, si o no?',
-@idSala = 14,
+@idSala = 0,
 @info = '',
 @error = ''
 
@@ -249,12 +249,9 @@ exec sp_D_OpcionByIdPregunta
 
 
 ----------------------------------------------------------------------------
-select * from Sala where idSala = 76
-select * from Pregunta where idSala = 76
-select * from Opcion where idPregunta = 7
-select * from Opcion where idPregunta = 11
-select * from Opcion where idPregunta = 16
+select * from Sala where idSala = 80
+select * from Pregunta where idSala = 80
+select * from Opcion where idPregunta = 43
+select * from Opcion where idPregunta = 44
 
-------
---SPs Actualizados
--- sp_C_Sala
+--delete from Pregunta where idPregunta = 41

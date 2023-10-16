@@ -113,9 +113,12 @@
         </button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary d-flex text-end px-3 my-2 py-2">
+        <button
+          class="btn btn-primary d-flex text-end px-3 my-2 py-2"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
           <img src="assets/Icons/Importar2.svg" alt="Icono" class="icono-svg" />
-
           Importar preguntas
         </button>
       </div>
@@ -127,6 +130,75 @@
         </button>
         </div> -->
     </div>
+
+    <!-- INICIO MODAL -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="background-color: rgba(0, 0, 0, 0.5)"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Archivo Excel</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form
+              class="row g-3"
+              ngNativeValidate
+              #form
+              (ngSubmit)="form.checkValidity() ? guardarPreguntas() : null"
+            >
+              <div class="col-12">
+                <label for="archivoExcel" class="form-label ms-2"
+                  >Archivo</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="archivoExcel"
+                  accept=".xlsx"
+                  required
+                />
+                <small class="text-danger ms-2">error</small>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-secondary">Guardar</button>
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-secondary" disabled>
+                  <span
+                    class="spinner-border spinner-border-sm me-1"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Guardando...
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN MODAL -->
 
     <div
       class="my-3 alert alert-warning"
