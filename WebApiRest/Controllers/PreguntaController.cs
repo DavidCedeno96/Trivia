@@ -139,120 +139,128 @@ namespace WebApiRest.Controllers {
                 Stream stream = archivo.OpenReadStream();                
                 if(Path.GetExtension(archivo.FileName).Equals(".xlsx"))
                 {
-                    IWorkbook archivoExcel = new XSSFWorkbook(stream);
-                    ISheet hojaExcel = archivoExcel.GetSheetAt(0); 
-                    int cantidadFilas = hojaExcel.LastRowNum + 1;
-
-                    for(int i = 0; i < cantidadFilas; i++)
+                    try
                     {
-                        if (i > 0)
+                        IWorkbook archivoExcel = new XSSFWorkbook(stream);
+                        ISheet hojaExcel = archivoExcel.GetSheetAt(0);
+                        int cantidadFilas = hojaExcel.LastRowNum + 1;
+
+                        for (int i = 0; i < cantidadFilas; i++)
                         {
-                            IRow filaEncabezado = hojaExcel.GetRow(0);
-                            IRow filaData = hojaExcel.GetRow(i);
-                            Pregunta pregunta = new();
-                            List<Opcion> listOp = new();
-                            for(int j=0; j<6; j++)
+                            if (i > 0)
                             {
-                                if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("pregunta"))
-                                {                
-                                    pregunta.Nombre = filaData.GetCell(j).ToString();
-                                    pregunta.IdSala = idSala;                                    
-                                }
-                                else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("opcion"))
+                                IRow filaEncabezado = hojaExcel.GetRow(0);
+                                IRow filaData = hojaExcel.GetRow(i);
+                                Pregunta pregunta = new();
+                                List<Opcion> listOp = new();
+                                for (int j = 0; j < 6; j++)
                                 {
-                                    if (!filaData.GetCell(j).ToString().Trim().Equals(""))
+                                    if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("pregunta"))
                                     {
-                                        listOp.Add(new Opcion
-                                        {
-                                            Nombre = filaData.GetCell(j).ToString().Trim(),
-                                            Correcta = 0
-                                        });
-                                    }                                    
-                                }
-                                else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("correcta"))
-                                {
-                                    if (!filaData.GetCell(j).ToString().Trim().Equals(""))
+                                        pregunta.Nombre = filaData.GetCell(j).ToString();
+                                        pregunta.IdSala = idSala;
+                                    }
+                                    else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("opcion"))
                                     {
-                                        string opcCorrecta = filaData.GetCell(j).ToString().ToLower().Trim();
-                                        for(int k=0; k<4; k++)
+                                        if (!filaData.GetCell(j).ToString().Trim().Equals(""))
                                         {
-                                            if (filaEncabezado.GetCell(k + 1).ToString().ToLower().Trim().Equals(opcCorrecta))
+                                            listOp.Add(new Opcion
                                             {
-                                                listOp[k].Correcta = 1;
-                                                break;
+                                                Nombre = filaData.GetCell(j).ToString().Trim(),
+                                                Correcta = 0
+                                            });
+                                        }
+                                    }
+                                    else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("correcta"))
+                                    {
+                                        if (!filaData.GetCell(j).ToString().Trim().Equals(""))
+                                        {
+                                            string opcCorrecta = filaData.GetCell(j).ToString().ToLower().Trim();
+                                            for (int k = 0; k < 4; k++)
+                                            {
+                                                if (filaEncabezado.GetCell(k + 1).ToString().ToLower().Trim().Equals(opcCorrecta))
+                                                {
+                                                    listOp[k].Correcta = 1;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    } 
+                                    }
                                 }
-                            }                            
 
-                            lista.Add(new Pregunta_OpcionList
+                                lista.Add(new Pregunta_OpcionList
+                                {
+                                    Pregunta = pregunta,
+                                    OpcionList = listOp,
+                                });
+                            }
+                        }
+
+                        foreach (var item in lista)
+                        {
+                            Response resultPregunta = VF.ValidarPregunta(item.Pregunta);
+                            Response resultOpcion = new();
+                            foreach (var op in item.OpcionList)
                             {
-                                Pregunta = pregunta,
-                                OpcionList = listOp,
+                                resultOpcion = VF.ValidarOpcion(op);
+                                if (resultOpcion.Error > 0)
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (resultPregunta.Error == 0 && resultOpcion.Error == 0)
+                            {
+                                result = dataPregunta.CreatePregunta(item.Pregunta);
+                                if (result.Error == 0)
+                                {
+                                    int idPregunta = Convert.ToInt32(result.Info.Split(":")[1].ToString().Trim());
+                                    foreach (var op in item.OpcionList)
+                                    {
+                                        op.IdPregunta = idPregunta;
+                                        result = dataOpcion.CreateOpcion(op);
+                                    }
+                                    if (result.Error == 0)
+                                    {
+                                        result.Info = result.Info.Split(",")[0];
+                                    }
+                                }
+                            }
+                            else if (resultPregunta.Error > 0)
+                            {
+                                result.Error = 1;
+                                result.Info = resultPregunta.Info;
+                                result.Campo = resultPregunta.Campo;
+                                hayErrorlist = true;
+                            }
+                            else if (resultOpcion.Error > 0)
+                            {
+                                result.Error = 1;
+                                result.Info = resultOpcion.Info;
+                                result.Campo = resultOpcion.Campo;
+                                hayErrorlist = true;
+                            }
+
+                            if (hayErrorlist)
+                            {
+                                response.Error = 1;
+                                response.Info = "En las preguntas u opciones no se permiten caracteres <, > o =";
+                            }
+
+                            response.List.Add(new Pregunta_OpcionList
+                            {
+                                Info = result.Info,
+                                Error = result.Error,
+                                Pregunta = item.Pregunta,
+                                OpcionList = item.OpcionList,
                             });
-                        }                        
+                        }
                     }
-
-                    foreach(var item in lista)
-                    {                        
-                        Response resultPregunta = VF.ValidarPregunta(item.Pregunta);
-                        Response resultOpcion = new();                       
-                        foreach (var op in item.OpcionList)
-                        {
-                            resultOpcion = VF.ValidarOpcion(op);
-                            if (resultOpcion.Error > 0)
-                            {
-                                break;
-                            }
-                        }
-
-                        if (resultPregunta.Error == 0 && resultOpcion.Error == 0)
-                        {
-                            result = dataPregunta.CreatePregunta(item.Pregunta);
-                            if (result.Error == 0)
-                            {
-                                int idPregunta = Convert.ToInt32(result.Info.Split(":")[1].ToString().Trim());
-                                foreach (var op in item.OpcionList)
-                                {
-                                    op.IdPregunta = idPregunta;
-                                    result = dataOpcion.CreateOpcion(op);
-                                }
-                                if(result.Error == 0)
-                                {
-                                    result.Info = result.Info.Split(",")[0];
-                                }                                
-                            }
-                        }
-                        else if (resultPregunta.Error > 0)
-                        {
-                            result.Error = 1;
-                            result.Info = resultPregunta.Info;
-                            result.Campo = resultPregunta.Campo;
-                            hayErrorlist = true;
-                        }
-                        else if (resultOpcion.Error > 0)
-                        {                            
-                            result.Error = 1;
-                            result.Info = resultOpcion.Info;
-                            result.Campo = resultOpcion.Campo;
-                            hayErrorlist = true;
-                        }
-
-                        if (hayErrorlist)
-                        {
-                            response.Error = 1;
-                            response.Info = "En la lista hay errores";
-                        }                                               
-
-                        response.List.Add(new Pregunta_OpcionList
-                        {
-                            Info = result.Info,
-                            Error = result.Error,
-                            Pregunta = item.Pregunta,
-                            OpcionList = item.OpcionList,                            
-                        });
-                    }         
+                    catch (Exception ex)
+                    {
+                        response.Error = 1;
+                        response.Info = ex.Message + "|Error en el formato preguntas y opciones";
+                    }                             
                 }
                 else
                 {

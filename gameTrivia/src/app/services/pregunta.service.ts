@@ -102,4 +102,14 @@ export class PreguntaService {
       }
     );
   }
+
+  enviarArchivo(formData: FormData): Observable<FormData> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    //headers.append('Access-Control-Allow-Credentials', 'true');
+    return this.http.post<FormData>(`${this.apiURL}/import`, formData, {
+      headers: headers,
+    });
+  }
 }

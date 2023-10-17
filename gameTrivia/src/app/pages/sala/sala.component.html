@@ -122,6 +122,12 @@
           Importar preguntas
         </button>
       </div>
+      <div class="col-auto">
+        <button class="btn btn-primary d-flex text-end px-3 my-2 py-2">
+          <img src="assets/Icons/Importar2.svg" alt="Icono" class="icono-svg" />
+          Descargar formato
+        </button>
+      </div>
       <!-- <div class="col-auto">
           <button class="btn btn-primary d-flex text-end px-3 my-2" >
             <img  src="assets/Icons/Imagen.svg" alt="Icono" class="icono-svg" >
@@ -138,6 +144,7 @@
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      data-bs-backdrop="static"
       style="background-color: rgba(0, 0, 0, 0.5)"
     >
       <div class="modal-dialog">
@@ -149,15 +156,11 @@
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              #closeModal
             ></button>
           </div>
           <div class="modal-body">
-            <form
-              class="row g-3"
-              ngNativeValidate
-              #form
-              (ngSubmit)="form.checkValidity() ? guardarPreguntas() : null"
-            >
+            <form class="row g-3 mb-3">
               <div class="col-12">
                 <label for="archivoExcel" class="form-label ms-2"
                   >Archivo</label
@@ -165,35 +168,33 @@
                 <input
                   type="file"
                   class="form-control"
+                  (change)="onFileSelected($event)"
                   id="archivoExcel"
+                  #valueArchivo
                   accept=".xlsx"
                   required
                 />
-                <small class="text-danger ms-2">error</small>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-secondary">Guardar</button>
-              </div>
-              <div class="col-12">
-                <button type="button" class="btn btn-secondary" disabled>
-                  <span
-                    class="spinner-border spinner-border-sm me-1"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Guardando...
-                </button>
+                <small class="text-danger ms-2" *ngIf="existeErrorArchivo">{{
+                  resultArchivo.includes("|")
+                    ? resultArchivo.split("|")[1]
+                    : resultArchivo
+                }}</small>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button
               type="button"
+              (click)="importArchivo()"
               class="btn btn-secondary"
-              data-bs-dismiss="modal"
             >
-              Ok
+              Guardar
             </button>
+            <button
+              type="button"
+              class="btn btn-secondary d-none"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
         </div>
       </div>

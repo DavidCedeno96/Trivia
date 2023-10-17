@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pregunta, Sala } from 'src/app/model/SalaModel';
 import { PreguntaService } from 'src/app/services/pregunta.service';
@@ -14,12 +14,18 @@ import { ConstantsService } from 'src/app/constants.service';
   providers: [ConfirmationService, MessageService],
 })
 export class SalaComponent implements OnInit {
+  @ViewChild('closeModal') closeModal!: ElementRef;
+  @ViewChild('valueArchivo') valueArchivo!: ElementRef;
+
   existeError: boolean = false;
   result: string = '';
 
   existeErrorPregunta: boolean = false;
   resultPregunta: string = '';
   dialogEliminar: boolean = false;
+  selectedFile: File | null = null;
+  existeErrorArchivo: boolean = false;
+  resultArchivo: string = 'Ingrese un archivo en formato .xlsx';
 
   miSala: Sala = {
     idSala: 1,
@@ -113,8 +119,52 @@ export class SalaComponent implements OnInit {
     });
   }
 
-  guardarPreguntas() {
-    console.log('Guardar preguntas...');
+  importArchivo() {
+    if (this.selectedFile) {
+      this.constantsService.loading(true);
+      this.existeErrorArchivo = false;
+
+      const formData = new FormData();
+      formData.append('idSala', this.miSala.idSala.toString());
+      formData.append('archivo', this.selectedFile);
+
+      this.preguntaServicio.enviarArchivo(formData).subscribe({
+        next: (data: any) => {
+          const { info, error } = data.response;
+          this.resultArchivo = info;
+          if (error > 0) {
+            this.existeErrorArchivo = true;
+          } else {
+            this.existeErrorArchivo = false;
+            this.closeModal.nativeElement.click();
+            this.selectedFile = null;
+            this.valueArchivo.nativeElement.value = '';
+            this.cargarPreguntas(this.miSala.idSala);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Satisfactorio',
+              detail: 'Preguntas creadas',
+            });
+          }
+          this.constantsService.loading(false);
+        },
+        error: (e) => {
+          this.closeModal.nativeElement.click();
+          if (e.status === 401) {
+            this.router.navigate(['/']);
+          }
+        },
+      });
+    } else {
+      this.existeErrorArchivo = true;
+      this.resultArchivo = 'Ingrese un archivo en formato .xlsx';
+    }
+  }
+
+  onFileSelected(event: Event) {
+    this.selectedFile = (event.target as HTMLInputElement).files![0];
+    this.existeErrorArchivo = false;
+    console.log(this.selectedFile.name);
   }
 
   eliminarPregunta(idPregunta: number) {
