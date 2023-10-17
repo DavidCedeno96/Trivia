@@ -25,7 +25,7 @@
                     [ngClass]="{'gris-oscuro': miJugador.jugador == nombreJugador}">
                       <div class="number-text mx-2">{{ i + 1 }}</div>
                       <div class="container" style="width: 45px;">
-                        <div class="circle-badge" [style.background-color]="generarColorAleatorio()">{{miJugador.iniciales}}</div> <!-- Círculo con dos letras -->
+                        <div class="circle-badge" [style.background-color]="miListadeColores[i]">{{miJugador.iniciales}}</div> <!-- Círculo con dos letras -->
                       </div>
                       
                       <div class="container mx-4" style="background-color: orange; border-radius: 20px; height: 40px; display: flex; align-items: center;">

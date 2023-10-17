@@ -8,32 +8,36 @@ import {
   Output,
   EventEmitter,
   Input, ViewChild,
-  ViewChildren, QueryList
+  ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 
-
-
 declare var bootstrap: any;
 declare var LeaderLine: any;
-
-
 
 @Component({
   selector: 'app-challengers-game',
   templateUrl: './challengers-game.component.html',
   styleUrls: ['./challengers-game.component.css'],
 })
-export class ChallengersGameComponent implements OnInit, AfterViewInit {
+export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  valoresXsenSave: number[] = [];
+  //controlar un error
+  marginLeftValues: number[] = [];
+
+
+  //Para mover el carro
+  numXtraslacion:number[]=[10,-35,-70,-50,-5,32,15,-25,-65,-55,-20,20,25,-15,-55,-65,-35,15,35];
+  altura: number = 116;
+  contadorCiclo: number = 0;
+  maximoContador: number = 19;
+
+  isEdificioPar: boolean = true;
 
   @ViewChild('elementoVehiculo', { static: true }) elementoVehiculo?: ElementRef;
-  indiceActual = 0;
 
-
+  lineas: any[] = [];
   @ViewChildren('elementoImagen') elementosImagen?: QueryList<ElementRef>;
-
 
   @Output() numVentanaH = new EventEmitter<number>();
   @Input() PreguntasList: Pregunta_OpcionList[] = [];
@@ -162,7 +166,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.puntosGanados = 0;
     this.puedeResponder = true;
     this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
-    //const line = new LeaderLine();
   
   }
 
@@ -173,18 +176,18 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
     this.musicaFondo.loop = true;
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-    this.musicaFondo.play();    
-
-    setTimeout(() => {
-      //this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
+    this.musicaFondo.play();   
+    
+      setTimeout(() => {
+      this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
       //console.log("Entro");
-    }, 3000);
+    }, 4000);
 
     this.listaDePreguntas = this.PreguntasList;
 
     //Para las imagenes de los edificios principales
 
-    const OpNumEdif = this.listaDePreguntas.length*3/5.75;
+    const OpNumEdif = (this.listaDePreguntas.length*3/5.75)/2;
     var numberOfItems = 0;    
 
     if (OpNumEdif % 1 >= 0.5) {
@@ -219,30 +222,47 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
       sinusoidalContainer.style.height = alturaDeseada + 'px';
       //console.log("Num preguntas"+this.listaDePreguntas.length);
     }
-
+    //Crear lineas entr los botones
     setTimeout(() => {
       this.adjustLines();
+      //this.obtenerDiferenciaBotones();
     }, 500);
 
     window.addEventListener('resize', () => {
       this.adjustLines();
     });
-
     
+    //Guardo posiciones que fueron trasladados los botones
 
-    for (let i = 0; i < this.listaDePreguntas.length-1; i++) {
+   /*  for (let i = 0; i < this.listaDePreguntas.length-1; i++) {
       this.valoresXsenSave.push(this.calculateMargin(i));      
+    } */
+
+    if (this.elementoVehiculo) {
+      this.elementoVehiculo.nativeElement.style.transition = 'transform 0.5s linear';
+      this.elementoVehiculo.nativeElement.style.transform = `translate(${35}px, ${0}px)`;
+   
     }
 
-    console.log(this.valoresXsenSave);  
-
+    this.EdificiosCount.forEach((element, i) => {
+      this.marginLeftValues[i] = this.calculateMargin2(i);
+    });
 
     
+  }
+
+  ngOnDestroy(): void {
+    this.modal.hide();
+    this.lineas.forEach(linea => linea.remove());
+
   }
 
   adjustLines() {
     if (this.elementosImagen) {
       const elementos = this.elementosImagen.toArray();
+      // Limpia las líneas anteriores si las hubiera
+      //this.lineas.forEach((linea: HTMLElement) => linea.remove());
+      //this.lineas.length = 0;
 
       for (let i = 0; i < elementos.length - 1; i++) {
         console.log("LINEAS");
@@ -263,6 +283,8 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
           },
           
         });
+
+        this.lineas.push(linea);
       }
     }
 
@@ -319,7 +341,9 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
         this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
 
         setTimeout(() => {
+         
           this.mostrarAlert = false;
+          this.moverVehiculo();
           this.modal.hide();
           this.numPreguntasContestadas++;
           this.puedeResponder = true;
@@ -339,10 +363,12 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
     setTimeout(() => {
       this.mostrarWrongAlert = false;
-      this.modal.hide();
+      this.modal.hide();      
+      this.moverVehiculo();
       this.numPreguntasContestadas++;
       this.puedeResponder = true;
       this.countdown = 20;
+      
     }, 3000); // 3000 milisegundos = 3 segundos
   }
 
@@ -354,11 +380,11 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.activarBoton(this.numPreguntasContestadas + 1, 1);
         this.rellenarPregunta(this.numPreguntasContestadas + 1);
-      }, 3500);
+      }, 4000);
 
       setTimeout(() => {
         this.mostrarModal();
-      }, 4000);
+      }, 4500);
     } else {
       setTimeout(() => {
         this.onClickCambiar();
@@ -397,24 +423,10 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
   }
 
   generateButtons() {
-    //this.frecuencia = (2 * Math.PI) / this.cantidadDeBotones;
-
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
-      /* const x = this.centroX + this.amplitud * Math.sin(this.frecuencia * i);
-      const y = this.centroY + i * 20;
-      var x2 = 0;
-      var y2 = 0; */
 
-      // Agrega una imagen FINAL DESPUES DEL ULTIMO BOTON
       if (i == this.cantidadDeBotones) {
-      /*   x2 = this.centroX + this.amplitud * Math.sin(this.frecuencia * (i + 1));
-        y2 = this.centroY + (i + 1) * 20; */
-        /* this.botones.push({
-          id: 'imagen-FINAL',         
-          svg: '',
-          tipo: 'imagen',
-          rutaImagen: this.imagenFinal,
-        }); */
+
       }else{
         this.botones.push({
           id: i - this.numImagenesColocadas,
@@ -426,14 +438,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     }
   }
 
-/*   updateButtonPositions() {
-    const buttons =
-      this.el.nativeElement.querySelectorAll('.sinusoidal-button');
-    this.botones.forEach((button, index) => {
-      this.renderer.setStyle(buttons[index], 'left', button.x + 'px');
-      this.renderer.setStyle(buttons[index], 'top', button.y + 'px');
-    });
-  } */
 
   activarBoton(id: number, imgCambio: number) {
     const boton = this.botones.find((b) => b.id === id);
@@ -517,45 +521,35 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit {
     return res;
   }
 
-  calculateMargin2(index: number): number {
-    if(index % 2 == 0){
-      return 0;     
-      
-    }else{
-      
-      if(index % 3 == 0){
-        return -220;
+  calculateMargin2(index: number): number {    
+
+      if(this.isEdificioPar){
+        this.isEdificioPar=!this.isEdificioPar;
+        return 300;
+
+      }else{
+        this.isEdificioPar=!this.isEdificioPar;
+        return -250;
       }
-      else{
-        return 150;
-      }
-    }
   }
 
-  //FUNCION PARA MOVER EL AUTO
-  avanzarVehiculo() {
-    if (this.indiceActual < this.botones.length - 1) {
-      this.indiceActual++;
-      this.colocarVehiculoEnBoton(this.indiceActual);
-    }
-  }
+  moverVehiculo(){
+    const i=this.numPreguntasContestadas+1;
+    const h = this.altura;
 
-  colocarVehiculoEnBoton(indice:number) {
-    if (indice < this.botones.length) {
-      const boton = this.botones[indice];
-      const elementoBoton = document.getElementById('boton-' + boton.id);
 
-      if (elementoBoton && this.elementoVehiculo) {
-        const coordenadasBoton = elementoBoton.getBoundingClientRect();
-        const coordenadasVehiculo = this.elementoVehiculo.nativeElement.getBoundingClientRect();
-
-        const distanciaX = coordenadasBoton.left - coordenadasVehiculo.left + coordenadasBoton.width / 2 - coordenadasVehiculo.width / 2;
-        const distanciaY = coordenadasBoton.top - coordenadasVehiculo.top + coordenadasBoton.height / 2 - coordenadasVehiculo.height / 2;
-
-        this.elementoVehiculo.nativeElement.style.transition = 'transform 0.5s linear';
-        this.elementoVehiculo.nativeElement.style.transform = `translate(${distanciaX}px, ${distanciaY}px)`;
+    if( this.elementoVehiculo){
+      this.elementoVehiculo.nativeElement.style.transition = 'transform 1.5s linear';
+      this.elementoVehiculo.nativeElement.style.transform = `translate(${this.numXtraslacion[this.contadorCiclo]}px, ${h*i}px)`;
+      this.contadorCiclo++;
+      if(this.contadorCiclo>=19){
+        this.contadorCiclo=0;
       }
+
     }
+    //this.numPreguntasContestadas++;
+    
   }
+
 
 }

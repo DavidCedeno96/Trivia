@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef,AfterContentChecked, OnInit  } from '@angular/core';
 import { PuntosJugador } from 'src/app/model/PuntosJugador';
 
 @Component({
@@ -6,11 +6,11 @@ import { PuntosJugador } from 'src/app/model/PuntosJugador';
   templateUrl: './ranking-challenger.component.html',
   styleUrls: ['./ranking-challenger.component.css']
 })
-export class RankingChallengerComponent implements AfterViewInit {
+export class RankingChallengerComponent implements AfterViewInit, AfterContentChecked, OnInit {
 
   @ViewChild('scrollableList') scrollableList: ElementRef = new ElementRef(null);
 
-
+  miListadeColores: any[] = [];
   nombreJugador:string="Roberto Sol";
   testIniciales:string = "";
   numJugadores:number = 0;
@@ -61,9 +61,16 @@ export class RankingChallengerComponent implements AfterViewInit {
       
   ];
 
-  constructor(){
+  constructor(private cd: ChangeDetectorRef){
     this.testIniciales=this.obtenerIniciales(this.nombreJugador);
     this.numJugadores=this.listaJugadores.length;
+   // this.cd.detectChanges();
+  }
+
+  ngOnInit(): void {
+    for (let i = 0; i < this.listaJugadores.length; i++) {
+      this.miListadeColores.push(this.generarColorAleatorio());      
+    }
   }
 
   ngAfterViewInit() {
@@ -77,6 +84,11 @@ export class RankingChallengerComponent implements AfterViewInit {
       // Ajusta el desplazamiento de la lista
       this.scrollableList.nativeElement.scrollTop = scrollToPosition;
     }
+    
+  }
+
+  ngAfterContentChecked(): void {
+    
   }
 
 
