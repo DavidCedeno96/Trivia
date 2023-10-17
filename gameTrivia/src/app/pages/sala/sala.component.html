@@ -123,7 +123,10 @@
         </button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary d-flex text-end px-3 my-2 py-2">
+        <button
+          class="btn btn-primary d-flex text-end px-3 my-2 py-2"
+          (click)="exportArchivo()"
+        >
           <img src="assets/Icons/Importar2.svg" alt="Icono" class="icono-svg" />
           Descargar formato
         </button>
@@ -150,7 +153,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Archivo Excel</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Importar Preguntas
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -160,6 +165,17 @@
             ></button>
           </div>
           <div class="modal-body">
+            <div class="mb-2">
+              <strong>Instrucciones:</strong>
+              <ol>
+                <li>Descargar el formato (archivo excel).</li>
+                <li>Ingresar las preguntas.</li>
+                <li>Cada pregunta debe tener su opcion correcta.</li>
+                <li>Si hay campos vacios no se guardará la pregunta.</li>
+                <li>Debe tener mínimo dos opciones y maximo cuatro.</li>
+                <li>No se aceptan los caracteres &#60;, &#62; o =</li>
+              </ol>
+            </div>
             <form class="row g-3 mb-3">
               <div class="col-12">
                 <label for="archivoExcel" class="form-label ms-2"

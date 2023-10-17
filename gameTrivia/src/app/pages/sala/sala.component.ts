@@ -6,6 +6,7 @@ import { SalaService } from 'src/app/services/sala.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { EncryptionService } from 'src/app/encryption.service';
 import { ConstantsService } from 'src/app/constants.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sala',
@@ -16,6 +17,8 @@ import { ConstantsService } from 'src/app/constants.service';
 export class SalaComponent implements OnInit {
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('valueArchivo') valueArchivo!: ElementRef;
+
+  excelFileUrl: SafeResourceUrl;
 
   existeError: boolean = false;
   result: string = '';
@@ -58,8 +61,13 @@ export class SalaComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private encryptionService: EncryptionService,
-    private constantsService: ConstantsService
-  ) {}
+    private constantsService: ConstantsService,
+    private sanitizer: DomSanitizer
+  ) {
+    this.excelFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      'URL_DEL_ARCHIVO_EXCEL'
+    );
+  }
 
   ngOnInit(): void {
     this.constantsService.loading(true);
@@ -142,7 +150,7 @@ export class SalaComponent implements OnInit {
             this.cargarPreguntas(this.miSala.idSala);
             this.messageService.add({
               severity: 'success',
-              summary: 'Satisfactorio',
+              summary: this.constantsService.mensajeSatisfactorio(),
               detail: 'Preguntas creadas',
             });
           }
@@ -161,6 +169,23 @@ export class SalaComponent implements OnInit {
     }
   }
 
+  exportArchivo() {
+    this.constantsService.loading(true);
+    this.preguntaServicio.getArchivo().subscribe({
+      next: (data: Blob) => {
+        const urlObject = window.URL.createObjectURL(data);
+        const element = document.createElement('a');
+        element.download = `formatoCMI.xlsx`;
+        element.href = urlObject;
+        element.click();
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+  }
+
   onFileSelected(event: Event) {
     this.selectedFile = (event.target as HTMLInputElement).files![0];
     this.existeErrorArchivo = false;
@@ -177,7 +202,7 @@ export class SalaComponent implements OnInit {
           this.existeError = true;
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.constantsService.mensajeError(),
             detail: 'No se pudo eliminar la pregunta',
           });
         } else {
@@ -185,7 +210,7 @@ export class SalaComponent implements OnInit {
           this.cargarPreguntas(this.miSala.idSala);
           this.messageService.add({
             severity: 'success',
-            summary: 'Satisfactorio',
+            summary: this.constantsService.mensajeSatisfactorio(),
             detail: 'Pregunta eliminada',
           });
         }

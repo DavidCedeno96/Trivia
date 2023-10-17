@@ -86,7 +86,7 @@ export class AdminComponent implements OnInit {
             this.misSalas = lista;
             this.messageService.add({
               severity: 'success',
-              summary: 'Satisfactorio',
+              summary: this.constantsService.mensajeSatisfactorio(),
               detail: 'Sala/s Entontrada/s',
             });
           }
@@ -135,7 +135,7 @@ export class AdminComponent implements OnInit {
           this.cargarSalas();
           this.messageService.add({
             severity: 'success',
-            summary: 'Satisfactorio',
+            summary: this.constantsService.mensajeSatisfactorio(),
             detail: estado === 1 ? 'Sala Activada' : 'Sala Desactivada',
           });
         }
@@ -159,7 +159,7 @@ export class AdminComponent implements OnInit {
           this.existeError = true;
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.constantsService.mensajeError(),
             detail: 'No se pudo eliminar la sala',
           });
         } else {
@@ -167,7 +167,7 @@ export class AdminComponent implements OnInit {
           this.cargarSalas();
           this.messageService.add({
             severity: 'success',
-            summary: 'Satisfactorio',
+            summary: this.constantsService.mensajeSatisfactorio(),
             detail: 'Sala eliminada',
           });
         }

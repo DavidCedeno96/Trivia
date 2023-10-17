@@ -136,58 +136,67 @@ namespace WebApiRest.Controllers {
 
             if (archivo != null)
             {
-                Stream stream = archivo.OpenReadStream();                
+                Stream stream = archivo.OpenReadStream();
                 if(Path.GetExtension(archivo.FileName).Equals(".xlsx"))
                 {
-                    try
-                    {
-                        IWorkbook archivoExcel = new XSSFWorkbook(stream);
-                        ISheet hojaExcel = archivoExcel.GetSheetAt(0);
-                        int cantidadFilas = hojaExcel.LastRowNum + 1;
+                    
+                    IWorkbook archivoExcel = new XSSFWorkbook(stream);
+                    ISheet hojaExcel = archivoExcel.GetSheetAt(0);
+                    int cantidadFilas = hojaExcel.LastRowNum + 1;
 
-                        for (int i = 0; i < cantidadFilas; i++)
+                    for (int i = 0; i < cantidadFilas; i++)
+                    {
+                        if (i > 0)
                         {
-                            if (i > 0)
+                            IRow filaEncabezado = hojaExcel.GetRow(0);
+                            IRow filaData = hojaExcel.GetRow(i);
+                            Pregunta pregunta = new();
+                            List<Opcion> listOp = new();
+                            for (int j = 0; j < 6; j++)
                             {
-                                IRow filaEncabezado = hojaExcel.GetRow(0);
-                                IRow filaData = hojaExcel.GetRow(i);
-                                Pregunta pregunta = new();
-                                List<Opcion> listOp = new();
-                                for (int j = 0; j < 6; j++)
+                                try
                                 {
                                     if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("pregunta"))
                                     {
-                                        pregunta.Nombre = filaData.GetCell(j).ToString();
+                                        pregunta.Nombre = filaData.GetCell(j).ToString().Trim();
                                         pregunta.IdSala = idSala;
                                     }
                                     else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("opcion"))
                                     {
-                                        if (!filaData.GetCell(j).ToString().Trim().Equals(""))
+                                        listOp.Add(new Opcion
                                         {
-                                            listOp.Add(new Opcion
-                                            {
-                                                Nombre = filaData.GetCell(j).ToString().Trim(),
-                                                Correcta = 0
-                                            });
-                                        }
+                                            Nombre = filaData.GetCell(j).ToString().Trim(),
+                                            Correcta = 0
+                                        });
                                     }
                                     else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("correcta"))
                                     {
-                                        if (!filaData.GetCell(j).ToString().Trim().Equals(""))
+                                        string opcCorrecta = "opcion " + filaData.GetCell(j).ToString().ToLower().Trim();
+                                        for (int k = 0; k < 4; k++)
                                         {
-                                            string opcCorrecta = filaData.GetCell(j).ToString().ToLower().Trim();
-                                            for (int k = 0; k < 4; k++)
+                                            if (filaEncabezado.GetCell(k + 1).ToString().ToLower().Trim().Equals(opcCorrecta))
                                             {
-                                                if (filaEncabezado.GetCell(k + 1).ToString().ToLower().Trim().Equals(opcCorrecta))
-                                                {
-                                                    listOp[k].Correcta = 1;
-                                                    break;
-                                                }
+                                                listOp[k].Correcta = 1;
+                                                break;
                                             }
                                         }
                                     }
                                 }
+                                catch (Exception){}                           
+                            }
 
+                            bool tieneOpCorrecta = false;
+                            foreach(var item in listOp)
+                            {
+                                if(item.Correcta > 0)
+                                {
+                                    tieneOpCorrecta = true;   
+                                    break;
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(pregunta.Nombre.Trim()) && listOp.Count > 1 && tieneOpCorrecta)
+                            {
                                 lista.Add(new Pregunta_OpcionList
                                 {
                                     Pregunta = pregunta,
@@ -195,7 +204,11 @@ namespace WebApiRest.Controllers {
                                 });
                             }
                         }
+                    }
+                    //response.List = lista;
 
+                    if (lista.Count > 0)
+                    {
                         foreach (var item in lista)
                         {
                             Response resultPregunta = VF.ValidarPregunta(item.Pregunta);
@@ -256,11 +269,11 @@ namespace WebApiRest.Controllers {
                             });
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
                         response.Error = 1;
-                        response.Info = ex.Message + "|Error en el formato preguntas y opciones";
-                    }                             
+                        response.Info = "el Archivo no tiene preguntas válidas";
+                    }                    
                 }
                 else
                 {

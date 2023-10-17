@@ -16,6 +16,12 @@ export class PreguntaService {
     private usuarioServicio: UsuarioService
   ) {}
 
+  getArchivo(): Observable<Blob> {
+    return this.http.get('assets/archivos/FormatoCMI.xlsx', {
+      responseType: 'blob',
+    });
+  }
+
   listaPreguntaByIdSala(
     estados: number,
     idSala: number

@@ -250,7 +250,7 @@ exec sp_D_OpcionByIdPregunta
 
 ----------------------------------------------------------------------------
 select * from Sala where idSala = 80
-select * from Pregunta where idSala = 80
+select * from Pregunta where idSala = 63
 select * from Opcion where idPregunta = 43
 select * from Opcion where idPregunta = 44
 
