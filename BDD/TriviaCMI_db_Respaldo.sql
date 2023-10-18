@@ -1,6 +1,6 @@
 USE [TriviaCMI_db]
 GO
-/****** Object:  Table [dbo].[ModoJuego]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[ModoJuego]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,7 +18,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Opcion]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Opcion]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -37,7 +37,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Pregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,7 +55,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rol]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Rol]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -72,7 +72,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -92,7 +92,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Usuario]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -114,7 +114,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario_Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Table [dbo].[Usuario_Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +124,9 @@ CREATE TABLE [dbo].[Usuario_Sala](
 	[idSala] [int] NOT NULL,
 	[estado] [int] NULL,
 	[fecha_creacion] [datetime] NULL,
-	[fecha_modificacion] [datetime] NULL
+	[fecha_modificacion] [datetime] NULL,
+	[puntaje] [int] NULL,
+	[tiempo] [int] NULL
 ) ON [PRIMARY]
 GO
 SET IDENTITY_INSERT [dbo].[ModoJuego] ON 
@@ -257,6 +259,564 @@ INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado],
 GO
 INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (117, N'Respuesta 4', 0, 38, 1, CAST(N'2023-10-13T16:11:17.443' AS DateTime), CAST(N'2023-10-13T16:11:17.443' AS DateTime))
 GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (134, N'23 de octubre', 0, 43, 1, CAST(N'2023-10-16T18:06:06.397' AS DateTime), CAST(N'2023-10-16T18:06:06.397' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (135, N'28 de octubre', 0, 43, 1, CAST(N'2023-10-16T18:06:06.397' AS DateTime), CAST(N'2023-10-16T18:06:06.397' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (136, N'29 de octubre', 1, 43, 1, CAST(N'2023-10-16T18:06:06.397' AS DateTime), CAST(N'2023-10-16T18:06:06.397' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (137, N'31 de octubre', 0, 43, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (138, N'1', 0, 44, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (139, N'2', 1, 44, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (140, N'4', 0, 44, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (141, N'5', 0, 44, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (142, N'23 de octubre', 0, 45, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (143, N'28 de octubre', 0, 45, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (144, N'29 de octubre', 1, 45, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (145, N'31 de octubre', 0, 45, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (146, N'1', 0, 46, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (147, N'2', 1, 46, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (148, N'4', 0, 46, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (149, N'5', 0, 46, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (150, N'23 de octubre', 0, 47, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (151, N'28 de octubre', 0, 47, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (152, N'29 de octubre', 1, 47, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (153, N'31 de octubre', 0, 47, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (154, N'1', 0, 48, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (155, N'2', 1, 48, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (156, N'4', 0, 48, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (157, N'5', 0, 48, 1, CAST(N'2023-10-17T11:12:07.540' AS DateTime), CAST(N'2023-10-17T11:12:07.540' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (158, N'23 de octubre', 0, 49, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (159, N'28 de octubre', 0, 49, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (160, N'29 de octubre', 1, 49, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (161, N'31 de octubre', 0, 49, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (162, N'1', 0, 50, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (163, N'2', 1, 50, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (164, N'4', 0, 50, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (165, N'5', 0, 50, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (166, N'23 de octubre', 0, 51, 1, CAST(N'2023-10-17T11:15:56.747' AS DateTime), CAST(N'2023-10-17T11:15:56.747' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (167, N'28 de octubre', 0, 51, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (168, N'29 de octubre', 1, 51, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (169, N'31 de octubre', 0, 51, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (170, N'1', 0, 52, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (171, N'2', 1, 52, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (172, N'4', 0, 52, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (173, N'5', 0, 52, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (174, N'Otra opción', 0, 53, 1, CAST(N'2023-10-17T12:06:27.250' AS DateTime), CAST(N'2023-10-17T12:06:27.250' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (175, N'Otra opción', 1, 53, 1, CAST(N'2023-10-17T12:06:27.250' AS DateTime), CAST(N'2023-10-17T12:06:27.250' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (176, N'Otra opción', 0, 54, 1, CAST(N'2023-10-17T12:06:44.877' AS DateTime), CAST(N'2023-10-17T12:06:44.877' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (177, N'Otra opción', 1, 54, 1, CAST(N'2023-10-17T12:06:44.877' AS DateTime), CAST(N'2023-10-17T12:06:44.877' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (178, N'Otra opción', 0, 54, 1, CAST(N'2023-10-17T12:06:44.877' AS DateTime), CAST(N'2023-10-17T12:06:44.877' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (179, N'23 de octubre', 0, 55, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (180, N'28 de octubre', 0, 55, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (181, N'29 de octubre', 1, 55, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (182, N'31 de octubre', 0, 55, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (183, N'1', 0, 56, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (184, N'2', 1, 56, 1, CAST(N'2023-10-17T12:39:37.457' AS DateTime), CAST(N'2023-10-17T12:39:37.457' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (185, N'4', 0, 56, 1, CAST(N'2023-10-17T12:39:37.457' AS DateTime), CAST(N'2023-10-17T12:39:37.457' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (186, N'5', 0, 56, 1, CAST(N'2023-10-17T12:39:37.457' AS DateTime), CAST(N'2023-10-17T12:39:37.457' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (187, N'1', 0, 57, 1, CAST(N'2023-10-17T12:40:30.073' AS DateTime), CAST(N'2023-10-17T12:40:30.073' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (188, N'2', 1, 57, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (189, N'4', 0, 57, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (190, N'5', 0, 57, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (191, N'1', 0, 58, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (192, N'2', 1, 58, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (193, N'4', 0, 58, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (194, N'5', 0, 58, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (195, N'1', 0, 59, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (196, N'2', 1, 59, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (197, N'4', 0, 59, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (198, N'5', 0, 59, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (199, N'1', 0, 60, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (200, N'2', 1, 60, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (201, N'4', 0, 60, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (202, N'5', 0, 60, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (203, N'1', 0, 61, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (204, N'2', 1, 61, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (205, N'4', 0, 61, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (206, N'5', 0, 61, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (207, N'1', 0, 62, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (208, N'2', 1, 62, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (209, N'4', 0, 62, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (210, N'5', 0, 62, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (211, N'1', 0, 63, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (212, N'2', 1, 63, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (213, N'4', 0, 63, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (214, N'5', 0, 63, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (215, N'1', 0, 64, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (216, N'2', 1, 64, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (217, N'4', 0, 64, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (218, N'5', 0, 64, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (219, N'1', 0, 65, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (220, N'2', 1, 65, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (221, N'4', 0, 65, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (222, N'5', 0, 65, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (223, N'1', 0, 66, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (224, N'2', 1, 66, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (225, N'4', 0, 66, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (226, N'5', 0, 66, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (227, N'1', 0, 67, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (228, N'2', 1, 67, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (229, N'4', 0, 67, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (230, N'5', 0, 67, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (231, N'1', 0, 68, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (232, N'2', 1, 68, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (233, N'4', 0, 68, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (234, N'5', 0, 68, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (235, N'1', 0, 69, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (236, N'2', 1, 69, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (237, N'4', 0, 69, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (238, N'5', 0, 69, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (239, N'1', 0, 70, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (240, N'2', 1, 70, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (241, N'4', 0, 70, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (242, N'5', 0, 70, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (243, N'1', 0, 71, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (244, N'2', 1, 71, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (245, N'4', 0, 71, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (246, N'5', 0, 71, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (247, N'1', 0, 72, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (248, N'2', 1, 72, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (249, N'4', 0, 72, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (250, N'5', 0, 72, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (251, N'1', 0, 73, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (252, N'2', 1, 73, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (253, N'4', 0, 73, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (254, N'5', 0, 73, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (255, N'1', 0, 74, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (256, N'2', 1, 74, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (257, N'4', 0, 74, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (258, N'5', 0, 74, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (259, N'1', 0, 75, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (260, N'2', 1, 75, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (261, N'4', 0, 75, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (262, N'5', 0, 75, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (263, N'1', 0, 76, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (264, N'2', 1, 76, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (265, N'4', 0, 76, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (266, N'5', 0, 76, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (267, N'1', 0, 77, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (268, N'2', 1, 77, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (269, N'4', 0, 77, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (270, N'5', 0, 77, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (271, N'1', 0, 78, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (272, N'2', 1, 78, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (273, N'4', 0, 78, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (274, N'5', 0, 78, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (275, N'1', 0, 79, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (276, N'2', 1, 79, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (277, N'4', 0, 79, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (278, N'5', 0, 79, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (279, N'1', 0, 80, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (280, N'2', 1, 80, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (281, N'4', 0, 80, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (282, N'5', 0, 80, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (283, N'1', 0, 81, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (284, N'2', 1, 81, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (285, N'4', 0, 81, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (286, N'5', 0, 81, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (287, N'1', 0, 82, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (288, N'2', 1, 82, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (289, N'4', 0, 82, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (290, N'5', 0, 82, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (291, N'1', 0, 83, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (292, N'2', 1, 83, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (293, N'4', 0, 83, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (294, N'5', 0, 83, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (295, N'1', 0, 84, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (296, N'2', 1, 84, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (297, N'4', 0, 84, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (298, N'5', 0, 84, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (299, N'1', 0, 85, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (300, N'2', 1, 85, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (301, N'4', 0, 85, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (302, N'5', 0, 85, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (303, N'1', 0, 86, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (304, N'2', 1, 86, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (305, N'4', 0, 86, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (306, N'5', 0, 86, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (307, N'1', 0, 87, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (308, N'2', 1, 87, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (309, N'4', 0, 87, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (310, N'5', 0, 87, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (311, N'23 de octubre', 0, 88, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (312, N'28 de octubre', 0, 88, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (313, N'29 de octubre', 1, 88, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (314, N'31 de octubre', 0, 88, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (315, N'1', 0, 89, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (316, N'2', 1, 89, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (317, N'TRUE', 1, 90, 1, CAST(N'2023-10-17T16:28:50.560' AS DateTime), CAST(N'2023-10-17T16:28:50.560' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (318, N'FALSE', 0, 90, 1, CAST(N'2023-10-17T16:28:50.560' AS DateTime), CAST(N'2023-10-17T16:28:50.560' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (319, N'verdadero', 1, 90, 1, CAST(N'2023-10-17T16:30:29.510' AS DateTime), CAST(N'2023-10-17T16:30:29.510' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (320, N'falso', 0, 90, 1, CAST(N'2023-10-17T16:30:29.510' AS DateTime), CAST(N'2023-10-17T16:30:29.510' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (322, N'verdadero', 1, 91, 1, CAST(N'2023-10-17T16:41:48.367' AS DateTime), CAST(N'2023-10-17T16:41:48.367' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (323, N'falso', 0, 91, 1, CAST(N'2023-10-17T16:41:48.367' AS DateTime), CAST(N'2023-10-17T16:41:48.367' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (324, N'bueno', 0, 91, 1, CAST(N'2023-10-17T16:41:48.367' AS DateTime), CAST(N'2023-10-17T16:41:48.367' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (325, N'tercera', 0, 91, 1, CAST(N'2023-10-17T16:43:11.180' AS DateTime), CAST(N'2023-10-17T16:43:11.180' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (336, N'Viena', 0, 95, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (337, N'Praga', 1, 95, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (338, N'Budapest', 0, 95, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (339, N'Estambul', 0, 95, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (340, N'40', 0, 96, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (341, N'390', 0, 96, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (342, N'208', 1, 96, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (343, N'Cada 3 meses', 0, 97, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (344, N'Cada 6 meses', 1, 97, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (345, N'23 de octubre', 0, 98, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (346, N'29 de octubre', 1, 98, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (347, N'28 de octubre', 0, 98, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (348, N'31 de octubre', 0, 98, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (349, N'Muy delicioso', 0, 99, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:02:00.040' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (350, N'No está mal', 0, 99, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:02:00.040' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (351, N'También normal', 0, 99, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:02:00.040' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (352, N'No es de mi gusto', 1, 99, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:02:00.040' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (353, N'Pizza', 1, 100, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:01:42.647' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (354, N'Pasta', 0, 100, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:01:42.647' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (355, N'Sushi', 0, 100, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:01:42.647' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (356, N'verdadero', 1, 101, 1, CAST(N'2023-10-17T17:01:42.650' AS DateTime), CAST(N'2023-10-17T17:01:42.650' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (357, N'falso', 0, 101, 1, CAST(N'2023-10-17T17:01:42.650' AS DateTime), CAST(N'2023-10-17T17:01:42.650' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (358, N'Viena', 0, 102, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (359, N'Praga', 1, 102, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (360, N'Budapest', 0, 102, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (361, N'Estambul', 0, 102, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (362, N'40', 0, 103, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (363, N'390', 0, 103, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (364, N'208', 1, 103, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (365, N'Cada 3 meses', 0, 104, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (366, N'Cada 6 meses', 1, 104, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (367, N'23 de octubre', 0, 105, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (368, N'29 de octubre', 1, 105, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (369, N'28 de octubre', 0, 105, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (370, N'31 de octubre', 0, 105, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (371, N'Muy delicioso', 0, 106, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (372, N'No está mal', 0, 106, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (373, N'También normal', 0, 106, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (374, N'No es de mi gusto', 1, 106, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (375, N'Pizza', 1, 107, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (376, N'Pasta', 0, 107, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (377, N'Sushi', 0, 107, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (378, N'verdadero', 1, 108, 1, CAST(N'2023-10-17T17:11:55.537' AS DateTime), CAST(N'2023-10-17T17:11:55.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (379, N'falso', 0, 108, 1, CAST(N'2023-10-17T17:11:55.537' AS DateTime), CAST(N'2023-10-17T17:11:55.537' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (380, N'Viena', 0, 109, 1, CAST(N'2023-10-17T17:27:15.183' AS DateTime), CAST(N'2023-10-17T17:27:15.183' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (381, N'Praga', 1, 109, 1, CAST(N'2023-10-17T17:27:15.183' AS DateTime), CAST(N'2023-10-17T17:27:15.183' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (382, N'Budapest', 0, 109, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (383, N'Estambul', 0, 109, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (384, N'40', 0, 110, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (385, N'390', 0, 110, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (386, N'208', 1, 110, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (387, N'Cada 3 meses', 0, 111, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (388, N'Cada 6 meses', 1, 111, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (389, N'23 de octubre', 0, 112, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (390, N'29 de octubre', 1, 112, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (391, N'28 de octubre', 0, 112, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (392, N'31 de octubre', 0, 112, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (393, N'Muy delicioso', 0, 113, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (394, N'No está mal', 0, 113, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (395, N'También normal', 0, 113, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (396, N'No es de mi gusto', 1, 113, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (397, N'Pizza', 1, 114, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (398, N'Pasta', 0, 114, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (399, N'Sushi', 0, 114, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (400, N'verdadero', 1, 115, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (401, N'falso', 0, 115, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (402, N'Viena', 0, 116, 1, CAST(N'2023-10-17T17:46:29.140' AS DateTime), CAST(N'2023-10-17T17:46:29.140' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (403, N'Praga', 1, 116, 1, CAST(N'2023-10-17T17:46:29.140' AS DateTime), CAST(N'2023-10-17T17:46:29.140' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (404, N'Budapest', 0, 116, 1, CAST(N'2023-10-17T17:46:29.140' AS DateTime), CAST(N'2023-10-17T17:46:29.140' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (405, N'Estambul', 0, 116, 1, CAST(N'2023-10-17T17:46:29.140' AS DateTime), CAST(N'2023-10-17T17:46:29.140' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (406, N'40', 0, 117, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (407, N'390', 0, 117, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (408, N'208', 1, 117, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (409, N'Cada 3 meses', 0, 118, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (410, N'Cada 6 meses', 1, 118, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (411, N'23 de octubre', 0, 119, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (412, N'29 de octubre', 1, 119, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (413, N'28 de octubre', 0, 119, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (414, N'31 de octubre', 0, 119, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (415, N'Muy delicioso', 0, 120, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (416, N'No está mal', 0, 120, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (417, N'También normal', 0, 120, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (418, N'No es de mi gusto', 1, 120, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (419, N'Pizza', 1, 121, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (420, N'Pasta', 0, 121, 1, CAST(N'2023-10-17T17:46:29.150' AS DateTime), CAST(N'2023-10-17T17:46:29.150' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (421, N'Sushi', 0, 121, 1, CAST(N'2023-10-17T17:46:29.150' AS DateTime), CAST(N'2023-10-17T17:46:29.150' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (422, N'verdadero', 1, 122, 1, CAST(N'2023-10-17T17:46:29.150' AS DateTime), CAST(N'2023-10-17T17:46:29.150' AS DateTime))
+GO
+INSERT [dbo].[Opcion] ([idOpcion], [nombre], [correcta], [idPregunta], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (423, N'falso', 0, 122, 1, CAST(N'2023-10-17T17:46:29.150' AS DateTime), CAST(N'2023-10-17T17:46:29.150' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[Opcion] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Pregunta] ON 
@@ -313,6 +873,160 @@ INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_crea
 GO
 INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (38, N'Primera Pregunta', 79, 1, CAST(N'2023-10-13T16:10:51.033' AS DateTime), CAST(N'2023-10-13T16:11:17.440' AS DateTime))
 GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (43, N'¿Cuándo es mi cumpleaños?', 80, 1, CAST(N'2023-10-16T18:06:06.377' AS DateTime), CAST(N'2023-10-16T18:06:06.377' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (44, N'¿Cuántas preguntas debe tener?', 80, 1, CAST(N'2023-10-16T18:06:06.400' AS DateTime), CAST(N'2023-10-16T18:06:06.400' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (45, N'¿Cuándo es mi cumpleaños?', 66, 1, CAST(N'2023-10-17T10:58:13.613' AS DateTime), CAST(N'2023-10-17T10:58:13.613' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (46, N'¿Cuántas preguntas debe tener?', 66, 1, CAST(N'2023-10-17T10:58:13.617' AS DateTime), CAST(N'2023-10-17T10:58:13.617' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (47, N'¿Cuándo es mi cumpleaños?', 67, 1, CAST(N'2023-10-17T11:12:07.533' AS DateTime), CAST(N'2023-10-17T11:12:07.533' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (48, N'¿Cuántas preguntas debe tener?', 67, 1, CAST(N'2023-10-17T11:12:07.537' AS DateTime), CAST(N'2023-10-17T11:12:07.537' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (49, N'¿Cuándo es mi cumpleaños?', 61, 1, CAST(N'2023-10-17T11:15:42.280' AS DateTime), CAST(N'2023-10-17T11:15:42.280' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (50, N'¿Cuántas preguntas debe tener?', 61, 1, CAST(N'2023-10-17T11:15:42.283' AS DateTime), CAST(N'2023-10-17T11:15:42.283' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (51, N'¿Cuándo es mi cumpleaños?', 61, 1, CAST(N'2023-10-17T11:15:56.743' AS DateTime), CAST(N'2023-10-17T11:15:56.743' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (52, N'¿Cuántas preguntas debe tener?', 61, 1, CAST(N'2023-10-17T11:15:56.750' AS DateTime), CAST(N'2023-10-17T11:15:56.750' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (53, N'Nueva pregunta', 78, 1, CAST(N'2023-10-17T12:06:27.247' AS DateTime), CAST(N'2023-10-17T12:06:27.247' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (54, N'Otra pregunta', 78, 1, CAST(N'2023-10-17T12:06:44.873' AS DateTime), CAST(N'2023-10-17T12:06:44.873' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (55, N'¿Cuándo es mi cumpleaños?', 79, 1, CAST(N'2023-10-17T12:39:37.450' AS DateTime), CAST(N'2023-10-17T12:39:37.450' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (56, N'¿Cuántas preguntas debe tener?', 79, 1, CAST(N'2023-10-17T12:39:37.453' AS DateTime), CAST(N'2023-10-17T12:39:37.453' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (57, N'¿Cuántas preguntas debe tener?2', 79, 1, CAST(N'2023-10-17T12:40:30.073' AS DateTime), CAST(N'2023-10-17T12:40:30.073' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (58, N'¿Cuántas preguntas debe tener?3', 79, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (59, N'¿Cuántas preguntas debe tener?4', 79, 1, CAST(N'2023-10-17T12:40:30.077' AS DateTime), CAST(N'2023-10-17T12:40:30.077' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (60, N'¿Cuántas preguntas debe tener?5', 79, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (61, N'¿Cuántas preguntas debe tener?6', 79, 1, CAST(N'2023-10-17T12:40:30.080' AS DateTime), CAST(N'2023-10-17T12:40:30.080' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (62, N'¿Cuántas preguntas debe tener?7', 79, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (63, N'¿Cuántas preguntas debe tener?8', 79, 1, CAST(N'2023-10-17T12:40:30.083' AS DateTime), CAST(N'2023-10-17T12:40:30.083' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (64, N'¿Cuántas preguntas debe tener?9', 79, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (65, N'¿Cuántas preguntas debe tener?10', 79, 1, CAST(N'2023-10-17T12:40:30.087' AS DateTime), CAST(N'2023-10-17T12:40:30.087' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (66, N'¿Cuántas preguntas debe tener?11', 79, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (67, N'¿Cuántas preguntas debe tener?12', 79, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (68, N'¿Cuántas preguntas debe tener?13', 79, 1, CAST(N'2023-10-17T12:40:30.090' AS DateTime), CAST(N'2023-10-17T12:40:30.090' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (69, N'¿Cuántas preguntas debe tener?14', 79, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (70, N'¿Cuántas preguntas debe tener?15', 79, 1, CAST(N'2023-10-17T12:40:30.093' AS DateTime), CAST(N'2023-10-17T12:40:30.093' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (71, N'¿Cuántas preguntas debe tener?16', 79, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (72, N'¿Cuántas preguntas debe tener?17', 79, 1, CAST(N'2023-10-17T12:40:30.097' AS DateTime), CAST(N'2023-10-17T12:40:30.097' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (73, N'¿Cuántas preguntas debe tener?18', 79, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (74, N'¿Cuántas preguntas debe tener?19', 79, 1, CAST(N'2023-10-17T12:40:30.100' AS DateTime), CAST(N'2023-10-17T12:40:30.100' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (75, N'¿Cuántas preguntas debe tener?20', 79, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (76, N'¿Cuántas preguntas debe tener?21', 79, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (77, N'¿Cuántas preguntas debe tener?22', 79, 1, CAST(N'2023-10-17T12:40:30.103' AS DateTime), CAST(N'2023-10-17T12:40:30.103' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (78, N'¿Cuántas preguntas debe tener?23', 79, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (79, N'¿Cuántas preguntas debe tener?24', 79, 1, CAST(N'2023-10-17T12:40:30.107' AS DateTime), CAST(N'2023-10-17T12:40:30.107' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (80, N'¿Cuántas preguntas debe tener?25', 79, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (81, N'¿Cuántas preguntas debe tener?26', 79, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (82, N'¿Cuántas preguntas debe tener?27', 79, 1, CAST(N'2023-10-17T12:40:30.110' AS DateTime), CAST(N'2023-10-17T12:40:30.110' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (83, N'¿Cuántas preguntas debe tener?28', 79, 1, CAST(N'2023-10-17T12:40:30.113' AS DateTime), CAST(N'2023-10-17T12:40:30.113' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (84, N'¿Cuántas preguntas debe tener?29', 79, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (85, N'¿Cuántas preguntas debe tener?30', 79, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (86, N'¿Cuántas preguntas debe tener?31', 79, 1, CAST(N'2023-10-17T12:40:30.117' AS DateTime), CAST(N'2023-10-17T12:40:30.117' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (87, N'¿Cuántas preguntas debe tener?32', 79, 1, CAST(N'2023-10-17T12:40:30.120' AS DateTime), CAST(N'2023-10-17T12:40:30.120' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (88, N'¿Cuándo es mi cumpleaños?', 48, 1, CAST(N'2023-10-17T16:23:13.543' AS DateTime), CAST(N'2023-10-17T16:23:13.543' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (89, N'¿Cuántas preguntas debe tener?', 48, 1, CAST(N'2023-10-17T16:23:13.550' AS DateTime), CAST(N'2023-10-17T16:23:13.550' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (90, N'¿Esta es la pregunta de prueba?', 48, 1, CAST(N'2023-10-17T16:28:50.560' AS DateTime), CAST(N'2023-10-17T16:28:50.560' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (91, N'¿Esta es la pregunta de prueba?', 80, 1, CAST(N'2023-10-17T16:41:48.363' AS DateTime), CAST(N'2023-10-17T16:41:48.363' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (95, N'¿Cuál es la capital de Hungría?', 63, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (96, N'Aproximadamente, ¿cuántos huesos tiene el cuerpo humano?', 63, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (97, N'¿Cuál es su frecuencia de chequeos médicos?', 63, 1, CAST(N'2023-10-17T17:01:42.640' AS DateTime), CAST(N'2023-10-17T17:01:42.640' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (98, N'¿Cuándo es mi cumpleaños?', 63, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:01:42.643' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (99, N'¿Qué piensas sobre el plato especial del restaurante hoy?', 63, 1, CAST(N'2023-10-17T17:01:42.643' AS DateTime), CAST(N'2023-10-17T17:02:00.037' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (100, N'¿Cuál de los siguientes alimentos te gusta comer?', 63, 1, CAST(N'2023-10-17T17:01:42.647' AS DateTime), CAST(N'2023-10-17T17:01:42.647' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (101, N'¿Existen animales autótrofos.?', 63, 1, CAST(N'2023-10-17T17:01:42.650' AS DateTime), CAST(N'2023-10-17T17:01:42.650' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (102, N'¿Cuál es la capital de Hungría?', 58, 1, CAST(N'2023-10-17T17:11:55.523' AS DateTime), CAST(N'2023-10-17T17:11:55.523' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (103, N'Aproximadamente, ¿cuántos huesos tiene el cuerpo humano?', 58, 1, CAST(N'2023-10-17T17:11:55.527' AS DateTime), CAST(N'2023-10-17T17:11:55.527' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (104, N'¿Cuál es su frecuencia de chequeos médicos?', 58, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (105, N'¿Cuándo es mi cumpleaños?', 58, 1, CAST(N'2023-10-17T17:11:55.530' AS DateTime), CAST(N'2023-10-17T17:11:55.530' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (106, N'¿qué piensas sobre el plato especial del restaurante hoy?', 58, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (107, N'¿Cuál de los siguientes alimentos te gusta comer?', 58, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (108, N'¿Existen animales autótrofos.?', 58, 1, CAST(N'2023-10-17T17:11:55.533' AS DateTime), CAST(N'2023-10-17T17:11:55.533' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (109, N'¿Cuál es la capital de Hungría?', 71, 1, CAST(N'2023-10-17T17:27:15.180' AS DateTime), CAST(N'2023-10-17T17:27:15.180' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (110, N'Aproximadamente, ¿cuántos huesos tiene el cuerpo humano?', 71, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (111, N'¿Cuál es su frecuencia de chequeos médicos?', 71, 1, CAST(N'2023-10-17T17:27:15.187' AS DateTime), CAST(N'2023-10-17T17:27:15.187' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (112, N'¿Cuándo es mi cumpleaños?', 71, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (113, N'¿qué piensas sobre el plato especial del restaurante hoy?', 71, 1, CAST(N'2023-10-17T17:27:15.190' AS DateTime), CAST(N'2023-10-17T17:27:15.190' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (114, N'¿Cuál de los siguientes alimentos te gusta comer?', 71, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (115, N'¿Existen animales autótrofos.?', 71, 1, CAST(N'2023-10-17T17:27:15.193' AS DateTime), CAST(N'2023-10-17T17:27:15.193' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (116, N'¿Cuál es la capital de Hungría?', 55, 1, CAST(N'2023-10-17T17:46:29.137' AS DateTime), CAST(N'2023-10-17T17:46:29.137' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (117, N'Aproximadamente, ¿cuántos huesos tiene el cuerpo humano?', 55, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (118, N'¿Cuál es su frecuencia de chequeos médicos?', 55, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (119, N'¿Cuándo es mi cumpleaños?', 55, 1, CAST(N'2023-10-17T17:46:29.143' AS DateTime), CAST(N'2023-10-17T17:46:29.143' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (120, N'¿qué piensas sobre el plato especial del restaurante hoy?', 55, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (121, N'¿Cuál de los siguientes alimentos te gusta comer?', 55, 1, CAST(N'2023-10-17T17:46:29.147' AS DateTime), CAST(N'2023-10-17T17:46:29.147' AS DateTime))
+GO
+INSERT [dbo].[Pregunta] ([idPregunta], [nombre], [idSala], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (122, N'¿Existen animales autótrofos.?', 55, 1, CAST(N'2023-10-17T17:46:29.150' AS DateTime), CAST(N'2023-10-17T17:46:29.150' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[Pregunta] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Rol] ON 
@@ -367,17 +1081,17 @@ INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego],
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (30, N'sala edit otra vez', N'que es y para que sirve la hiperautomatizacion.png', N'des_edit otra vez', 1, 1, CAST(N'2023-10-04T13:08:08.287' AS DateTime), CAST(N'2023-10-04T13:08:08.287' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (31, N'jujujotrasala', N'experiencia_default.png', NULL, 1, 1, CAST(N'2023-10-04T13:11:44.240' AS DateTime), CAST(N'2023-10-04T13:11:44.240' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (31, N'jujujotrasala', N'experiencia_default.png', NULL, 1, 0, CAST(N'2023-10-04T13:11:44.240' AS DateTime), CAST(N'2023-10-16T10:18:58.787' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (32, N'juan', N'dead-pool icono.png', NULL, 1, 1, CAST(N'2023-10-04T13:21:24.247' AS DateTime), CAST(N'2023-10-04T13:21:24.247' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (33, N'jauuanuanusaa', N'descarga.png', NULL, 1, 1, CAST(N'2023-10-04T14:39:39.500' AS DateTime), CAST(N'2023-10-04T14:39:39.500' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (34, N'estasivale', N'Mesa de trabajo 12.png', NULL, 1, 1, CAST(N'2023-10-04T14:44:46.373' AS DateTime), CAST(N'2023-10-04T14:44:46.373' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (34, N'estasivale', N'Mesa de trabajo 12.png', NULL, 1, 0, CAST(N'2023-10-04T14:44:46.373' AS DateTime), CAST(N'2023-10-16T10:19:04.050' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (35, N'funciona', N'cat-551554_640.jpg', N'esta ves si funciona', 1, 1, CAST(N'2023-10-04T14:45:40.360' AS DateTime), CAST(N'2023-10-04T14:45:40.360' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (36, N'sdpreyba', N'thumbnail_image.png', N'esta es una descripcion', 1, 1, CAST(N'2023-10-04T15:28:40.157' AS DateTime), CAST(N'2023-10-04T15:28:40.157' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (36, N'sdpreyba', N'thumbnail_image.png', N'esta es una descripcion', 1, 0, CAST(N'2023-10-04T15:28:40.157' AS DateTime), CAST(N'2023-10-16T10:19:09.110' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (37, N'hola miundo', N'thumbnail_image (2).png', N'<script>holamuno</script>', 1, 1, CAST(N'2023-10-04T15:29:43.757' AS DateTime), CAST(N'2023-10-04T15:29:43.757' AS DateTime))
 GO
@@ -385,7 +1099,7 @@ INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego],
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (39, N'sala editada con img', N'Recurso 69.png', N'des_editada con img', 2, 1, CAST(N'2023-10-04T15:38:01.407' AS DateTime), CAST(N'2023-10-04T15:38:01.407' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (40, N'nada', NULL, NULL, 2, 1, CAST(N'2023-10-04T15:40:04.100' AS DateTime), CAST(N'2023-10-04T15:40:04.100' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (40, N'nada', NULL, NULL, 2, 0, CAST(N'2023-10-04T15:40:04.100' AS DateTime), CAST(N'2023-10-16T10:19:14.607' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (41, N'nueva sala', N'catedral.jpg', NULL, 2, 1, CAST(N'2023-10-05T10:11:22.573' AS DateTime), CAST(N'2023-10-05T10:11:22.573' AS DateTime))
 GO
@@ -399,7 +1113,7 @@ INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego],
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (46, N'ojala salga la image', N'Escudo_del_Capitan_America.png', NULL, 1, 1, CAST(N'2023-10-05T12:27:18.393' AS DateTime), CAST(N'2023-10-05T12:27:18.393' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (48, N'juego de juegos', N'cortana png.png', NULL, 1, 1, CAST(N'2023-10-05T12:37:03.153' AS DateTime), CAST(N'2023-10-05T12:37:03.153' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (48, N'juego de juegos', N'cortana png.png', NULL, 1, 0, CAST(N'2023-10-05T12:37:03.153' AS DateTime), CAST(N'2023-10-16T11:14:03.123' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (49, N'nueva sala', N'escudo 3.png', NULL, 1, 1, CAST(N'2023-10-05T12:41:52.640' AS DateTime), CAST(N'2023-10-05T12:41:52.640' AS DateTime))
 GO
@@ -433,21 +1147,23 @@ INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego],
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (70, N'sala editada', N'boton.png', N'desc de ejemplo4 _ edit', 1, 1, CAST(N'2023-10-05T16:28:14.560' AS DateTime), CAST(N'2023-10-05T16:28:14.560' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (71, N'postman1', N'.png', N'desc de ejemplo4', 1, 1, CAST(N'2023-10-05T16:38:43.727' AS DateTime), CAST(N'2023-10-05T16:38:43.727' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (71, N'postman1', N'.png', N'desc de ejemplo4', 1, 0, CAST(N'2023-10-05T16:38:43.727' AS DateTime), CAST(N'2023-10-16T10:19:38.560' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (73, N'Sala 23 juegos edit', N'cortana png.png', N'descripcion_edit', 1, 1, CAST(N'2023-10-05T16:53:27.283' AS DateTime), CAST(N'2023-10-05T16:53:27.283' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (74, N'Sala prueba edit', N'newImage_edit.png', N'esta edit', 2, 1, CAST(N'2023-10-05T18:00:37.807' AS DateTime), CAST(N'2023-10-05T18:00:37.807' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (74, N'Sala prueba edit', N'newImage_edit.png', N'esta edit', 2, 0, CAST(N'2023-10-05T18:00:37.807' AS DateTime), CAST(N'2023-10-16T11:13:44.413' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (75, N'Nuestros valores REI', NULL, N'N/A', 2, 1, CAST(N'2023-10-06T15:09:43.450' AS DateTime), CAST(N'2023-10-06T15:09:43.450' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (76, N'mi nueva Sala 23', N'miEmpresa.png', N'esta es una descripcion de mi nueva sala gracias.', 1, 1, CAST(N'2023-10-10T11:47:17.817' AS DateTime), CAST(N'2023-10-10T11:47:17.817' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (76, N'mi nueva Sala 23', N'miEmpresa.png', N'esta es una descripcion de mi nueva sala gracias.', 1, 0, CAST(N'2023-10-10T11:47:17.817' AS DateTime), CAST(N'2023-10-17T21:19:41.360' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (77, N'mi sala de Angular', N'angular.png', N'esta es mi descripcion', 2, 1, CAST(N'2023-10-12T16:22:29.607' AS DateTime), CAST(N'2023-10-12T16:22:29.607' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (77, N'mi sala de Angular', N'angular.png', N'esta es mi descripcion', 2, 0, CAST(N'2023-10-12T16:22:29.607' AS DateTime), CAST(N'2023-10-16T11:13:36.700' AS DateTime))
 GO
 INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (78, N'Valores REIR 13 Octu', N'1597601456233.jpg', NULL, 1, 1, CAST(N'2023-10-13T12:13:45.690' AS DateTime), CAST(N'2023-10-13T12:13:45.690' AS DateTime))
 GO
-INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (79, N'Cadena de Suministro', NULL, NULL, 1, 1, CAST(N'2023-10-13T16:09:38.080' AS DateTime), CAST(N'2023-10-13T16:09:38.080' AS DateTime))
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (79, N'Cadena de Suministro', NULL, NULL, 1, 1, CAST(N'2023-10-13T16:09:38.080' AS DateTime), CAST(N'2023-10-16T16:10:36.177' AS DateTime))
+GO
+INSERT [dbo].[Sala] ([idSala], [nombre], [imagen], [descripcion], [idModoJuego], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (80, N'archivo excel pregun', N'cortana png.png', N'esta sala es para que las preguntas sean guardadas con un archivo de excel', 2, 1, CAST(N'2023-10-16T17:43:26.883' AS DateTime), CAST(N'2023-10-17T20:51:39.967' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[Sala] OFF
 GO
@@ -493,9 +1209,23 @@ INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [f
 GO
 SET IDENTITY_INSERT [dbo].[Usuario] OFF
 GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (36, 23, 1, CAST(N'2023-10-18T09:17:27.483' AS DateTime), CAST(N'2023-10-18T09:17:27.483' AS DateTime), 0, 0)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (34, 78, 1, CAST(N'2023-10-18T10:03:11.100' AS DateTime), CAST(N'2023-10-18T10:03:11.100' AS DateTime), 4, 33687)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (42, 78, 1, CAST(N'2023-10-18T10:45:13.183' AS DateTime), CAST(N'2023-10-18T10:45:13.183' AS DateTime), 6, 30687)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (8, 78, 1, CAST(N'2023-10-18T10:51:52.730' AS DateTime), CAST(N'2023-10-18T10:51:52.730' AS DateTime), 2, 23687)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (33, 78, 1, CAST(N'2023-10-18T10:57:47.053' AS DateTime), CAST(N'2023-10-18T10:57:47.053' AS DateTime), 6, 29687)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (23, 78, 1, CAST(N'2023-10-18T12:14:23.947' AS DateTime), CAST(N'2023-10-18T12:14:23.947' AS DateTime), 8, 34623)
+GO
+INSERT [dbo].[Usuario_Sala] ([idUsuario], [idSala], [estado], [fecha_creacion], [fecha_modificacion], [puntaje], [tiempo]) VALUES (9, 78, 1, CAST(N'2023-10-18T12:51:19.063' AS DateTime), CAST(N'2023-10-18T12:51:19.063' AS DateTime), 5, 23000)
+GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Usuario__2A586E0B87670F85]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  Index [UQ__Usuario__2A586E0B87670F85]    Script Date: 18/10/2023 13:28:02 ******/
 ALTER TABLE [dbo].[Usuario] ADD UNIQUE NONCLUSTERED 
 (
 	[correo] ASC
@@ -543,6 +1273,10 @@ ALTER TABLE [dbo].[Usuario_Sala] ADD  DEFAULT (getdate()) FOR [fecha_creacion]
 GO
 ALTER TABLE [dbo].[Usuario_Sala] ADD  DEFAULT (getdate()) FOR [fecha_modificacion]
 GO
+ALTER TABLE [dbo].[Usuario_Sala] ADD  CONSTRAINT [df_puntaje]  DEFAULT ((0)) FOR [puntaje]
+GO
+ALTER TABLE [dbo].[Usuario_Sala] ADD  CONSTRAINT [df_tiempo]  DEFAULT ((0)) FOR [tiempo]
+GO
 ALTER TABLE [dbo].[Opcion]  WITH CHECK ADD FOREIGN KEY([idPregunta])
 REFERENCES [dbo].[Pregunta] ([idPregunta])
 GO
@@ -561,7 +1295,7 @@ GO
 ALTER TABLE [dbo].[Usuario_Sala]  WITH CHECK ADD FOREIGN KEY([idUsuario])
 REFERENCES [dbo].[Usuario] ([idUsuario])
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_OpcionByIdPregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_OpcionByIdPregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -615,7 +1349,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Pregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Pregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -648,7 +1382,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaById]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaById]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -702,7 +1436,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaByIdSala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaByIdSala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -756,7 +1490,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Rol]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Rol]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -782,7 +1516,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -831,7 +1565,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaByAll]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaByAll]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -890,7 +1624,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaById]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaById]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -960,7 +1694,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Usuario]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Usuario]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1007,7 +1741,69 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioLogin]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Usuario_SalaByIdSala]    Script Date: 18/10/2023 13:28:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure [dbo].[sp_B_Usuario_SalaByIdSala]	
+	
+	@idSala int,
+	@estados int,
+
+	@info varchar(max) output,
+	@error int output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	if(@estados > 0)
+	begin	
+	
+		Select
+		u.idUsuario,
+		u.nombre as 'usuario',
+		r.nombre as 'rol', 
+		s.idSala,
+		s.nombre as 'sala',
+		us.fecha_creacion,
+		us.fecha_modificacion,
+		us.puntaje,
+		us.tiempo	
+		from Usuario_Sala us
+		inner join Usuario u on u.idUsuario = us.idUsuario
+		inner join Sala s on s.idSala = us.idSala
+		inner join Rol r on r.idRol = u.idRol
+		where us.estado > 0 and us.idSala = @idSala
+		order by puntaje desc, tiempo asc
+
+	end
+	else
+	begin 
+
+		Select
+		u.idUsuario,
+		u.nombre as 'usuario',
+		r.nombre as 'rol', 
+		s.idSala,
+		s.nombre as 'sala',
+		us.fecha_creacion,
+		us.fecha_modificacion,
+		us.puntaje,
+		us.tiempo	
+		from Usuario_Sala us
+		inner join Usuario u on u.idUsuario = us.idUsuario
+		inner join Sala s on s.idSala = us.idSala
+		inner join Rol r on r.idRol = u.idRol
+		where us.idSala = @idSala
+		order by puntaje desc, tiempo asc
+
+	end
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioLogin]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1051,7 +1847,7 @@ BEGIN
 	print @info
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Opcion]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Opcion]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1068,15 +1864,43 @@ AS
 BEGIN		
 
 	SET NOCOUNT ON;	
+	declare @contNombre int = 0, @contOpcion int = 0, @idOpcion int = 0 	
+	select @contNombre = COUNT(*), @idOpcion = idOpcion from Opcion where idPregunta = @idPregunta and nombre = @nombre group by idOpcion
+	select @contOpcion = COUNT(*) from Opcion where idPregunta = @idPregunta
 
 	BEGIN TRY  
-		Insert into Opcion(nombre, correcta, idPregunta) values
-		(NULLIF(@nombre, ''),
-		@correcta,
-		@idPregunta);
+		if(@contNombre > 0)
+		begin 
 
-		set @info = CONCAT('Registro creado satisfactoriamente, id creado: ',SCOPE_IDENTITY())
-		set @error = 0
+			Update Opcion set nombre = @nombre where idOpcion = @idOpcion and idPregunta = @idPregunta
+			set @info = CONCAT('Registro editado satisfactoriamente, id creado: ',@idOpcion)
+			set @error = 0
+
+		end
+		else
+		begin
+			
+			if(@contOpcion < 4)
+			begin
+				
+				Insert into Opcion(nombre, correcta, idPregunta) values
+				(NULLIF(@nombre, ''),
+				@correcta,
+				@idPregunta);
+
+				set @info = CONCAT('Registro creado satisfactoriamente, id creado: ',SCOPE_IDENTITY())
+				set @error = 0
+
+			end
+			else
+			begin
+				set @info = CONCAT('Maximo cuatro opciones, id creado: ',0)
+				set @error = 1
+			end
+
+		end
+
+		
 
 	END TRY
 	BEGIN CATCH	
@@ -1090,7 +1914,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Pregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Pregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1106,14 +1930,29 @@ AS
 BEGIN		
 
 	SET NOCOUNT ON;	
+	declare @contNombre int = 0, @idPregunta int = 0 	
+	select @contNombre = COUNT(*), @idPregunta = idPregunta from Pregunta where idSala = @idSala and nombre = @nombre group by idPregunta
 
-	BEGIN TRY  
-		Insert into Pregunta(nombre, idSala) values
-		(NULLIF(@nombre, ''),
-		@idSala);
+	BEGIN TRY
+		if(@contNombre > 0)
+		begin 
+			
+			Update Pregunta set nombre = @nombre where idPregunta = @idPregunta and idSala = @idSala
+			set @info = CONCAT('Registro editado satisfactoriamente, idPregunta: ',@idPregunta)
+			set @error = 0
+						
+		end
+		else
+		begin
+			
+			Insert into Pregunta(nombre, idSala) values
+			(NULLIF(@nombre, ''),
+			@idSala);
 
-		set @info = CONCAT('Registro creado satisfactoriamente, idPregunta: ',SCOPE_IDENTITY())
-		set @error = 0
+			set @info = CONCAT('Registro creado satisfactoriamente, idPregunta: ',SCOPE_IDENTITY())
+			set @error = 0
+
+		end				
 
 	END TRY
 	BEGIN CATCH	
@@ -1127,7 +1966,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1147,11 +1986,12 @@ BEGIN
 	SET NOCOUNT ON;	
 		
 	BEGIN TRY  
-		Insert into Sala (nombre, imagen, descripcion, idModoJuego) values
+		Insert into Sala (nombre, imagen, descripcion, idModoJuego, estado) values
 		(NULLIF(@nombre, ''),
 		NULLIF(@imagen, ''),
 		NULLIF(@descripcion, ''),		
-		@idModoJuego);
+		@idModoJuego,
+		0);
 
 		set @info = 'Registro creado satisfactoriamente'
 		set @error = 0
@@ -1168,7 +2008,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Usuario]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Usuario]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1226,7 +2066,45 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_OpcionByIdPregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Usuario_Sala]    Script Date: 18/10/2023 13:28:02 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure [dbo].[sp_C_Usuario_Sala] 
+	
+	@idUsuario int,
+	@idSala int,
+	@puntaje int,
+	@tiempo int,
+	
+	@info varchar(max) output,
+	@error int output
+AS
+BEGIN		
+
+	SET NOCOUNT ON;		
+		
+	BEGIN TRY  
+		Insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
+		(@idUsuario, @idSala, @puntaje, @tiempo)
+
+		set @info = 'Registro creado satisfactoriamente'
+		set @error = 0
+
+	END TRY
+	BEGIN CATCH	
+
+		set @info = ERROR_MESSAGE()
+		set @error = 1
+
+	END CATCH;					
+
+	print @info
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_D_OpcionByIdPregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1262,7 +2140,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Pregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Pregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1315,7 +2193,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1385,7 +2263,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Opcion]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Opcion]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1447,7 +2325,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Pregunta]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Pregunta]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1485,7 +2363,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Sala]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Sala]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1540,7 +2418,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_SalaByEstado]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_SalaByEstado]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1589,7 +2467,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Usuario]    Script Date: 13/10/2023 17:11:17 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Usuario]    Script Date: 18/10/2023 13:28:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

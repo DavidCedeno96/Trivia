@@ -47,6 +47,8 @@ create table Usuario_Sala(
 	estado int default 1,
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
+	puntaje int default 0,
+	tiempo int default 0
 );
 
 create table Pregunta(
@@ -96,6 +98,9 @@ insert into Opcion (nombre, correcta, idPregunta) values
 ('Tiene entre 4 y 6 litros',1,1),
 ('Tiene 10 litros',0,1),
 ('Tiene 7 litros',0,1)
+
+insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
+(33,78,6,29687)
 
 --Insert into Usuario (nombre, apellido, correo, clave, idRol) values
 --('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
@@ -247,11 +252,29 @@ exec sp_D_OpcionByIdPregunta
 @info = '',
 @error = ''
 
+---- USUARIO_SALA ---------------------------------------------
+select * from Usuario_Sala 
+
+exec sp_B_Usuario_SalaByIdSala	
+@idSala = 78,
+@estados = 0,
+@info = '',
+@error = ''
+
+
+exec sp_C_Usuario_Sala	
+@idUsuario = 23,
+@idSala = 78,
+@puntaje = 8,
+@tiempo = 34623,
+@info = '',
+@error = ''
 
 ----------------------------------------------------------------------------
 select * from Sala where idSala = 80
 select * from Pregunta where idSala = 63
 select * from Opcion where idPregunta = 43
 select * from Opcion where idPregunta = 44
+
 
 --delete from Pregunta where idPregunta = 41
