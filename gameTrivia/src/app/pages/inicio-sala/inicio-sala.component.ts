@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
@@ -13,7 +13,10 @@ import { SalaService } from 'src/app/services/sala.service';
   styleUrls: ['./inicio-sala.component.css'],
   providers: [ConfirmationService],
 })
-export class InicioSalaComponent implements OnInit {
+export class InicioSalaComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('mi_imagen') miImagen: ElementRef | undefined;
+  imagenEsHorizontal: boolean = true;
   //nombreSala: string = 'Mi sala!';
   //idSala: number = 0;
   //imagenSala: string = 'assets/Imagenes Juego/ImagenDefault.png';
@@ -46,6 +49,10 @@ export class InicioSalaComponent implements OnInit {
       this.miSala.idSala = parseInt(idSala);
     });
     this.cargarInfoSala(this.miSala.idSala);
+  }
+
+  ngAfterViewInit(): void {
+    this.calcularRelacionAspecto();
   }
 
   constructor(
@@ -128,4 +135,19 @@ export class InicioSalaComponent implements OnInit {
       return;
     }   
   } */
+
+  calcularRelacionAspecto() {
+    console.log(this.miImagen);
+    if (this.miImagen && this.miImagen.nativeElement) {
+      const img = this.miImagen.nativeElement;
+      img.onload = () => {
+        const ancho = img.width;
+        const alto = img.height;
+        console.log(`Ancho: ${ancho}px, Alto: ${alto}px`);
+        this.imagenEsHorizontal=ancho<alto;
+      };
+      //img.src = this.imagenSala; // Asegúrate de que la imagen esté cargada antes de obtener sus dimensiones
+    }
+    
+  }
 }

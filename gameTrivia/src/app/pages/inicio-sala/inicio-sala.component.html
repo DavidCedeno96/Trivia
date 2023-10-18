@@ -1,13 +1,14 @@
-<body class="justify-content-center align-items-center vh-100">
+<body class="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
   <div class="container-fluid">
-    <div class="row align-items-center">
+    <div class="extra-container" ></div>
+    <div class="row align-items-center text-center">
       <div class="col-12 py-3">
         <!-- Contenido izquierdo foto -->
         <img
-          src="assets/Imagenes Empresa/cmiTriviaGray.png"
+          src="assets/Imagenes Empresa/Logo_App.png"
           alt="Imagen"
-          class="img-fluid img-thumbnail"
-          style="height: 40px; width: auto"
+          class="img-fluid"
+          
         />
       </div>
       <!-- TITULO-->
@@ -33,11 +34,12 @@
 
     <div class="row">
       <div class="col text-center m-4">
-        <img
+        <img #mi_imagen
           [src]="getImageSala(miSala.imagen)"
           onerror="this.src='assets/Imagenes Juego/ImagenDefault.png'"
           alt="imagen de la clase"
-          class="imagen-sm imagen-md imagen-lg"
+          [ngClass]="{'imagen-sm': imagenEsHorizontal, 'imagen-md': imagenEsHorizontal, 'imagen-lg': imagenEsHorizontal, 'imagen-sm-h': !imagenEsHorizontal, 'imagen-md-h': !imagenEsHorizontal, 'imagen-lg-h': !imagenEsHorizontal}"
+
         />
       </div>
     </div>

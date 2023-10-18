@@ -1,3 +1,8 @@
+.input-group input[type="file"]::-webkit-file-upload-button {
+  background-color: #3D5057; /* Cambia el color del fondo del botón */
+  color: white; /* Cambia el color del texto del botón */
+}
+
 body {
   background-color: #efefef;
   min-height: calc(
@@ -79,4 +84,20 @@ body {
 .card {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
+}
+
+.modal-content{
+  border-radius: 35px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.form-select {
+  background-color: white; /* Naranja */
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button {
+  background-color: #3D5057 !important;
+  color: white !important;
 }

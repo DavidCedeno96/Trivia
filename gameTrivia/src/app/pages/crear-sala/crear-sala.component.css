@@ -3,8 +3,12 @@ body {
     
     background-color: #F29523;
     /*height: 100vh;*/
-    margin: 0;
-    padding: 0;
+   
+    min-height: calc(
+    100vh - 105px
+  ); /* Establece la altura mínima igual a la altura de la ventana menos 50px */
+
+  box-sizing: border-box; /* Incluye el relleno en la altura total del contenedor */
   }
   .img-thumbnail {
     padding: 0.25rem;
