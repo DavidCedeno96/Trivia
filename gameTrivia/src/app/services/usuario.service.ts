@@ -6,11 +6,15 @@ import { Usuario } from '../model/UsuarioModel';
 import { LoginUsuario } from '../model/LoginModel';
 import { Router } from '@angular/router';
 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   private apiURL: string = environment.URL + '/api/usuario'; //Para crear el usuario
+
+  helper = new JwtHelperService();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -34,7 +38,20 @@ export class UsuarioService {
   getToken() {
     return localStorage.getItem('token');
   }
+
   getRol() {
+    if (!localStorage.getItem('rol')) {
+      this.router.navigate(['/']);
+    }
+
+    return localStorage.getItem('rol');
+  }
+
+  getIdUsuario() {
+    if (!localStorage.getItem('id')) {
+      this.router.navigate(['/']);
+    }
+
     return localStorage.getItem('rol');
   }
 }

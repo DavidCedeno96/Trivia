@@ -1,7 +1,12 @@
-export interface PuntosJugador {  
-    iniciales: string;  
-    jugador: string;
-    puntos: number;     
-  }
-
-  
+export interface PuntosJugador {
+  idUsuario: number;
+  iniciales: string;
+  usuario: string;
+  rol: string;
+  idSala: number;
+  sala: string;
+  puntaje: number;
+  tiempo: number;
+  fechaCreacion: string;
+  fechaModificacion: string;
+}

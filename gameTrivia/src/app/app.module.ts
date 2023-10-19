@@ -21,9 +21,6 @@ import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
 
-
-
-
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
 import { VentanaRegistroComponent } from './components/ventana-registro/ventana-registro.component';
@@ -77,7 +74,6 @@ import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.componen
     BrowserModule,
     AppRoutingModule,
     DropdownModule,
-   
 
     /* ButtonModule,
     DialogModule,
@@ -139,6 +135,11 @@ import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.componen
       {
         path: 'EntradaSala',
         component: EntradaSalaComponent,
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'RankingChallengers',
+        component: RankingChallengerComponent,
         //canActivate: [authGuard],
       },
     ]),

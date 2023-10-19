@@ -47,7 +47,8 @@ export class VentanaLoginComponent implements OnInit {
           // no hay error
           const decodeToken = this.helper.decodeToken(info);
           //console.log(decodeToken);
-          let { correo, idRol, nombre } = decodeToken;
+          let { correo, idRol, nombre, id } = decodeToken;
+          localStorage.setItem('id', id);
           localStorage.setItem('token', info);
           localStorage.setItem('rol', idRol);
           //Ruta para el jugador

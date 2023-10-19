@@ -33,5 +33,16 @@ export class UsuarioSalaService {
     );
   }
 
-  crearRanking() {}
+  crearRanking(puntosJugador: PuntosJugador): Observable<PuntosJugador> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.post<PuntosJugador>(
+      `${this.apiURL}/create`,
+      puntosJugador,
+      {
+        headers: headers,
+      }
+    );
+  }
 }

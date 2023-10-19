@@ -7,11 +7,21 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
-  Input, ViewChild,
-  ViewChildren, QueryList, OnDestroy
+  Input,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  OnDestroy,
 } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
 import { Options, LabelType } from 'ngx-slider-v2';
+import { EncryptionService } from 'src/app/encryption.service';
+import { Router } from '@angular/router';
+import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
+import { PuntosJugador } from 'src/app/model/PuntosJugador';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { ConstantsService } from 'src/app/constants.service';
+import { MessageService } from 'primeng/api';
 
 declare var bootstrap: any;
 declare var LeaderLine: any;
@@ -20,25 +30,30 @@ declare var LeaderLine: any;
   selector: 'app-challengers-game',
   templateUrl: './challengers-game.component.html',
   styleUrls: ['./challengers-game.component.scss'],
+  providers: [MessageService],
 })
-export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestroy {
- 
-  //SIDEBAR 
+export class ChallengersGameComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
+  //SIDEBAR
   sidebarVisible4: boolean = true;
 
   //controlar un error
   marginLeftValues: number[] = [];
 
-
   //Para mover el carro
-  numXtraslacion:number[]=[10,-35,-70,-50,-5,32,15,-25,-65,-55,-20,20,25,-15,-55,-65,-35,15,35];
+  numXtraslacion: number[] = [
+    10, -35, -70, -50, -5, 32, 15, -25, -65, -55, -20, 20, 25, -15, -55, -65,
+    -35, 15, 35,
+  ];
   altura: number = 116;
   contadorCiclo: number = 0;
   maximoContador: number = 19;
 
   isEdificioPar: boolean = true;
 
-  @ViewChild('elementoVehiculo', { static: true }) elementoVehiculo?: ElementRef;
+  @ViewChild('elementoVehiculo', { static: true })
+  elementoVehiculo?: ElementRef;
 
   lineas: any[] = [];
   @ViewChildren('elementoImagen') elementosImagen?: QueryList<ElementRef>;
@@ -68,7 +83,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     'assets/Imagenes Juego/Edif08.png',
     'assets/Imagenes Juego/Edif09.png',
     'assets/Imagenes Juego/Edif10.png',
-    
   ];
 
   imagenFinal: string = 'assets/Imagenes Juego/CasaFinal.png';
@@ -76,7 +90,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
   numImagenesColocadas: number = 0;
 
   //Menjase error
-  Mensaje_error: string="Respuesta equivocada";
+  Mensaje_error: string = 'Respuesta equivocada';
 
   //Para creara los botones y las imagenes
 
@@ -85,7 +99,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     svg: string;
     tipo: string;
     rutaImagen: string;
-    
   }[] = [];
 
   //Para las posiciones senosoidales
@@ -171,18 +184,17 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
 
   juegoTerminado: boolean = false;
 
-   //PARA EL SLIDER DE NG PRIME
-  
-   value: number = 0; // Valor del slider
- 
-   optionsJugador: Options = {
-    
-     floor: 0,
-     ceil: this.cantidadDeBotones,
-     showTicks: true,
-     tickStep: 5
-   };
-   optionsAux1: Options = {
+  //PARA EL SLIDER DE NG PRIME
+
+  value: number = 0; // Valor del slider
+
+  optionsJugador: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: true,
+    tickStep: 5,
+  };
+  optionsAux1: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: false,
@@ -198,49 +210,81 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     showTicks: false,
   };
 
-   value2: number = 10; // Valor del slider jugador 2
+  value2: number = 10; // Valor del slider jugador 2
   value3: number = 20; // Valor del slider jugador 3
   value4: number = 25; // Valor del slider jugador 4
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {
+  idSala: number = 0;
+  idUsuario: number = 0;
+
+  puntosJugador: PuntosJugador = {
+    idUsuario: 0,
+    iniciales: 'PP',
+    usuario: 'Preuba preuba',
+    rol: '',
+    idSala: 0,
+    sala: '',
+    puntaje: 23,
+    tiempo: 0,
+    fechaCreacion: '',
+    fechaModificacion: '',
+  };
+
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private encryptionService: EncryptionService,
+    private router: Router,
+    private usuarioSalaService: UsuarioSalaService,
+    private usuarioService: UsuarioService,
+    private constantsService: ConstantsService,
+    private messageService: MessageService
+  ) {
     this.numPreguntasContestadas = 0;
     this.puntosGanados = 0;
     this.puedeResponder = true;
-    this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula 
-  
+    this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
   }
 
   ngOnInit() {
-    
     //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
     this.musicaFondo = new Audio();
     this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
     this.musicaFondo.loop = true;
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-    this.musicaFondo.play();   
-    
-    
-      setTimeout(() => {
+    this.musicaFondo.play();
+
+    if (!this.usuarioService.getIdUsuario()) {
+      this.router.navigate(['/']);
+    } else {
+      this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
+    }
+
+    setTimeout(() => {
       //this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
       //console.log("Entro");
     }, 4000);
 
+    this.idSala = this.PreguntasList[0].pregunta.idSala;
     this.listaDePreguntas = this.PreguntasList;
-    
+
     //this.steps = 10;
 
     //Para las imagenes de los edificios principales
 
-    const OpNumEdif = (this.listaDePreguntas.length*3/5.75)/2;
-    var numberOfItems = 0;    
+    const OpNumEdif = (this.listaDePreguntas.length * 3) / 5.75 / 2;
+    var numberOfItems = 0;
 
     if (OpNumEdif % 1 >= 0.5) {
       numberOfItems = Math.ceil(OpNumEdif);
     } else {
-       numberOfItems = Math.trunc(OpNumEdif);
-      }
-      this.EdificiosCount = Array.from({ length: numberOfItems }, (_, index) => index);  
-      console.log(this.EdificiosCount);
+      numberOfItems = Math.trunc(OpNumEdif);
+    }
+    this.EdificiosCount = Array.from(
+      { length: numberOfItems },
+      (_, index) => index
+    );
+    console.log(this.EdificiosCount);
 
     if (this.listaDePreguntas.length > 20) {
       this.numIntervaloImg = 5;
@@ -251,14 +295,16 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     //this.updateCenters(window.innerWidth);
     this.generateButtons();
     //console.log(this.PreguntasList);
-    
   }
 
   ngAfterViewInit() {
     // Obtén el elemento .sinusoidal-container por su ID
     const sinusoidalContainer = document.getElementById('sinusoidal-container');
     // Establece la altura deseada en píxeles
-    const alturaDeseada = this.listaDePreguntas.length*130+this.numImagenesColocadas*160+290; // Cambia esto al valor que necesites
+    const alturaDeseada =
+      this.listaDePreguntas.length * 130 +
+      this.numImagenesColocadas * 160 +
+      290; // Cambia esto al valor que necesites
 
     // Verifica si el elemento se encontró antes de intentar establecer la altura
     if (sinusoidalContainer) {
@@ -276,11 +322,10 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       this.createLines();
     });
 
-
     if (this.elementoVehiculo) {
-      this.elementoVehiculo.nativeElement.style.transition = 'transform 0.5s linear';
+      this.elementoVehiculo.nativeElement.style.transition =
+        'transform 0.5s linear';
       this.elementoVehiculo.nativeElement.style.transform = `translate(${35}px, ${0}px)`;
-   
     }
 
     this.EdificiosCount.forEach((element, i) => {
@@ -288,16 +333,12 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     });
 
     this.actualizarSliders();
-
-    
-    
   }
 
   ngOnDestroy(): void {
     this.modal.hide();
-    this.sidebarVisible4=false;
-    this.lineas.forEach(linea => linea.remove());
-
+    this.sidebarVisible4 = false;
+    this.lineas.forEach((linea) => linea.remove());
   }
 
   adjustLines() {
@@ -308,12 +349,15 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       //this.lineas.length = 0;
 
       for (let i = 0; i < elementos.length - 1; i++) {
-        console.log("LINEAS");
-        const linea = new LeaderLine(elementos[i].nativeElement, elementos[i + 1].nativeElement, {dash: {animation: true}});
-        
+        console.log('LINEAS');
+        const linea = new LeaderLine(
+          elementos[i].nativeElement,
+          elementos[i + 1].nativeElement,
+          { dash: { animation: true } }
+        );
+
         linea.show('draw');
         linea.setOptions({
-          
           color: '#b9b9b9',
           size: 15,
           endPlug: 'behind', // Terminación en cuadrado (sin flecha)
@@ -324,13 +368,11 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
               timing: 'linear', // Función de temporización, por ejemplo, 'linear', 'ease-in', 'ease-out', etc.
             },
           },
-          
         });
 
         this.lineas.push(linea);
       }
     }
-
   }
 
   createLines() {
@@ -341,7 +383,11 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     if (this.elementosImagen) {
       const elementos = this.elementosImagen.toArray();
       for (let i = 0; i < elementos.length - 1; i++) {
-        const linea = new LeaderLine(elementos[i].nativeElement, elementos[i + 1].nativeElement, { dash: { animation: true } });
+        const linea = new LeaderLine(
+          elementos[i].nativeElement,
+          elementos[i + 1].nativeElement,
+          { dash: { animation: true } }
+        );
 
         // Configurar las opciones de la línea aquí
         linea.setOptions({
@@ -387,17 +433,15 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   mostrarModal() {
-    this.sidebarVisible4=false;
+    this.sidebarVisible4 = false;
     this.value++;
     this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
     this.modal = new bootstrap.Modal(this.modalElement);
     this.resetTimer();
-    const mainBody = document.getElementById("main-body");
-  if (mainBody) {
-    mainBody.style.overflowY = "hidden";
-  }
-  
-    
+    const mainBody = document.getElementById('main-body');
+    if (mainBody) {
+      mainBody.style.overflowY = 'hidden';
+    }
 
     this.modal.show();
     //this.musicaFondo.play();
@@ -424,17 +468,16 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
         this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
 
         setTimeout(() => {
-         
           this.mostrarAlert = false;
           this.moverVehiculo();
           this.modal.hide();
-          this.sidebarVisible4=true;
+          this.sidebarVisible4 = true;
           this.numPreguntasContestadas++;
           this.puedeResponder = true;
           this.countdown = 20;
         }, 3000); // 3000 milisegundos = 3 segundos
       } else {
-        this.Mensaje_error = "Respuesta equivocada"
+        this.Mensaje_error = 'Respuesta equivocada';
         this.preguntaMalConstestada();
       }
 
@@ -447,13 +490,12 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
     setTimeout(() => {
       this.mostrarWrongAlert = false;
-      this.modal.hide(); 
-      this.sidebarVisible4=true;     
+      this.modal.hide();
+      this.sidebarVisible4 = true;
       this.moverVehiculo();
       this.numPreguntasContestadas++;
       this.puedeResponder = true;
       this.countdown = 20;
-      
     }, 3000); // 3000 milisegundos = 3 segundos
   }
 
@@ -484,15 +526,10 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     audio.play();
   }
 
-
-
-
   generateButtons() {
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
-
       if (i == this.cantidadDeBotones) {
-
-      }else{
+      } else {
         this.botones.push({
           id: i - this.numImagenesColocadas,
           svg: this.svgInactivo,
@@ -502,7 +539,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       }
     }
   }
-
 
   activarBoton(id: number, imgCambio: number) {
     const boton = this.botones.find((b) => b.id === id);
@@ -563,7 +599,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
           this.preguntaMalConstestada();
           this.stopTimer();
           this.pasarAOtraPregunta();
-          this.Mensaje_error = "Se acabo el tiempo"
+          this.Mensaje_error = 'Se acabo el tiempo';
         }
       }, 1000); // El temporizador principal se actualiza cada segundo (1000 ms)
     }
@@ -589,54 +625,79 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     console.log('Puntos Jugador=' + this.puntosGanados);
     console.log('Juego terminado=' + this.juegoTerminado);
 
+    this.puntosJugador.idUsuario = this.idUsuario;
+    this.puntosJugador.idSala = this.idSala;
+    this.puntosJugador.puntaje = this.puntosGanados;
+    this.puntosJugador.tiempo = this.tiempoDelJugador;
+
     //Cuando finalicé el juego directo a esta ventana
     this.musicaFondo?.pause();
     // @ts-ignore
     this.musicaFondo.currentTime = 0;
-    this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    //this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    this.guardarPuntaje(this.puntosJugador);
+  }
+
+  guardarPuntaje(puntosJugador: PuntosJugador) {
+    this.usuarioSalaService.crearRanking(puntosJugador).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        if (error > 0) {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.constantsService.mensajeError(),
+            detail: 'ha ocurrido un error con la conexión',
+          });
+        } else {
+          this.cambiarPag('/RankingChallengers', this.idSala);
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
   }
 
   calculateMargin(index: number): number {
     const amplitude = 100; // Ajusta la amplitud del coseno según sea necesario
     const frequency = 1; // Ajusta la frecuencia del coseno según sea necesario
-    const res = Math.round(amplitude * Math.cos(frequency * index))
+    const res = Math.round(amplitude * Math.cos(frequency * index));
     //console.log(index+" margin "+res);
-    
+
     return res;
   }
 
-  calculateMargin2(index: number): number {    
-
-      if(this.isEdificioPar){
-        this.isEdificioPar=!this.isEdificioPar;
-        return 300;
-
-      }else{
-        this.isEdificioPar=!this.isEdificioPar;
-        return -250;
-      }
+  calculateMargin2(index: number): number {
+    if (this.isEdificioPar) {
+      this.isEdificioPar = !this.isEdificioPar;
+      return 300;
+    } else {
+      this.isEdificioPar = !this.isEdificioPar;
+      return -250;
+    }
   }
 
-  moverVehiculo(){
-    const i=this.numPreguntasContestadas+1;
+  moverVehiculo() {
+    const i = this.numPreguntasContestadas + 1;
     const h = this.altura;
 
-
-    if( this.elementoVehiculo){
-      this.elementoVehiculo.nativeElement.style.transition = 'transform 1.5s linear';
-      this.elementoVehiculo.nativeElement.style.transform = `translate(${this.numXtraslacion[this.contadorCiclo]}px, ${h*i}px)`;
+    if (this.elementoVehiculo) {
+      this.elementoVehiculo.nativeElement.style.transition =
+        'transform 1.5s linear';
+      this.elementoVehiculo.nativeElement.style.transform = `translate(${
+        this.numXtraslacion[this.contadorCiclo]
+      }px, ${h * i}px)`;
       this.contadorCiclo++;
-      if(this.contadorCiclo>=19){
-        this.contadorCiclo=0;
+      if (this.contadorCiclo >= 19) {
+        this.contadorCiclo = 0;
       }
-
     }
     //this.numPreguntasContestadas++;
-    
   }
 
-  actualizarSliders(){
-
+  actualizarSliders() {
     const numPreguntas = this.cantidadDeBotones;
 
     this.optionsJugador = {
@@ -645,53 +706,57 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       showTicks: true,
       tickStep: 5,
       tickValueStep: 5,
-      getPointerColor: (value: number): string => {return "orange"},
-      getSelectionBarColor: (): string => {return 'orange'},
+      getPointerColor: (value: number): string => {
+        return 'orange';
+      },
+      getSelectionBarColor: (): string => {
+        return 'orange';
+      },
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
             return 'tú';
-          
+
           default:
-            return "";
+            return '';
         }
-      }
+      },
     };
     this.optionsAux1 = {
-     floor: 0,
-     ceil: numPreguntas,
-     showTicks: false,
-     translate: (value: number, label: LabelType): string => {           
-          return "";      
-    }
-   };
-   this.optionsAux2 = {
-     floor: 0,
-     ceil: numPreguntas,
-     showTicks: false,
-     translate: (value: number, label: LabelType): string => {           
-      return "";      
-}
-   };
-   this.optionsAux3 = {
-     floor: 0,
-     ceil: numPreguntas,
-     showTicks: false,
-     translate: (value: number, label: LabelType): string => {           
-      return "";      
-}
-   };
- 
-   
-    
+      floor: 0,
+      ceil: numPreguntas,
+      showTicks: false,
+      translate: (value: number, label: LabelType): string => {
+        return '';
+      },
+    };
+    this.optionsAux2 = {
+      floor: 0,
+      ceil: numPreguntas,
+      showTicks: false,
+      translate: (value: number, label: LabelType): string => {
+        return '';
+      },
+    };
+    this.optionsAux3 = {
+      floor: 0,
+      ceil: numPreguntas,
+      showTicks: false,
+      translate: (value: number, label: LabelType): string => {
+        return '';
+      },
+    };
   }
 
-  actualizarPosiciones(){
-    this.value2  = 0; // Actualizar el slider jugador 2
-    this.value3  = 0; // Actualizar el slider jugador 3
-    this.value4  = 0; // Actualizar el slider jugador 4
-
+  actualizarPosiciones() {
+    this.value2 = 0; // Actualizar el slider jugador 2
+    this.value3 = 0; // Actualizar el slider jugador 3
+    this.value4 = 0; // Actualizar el slider jugador 4
   }
 
-
+  cambiarPag(ruta: string, id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
+    let params = { idSala };
+    this.router.navigate([ruta], { queryParams: params });
+  }
 }
