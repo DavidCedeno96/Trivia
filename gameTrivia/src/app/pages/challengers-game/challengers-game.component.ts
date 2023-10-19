@@ -11,6 +11,7 @@ import {
   ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
+import { Options, LabelType } from 'ngx-slider-v2';
 
 declare var bootstrap: any;
 declare var LeaderLine: any;
@@ -18,9 +19,12 @@ declare var LeaderLine: any;
 @Component({
   selector: 'app-challengers-game',
   templateUrl: './challengers-game.component.html',
-  styleUrls: ['./challengers-game.component.css'],
+  styleUrls: ['./challengers-game.component.scss'],
 })
 export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestroy {
+ 
+  //SIDEBAR 
+  sidebarVisible4: boolean = false;
 
   //controlar un error
   marginLeftValues: number[] = [];
@@ -53,19 +57,25 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
 
   //Ruta de las imagenes que van entre los botones
   imagenes: string[] = [
-    'assets/Imagenes Juego/Barco.png',
-    'assets/Imagenes Juego/Industria.png',
-    'assets/Imagenes Juego/Granja.png',
-    'assets/Imagenes Juego/Planta.png',
-    'assets/Imagenes Juego/Campero.png',
-    'assets/Imagenes Juego/Cajero.png',
+    'assets/Imagenes Juego/Edif00.png',
+    'assets/Imagenes Juego/Edif01.png',
+    'assets/Imagenes Juego/Edif02.png',
+    'assets/Imagenes Juego/Edif03.png',
+    'assets/Imagenes Juego/Edif04.png',
+    'assets/Imagenes Juego/Edif05.png',
+    'assets/Imagenes Juego/Edif06.png',
+    'assets/Imagenes Juego/Edif07.png',
+    'assets/Imagenes Juego/Edif08.png',
+    'assets/Imagenes Juego/Edif09.png',
+    'assets/Imagenes Juego/Edif10.png',
+    
   ];
 
   imagenFinal: string = 'assets/Imagenes Juego/CasaFinal.png';
 
   numImagenesColocadas: number = 0;
 
-  //Menjsae error
+  //Menjase error
   Mensaje_error: string="Respuesta equivocada";
 
   //Para creara los botones y las imagenes
@@ -161,11 +171,42 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
 
   juegoTerminado: boolean = false;
 
+   //PARA EL SLIDER DE NG PRIME
+  
+   value: number = 0; // Valor del slider
+ 
+   optionsJugador: Options = {
+    
+     floor: 0,
+     ceil: this.cantidadDeBotones,
+     showTicks: true,
+     tickStep: 5
+   };
+   optionsAux1: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: false,
+  };
+  optionsAux2: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: false,
+  };
+  optionsAux3: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: false,
+  };
+
+   value2: number = 0; // Valor del slider jugador 2
+  value3: number = 0; // Valor del slider jugador 3
+  value4: number = 0; // Valor del slider jugador 4
+
   constructor(private renderer: Renderer2, private el: ElementRef) {
     this.numPreguntasContestadas = 0;
     this.puntosGanados = 0;
     this.puedeResponder = true;
-    this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
+    this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula 
   
   }
 
@@ -178,12 +219,15 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
     this.musicaFondo.play();   
     
+    
       setTimeout(() => {
       this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
       //console.log("Entro");
     }, 4000);
 
     this.listaDePreguntas = this.PreguntasList;
+    
+    //this.steps = 10;
 
     //Para las imagenes de los edificios principales
 
@@ -204,7 +248,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     this.numImagenesColocadas = 0; //Actualizo la cantidad de imagenes colocadas
     this.cantidadDeBotones = this.listaDePreguntas.length; //La cantidad de botones es igual a la cantidad de preguntas
     this.rellenarPregunta(1);
-    this.updateCenters(window.innerWidth);
+    //this.updateCenters(window.innerWidth);
     this.generateButtons();
     //console.log(this.PreguntasList);
     
@@ -229,14 +273,9 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     }, 500);
 
     window.addEventListener('resize', () => {
-      this.adjustLines();
+      this.createLines();
     });
-    
-    //Guardo posiciones que fueron trasladados los botones
 
-   /*  for (let i = 0; i < this.listaDePreguntas.length-1; i++) {
-      this.valoresXsenSave.push(this.calculateMargin(i));      
-    } */
 
     if (this.elementoVehiculo) {
       this.elementoVehiculo.nativeElement.style.transition = 'transform 0.5s linear';
@@ -248,11 +287,15 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       this.marginLeftValues[i] = this.calculateMargin2(i);
     });
 
+    this.actualizarSliders();
+
+    
     
   }
 
   ngOnDestroy(): void {
     this.modal.hide();
+    this.sidebarVisible4=false;
     this.lineas.forEach(linea => linea.remove());
 
   }
@@ -290,6 +333,37 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
 
   }
 
+  createLines() {
+    // Limpiar las líneas anteriores si las hubiera
+    this.lineas.forEach((linea) => linea.remove());
+    this.lineas.length = 0;
+
+    if (this.elementosImagen) {
+      const elementos = this.elementosImagen.toArray();
+      for (let i = 0; i < elementos.length - 1; i++) {
+        const linea = new LeaderLine(elementos[i].nativeElement, elementos[i + 1].nativeElement, { dash: { animation: true } });
+
+        // Configurar las opciones de la línea aquí
+        linea.setOptions({
+          color: '#b9b9b9',
+          size: 15,
+          endPlug: 'behind',
+          path: 'straight',
+          dash: {
+            animation: {
+              duration: 2500,
+              timing: 'linear',
+            },
+          },
+        });
+
+        linea.show('draw');
+
+        this.lineas.push(linea);
+      }
+    }
+  }
+
   rellenarPregunta(numPregunta: number) {
     console.log(numPregunta);
     setTimeout(() => {
@@ -313,9 +387,18 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   mostrarModal() {
+    this.sidebarVisible4=false;
+    this.value++;
     this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
     this.modal = new bootstrap.Modal(this.modalElement);
     this.resetTimer();
+    const mainBody = document.getElementById("main-body");
+  if (mainBody) {
+    mainBody.style.overflowY = "hidden";
+  }
+  
+    
+
     this.modal.show();
     //this.musicaFondo.play();
     //TIEMPO
@@ -345,6 +428,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
           this.mostrarAlert = false;
           this.moverVehiculo();
           this.modal.hide();
+          this.sidebarVisible4=true;
           this.numPreguntasContestadas++;
           this.puedeResponder = true;
           this.countdown = 20;
@@ -363,7 +447,8 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
     setTimeout(() => {
       this.mostrarWrongAlert = false;
-      this.modal.hide();      
+      this.modal.hide(); 
+      this.sidebarVisible4=true;     
       this.moverVehiculo();
       this.numPreguntasContestadas++;
       this.puedeResponder = true;
@@ -373,8 +458,8 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   pasarAOtraPregunta() {
-    console.log(this.numPreguntasContestadas);
-    console.log(this.listaDePreguntas.length);
+    //console.log(this.numPreguntasContestadas);
+    //console.log(this.listaDePreguntas.length);
 
     if (this.numPreguntasContestadas + 1 < this.listaDePreguntas.length) {
       setTimeout(() => {
@@ -401,26 +486,6 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
 
 
 
-  updateCenters(windowWidth: number) {
-    if (windowWidth >= 1200) {
-      // xl
-      this.centroX = 650;
-      //this.centroY = 200;
-    } else if (windowWidth >= 992) {
-      // lg
-      this.centroX = 580;
-      //this.centroY = 150;
-    } else if (windowWidth >= 768) {
-      // md
-      this.centroX = 320;
-      //this.centroY = 100;
-    } else {
-      // sm
-      this.centroX = 120;
-      this.amplitud = 40;
-      //this.centroY = 50;
-    }
-  }
 
   generateButtons() {
     for (let i = 1; i <= this.cantidadDeBotones; i++) {
@@ -460,6 +525,25 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
       const buttonElement = this.el.nativeElement.querySelector(`#boton-${id}`);
       if (buttonElement) {
         buttonElement.scrollIntoView({ behavior: 'smooth' }); // Hace scroll suavemente
+
+        setTimeout(() => {
+          this.createLines();
+        }, 40);
+        setTimeout(() => {
+          this.createLines();
+        }, 70);
+        setTimeout(() => {
+          this.createLines();
+        }, 150);
+        setTimeout(() => {
+          this.createLines();
+        }, 300);
+        setTimeout(() => {
+          this.createLines();
+        }, 500);
+        setTimeout(() => {
+          this.createLines();
+        }, 750);
       }
     }
   }
@@ -549,6 +633,55 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     }
     //this.numPreguntasContestadas++;
     
+  }
+
+  actualizarSliders(){
+
+    const numPreguntas = this.cantidadDeBotones;
+
+    this.optionsJugador = {
+      floor: 0,
+      ceil: numPreguntas,
+      showTicks: true,
+      tickStep: 5,
+      tickValueStep: 5,
+      getPointerColor: (value: number): string => {return "orange"},
+      getSelectionBarColor: (): string => {return 'orange'},
+      translate: (value: number, label: LabelType): string => {
+        switch (label) {
+          case LabelType.Low:
+            return 'tú';
+          
+          default:
+            return "";
+        }
+      }
+    };
+    this.optionsAux1 = {
+     floor: 0,
+     ceil: numPreguntas,
+     showTicks: false,
+   };
+   this.optionsAux2 = {
+     floor: 0,
+     ceil: numPreguntas,
+     showTicks: false,
+   };
+   this.optionsAux3 = {
+     floor: 0,
+     ceil: numPreguntas,
+     showTicks: false,
+   };
+ 
+   
+    
+  }
+
+  actualizarPosiciones(){
+    this.value2  = 0; // Actualizar el slider jugador 2
+    this.value3  = 0; // Actualizar el slider jugador 3
+    this.value4  = 0; // Actualizar el slider jugador 4
+
   }
 
 

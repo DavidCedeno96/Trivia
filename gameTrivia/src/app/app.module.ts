@@ -18,6 +18,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { SliderModule } from 'primeng/slider';
+
+
 
 
 //Ventanas creadas
@@ -35,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
 //import { NgxDropzoneModule } from 'ngx-dropzone';
+
+import { NgxSliderModule } from 'ngx-slider-v2';
 
 import { authGuard } from './auth.guard';
 
@@ -71,10 +77,15 @@ import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.componen
     BrowserModule,
     AppRoutingModule,
     DropdownModule,
+   
+
     /* ButtonModule,
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
+    NgxSliderModule,
+    SliderModule,
+    SidebarModule,
     DialogModule,
     ConfirmDialogModule,
     ToastModule,
