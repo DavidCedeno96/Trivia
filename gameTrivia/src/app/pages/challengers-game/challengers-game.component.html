@@ -1,31 +1,35 @@
 <!-- <app-esperar-jchallengers ></app-esperar-jchallengers>
  --><!-- BOTONES EN FORMA SENOSOIDAL
  -->
-<!-- Button trigger modal -->
-<!-- Button trigger modal -->
+
 
 <!-- SIDE BAR-->
-<div class="card flex flex-wrap justify-content-center gap-2"> 
- 
+<div class="card flex flex-wrap justify-content-center gap-2">  
 
   <p-sidebar 
   [(visible)]="sidebarVisible4" 
   position="bottom"
   [showCloseIcon]="false" 
   block="true"
-  [style]="{ height: '200px', width: '100%' }">
-
+  [modal]="false"
+  [style]="{'height': '200px', 'width': '100%' }">
   
   <ng-template pTemplate="content">
-    <div class="container"style="height: 5">
+    <div class="container text-center"style="height: 5">
     </div>
     <div class="slider-container" style="position: relative;">
-      <div class="custom-slider">
+      <!-- <div class="custom-slider">
         <ngx-slider class="slider" [(value)]="value" [options]="optionsJugador" style="z-index: 4; position: relative;"></ngx-slider> 
-      </div>
+      </div> -->
       
-      <div class="custom-slider" style="position: absolute; top: 0;">
-        <ngx-slider class="slider" [(value)]="value" [options]="optionsAux1" style="z-index: 3; position: relative;"></ngx-slider> 
+      <div class="custom-slider" style="position:relative; top: 0; z-index: 3;">
+        <ngx-slider class="slider" [(value)]="value2" [options]="optionsAux1" ></ngx-slider> 
+      </div>
+      <div class="custom-slider" style="position: relative; top: 0; z-index: 2">
+        <ngx-slider class="slider" [(value)]="value3" [options]="optionsAux2" style="z-index: 2; "></ngx-slider> 
+      </div>
+      <div class="custom-slider" style="position: relative; top: 0;z-index: 1">
+        <ngx-slider class="slider" [(value)]="value4" [options]="optionsAux3"></ngx-slider> 
       </div>
 
       

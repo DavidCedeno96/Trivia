@@ -24,7 +24,7 @@ declare var LeaderLine: any;
 export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestroy {
  
   //SIDEBAR 
-  sidebarVisible4: boolean = false;
+  sidebarVisible4: boolean = true;
 
   //controlar un error
   marginLeftValues: number[] = [];
@@ -198,9 +198,9 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     showTicks: false,
   };
 
-   value2: number = 0; // Valor del slider jugador 2
-  value3: number = 0; // Valor del slider jugador 3
-  value4: number = 0; // Valor del slider jugador 4
+   value2: number = 10; // Valor del slider jugador 2
+  value3: number = 20; // Valor del slider jugador 3
+  value4: number = 25; // Valor del slider jugador 4
 
   constructor(private renderer: Renderer2, private el: ElementRef) {
     this.numPreguntasContestadas = 0;
@@ -221,7 +221,7 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
     
     
       setTimeout(() => {
-      this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
+      //this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
       //console.log("Entro");
     }, 4000);
 
@@ -661,16 +661,25 @@ export class ChallengersGameComponent implements OnInit, AfterViewInit, OnDestro
      floor: 0,
      ceil: numPreguntas,
      showTicks: false,
+     translate: (value: number, label: LabelType): string => {           
+          return "";      
+    }
    };
    this.optionsAux2 = {
      floor: 0,
      ceil: numPreguntas,
      showTicks: false,
+     translate: (value: number, label: LabelType): string => {           
+      return "";      
+}
    };
    this.optionsAux3 = {
      floor: 0,
      ceil: numPreguntas,
      showTicks: false,
+     translate: (value: number, label: LabelType): string => {           
+      return "";      
+}
    };
  
    
