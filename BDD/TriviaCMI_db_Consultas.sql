@@ -71,8 +71,8 @@ create table Opcion(
 );
 
 ------------------------------------------------------------------------------------
-select * from Rol
-select * from Usuario
+select * from Rol -- Hacer el insert y no truncar
+select * from ModoJuego -- Hacer el insert y no truncar
 ------------------------------------------------------------------------------------
 Insert into Rol (nombre) values 
 ('Administrador'),
@@ -83,24 +83,24 @@ Insert into ModoJuego (nombre, imagen) values
 ('Supervivencia','img2.jpg')
 
 
-Insert into Sala (nombre, imagen, idModoJuego) values
-('Sala 1', 'imge1.jpg', 1)
+--Insert into Sala (nombre, imagen, idModoJuego) values
+--('Sala 1', 'imge1.jpg', 1)
 
-Insert into Pregunta (nombre, idSala) values
-('¿Cuántos litros de sangre tiene una persona adulta?',75),
-('¿Quién es el autor de la frase "Pienso, luego existo"?',75),
-('¿Cuál es el país más grande y el más pequeño del mundo?',75),
-('¿Cuál es el grupo de palabras escritas correctamente?',75),
-('¿Cuál es el libro más vendido en el mundo después de la Biblia?',75)
+--Insert into Pregunta (nombre, idSala) values
+--('¿Cuántos litros de sangre tiene una persona adulta?',75),
+--('¿Quién es el autor de la frase "Pienso, luego existo"?',75),
+--('¿Cuál es el país más grande y el más pequeño del mundo?',75),
+--('¿Cuál es el grupo de palabras escritas correctamente?',75),
+--('¿Cuál es el libro más vendido en el mundo después de la Biblia?',75)
 
-insert into Opcion (nombre, correcta, idPregunta) values
-('Tiene entre 2 y 4 litros',0,1),
-('Tiene entre 4 y 6 litros',1,1),
-('Tiene 10 litros',0,1),
-('Tiene 7 litros',0,1)
+--insert into Opcion (nombre, correcta, idPregunta) values
+--('Tiene entre 2 y 4 litros',0,1),
+--('Tiene entre 4 y 6 litros',1,1),
+--('Tiene 10 litros',0,1),
+--('Tiene 7 litros',0,1)
 
-insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
-(33,78,6,29687)
+--insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
+--(33,78,6,29687)
 
 --Insert into Usuario (nombre, apellido, correo, clave, idRol) values
 --('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
@@ -278,3 +278,10 @@ select * from Opcion where idPregunta = 44
 
 
 --delete from Pregunta where idPregunta = 41
+
+USE TriviaCMI_db;
+EXEC sp_spaceused
+
+EXEC sp_helpdb 'TriviaCMI_db';
+
+SELECT @@VERSION;

@@ -14,18 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Content\Images\Sala\6762.png" />
-    <None Include="wwwroot\Content\Images\Sala\ArrozImportacion250723.jpg" />
-    <None Include="wwwroot\Content\Images\Sala\barrio.jpg" />
     <None Include="wwwroot\Content\Images\Sala\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\Content\Images\Sala\Escudo_del_Capitan_America.png" />
-    <None Include="wwwroot\Content\Images\Sala\label.png" />
-    <None Include="wwwroot\Content\Images\Sala\lista-computacion.jpg" />
-    <None Include="wwwroot\Content\Images\Sala\rwshpm327mzi.png" />
-    <None Include="wwwroot\Content\Images\Sala\tortuga.jpg" />
-    <None Include="wwwroot\Content\Images\Sala\user-icon.png" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
