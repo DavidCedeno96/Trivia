@@ -73,7 +73,7 @@
   }
 
   .overlay-container {
-    position: relative;
+    position: relative;   
     z-index: 1;
   }
   
@@ -124,10 +124,90 @@ background-color: white;
 
 
 
-  /* Para hacer el círculo negro */
+
+.container {
+  width: 300px; /* Ancho del contenedor */
+  height: 200px; /* Altura del contenedor */
+  position: relative;
+}
 
 
-  /* .ngx-slider .ngx-slider-pointer.ngx-slider-active:after {
-    background-color: red;
-} */
+.miSlide{
+  width: 100%;
+  position: absolute;
+}
+
+::ng-deep {
   
+  .custom-slider2 .ngx-slider .ngx-slider-pointer:after {
+/*     display: none; */  
+background-color: white;
+} 
+
+.custom-slider2 .ngx-slider .ngx-slider-pointer.ngx-slider-active:after {
+  background-color: #4b4b4b;
+}
+
+.custom-slider2 .ngx-slider-span.ngx-slider-bubble.ngx-slider-model-value {
+  top: 300%; 
+  transform: translateY(-500px); /* Alinea el label al centro vertical */
+}
+
+
+}
+
+
+    /* Estilo para dispositivos LG */
+    @media (min-width: 992px) {
+      .arbol12-lg {
+          width: auto;
+          max-height: 120px;     
+      }
+      .arbol16-lg {
+        width: auto;
+        max-height: 160px;     
+    }
+    .arbol20-lg {
+      width: auto;
+      max-height: 200px;     
+  }            
+    
+    }
+    
+    @media (min-width: 577px) and (max-width: 991px) {
+      .arbol12-md {
+        width: auto;
+        max-height: 80px;     
+    }
+    .arbol16-md {
+      width: auto;
+      max-height: 140px;     
+  }   
+  .arbol20-md {
+    width: auto;
+    max-height: 160px;     
+}    
+    }
+    
+    
+    
+    /* Estilo para dispositivos SM */
+    @media (max-width: 576px) {
+      
+      .arbol12-sm {
+        width: auto;
+        max-height: 60px;     
+    }  
+    .arbol16-sm {
+      width: auto;
+      max-height: 80px;     
+  }
+  .arbol20-sm {
+    width: auto;
+    max-height: 100px;     
+}    
+     
+    }
+
+
+

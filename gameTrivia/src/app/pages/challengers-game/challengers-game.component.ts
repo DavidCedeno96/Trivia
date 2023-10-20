@@ -36,7 +36,7 @@ export class ChallengersGameComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   //SIDEBAR
-  sidebarVisible4: boolean = true;
+  sidebarVisible4: boolean = false;
 
   //controlar un error
   marginLeftValues: number[] = [];
@@ -193,25 +193,29 @@ export class ChallengersGameComponent
     ceil: this.cantidadDeBotones,
     showTicks: true,
     tickStep: 5,
+    readOnly: true
   };
   optionsAux1: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: false,
+    readOnly: true
   };
   optionsAux2: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: false,
+    readOnly: true
   };
   optionsAux3: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: false,
+    readOnly: true
   };
 
   value2: number = 10; // Valor del slider jugador 2
-  value3: number = 20; // Valor del slider jugador 3
+  value3: number = 15; // Valor del slider jugador 3
   value4: number = 25; // Valor del slider jugador 4
 
   idSala: number = 0;
@@ -229,6 +233,10 @@ export class ChallengersGameComponent
     fechaCreacion: '',
     fechaModificacion: '',
   };
+
+  //Tiempo 
+  tiempoMostrarPrimerModal: number = 3000;
+  tiempoMostrarModal: number = 6000;
 
   constructor(
     private renderer: Renderer2,
@@ -249,7 +257,7 @@ export class ChallengersGameComponent
   ngOnInit() {
     //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
     this.musicaFondo = new Audio();
-    this.musicaFondo.src = 'assets/musicAndSFX/MusicGame.mp3'; // Ruta a tu archivo de música
+    this.musicaFondo.src = 'assets/musicAndSFX/MusicaGame3.mp3'; // Ruta a tu archivo de música
     this.musicaFondo.loop = true;
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
     this.musicaFondo.play();
@@ -261,9 +269,9 @@ export class ChallengersGameComponent
     }
 
     setTimeout(() => {
-      //this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR
+      this.mostrarModal();//ACTIVAR CUANDO TERMINES DE TESTEAR <------------
       //console.log("Entro");
-    }, 4000);
+    }, this.tiempoMostrarPrimerModal);
 
     this.idSala = this.PreguntasList[0].pregunta.idSala;
     this.listaDePreguntas = this.PreguntasList;
@@ -358,7 +366,7 @@ export class ChallengersGameComponent
 
         linea.show('draw');
         linea.setOptions({
-          color: '#b9b9b9',
+          color: '#FFE608',
           size: 15,
           endPlug: 'behind', // Terminación en cuadrado (sin flecha)
           path: 'straight', // Línea recta, sin curvas
@@ -391,7 +399,7 @@ export class ChallengersGameComponent
 
         // Configurar las opciones de la línea aquí
         linea.setOptions({
-          color: '#b9b9b9',
+          color: '#FFE608',
           size: 15,
           endPlug: 'behind',
           path: 'straight',
@@ -511,7 +519,7 @@ export class ChallengersGameComponent
 
       setTimeout(() => {
         this.mostrarModal();
-      }, 4500);
+      }, this.tiempoMostrarModal);
     } else {
       setTimeout(() => {
         this.onClickCambiar();
@@ -672,7 +680,7 @@ export class ChallengersGameComponent
   calculateMargin2(index: number): number {
     if (this.isEdificioPar) {
       this.isEdificioPar = !this.isEdificioPar;
-      return 300;
+      return 250;
     } else {
       this.isEdificioPar = !this.isEdificioPar;
       return -250;
@@ -701,6 +709,7 @@ export class ChallengersGameComponent
     const numPreguntas = this.cantidadDeBotones;
 
     this.optionsJugador = {
+      readOnly: true,
       floor: 0,
       ceil: numPreguntas,
       showTicks: true,
@@ -723,27 +732,57 @@ export class ChallengersGameComponent
       },
     };
     this.optionsAux1 = {
+      readOnly: true,
       floor: 0,
       ceil: numPreguntas,
       showTicks: false,
       translate: (value: number, label: LabelType): string => {
-        return '';
+        switch (label) {
+          case LabelType.Low:
+            return 'AD';
+
+          default:
+            return '';
+        }
+      },
+      getPointerColor: (value: number): string => {
+        return '#29292975';
       },
     };
     this.optionsAux2 = {
+      readOnly: true,
       floor: 0,
       ceil: numPreguntas,
       showTicks: false,
       translate: (value: number, label: LabelType): string => {
-        return '';
+        switch (label) {
+          case LabelType.Low:
+            return 'AD';
+
+          default:
+            return '';
+        }
+      },
+      getPointerColor: (value: number): string => {
+        return '#29292975';
       },
     };
     this.optionsAux3 = {
+      readOnly: true,
       floor: 0,
       ceil: numPreguntas,
       showTicks: false,
       translate: (value: number, label: LabelType): string => {
-        return '';
+        switch (label) {
+          case LabelType.Low:
+            return 'AD';
+
+          default:
+            return '';
+        }
+      },
+      getPointerColor: (value: number): string => {
+        return '#29292975';
       },
     };
   }
