@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
@@ -14,7 +23,6 @@ import { SalaService } from 'src/app/services/sala.service';
   providers: [ConfirmationService],
 })
 export class InicioSalaComponent implements OnInit, AfterViewInit {
-
   @ViewChild('mi_imagen') miImagen: ElementRef | undefined;
   imagenEsHorizontal: boolean = true;
   //nombreSala: string = 'Mi sala!';
@@ -26,6 +34,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
   miSala: Sala = {
     idSala: 1,
+    idEncrypt: '',
     nombre: 'Mi primera sala',
     imagen: 'assets/Imagenes Juego/Imagen test.png',
     descripcion: 'Descripcion Sala',
@@ -144,10 +153,9 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         const ancho = img.width;
         const alto = img.height;
         console.log(`Ancho: ${ancho}px, Alto: ${alto}px`);
-        this.imagenEsHorizontal=ancho<alto;
+        this.imagenEsHorizontal = ancho < alto;
       };
       //img.src = this.imagenSala; // Asegúrate de que la imagen esté cargada antes de obtener sus dimensiones
     }
-    
   }
 }

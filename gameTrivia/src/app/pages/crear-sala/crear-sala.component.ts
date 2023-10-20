@@ -23,6 +23,7 @@ export class CrearSalaComponent implements OnInit {
 
   nuevaSala: Sala = {
     idSala: 1,
+    idEncrypt: '',
     nombre: '',
     imagen: '',
     descripcion: '',

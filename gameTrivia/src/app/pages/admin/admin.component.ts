@@ -25,11 +25,12 @@ export class AdminComponent implements OnInit {
   result: string = '';
   textoBuscar: string = '';
 
-  idSalaItem: number = 0;
-  codigoSala: string = '';
+  //idSalaItem: number = 0;
+  //codigoSala: string = '';
 
   salaItem: Sala = {
     idSala: 0,
+    idEncrypt: '',
     nombre: '',
     imagen: '',
     descripcion: '',
@@ -69,6 +70,18 @@ export class AdminComponent implements OnInit {
           this.existeError = false;
           this.misSalas = lista;
           this.auxMisSalas = lista;
+
+          this.misSalas.forEach((element) => {
+            element.idEncrypt = this.encryptionService.encrypt(
+              element.idSala.toString()
+            );
+          });
+
+          this.auxMisSalas.forEach((element) => {
+            element.idEncrypt = this.encryptionService.encrypt(
+              element.idSala.toString()
+            );
+          });
         }
         this.constantsService.loading(false);
       },
@@ -124,24 +137,23 @@ export class AdminComponent implements OnInit {
     return imageUrl;
   }
 
-  getIdSala(idSala: number) {
+  /* getIdSala(idSala: number) {
     this.idSalaItem = idSala;
+  } */
+
+  nameLink(id: number) {
+    //this.codigoSala = this.encryptionService.encrypt(id.toString());
+
+    let idSala = this.encryptionService.encrypt(id.toString());
+
+    return `${window.location.origin}/EntradaSala?idSala=${idSala}`;
   }
 
-  nameLink() {
-    this.codigoSala = this.encryptionService.encrypt(
-      this.idSalaItem.toString()
-    );
-
-    return `${window.location.origin}/EntradaSala?idSala`;
-  }
-
-  copiarText() {
-    let idSala = '';
-    idSala = this.encryptionService.encrypt(this.idSalaItem.toString());
+  copiarText(id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
     let currentUrl = `${window.location.origin}/EntradaSala?idSala=${idSala}`;
 
-    console.log(this.idSalaItem, idSala, currentUrl);
+    console.log(idSala, currentUrl);
 
     /* const texto = this.textoACopiar.nativeElement;
     texto.select();
