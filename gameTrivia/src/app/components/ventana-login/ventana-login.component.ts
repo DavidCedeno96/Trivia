@@ -62,19 +62,17 @@ export class VentanaLoginComponent implements OnInit {
       }
     });
 
-    
+    //REVISAR ESTA PARTE, NO CACHO PORQUE SE HACE BUGG A BYRON
 
-    if (localStorage.getItem('token')) {
-      const rolString = localStorage.getItem('rol'); // Obtén el valor del almacenamiento local
+  /*   if (localStorage.getItem('rol')) {
+      const rolString = localStorage.getItem('rol'); 
 
       if(rolString){
         this.rol=parseInt(rolString,10); 
-        //Ruta para el jugador
 
         if (this.rol == 2) {
           this.router.navigate(['/MisSalas']);
         }
-        //Ruta para el administrador
         if (this.rol == 1) {
           this.router.navigate(['/Administrador']);
         }
@@ -82,7 +80,7 @@ export class VentanaLoginComponent implements OnInit {
       }
       
     }
-
+ */
 
 
    
