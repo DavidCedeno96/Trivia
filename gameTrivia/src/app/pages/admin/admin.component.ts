@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Location } from '@angular/common';
+//import { Location } from '@angular/common';
 //import { environment } from 'src/environments/environments';
 //import { Clipboard } from '@angular/cdk/clipboard';
 
@@ -25,8 +25,8 @@ export class AdminComponent implements OnInit {
   result: string = '';
   textoBuscar: string = '';
 
-  //idSalaItem: number = 0;
-  //codigoSala: string = '';
+  currentURL: string = '';
+  currentCodigo: string = '';
 
   salaItem: Sala = {
     idSala: 0,
@@ -48,8 +48,7 @@ export class AdminComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private encryptionService: EncryptionService,
-    private constantsService: ConstantsService, //private clipboard: Clipboard
-    private location: Location
+    private constantsService: ConstantsService
   ) {}
 
   ngOnInit(): void {
@@ -70,18 +69,6 @@ export class AdminComponent implements OnInit {
           this.existeError = false;
           this.misSalas = lista;
           this.auxMisSalas = lista;
-
-          this.misSalas.forEach((element) => {
-            element.idEncrypt = this.encryptionService.encrypt(
-              element.idSala.toString()
-            );
-          });
-
-          this.auxMisSalas.forEach((element) => {
-            element.idEncrypt = this.encryptionService.encrypt(
-              element.idSala.toString()
-            );
-          });
         }
         this.constantsService.loading(false);
       },
@@ -137,29 +124,23 @@ export class AdminComponent implements OnInit {
     return imageUrl;
   }
 
-  /* getIdSala(idSala: number) {
-    this.idSalaItem = idSala;
-  } */
-
-  nameLink(id: number) {
-    //this.codigoSala = this.encryptionService.encrypt(id.toString());
-
-    let idSala = this.encryptionService.encrypt(id.toString());
-
-    return `${window.location.origin}/EntradaSala?idSala=${idSala}`;
+  copiarText(idElement: string) {
+    let content = document.getElementById(idElement);
+    let txtURL = content as HTMLTextAreaElement;
+    txtURL.focus();
+    txtURL.select();
+    document.execCommand('copy');
   }
 
-  copiarText(id: number) {
-    let idSala = this.encryptionService.encrypt(id.toString());
-    let currentUrl = `${window.location.origin}/EntradaSala?idSala=${idSala}`;
+  dataSalaOnModal(sala: Sala) {
+    this.salaItem = sala;
+    let idSala = this.encryptionService.encrypt(sala.idSala.toString());
+    let codigo1 = this.constantsService.randomNumber(10, 99);
+    let codigo2 = this.constantsService.randomNumber(10, 99);
 
-    console.log(idSala, currentUrl);
-
-    /* const texto = this.textoACopiar.nativeElement;
-    texto.select();
-    document.execCommand('copy');
-
-    this.clipboard.copy(texto); */
+    this.currentURL = `${window.location.origin}/EntradaSala?idSala=${idSala}`;
+    this.currentCodigo = codigo1 + sala.idSala.toString() + codigo2;
+    //console.log(codigo1, codigo2);
   }
 
   cambiarEstado(estado: number, idSala: number) {

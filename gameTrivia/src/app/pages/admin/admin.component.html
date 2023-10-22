@@ -167,6 +167,7 @@
                     class="btn btn-secondary mx-1 my-2"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
+                    (click)="dataSalaOnModal(sala)"
                   >
                     Compartir
                   </button>
@@ -195,7 +196,6 @@
                   tabindex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
-                  data-bs-backdrop="static"
                   style="background-color: rgba(0, 0, 0, 0.5)"
                 >
                   <div class="modal-dialog">
@@ -217,23 +217,54 @@
                         ></button>
                       </div>
                       <div class="modal-body">
+                        <div class="text-center mb-3">
+                          <h5>{{ salaItem.nombre }}</h5>
+                        </div>
                         <div class="row g-3">
                           <div class="col-8 text-truncate">
-                            <strong>Link: </strong>
+                            <strong>Link:&nbsp;</strong>
                             <a
                               class="link-primary"
                               (click)="cambiarPag('/EntradaSala', sala.idSala)"
-                              >{{ nameLink(sala.idSala) }}</a
+                              >{{ currentURL }}</a
                             >
                           </div>
                           <div class="col-4">
                             <button
                               class="btn btn-primary btn-sm"
-                              (click)="copiarText(sala.idSala)"
+                              (click)="copiarText('txtURL')"
                             >
                               Copiar
                             </button>
                           </div>
+                          <div class="col-8 text-truncate">
+                            <strong>Código de la sala:&nbsp;</strong>
+                            <span>{{ currentCodigo }}</span>
+                          </div>
+                          <div class="col-4">
+                            <button
+                              class="btn btn-primary btn-sm"
+                              (click)="copiarText('txtCodigo')"
+                            >
+                              Copiar
+                            </button>
+                          </div>
+                          <textarea
+                            class="currentText"
+                            id="txtCodigo"
+                            cols="1"
+                            rows="1"
+                            readonly
+                            [defaultValue]="currentCodigo"
+                          ></textarea>
+                          <textarea
+                            class="currentText"
+                            id="txtURL"
+                            cols="1"
+                            rows="1"
+                            readonly
+                            [defaultValue]="currentURL"
+                          ></textarea>
                         </div>
                       </div>
                       <div class="modal-footer">
