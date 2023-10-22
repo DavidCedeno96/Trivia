@@ -236,7 +236,7 @@ export class ChallengersGameComponent
   };
 
   //Tiempo
-  tiempoMostrarPrimerModal: number = 3000;
+  tiempoMostrarPrimerModal: number = 5000;
   tiempoMostrarModal: number = 6000;
 
   @HostListener('mousewheel', ['$event'])
