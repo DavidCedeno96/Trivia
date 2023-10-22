@@ -573,7 +573,7 @@ export class ChallengersGameComponent
           break;
       }
       // Hacer scroll hacia el botón activado
-      const buttonElement = this.el.nativeElement.querySelector(`#boton-${id}`);
+      const buttonElement = this.el.nativeElement.querySelector(`#boton-${id-1}`);
       if (buttonElement) {
         buttonElement.scrollIntoView({ behavior: 'smooth' }); // Hace scroll suavemente
 

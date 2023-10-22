@@ -31,6 +31,8 @@ export class VentanaLoginComponent implements OnInit {
 
   rememberMe: boolean = false;
 
+  rol:number = 0;
+
   constructor(
     private usuarioServicio: UsuarioService,
     private router: Router,
@@ -40,6 +42,51 @@ export class VentanaLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.constantsService.loading(false);
+
+    // Recupera los datos guardados desde el almacenamiento local
+    this.localStorage.get('correo').subscribe((correo) => {
+      if(typeof correo == 'string'){
+        this.loginUsuario.correo = correo;
+        console.log(this.loginUsuario.correo);
+      }
+      
+    });
+
+    this.localStorage.get('contrasena').subscribe((contrasena) => {
+      if(typeof contrasena == 'string'){
+        this.loginUsuario.contrasena = contrasena;
+        if (contrasena!='') {
+          this.rememberMe=true;          
+        }
+        
+      }
+    });
+
+    
+
+    if (localStorage.getItem('token')) {
+      const rolString = localStorage.getItem('rol'); // Obtén el valor del almacenamiento local
+
+      if(rolString){
+        this.rol=parseInt(rolString,10); 
+        //Ruta para el jugador
+
+        if (this.rol == 2) {
+          this.router.navigate(['/MisSalas']);
+        }
+        //Ruta para el administrador
+        if (this.rol == 1) {
+          this.router.navigate(['/Administrador']);
+        }
+
+      }
+      
+    }
+
+
+
+   
+
   }
 
   onSubmit() {
@@ -59,12 +106,15 @@ export class VentanaLoginComponent implements OnInit {
           localStorage.setItem('token', info);
           localStorage.setItem('rol', idRol);
 
+
            //GUARDO ESTO EN LA CASILLA DE RECUERDAME
            if (this.rememberMe) {
             // Guarda el nombre de usuario y contraseña en el almacenamiento local
-            this.localStorage.set('correo', correo).subscribe(() => {});
-            this.localStorage.set('token', info).subscribe(() => {});
-            this.localStorage.set('rol', info).subscribe(() => {});
+            this.localStorage.set('correo', this.loginUsuario.correo).subscribe(() => {console.log(this.loginUsuario.correo)});
+            this.localStorage.set('contrasena', this.loginUsuario.contrasena).subscribe(() => {console.log(this.loginUsuario.contrasena)});
+          }else{
+            this.localStorage.set('correo', '').subscribe(() => {console.log(this.loginUsuario.correo)});
+            this.localStorage.set('contrasena', '').subscribe(() => {console.log(this.loginUsuario.contrasena)});
           }
 
           //Ruta para el jugador

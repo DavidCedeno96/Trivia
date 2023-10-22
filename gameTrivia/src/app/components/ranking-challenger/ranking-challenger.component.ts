@@ -39,7 +39,7 @@ export class RankingChallengerComponent
     {
       idUsuario: 0,
       iniciales: 'PP',
-      usuario: 'Preuba preuba',
+      usuario: 'Prueba prueba',
       rol: '',
       idSala: 0,
       sala: '',
@@ -59,8 +59,8 @@ export class RankingChallengerComponent
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService
   ) {
-    this.testIniciales = this.obtenerIniciales(this.nombreJugador);
-    this.numJugadores = this.listaJugadores.length;
+    //this.testIniciales = this.obtenerIniciales(this.nombreJugador);
+    
     // this.cd.detectChanges();
   }
 
@@ -79,6 +79,7 @@ export class RankingChallengerComponent
     });
 
     this.getRankingList(this.idSala);
+    this.numJugadores = this.listaJugadores.length;
   }
 
   ngAfterViewInit() {

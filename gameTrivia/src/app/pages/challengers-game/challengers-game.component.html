@@ -10,39 +10,48 @@
   position="bottom"
   [showCloseIcon]="false" 
   block="true"
+  [blockScroll]="true"
   [modal]="false"
   [style]="{'height': '150px', 'width': '100%' }">
   
-  
-    
-    <div class="container" style="width: 100%; max-height: 60px;">
+   <div class="container text-center my-2" style="max-height: 35px ; color: orange; font-weight: bold; font-size: 25px;">
+    Puntos: {{puntosGanados}}
+  </div> 
+
+
+<div class="container" style="width: 100%; max-height: 110px;">
       
-      <div class="miSlide">
-        <div class="custom-slider2">
-          <ngx-slider class="slider" [(value)]="value2" [options]="optionsAux1" ></ngx-slider> 
-        </div>
-
-      </div>
-      <div class="miSlide">
-        <div class="custom-slider2">
-          <ngx-slider class="slider" [(value)]="value3" [options]="optionsAux2" ></ngx-slider> 
-        </div>
-
-      </div>
-
-      <div class="miSlide">
-        <div class="custom-slider2">
-          <ngx-slider class="slider" [(value)]="value4" [options]="optionsAux3" ></ngx-slider> 
-        </div>
-
-      </div>
-
-      <div class="miSlide">
-        <div class="custom-slider">
-          <ngx-slider class="slider" [(value)]="value" [options]="optionsJugador"></ngx-slider> 
-        </div> 
-      </div>
+  <div class="miSlide">
+    <div class="custom-slider2">
+      <ngx-slider class="slider" [(value)]="value2" [options]="optionsAux1" ></ngx-slider> 
     </div>
+
+  </div>
+  <div class="miSlide">
+    <div class="custom-slider2">
+      <ngx-slider class="slider" [(value)]="value3" [options]="optionsAux2" ></ngx-slider> 
+    </div>
+
+  </div>
+
+  <div class="miSlide">
+    <div class="custom-slider2">
+      <ngx-slider class="slider" [(value)]="value4" [options]="optionsAux3" ></ngx-slider> 
+    </div>
+
+  </div>
+
+  <div class="miSlide">
+    <div class="custom-slider">
+      <ngx-slider class="slider" [(value)]="value" [options]="optionsJugador"></ngx-slider> 
+    </div> 
+  </div>
+</div>
+
+<ng-template pTemplate="footer" style="margin: 0; padding: 0;"></ng-template>
+
+   
+    
 
  
     <!-- <div class="slider-container" style="position: relative;">
