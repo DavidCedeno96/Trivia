@@ -473,6 +473,7 @@ export class ChallengersGameComponent
   }
 
   mostrarModal() {
+    this.getListaPosiciones(this.idSala, this.idJugador);
     this.sidebarVisible4 = false;
     this.value++;
     this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
