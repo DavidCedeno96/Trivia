@@ -9,8 +9,6 @@ import { ConstantsService } from 'src/app/constants.service';
 
 import { StorageMap } from '@ngx-pwa/local-storage'; // Importa LocalStorage
 
- 
-
 @Component({
   selector: 'app-ventana-login',
   templateUrl: './ventana-login.component.html',
@@ -31,7 +29,7 @@ export class VentanaLoginComponent implements OnInit {
 
   rememberMe: boolean = false;
 
-  rol:number = 0;
+  rol: number = 0;
 
   constructor(
     private usuarioServicio: UsuarioService,
@@ -45,26 +43,24 @@ export class VentanaLoginComponent implements OnInit {
 
     // Recupera los datos guardados desde el almacenamiento local
     this.localStorage.get('correo').subscribe((correo) => {
-      if(typeof correo == 'string'){
+      if (typeof correo == 'string') {
         this.loginUsuario.correo = correo;
         console.log(this.loginUsuario.correo);
       }
-      
     });
 
     this.localStorage.get('contrasena').subscribe((contrasena) => {
-      if(typeof contrasena == 'string'){
+      if (typeof contrasena == 'string') {
         this.loginUsuario.contrasena = contrasena;
-        if (contrasena!='') {
-          this.rememberMe=true;          
+        if (contrasena != '') {
+          this.rememberMe = true;
         }
-        
       }
     });
 
     //REVISAR ESTA PARTE, NO CACHO PORQUE SE HACE BUGG A BYRON
 
-  /*   if (localStorage.getItem('rol')) {
+    /*   if (localStorage.getItem('rol')) {
       const rolString = localStorage.getItem('rol'); 
 
       if(rolString){
@@ -81,10 +77,6 @@ export class VentanaLoginComponent implements OnInit {
       
     }
  */
-
-
-   
-
   }
 
   onSubmit() {
@@ -103,16 +95,28 @@ export class VentanaLoginComponent implements OnInit {
           localStorage.setItem('id', id);
           localStorage.setItem('token', info);
           localStorage.setItem('rol', idRol);
+          localStorage.setItem('user', nombre);
 
-
-           //GUARDO ESTO EN LA CASILLA DE RECUERDAME
-           if (this.rememberMe) {
+          //GUARDO ESTO EN LA CASILLA DE RECUERDAME
+          if (this.rememberMe) {
             // Guarda el nombre de usuario y contraseña en el almacenamiento local
-            this.localStorage.set('correo', this.loginUsuario.correo).subscribe(() => {console.log(this.loginUsuario.correo)});
-            this.localStorage.set('contrasena', this.loginUsuario.contrasena).subscribe(() => {console.log(this.loginUsuario.contrasena)});
-          }else{
-            this.localStorage.set('correo', '').subscribe(() => {console.log(this.loginUsuario.correo)});
-            this.localStorage.set('contrasena', '').subscribe(() => {console.log(this.loginUsuario.contrasena)});
+            this.localStorage
+              .set('correo', this.loginUsuario.correo)
+              .subscribe(() => {
+                console.log(this.loginUsuario.correo);
+              });
+            this.localStorage
+              .set('contrasena', this.loginUsuario.contrasena)
+              .subscribe(() => {
+                console.log(this.loginUsuario.contrasena);
+              });
+          } else {
+            this.localStorage.set('correo', '').subscribe(() => {
+              console.log(this.loginUsuario.correo);
+            });
+            this.localStorage.set('contrasena', '').subscribe(() => {
+              console.log(this.loginUsuario.contrasena);
+            });
           }
 
           //Ruta para el jugador
@@ -146,8 +150,6 @@ export class VentanaLoginComponent implements OnInit {
     this.isLoginH.emit(false); // Puedes emitir 'true' o 'false' según tu lógica
   }
   toggleRememberMe() {
-  this.rememberMe = !this.rememberMe;
-}
-
-
+    this.rememberMe = !this.rememberMe;
+  }
 }

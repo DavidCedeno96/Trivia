@@ -22,6 +22,8 @@ import { PuntosJugador } from 'src/app/model/PuntosJugador';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ConstantsService } from 'src/app/constants.service';
 import { MessageService } from 'primeng/api';
+import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
+import { JuegoChallenger } from 'src/app/model/JuegoChallenger';
 
 declare var bootstrap: any;
 declare var LeaderLine: any;
@@ -61,6 +63,7 @@ export class ChallengersGameComponent
 
   @Output() numVentanaH = new EventEmitter<number>();
   @Input() PreguntasList: Pregunta_OpcionList[] = [];
+  @Input() idJugador: number = 0;
 
   EdificiosCount: number[] = [];
 
@@ -158,6 +161,8 @@ export class ChallengersGameComponent
 
   listaDePreguntas: Pregunta_OpcionList[] = [];
 
+  listaPosiciones: JuegoChallenger[] = [];
+
   // numPreguntaActual: number = 0;
   preguntaTexto: string = '';
   actualOpcionList: any[] = [];
@@ -189,14 +194,20 @@ export class ChallengersGameComponent
 
   value: number = 0; // Valor del slider
 
-  optionsJugador: Options = {
+  optionsMia: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: true,
     tickStep: 5,
     readOnly: true,
   };
-  optionsAux1: Options = {
+  optionsAux: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: false,
+    readOnly: true,
+  };
+  /* optionsAux1: Options = {
     floor: 0,
     ceil: this.cantidadDeBotones,
     showTicks: false,
@@ -213,14 +224,13 @@ export class ChallengersGameComponent
     ceil: this.cantidadDeBotones,
     showTicks: false,
     readOnly: true,
-  };
+  }; */
 
-  value2: number = 10; // Valor del slider jugador 2
-  value3: number = 15; // Valor del slider jugador 3
-  value4: number = 25; // Valor del slider jugador 4
+  /* value2: number = 2; // Valor del slider jugador 2
+  value3: number = 3; // Valor del slider jugador 3
+  value4: number = 4; // Valor del slider jugador 4 */
 
   idSala: number = 0;
-  idUsuario: number = 0;
 
   puntosJugador: PuntosJugador = {
     idUsuario: 0,
@@ -252,6 +262,7 @@ export class ChallengersGameComponent
     private usuarioSalaService: UsuarioSalaService,
     private usuarioService: UsuarioService,
     private constantsService: ConstantsService,
+    private juegoChallengerService: JuegoChallengerService,
     private messageService: MessageService
   ) {
     this.numPreguntasContestadas = 0;
@@ -268,12 +279,6 @@ export class ChallengersGameComponent
     this.musicaFondo.loop = true;
     this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
     this.musicaFondo.play();
-
-    if (!this.usuarioService.getIdUsuario()) {
-      this.router.navigate(['/']);
-    } else {
-      this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
-    }
 
     setTimeout(() => {
       this.mostrarModal(); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
@@ -310,6 +315,8 @@ export class ChallengersGameComponent
     //this.updateCenters(window.innerWidth);
     this.generateButtons();
     //console.log(this.PreguntasList);
+
+    this.getListaPosiciones(this.idSala, this.idJugador);
   }
 
   ngAfterViewInit() {
@@ -347,13 +354,31 @@ export class ChallengersGameComponent
       this.marginLeftValues[i] = this.calculateMargin2(i);
     });
 
-    this.actualizarSliders();
+    this.actualizarMiSlider();
   }
 
   ngOnDestroy(): void {
     this.modal.hide();
     this.sidebarVisible4 = false;
     this.lineas.forEach((linea) => linea.remove());
+  }
+
+  getListaPosiciones(idSala: number, idJugador: number) {
+    this.juegoChallengerService.getList(idSala, idJugador).subscribe({
+      next: (data: any) => {
+        console.log(data);
+
+        let { error, info, lista } = data.result;
+        if (error > 0) {
+        } else {
+          console.log(lista);
+          this.listaPosiciones = lista;
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
 
   adjustLines() {
@@ -476,6 +501,16 @@ export class ChallengersGameComponent
       this.tiempoDelJugador +=
         this.userClickTime.getTime() - this.startTime.getTime();
       console.log(this.tiempoDelJugador);
+
+      //AQUI PONER LA ACTUALIZACION DE LAS POSICIONES
+      let juego = {
+        idSala: this.idSala,
+        idJugador: this.idJugador,
+        iniciales: 'pp',
+        posicion: 1,
+      };
+      this.actualizarPosicion(juego);
+
       if (respuestaSeleccionada.correcta === 1) {
         // La respuesta es correcta, puedes reproducir un sonido, cambiar el color, etc.
         this.puntosGanados++;
@@ -495,9 +530,22 @@ export class ChallengersGameComponent
         this.Mensaje_error = 'Respuesta equivocada';
         this.preguntaMalConstestada();
       }
-
       this.pasarAOtraPregunta();
     }
+  }
+
+  actualizarPosicion(juego: JuegoChallenger) {
+    this.juegoChallengerService.updateItem(juego).subscribe({
+      next: (data: any) => {
+        let { error } = data.result;
+        if (error === 0) {
+          console.log('posicion actualizada');
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
 
   preguntaMalConstestada() {
@@ -573,7 +621,9 @@ export class ChallengersGameComponent
           break;
       }
       // Hacer scroll hacia el botón activado
-      const buttonElement = this.el.nativeElement.querySelector(`#boton-${id-1}`);
+      const buttonElement = this.el.nativeElement.querySelector(
+        `#boton-${id - 1}`
+      );
       if (buttonElement) {
         buttonElement.scrollIntoView({ behavior: 'smooth' }); // Hace scroll suavemente
 
@@ -641,7 +691,7 @@ export class ChallengersGameComponent
     console.log('Puntos Jugador=' + this.puntosGanados);
     console.log('Juego terminado=' + this.juegoTerminado);
 
-    this.puntosJugador.idUsuario = this.idUsuario;
+    this.puntosJugador.idUsuario = this.idJugador;
     this.puntosJugador.idSala = this.idSala;
     this.puntosJugador.puntaje = this.puntosGanados;
     this.puntosJugador.tiempo = this.tiempoDelJugador;
@@ -660,6 +710,7 @@ export class ChallengersGameComponent
     this.usuarioSalaService.crearRanking(puntosJugador).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
+        console.log(info);
         if (error > 0) {
           this.messageService.add({
             severity: 'error',
@@ -716,10 +767,32 @@ export class ChallengersGameComponent
     //this.numPreguntasContestadas++;
   }
 
-  actualizarSliders() {
+  setListOptions(iniciales: string): Options {
+    let optionsAux = {
+      floor: 0,
+      ceil: this.cantidadDeBotones,
+      showTicks: false,
+      readOnly: true,
+      translate: (value: number, label: LabelType): string => {
+        switch (label) {
+          case LabelType.Low:
+            return iniciales;
+
+          default:
+            return '';
+        }
+      },
+      getPointerColor: (value: number): string => {
+        return '#29292975';
+      },
+    };
+    return optionsAux;
+  }
+
+  actualizarMiSlider() {
     const numPreguntas = this.cantidadDeBotones;
 
-    this.optionsJugador = {
+    this.optionsMia = {
       readOnly: true,
       floor: 0,
       ceil: numPreguntas,
@@ -735,14 +808,15 @@ export class ChallengersGameComponent
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
-            return 'tú';
+            return 'Tú';
 
           default:
             return '';
         }
       },
     };
-    this.optionsAux1 = {
+
+    /* this.optionsAux1 = {
       readOnly: true,
       floor: 0,
       ceil: numPreguntas,
@@ -750,7 +824,7 @@ export class ChallengersGameComponent
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
-            return 'AD';
+            return 'BC';
 
           default:
             return '';
@@ -768,7 +842,7 @@ export class ChallengersGameComponent
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
-            return 'AD';
+            return 'PC';
 
           default:
             return '';
@@ -786,7 +860,7 @@ export class ChallengersGameComponent
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
-            return 'AD';
+            return 'HP';
 
           default:
             return '';
@@ -795,14 +869,14 @@ export class ChallengersGameComponent
       getPointerColor: (value: number): string => {
         return '#29292975';
       },
-    };
+    }; */
   }
 
-  actualizarPosiciones() {
+  /*  actualizarPosiciones() {
     this.value2 = 0; // Actualizar el slider jugador 2
     this.value3 = 0; // Actualizar el slider jugador 3
     this.value4 = 0; // Actualizar el slider jugador 4
-  }
+  } */
 
   cambiarPag(ruta: string, id: number) {
     let idSala = this.encryptionService.encrypt(id.toString());

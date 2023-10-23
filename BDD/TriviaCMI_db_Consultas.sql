@@ -70,6 +70,19 @@ create table Opcion(
 	fecha_modificacion datetime default getdate(),
 );
 
+---------------------------
+create table JuegoChallenger(
+	idSala int,
+	idJugador int,
+	iniciales varchar(5),
+	posicion int,
+
+	fecha_creacion datetime default getdate(),
+	fecha_modificacion datetime default getdate(),
+)
+--------------------------------------------
+select * from JuegoChallenger
+
 ------------------------------------------------------------------------------------
 select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
@@ -269,6 +282,33 @@ exec sp_C_Usuario_Sala
 @tiempo = 34623,
 @info = '',
 @error = ''
+
+--- new Sps ---------------
+---- JUEGO CHALLENGER ---------------------------------------------
+select * from Usuario
+select * from JuegoChallenger
+--truncate table JuegoChallenger
+
+exec sp_B_JuegoChallenger
+@idSala = 77,		
+@idJugador = 1,
+@info = '',
+@error = ''
+
+exec sp_C_JuegoChallenger	
+@idSala = 77,
+@idJugador = 34,
+@iniciales = 'MJ',
+@info = '',
+@error = ''
+
+exec sp_U_JuegoChallenger	
+@idSala = 77,
+@idJugador = 34,	
+@info = '',
+@error = ''
+
+
 
 ----------------------------------------------------------------------------
 select * from Sala where idSala = 80
