@@ -354,6 +354,8 @@ export class ChallengersGameComponent
       this.marginLeftValues[i] = this.calculateMargin2(i);
     });
 
+    this.scrollInicial();
+
     this.actualizarMiSlider();
   }
 
@@ -626,6 +628,7 @@ export class ChallengersGameComponent
         `#boton-${id - 1}`
       );
       if (buttonElement) {
+        console.log("Scroll boton");
         buttonElement.scrollIntoView({ behavior: 'smooth' }); // Hace scroll suavemente
 
         setTimeout(() => {
@@ -883,5 +886,36 @@ export class ChallengersGameComponent
     let idSala = this.encryptionService.encrypt(id.toString());
     let params = { idSala };
     this.router.navigate([ruta], { queryParams: params });
+  }
+
+  scrollInicial(){
+    // Hacer scroll hacia el botón activado
+  const vehicleElement = this.el.nativeElement.querySelector(
+    `#elementoVehiculo`
+  );
+  if (vehicleElement) {
+    console.log("Entro carro");
+    
+
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 40);
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 70);
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 500);
+    setTimeout(() => {
+      vehicleElement.scrollIntoView({ behavior: 'smooth' });
+    }, 750);
+  }
+
   }
 }

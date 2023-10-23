@@ -146,9 +146,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   texts: string[] = ['AB', 'DC', 'CMI', 'AC'];
 
   //Jugadores Eliminados
+  idJugador=0;
   jugadoresSala: PuntosJugador[]=[]; 
   mostrarEspera: boolean= false;
   isLife: boolean = true;
+  isUltimoenPie: boolean = false;
 
   animationState = '';
 
@@ -260,9 +262,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     
     //Comparar la lista de bd con la lista guardada
     
-    const valorInicial: { jugadoresMuertos: PuntosJugador[]; jugadoresVivos: PuntosJugador[] } = { jugadoresMuertos: [], jugadoresVivos: [] };
 
-   
+    const valorInicial: { jugadoresMuertos: PuntosJugador[]; jugadoresVivos: PuntosJugador[] } = { jugadoresMuertos: [], jugadoresVivos: [] };
 
     const { jugadoresMuertos, jugadoresVivos } = listaJugadoresBD.reduce(
       (result, jugador) => {
@@ -278,9 +279,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.updadeNumJugadores(jugadoresVivos.length);
 
+    if(jugadoresVivos.length==1){
+      if(true){
 
-    //const listaMuertos = listaJugadoresBD.filter(elemento => elemento.puntaje < PosicionActual);
-   
+      }
+    }
+        
 
    if(jugadoresMuertos.length>0){
      //Si hay nuevo jugadores los guardo en mi lista jugadores Sala
