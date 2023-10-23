@@ -34,7 +34,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   mostrarWrongAlert = false;
   modalElement: any;
   modal: any;
-  mostrarMsjAnalisis: boolean = true;
+  mostrarMsjAnalisis: boolean = false;
 
   //Para colocar las preguntas
   preguntaActual: Pregunta = {
@@ -123,8 +123,9 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   juegoTerminado: boolean = false;
 
   //Tiempo
-  tiempoMostrarPrimerModal: number = 3000;
-  tiempoMostrarModal: number = 6000;
+  tiempoMostrarPrimerModal: number = 5000;
+  tiempoMostrarModal: number = 10000;
+  tiempoMostrarRespuesta: number = 4500;
 
   //MUSICA
   musicaFondo: HTMLAudioElement | null = null;
@@ -138,6 +139,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //Jugadores Eliminados
   jugadoresSala: PuntosJugador[]=[]; 
   mostrarEspera: boolean= false;
+  isLife: boolean = true;
+  
 
 
   constructor(
@@ -223,10 +226,6 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.generarCirculos(listaNuevos.length)
     }
 
-
-    
-
-
   }
 
   getListaBD(){
@@ -245,10 +244,18 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
      return listaJugadoresBD;
   }
 
+  sendResultadoBD(){
+    this.puntosJugador.puntaje=this.puntosGanados;
+    this.puntosJugador.tiempo=this.tiempoDelJugador;
+  //COLOCAR FUNCION PARA ENVIAR A LA BD
 
+  }
+
+ 
 
   generarCirculos(numCircles:number){
-
+    
+    const circlesAux: { left: string; top: string }[] = [];
     const circleSpacing = 50;
     
     for (let i = 0; i < numCircles; i++) {
@@ -256,8 +263,9 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       
       const randomY = Math.random() * (window.innerHeight - 200) + 'px';
 
-      this.circles.push({ left: randomX, top: randomY });
+      circlesAux.push({ left: randomX, top: randomY });
     }   
+    this.circles=circlesAux;
   
 }
 
@@ -280,7 +288,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeModal(id: number) {
     if (this.puedeResponder) {
-      this.userClicked = true;
+      //this.userClicked = true;
       this.mostrarEspera=true;
       //this.stopTimer(); // Detiene el temporizador principal
       this.userClickTime = new Date();
@@ -288,9 +296,24 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.botonSeleccionado[id] = true;
       const respuestaSeleccionada = this.actualOpcionList[id];
-      this.tiempoDelJugador +=
+      this.tiempoDelJugador =
         this.userClickTime.getTime() - this.startTime.getTime();
       console.log(this.tiempoDelJugador);
+      this.mostrarMsjAnalisis=true;
+
+      if (respuestaSeleccionada.correcta == 1) 
+      {
+        this.puntosGanados++;
+        this.isLife=true;
+        
+      }else{
+        this.Mensaje_error = 'Respuesta equivocada';
+        this.isLife=false;
+      }
+
+     // this.numPreguntasContestadas++;
+
+      this.sendResultadoBD();
 
      /*  if (respuestaSeleccionada.correcta === 1) {
         
@@ -321,16 +344,33 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.mostrarWrongAlert = false;
       this.modal.hide();
-
-      this.numPreguntasContestadas++;
+      //this.numPreguntasContestadas++;
       this.puedeResponder = true;
       this.countdown = 20;
-    }, 3000); // 3000 milisegundos = 3 segundos
+    }, this.tiempoMostrarRespuesta); // 3000 milisegundos = 3 segundos
+  }
+
+  preguntaBienContestada(){
+        this.mostrarAlert = true;
+        this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
+
+        setTimeout(() => {
+          this.mostrarAlert = false;
+          this.modal.hide();          
+          this.puedeResponder = true;
+          this.countdown = 20;
+        }, this.tiempoMostrarRespuesta); 
   }
 
   pasarAOtraPregunta() {
-    //console.log(this.numPreguntasContestadas);
-    //console.log(this.listaDePreguntas.length);
+        
+    setTimeout(() => {
+      this.getListaBD();
+    }, 2000);
+
+    setTimeout(() => {
+      this.generarCirculos(2);
+    }, 3500);
 
     if (this.numPreguntasContestadas + 1 < this.listaDePreguntas.length) {
       setTimeout(() => {
@@ -341,10 +381,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         this.mostrarModal();
       }, this.tiempoMostrarModal);
-    } else {
+    } 
+    
+    else {
       setTimeout(() => {
         this.onClickCambiar();
-      }, 2000);
+      }, 5000);
     }
   }
 
@@ -383,12 +425,29 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           this.countdown--; // Temporizador principal disminuye en segundos
         }
         if (this.countdown <= 0) {
+          this.numPreguntasContestadas++;  
+
+          if (this.isLife) {           
+            this.preguntaBienContestada()                      
+          }
+          else{
+            this.preguntaMalConstestada();
+          }
+          if(this.puedeResponder){
+            this.isLife=false;
+            this.sendResultadoBD();
+            this.preguntaMalConstestada();
+            this.Mensaje_error = 'Se acabo el tiempo';
+          }
+          
+          this.mostrarEspera=false;
           this.puedeResponder = false;
           this.userClicked = true;
-          this.preguntaMalConstestada();
+          //this.preguntaMalConstestada();
+          
           this.stopTimer();
           this.pasarAOtraPregunta();
-          this.Mensaje_error = 'Se acabo el tiempo';
+          
         }
       }, 1000); // El temporizador principal se actualiza cada segundo (1000 ms)
     }
@@ -448,6 +507,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     });
   }
+
 
   cambiarPag(ruta: string, id: number) {
     let idSala = this.encryptionService.encrypt(id.toString());

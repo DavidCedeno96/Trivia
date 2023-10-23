@@ -167,4 +167,75 @@
         }
       }
 
+
+   
+        .numero {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
+          color: #fff; /* Color del texto del número */
+        }
+      
+      
+        .container-fluid{
+          background-color: transparent; /* Elimina el fondo blanco */
+        }
+      
+        button.respuesta-correcta {
+          background-color: #4CAF50; /* Verde para respuestas correctas */
+        }
+        
+        button.respuesta-incorrecta {
+          background-color: #FF5733; /* Rojo para respuestas incorrectas */
+        }
+        
+        button.respuesta-bloqueada {
+          cursor: not-allowed; /* Cambia el cursor para indicar que el botón está bloqueado */
+        }
+      
+        .btn-secondary {
+          background-color: #F29523;
+          border: none;    
+          border-radius: 20px;
+          color: #ffffff;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+        
+        }
+        
+      
+        .modal-content{
+          border-radius: 35px;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+        }
+      
+        .overlay-container {
+          position: relative;   
+          z-index: 1;
+        }
+        
+        .list-item {
+          
+          padding: 10px;
+          margin-bottom: 10px;
+          position:sticky;
+          z-index: 2;
+        }
+      
+        .modal-container {
+          max-width: 80%;
+          margin: 0 auto;
+          z-index: 1050;
+        }
+      
+        @media (max-width: 767px) { /* Ajusta el ancho máximo según tus necesidades */
+          .mobile-modal {
+            position: fixed !important;
+          }
+        }
+      
+      
+      
+      
+
       
