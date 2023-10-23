@@ -95,6 +95,7 @@ Insert into ModoJuego (nombre, imagen) values
 ('Challenger','img1.jpg'),
 ('Supervivencia','img2.jpg')
 
+--insert into Usuario (nombre, correo, clave, idRol) values ()
 
 --Insert into Sala (nombre, imagen, idModoJuego) values
 --('Sala 1', 'imge1.jpg', 1)
@@ -283,7 +284,6 @@ exec sp_C_Usuario_Sala
 @info = '',
 @error = ''
 
---- new Sps ---------------
 ---- JUEGO CHALLENGER ---------------------------------------------
 select * from Usuario
 select * from JuegoChallenger
@@ -307,8 +307,6 @@ exec sp_U_JuegoChallenger
 @idJugador = 34,	
 @info = '',
 @error = ''
-
-
 
 ----------------------------------------------------------------------------
 select * from Sala where idSala = 80
