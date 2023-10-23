@@ -66,9 +66,7 @@ export class RankingChallengerComponent
 
   ngOnInit(): void {
     this.constantsService.loading(true);
-    for (let i = 0; i < this.listaJugadores.length; i++) {
-      this.miListadeColores.push(this.generarColorAleatorio());
-    }
+    
 
     this.route.queryParams.subscribe((params) => {
       let idSala = this.encryptionService.decrypt(params['idSala']);
@@ -79,7 +77,6 @@ export class RankingChallengerComponent
     });
 
     this.getRankingList(this.idSala);
-    this.numJugadores = this.listaJugadores.length;
   }
 
   ngAfterViewInit() {
@@ -95,6 +92,8 @@ export class RankingChallengerComponent
       // Ajusta el desplazamiento de la lista
       this.scrollableList.nativeElement.scrollTop = scrollToPosition;
     }
+
+    
   }
 
   ngAfterContentChecked(): void {}
@@ -114,7 +113,11 @@ export class RankingChallengerComponent
             element.iniciales = this.obtenerIniciales(element.usuario);
           });
         }
+        this.numJugadores=this.listaJugadores.length;
         this.constantsService.loading(false);
+        for (let i = 0; i < this.listaJugadores.length; i++) {
+          this.miListadeColores.push(this.generarColorAleatorio());
+        }
       },
       error: (e) => {
         if (e.status === 401) {

@@ -95,12 +95,13 @@
         <div class="circle circle-sm circle-md circle-lg">
           <div class="content text-center" style="font-size: 25px; color: orange; font-weight: bold;">
             <div>
-              {{numerodeJugadores}}<br />
+              <div [@jugadoresChanged]="animationState" style="font-size: 40px;">
+                {{ numerodeJugadores }}
+              </div>
               Jugadores
             
             </div>
-            
-            
+    
           </div>
         </div>
       </div>

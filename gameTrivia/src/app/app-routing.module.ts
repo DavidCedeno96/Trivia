@@ -51,6 +51,11 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'EntradaSala/:idSala', // Define una ruta con un parámetro dinámico
+    component: EntradaSalaComponent,
+     //canActivate: [authGuard],
+  },
+  {
     path: 'Resultados',
     component: ResultadosAdminComponent,
     //canActivate: [authGuard],

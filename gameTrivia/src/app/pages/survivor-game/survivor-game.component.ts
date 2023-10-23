@@ -16,6 +16,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 
+
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 declare var bootstrap: any;
 
 @Component({
@@ -23,6 +26,12 @@ declare var bootstrap: any;
   templateUrl: './survivor-game.component.html',
   styleUrls: ['./survivor-game.component.css'],
   providers: [MessageService],
+  animations: [
+    trigger('jugadoresChanged', [
+      state('changed', style({ transform: 'scale(1.2)' })),
+      transition('* => changed', [animate('0.2s')]),
+    ]),
+  ],
 })
 export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //Menjase error
@@ -140,10 +149,10 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   jugadoresSala: PuntosJugador[]=[]; 
   mostrarEspera: boolean= false;
   isLife: boolean = true;
-  
 
+  animationState = '';
 
-  constructor(
+    constructor(
     private renderer: Renderer2,
     private el: ElementRef,
     private encryptionService: EncryptionService,
@@ -171,6 +180,14 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
     }
+
+    //Obtengo nuevos jugadores
+    this.getNumJugadoresNuevos();
+    //Test para ve el numero cambiado
+    setTimeout(() => {
+      this.updadeNumJugadores(6);
+    },2500);
+
 
     setTimeout(() => {
       this.mostrarModal(); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
@@ -200,14 +217,21 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modal.hide();
   }
 
-  getNumJugadores(){
-    //LA FUNCION PARA ACTUALIZAR EL NUMERO DE JUGADORES
-    this.numerodeJugadores=5;//Este es un ejemplo
+  updadeNumJugadores(nuevoNumero: number) {
+    this.animationState = 'changed';
+    this.numerodeJugadores = nuevoNumero;
+
+    setTimeout(() => {
+      this.animationState = '';
+    }, 200); // Restablece la animación después de 200 ms
   }
+
 
   getNumJugadoresNuevos(){
      //Obtener nuevo jugadores de la bd
      const listaJugadoresBD = this.getListaBD();
+     this.updadeNumJugadores(listaJugadoresBD.length);
+
      //Comparar la lista de bd con la lista guardada
      const listaNuevos = this.jugadoresSala.filter((elemento1) => {
       return !listaJugadoresBD.some((elemento2) => elemento2.idUsuario == elemento1.idUsuario);
@@ -228,7 +252,53 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  getNumJugadoresMuertos(){
+    console.log("Jugadores muertos");
+    //Obtener nuevo jugadores de la bd
+    const listaJugadoresBD = this.getListaBD();
+    const PosicionActual = this.numPreguntasContestadas+1;
+    
+    //Comparar la lista de bd con la lista guardada
+    
+    const valorInicial: { jugadoresMuertos: PuntosJugador[]; jugadoresVivos: PuntosJugador[] } = { jugadoresMuertos: [], jugadoresVivos: [] };
+
+   
+
+    const { jugadoresMuertos, jugadoresVivos } = listaJugadoresBD.reduce(
+      (result, jugador) => {
+        if (jugador.puntaje < PosicionActual) {
+          result.jugadoresMuertos.push(jugador);
+        } else {
+          result.jugadoresVivos.push(jugador);
+        }
+        return result;
+      },
+      valorInicial
+    );
+
+    this.updadeNumJugadores(jugadoresVivos.length);
+
+
+    //const listaMuertos = listaJugadoresBD.filter(elemento => elemento.puntaje < PosicionActual);
+   
+
+   if(jugadoresMuertos.length>0){
+     //Si hay nuevo jugadores los guardo en mi lista jugadores Sala
+     //this.jugadoresSala=listaJugadoresBD;
+     const textsAux: string[] = [];
+
+     for (let i = 0; i < jugadoresMuertos.length; i++) {
+       textsAux.push(jugadoresMuertos[i].iniciales);        
+     }
+     //actualizo la lista de texto de los circulos animados
+     this.texts=textsAux;
+     this.generarCirculos(jugadoresMuertos.length)
+   }
+
+ }
+
   getListaBD(){
+    console.log("Obtengo los nuevos jugadores");
     const listaJugadoresBD:PuntosJugador[] =[{
       idUsuario: 1,
       iniciales: 'AB',
@@ -236,22 +306,33 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       rol: '1',
       idSala: 1,
       sala: '1',
-      puntaje: 0,
+      puntaje: 2,
       tiempo: 0,
       fecha_creacion: '',
       fecha_modificacion: '',
-     }]; //Lista de la bd TEST
+     },{
+      idUsuario: 2,
+      iniciales: 'FB',
+      usuario: 'Facebook',
+      rol: '1',
+      idSala: 1,
+      sala: '1',
+      puntaje: 2,
+      tiempo: 0,
+      fecha_creacion: '',
+      fecha_modificacion: '',
+     }]; //Lista de la bd TEST - ejemplo
      return listaJugadoresBD;
   }
 
   sendResultadoBD(){
+    console.log("Envié mis resultados");
     this.puntosJugador.puntaje=this.puntosGanados;
     this.puntosJugador.tiempo=this.tiempoDelJugador;
   //COLOCAR FUNCION PARA ENVIAR A LA BD
 
   }
 
- 
 
   generarCirculos(numCircles:number){
     
@@ -347,6 +428,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       //this.numPreguntasContestadas++;
       this.puedeResponder = true;
       this.countdown = 20;
+      this.onClickCambiar();
     }, this.tiempoMostrarRespuesta); // 3000 milisegundos = 3 segundos
   }
 
@@ -365,7 +447,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   pasarAOtraPregunta() {
         
     setTimeout(() => {
-      this.getListaBD();
+      this.getNumJugadoresMuertos();
     }, 2000);
 
     setTimeout(() => {
@@ -427,15 +509,20 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.countdown <= 0) {
           this.numPreguntasContestadas++;  
 
-          if (this.isLife) {           
-            this.preguntaBienContestada()                      
+          if (this.isLife) {  
+            if(!this.puedeResponder){
+              this.preguntaBienContestada()  
+            }         
+                               
           }
           else{
             this.preguntaMalConstestada();
           }
           if(this.puedeResponder){
+            console.log("No respondió");
             this.isLife=false;
             this.sendResultadoBD();
+            this.userClickTime = new Date();
             this.preguntaMalConstestada();
             this.Mensaje_error = 'Se acabo el tiempo';
           }
@@ -446,7 +533,10 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           //this.preguntaMalConstestada();
           
           this.stopTimer();
-          this.pasarAOtraPregunta();
+          if(this.isLife){
+            this.pasarAOtraPregunta();
+          }
+          
           
         }
       }, 1000); // El temporizador principal se actualiza cada segundo (1000 ms)
