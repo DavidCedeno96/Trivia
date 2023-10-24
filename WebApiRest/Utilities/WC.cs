@@ -8,6 +8,7 @@
         private static readonly string errorArchivo = "Tipo de archivo no permitido";        
         private static readonly string errorLetrasNumeros = "Solo se permiten letras y números";
         private static readonly string errorLetras = "Solo se permiten letras";
+        private static readonly string errorDpi = "Solo se permiten números y debe tener mínimo 13 y máximo 15 números";
         private static readonly string errorCorreo = "Ingrese un correo válido";
         private static readonly string errorClave = "Debe tener al menos 5 caracteres de longitud, contener al menos un número, contener al menos una letra mayúscula, contener al menos una letra minúscula o solo los siguientes caracteres #@_-.";
         private static readonly string invalid = "Tiene cacarteres invalidos";
@@ -66,6 +67,10 @@
         public static string GetErrorCorreo()
         {
             return errorCorreo;
+        }
+        public static string GetErrorDpi()
+        {
+            return errorDpi;
         }
         public static string GetErrorClave()
         {

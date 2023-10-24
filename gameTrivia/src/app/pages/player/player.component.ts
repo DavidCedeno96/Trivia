@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
@@ -11,16 +12,28 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css'],
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
   @ViewChild('closeModal') closeModal!: ElementRef;
 
   misSalas: Sala[] = [];
   textoBuscar: string = '';
   existeError: boolean = false;
   result: string = '';
-  idSalaSeleccionada: number = 0;
   codigo: string = '';
   errorCodigo: string = '';
+
+  sala: Sala = {
+    idSala: 0,
+    idEncrypt: '',
+    nombre: '',
+    imagen: '',
+    descripcion: '',
+    idModoJuego: 0,
+    modoJuego: '',
+    estado: 0,
+    fecha_creacion: '',
+    fecha_modificacion: '',
+  };
 
   constructor(
     private router: Router,
@@ -29,6 +42,8 @@ export class PlayerComponent {
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService
   ) {}
+
+  ngOnInit(): void {}
 
   buscar() {
     if (this.textoBuscar.trim() !== '') {
@@ -65,12 +80,12 @@ export class PlayerComponent {
     this.router.navigate([ruta], { queryParams: params });
   }
 
-  abrirModal(idSala: number) {
-    this.idSalaSeleccionada = idSala;
+  abrirModal(sala: Sala) {
+    this.sala = sala;
   }
 
   ingresarSala() {
-    let idSala = this.idSalaSeleccionada.toString();
+    let idSala = this.sala.idSala.toString();
     let codigo = this.codigo.trim();
     let auxCodigo = '';
 
@@ -81,7 +96,7 @@ export class PlayerComponent {
 
       if (auxCodigo === idSala) {
         this.closeModal.nativeElement.click();
-        this.cambiarPag('/EntradaSala', this.idSalaSeleccionada);
+        this.cambiarPag('/EntradaSala', this.sala.idSala);
       } else {
         this.errorCodigo = 'El ID de acceso es incorrecto!';
       }

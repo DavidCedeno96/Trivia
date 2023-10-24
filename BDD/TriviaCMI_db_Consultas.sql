@@ -12,8 +12,8 @@ create table Usuario(
 	idUsuario int identity(1,1) primary key,
 	nombre varchar(40) not null,
 	apellido varchar(15),
-	correo varchar(40) unique not null,
-	clave varchar(30) not null,
+	correo varchar(40),
+	clave varchar(30) unique not null,
 	foto varchar(50),
 	idRol int references Rol(idRol) not null,	
 	estado int default 1,
@@ -80,9 +80,17 @@ create table JuegoChallenger(
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
 )
+
+create table SalaJuego(
+	idSala int,
+	idJugador int,
+
+	fecha_creacion datetime default getdate(),
+	fecha_modificacion datetime default getdate(),
+)
 --------------------------------------------
 select * from JuegoChallenger
-
+select * from SalaJuego
 ------------------------------------------------------------------------------------
 select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
@@ -139,7 +147,7 @@ exec sp_C_Usuario
 @error = ''
 
 exec sp_U_Usuario
-@idUsuario = 23, 
+@idUsuario = 57, 
 @nombre = 'juan_editsdaweadcfdee',
 @correo = 'juan@edit.com',
 @clave = '123450',
@@ -148,8 +156,8 @@ exec sp_U_Usuario
 @error = ''
 
 exec sp_B_UsuarioLogin	
-@nombre = 'Byron',
-@clave = 'admin',
+@nombre = 'caicaza',
+@clave = '1234567',
 @info = '',
 @error = '' 
 ---- SALA ---------------------------------------------
@@ -307,6 +315,20 @@ exec sp_U_JuegoChallenger
 @info = '',
 @error = ''
 
+--- new SPs
+---- SALA JUEGO ---------------------------------------------
+select * from SalaJuego
+
+exec sp_B_SalaJuego	-- ESTE ES PARA LAS 5 SALAS RECIENTES DEL JUGADOR
+@idJugador = 57,
+@info = '',
+@error = ''
+
+exec sp_C_SalaJuego		
+@idSala = 3,		
+@idJugador = 3,
+@info = '',
+@error = ''
 ----------------------------------------------------------------------------
 select * from Sala where idSala = 80
 select * from Pregunta where idSala = 63
@@ -321,23 +343,6 @@ EXEC sp_spaceused
 
 EXEC sp_helpdb 'TriviaCMI_db';
 
-SELECT @@VERSION;
-
-------------------------------------------------------------------------------------
-select * from Usuario
-
-ALTER TABLE Usuario
-ALTER COLUMN nombre VARCHAR(40);
-
-ALTER TABLE Usuario
-ALTER COLUMN correo VARCHAR(40) NULL;
-
-ALTER TABLE Usuario
-ADD CONSTRAINT c_user UNIQUE (nombre);
-
-ALTER TABLE Usuario
-DROP CONSTRAINT UQ__Usuario__2A586E0B87670F85; -- Nombre de la restriccion
-
 SELECT 
     tc.CONSTRAINT_NAME,
     kcu.COLUMN_NAME
@@ -349,4 +354,15 @@ WHERE
     tc.CONSTRAINT_TYPE = 'UNIQUE'    
 
 
--- sp_C_Usuario, sp_B_Usuario, sp_B_UsuarioLogin
+SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
+   WHERE ROUTINE_TYPE = 'PROCEDURE'
+   ORDER BY ROUTINE_NAME 
+
+
+SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Usuario';
+
+SELECT @@VERSION;
+
+------------------------------------------------------------------------------------

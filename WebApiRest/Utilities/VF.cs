@@ -11,34 +11,27 @@ namespace WebApiRest.Utilities
         {
             Response result = new();
             bool validForm = true;
-            if (!RE.ValidRE(usuario.Nombre, "palabras"))
+            if (!RE.ValidRE(usuario.Nombre, "invalid"))
             {
                 result.Error = 1;
                 result.Info = WC.GetErrorLetras();
                 result.Campo = "nombre";
                 validForm = false;
             }
-            if (!RE.ValidRE(usuario.Correo, "email"))
+            if (!RE.ValidRE(usuario.Contrasena, "dpi"))
             {
                 result.Error = 1;
-                result.Info = WC.GetErrorCorreo();
-                result.Campo = "correo";
-                validForm = false;
-            }
-            if (!RE.ValidRE(usuario.Contrasena, "clave"))
-            {
-                result.Error = 1;
-                result.Info = WC.GetErrorClave();
+                result.Info = WC.GetErrorDpi();
                 result.Campo = "clave";
                 validForm = false;
             }
-            if (!RE.ValidRE(usuario.Contrasena, "invalid"))
-            {
-                result.Error = 1;
-                result.Info = WC.GetInvalid();
-                result.Campo = "clave";
-                validForm = false;
-            }
+            //if (!RE.ValidRE(usuario.Contrasena, "invalid"))
+            //{
+            //    result.Error = 1;
+            //    result.Info = WC.GetInvalid();
+            //    result.Campo = "clave";
+            //    validForm = false;
+            //}
 
             if (validForm)
             {
