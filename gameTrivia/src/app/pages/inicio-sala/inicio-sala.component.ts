@@ -134,7 +134,9 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   }
 
   onClickCambiarTest() {
-    this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    //this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+    this.router.navigate(['/MisSalas']);
+
   }
 
   createPosicion() {

@@ -75,9 +75,8 @@
           >
             Jugar
           </button>
-          <span *ngIf="miSala.estado === 0" class="mb-2"
-            >Esperando que el administrador active la sala</span
-          >
+          <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0" 
+            >Esperando que el administrador active la sala.</div>
         </div>
       </div>
     </div>

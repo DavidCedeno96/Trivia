@@ -14,6 +14,7 @@ import { PuntosJugador } from 'src/app/model/PuntosJugador';
 import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
+
 @Component({
   selector: 'app-ranking-challenger',
   templateUrl: './ranking-challenger.component.html',
@@ -174,6 +175,16 @@ export class RankingChallengerComponent
   }
 
   salir() {
-    this.usuarioService.logout();
+    //this.usuarioService.logout();
+    const rol = this.usuarioService.getRol();
+    if(rol=='1'){
+      this.router.navigate(['/Administrador']);
+    }
+    if(rol=='2'){
+      //this.router.navigate(['/MisSalas']);
+      let idSala = this.encryptionService.encrypt(this.idSala.toString());
+    let params = { idSala };
+    this.router.navigate(['/EntradaSala'], { queryParams: params });
+    }
   }
 }

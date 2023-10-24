@@ -38,7 +38,7 @@ export class ChallengersGameComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   //SIDEBAR
-  sidebarVisible4: boolean = false;
+  sidebarVisible4: boolean = true;
 
   //controlar un error
   marginLeftValues: number[] = [];
@@ -230,6 +230,14 @@ export class ChallengersGameComponent
   value3: number = 3; // Valor del slider jugador 3
   value4: number = 4; // Valor del slider jugador 4 */
 
+  optionsMeta: Options = {
+    floor: 0,
+    ceil: this.cantidadDeBotones,
+    showTicks: false,
+    readOnly: true,
+  };
+  valueMeta: number = 0;
+
   idSala: number = 0;
 
   puntosJugador: PuntosJugador = {
@@ -253,6 +261,8 @@ export class ChallengersGameComponent
   onWheel(event: any) {
     event.preventDefault();
   }
+
+  colores = ['#c9700394', '#d89e578f', '#b39039b5'];
 
   constructor(
     private renderer: Renderer2,
@@ -320,6 +330,25 @@ export class ChallengersGameComponent
   }
 
   ngAfterViewInit() {
+    this.optionsMeta = {
+      readOnly: true,
+      floor: 0,
+      ceil: this.listaDePreguntas.length,
+      showTicks: false,
+      translate: (value: number, label: LabelType): string => {
+        switch (label) {
+          case LabelType.Low:
+            return 'Meta';
+
+          default:
+            return '';
+        }
+      },
+      getPointerColor: (value: number): string => {
+        return '#F29523';
+      },
+    };
+    this.valueMeta=this.listaDePreguntas.length;
     // Obtén el elemento .sinusoidal-container por su ID
     const sinusoidalContainer = document.getElementById('sinusoidal-container');
     // Establece la altura deseada en píxeles
@@ -476,7 +505,7 @@ export class ChallengersGameComponent
 
   mostrarModal() {
     this.getListaPosiciones(this.idSala, this.idJugador);
-    this.sidebarVisible4 = false;
+    //this.sidebarVisible4 = false;
     this.value++;
     this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
     this.modal = new bootstrap.Modal(this.modalElement);
@@ -771,7 +800,7 @@ export class ChallengersGameComponent
     //this.numPreguntasContestadas++;
   }
 
-  setListOptions(iniciales: string): Options {
+  setListOptions(iniciales: string, index: number): Options {
     let optionsAux = {
       floor: 0,
       ceil: this.cantidadDeBotones,
@@ -787,7 +816,7 @@ export class ChallengersGameComponent
         }
       },
       getPointerColor: (value: number): string => {
-        return '#29292975';
+        return this.colores[index];
       },
     };
     return optionsAux;
@@ -819,6 +848,8 @@ export class ChallengersGameComponent
         }
       },
     };
+
+
 
     /* this.optionsAux1 = {
       readOnly: true,
