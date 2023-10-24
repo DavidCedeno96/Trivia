@@ -10,7 +10,7 @@
         private static readonly string errorLetras = "Solo se permiten letras";
         private static readonly string errorCorreo = "Ingrese un correo válido";
         private static readonly string errorClave = "Debe tener al menos 5 caracteres de longitud, contener al menos un número, contener al menos una letra mayúscula, contener al menos una letra minúscula o solo los siguientes caracteres #@_-.";
-        private static readonly string invalid = "Cacarteres invalidos";
+        private static readonly string invalid = "Tiene cacarteres invalidos";
         private static readonly string max50 = "Máximo 50 caracteres";
 
         public static string GetRutaImagen(IWebHostEnvironment env, string nombreImagen, string nombreCarpeta)

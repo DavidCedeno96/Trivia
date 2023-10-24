@@ -10,7 +10,7 @@ create table Rol(
 
 create table Usuario(
 	idUsuario int identity(1,1) primary key,
-	nombre varchar(15) not null,
+	nombre varchar(40) not null,
 	apellido varchar(15),
 	correo varchar(40) unique not null,
 	clave varchar(30) not null,
@@ -132,10 +132,9 @@ exec sp_B_Usuario
 @error = ''
 
 exec sp_C_Usuario
-@nombre = 'Admin',
-@correo = 'admin@admin.com',
-@clave = 'AdminCMI',
-@idRol = 1,
+@nombre = 'miJugador2',
+@clave = 'jugador123',
+@idRol = 2,
 @info = '',
 @error = ''
 
@@ -149,7 +148,7 @@ exec sp_U_Usuario
 @error = ''
 
 exec sp_B_UsuarioLogin	
-@correo = 'david@gmail.com',
+@nombre = 'Byron',
 @clave = 'admin',
 @info = '',
 @error = '' 
@@ -323,3 +322,31 @@ EXEC sp_spaceused
 EXEC sp_helpdb 'TriviaCMI_db';
 
 SELECT @@VERSION;
+
+------------------------------------------------------------------------------------
+select * from Usuario
+
+ALTER TABLE Usuario
+ALTER COLUMN nombre VARCHAR(40);
+
+ALTER TABLE Usuario
+ALTER COLUMN correo VARCHAR(40) NULL;
+
+ALTER TABLE Usuario
+ADD CONSTRAINT c_user UNIQUE (nombre);
+
+ALTER TABLE Usuario
+DROP CONSTRAINT UQ__Usuario__2A586E0B87670F85; -- Nombre de la restriccion
+
+SELECT 
+    tc.CONSTRAINT_NAME,
+    kcu.COLUMN_NAME
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu
+    ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
+WHERE 
+    tc.TABLE_NAME = 'Usuario' AND 
+    tc.CONSTRAINT_TYPE = 'UNIQUE'    
+
+
+-- sp_C_Usuario, sp_B_Usuario, sp_B_UsuarioLogin

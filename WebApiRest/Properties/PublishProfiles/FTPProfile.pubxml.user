@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUEHRkctCf02ZsPggqY9e4QAAAAACAAAAAAAQZgAAAAEAACAAAAAXMP8UdonIK8eQi2BpCi3Hm2wNQok3s4T7HbT38D4gGAAAAAAOgAAAAAIAACAAAAAGqAd9SENI+PiqmLS+thCm6miZGlG+mvLkVSYcCWQKayAAAADT3dqzliK/sF2b+Jw0uuwg2naL/seWteRsdodoDWz2QUAAAAAPgDyhL1nYKg4JZl/JwP0Q8YsHf4hvrAsco+aWrp0Tz3o+6rmzOuHrqUtF3VwhqE0o48LsQBEFX6hJgboR8i1E</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.244.34/www.triviacmi.somee.com</_PublishTargetUrl>
-    <History>True|2023-10-23T19:23:20.0086759Z;True|2023-10-20T14:17:39.1803496-05:00;</History>
+    <History>True|2023-10-24T15:30:56.9764889Z;True|2023-10-23T14:23:20.0086759-05:00;True|2023-10-20T14:17:39.1803496-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -15,7 +15,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/28/2023 17:54:57</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>10/20/2023 17:14:37</publishTime>
+      <publishTime>10/24/2023 09:52:16</publishTime>
     </File>
     <File Include="BouncyCastle.Cryptography.dll">
       <publishTime>04/21/2023 07:06:40</publishTime>
@@ -144,19 +144,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 18:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>10/23/2023 14:21:14</publishTime>
+      <publishTime>10/24/2023 10:28:43</publishTime>
     </File>
     <File Include="WebApiRest.deps.json">
-      <publishTime>10/23/2023 14:21:10</publishTime>
+      <publishTime>10/24/2023 10:28:39</publishTime>
     </File>
     <File Include="WebApiRest.dll">
-      <publishTime>10/23/2023 14:21:10</publishTime>
+      <publishTime>10/24/2023 10:28:39</publishTime>
     </File>
     <File Include="WebApiRest.exe">
-      <publishTime>10/23/2023 14:21:10</publishTime>
+      <publishTime>10/24/2023 10:28:39</publishTime>
     </File>
     <File Include="WebApiRest.pdb">
-      <publishTime>10/23/2023 14:21:10</publishTime>
+      <publishTime>10/24/2023 10:28:39</publishTime>
     </File>
     <File Include="WebApiRest.runtimeconfig.json">
       <publishTime>10/17/2023 09:10:53</publishTime>

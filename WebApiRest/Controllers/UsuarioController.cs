@@ -43,7 +43,7 @@ namespace WebApiRest.Controllers
             {                
                 var keyBytes = Encoding.ASCII.GetBytes(settings.SecretKey);
                 var claims = new ClaimsIdentity();
-                claims.AddClaim(new Claim("correo", result.Usuario.Correo));  //ClaimTypes.NameIdentifier
+                //claims.AddClaim(new Claim("correo", result.Usuario.Correo));  //ClaimTypes.NameIdentifier
                 claims.AddClaim(new Claim("id", result.Usuario.IdUsuario.ToString()));
                 claims.AddClaim(new Claim("nombre", result.Usuario.Nombre));
                 claims.AddClaim(new Claim("idRol", result.Usuario.IdRol.ToString()));

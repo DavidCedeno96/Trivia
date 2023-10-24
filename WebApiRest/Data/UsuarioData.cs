@@ -72,7 +72,7 @@ namespace WebApiRest.Data
             {
                 CommandType = CommandType.StoredProcedure
             };
-            cmd.Parameters.AddWithValue("@correo", usuario.Correo);
+            cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
             cmd.Parameters.AddWithValue("@clave", usuario.Contrasena);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
@@ -122,8 +122,7 @@ namespace WebApiRest.Data
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(usuario.Nombre));
-            cmd.Parameters.AddWithValue("@correo", WC.GetTrim(usuario.Correo));
+            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(usuario.Nombre));            
             cmd.Parameters.AddWithValue("@clave", WC.GetTrim(usuario.Contrasena));
             cmd.Parameters.AddWithValue("@idRol", usuario.IdRol);
 

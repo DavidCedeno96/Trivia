@@ -21,7 +21,7 @@ export class VentanaLoginComponent implements OnInit {
 
   //Inputs
   loginUsuario: LoginUsuario = {
-    correo: '',
+    nombre: '',
     contrasena: '',
   };
 
@@ -42,10 +42,10 @@ export class VentanaLoginComponent implements OnInit {
     this.constantsService.loading(false);
 
     // Recupera los datos guardados desde el almacenamiento local
-    this.localStorage.get('correo').subscribe((correo) => {
-      if (typeof correo == 'string') {
-        this.loginUsuario.correo = correo;
-        console.log(this.loginUsuario.correo);
+    this.localStorage.get('user').subscribe((nombre) => {
+      if (typeof nombre == 'string') {
+        this.loginUsuario.nombre = nombre;
+        console.log(this.loginUsuario.nombre);
       }
     });
 
@@ -89,9 +89,10 @@ export class VentanaLoginComponent implements OnInit {
           this.existeError = true;
         } else {
           // no hay error
+          this.existeError = false;
           const decodeToken = this.helper.decodeToken(info);
           //console.log(decodeToken);
-          let { correo, idRol, nombre, id } = decodeToken;
+          let { idRol, nombre, id } = decodeToken;
           localStorage.setItem('id', id);
           localStorage.setItem('token', info);
           localStorage.setItem('rol', idRol);
@@ -101,21 +102,21 @@ export class VentanaLoginComponent implements OnInit {
           if (this.rememberMe) {
             // Guarda el nombre de usuario y contraseña en el almacenamiento local
             this.localStorage
-              .set('correo', this.loginUsuario.correo)
+              .set('user', this.loginUsuario.nombre)
               .subscribe(() => {
-                console.log(this.loginUsuario.correo);
+                //console.log(this.loginUsuario.correo);
               });
             this.localStorage
               .set('contrasena', this.loginUsuario.contrasena)
               .subscribe(() => {
-                console.log(this.loginUsuario.contrasena);
+                //console.log(this.loginUsuario.contrasena);
               });
           } else {
-            this.localStorage.set('correo', '').subscribe(() => {
-              console.log(this.loginUsuario.correo);
+            this.localStorage.set('user', '').subscribe(() => {
+              //console.log(this.loginUsuario.correo);
             });
             this.localStorage.set('contrasena', '').subscribe(() => {
-              console.log(this.loginUsuario.contrasena);
+              //console.log(this.loginUsuario.contrasena);
             });
           }
 
