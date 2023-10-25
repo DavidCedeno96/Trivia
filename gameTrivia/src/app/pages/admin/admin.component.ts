@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
@@ -9,6 +9,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 //import { Location } from '@angular/common';
 //import { environment } from 'src/environments/environments';
 //import { Clipboard } from '@angular/cdk/clipboard';
+import { ClipboardService } from 'ngx-clipboard';
+
 
 @Component({
   selector: 'app-admin',
@@ -48,7 +50,9 @@ export class AdminComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private encryptionService: EncryptionService,
-    private constantsService: ConstantsService
+    private constantsService: ConstantsService,
+    private _clipboardService: ClipboardService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -132,6 +136,32 @@ export class AdminComponent implements OnInit {
     document.execCommand('copy');
   }
 
+  allCopySala(){
+    const textos = [
+      'Sala: '+this.salaItem.nombre,
+      'Link: '+this.currentURL,
+      'Código de sala: '+this.currentCodigo,
+    ];
+    const textoAConcatenar = textos.join('\n');
+    //this._clipboardService.copy(textoAConcatenar);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(textoAConcatenar)
+        .then(() => {
+          //alert('Texto copiado al portapapeles.');
+        })
+        .catch(err => {
+          console.error('Error al copiar al portapapeles:', err);
+          this._clipboardService.copyFromContent(textoAConcatenar);
+         // alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
+        });
+    } else {
+      this._clipboardService.copyFromContent(textoAConcatenar);
+      //alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
+    }
+    
+  }
+
+
   dataSalaOnModal(sala: Sala) {
     this.salaItem = sala;
     let idSala = this.encryptionService.encrypt(sala.idSala.toString());
@@ -143,6 +173,7 @@ export class AdminComponent implements OnInit {
     //console.log(codigo1, codigo2);
   }
 
+ 
   cambiarEstado(estado: number, idSala: number) {
     this.constantsService.loading(true);
     this.salaItem.estado = estado;

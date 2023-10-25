@@ -48,6 +48,8 @@ import { EsperarJChallengersComponent } from './components/esperar-jchallengers/
 import { RankingChallengerComponent } from './components/ranking-challenger/ranking-challenger.component';
 import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.component';
 import { SurvivorGameComponent } from './pages/survivor-game/survivor-game.component';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 @NgModule({
   declarations: [
@@ -68,11 +70,13 @@ import { SurvivorGameComponent } from './pages/survivor-game/survivor-game.compo
     RankingChallengerComponent,
     EntradaSalaComponent,
     SurvivorGameComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DropdownModule,
+    ClipboardModule,
 
     /* ButtonModule,
     DialogModule,

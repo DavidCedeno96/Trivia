@@ -35,7 +35,7 @@
         </div>
       </div>
       <div *ngFor="let item of listaPosiciones; let i = index;">
-        <div class="miSlide">
+        <div class="miSlide" *ngIf="item.posicion<listaDePreguntas.length">
           <div class="custom-slider2">
             <ngx-slider
               class="slider"
@@ -70,7 +70,7 @@
         <div class="custom-slider">
           <ngx-slider
             class="slider"
-            [(value)]="value"
+            [(value)]="puntosGanados"
             [options]="optionsMia"
           ></ngx-slider>
         </div>

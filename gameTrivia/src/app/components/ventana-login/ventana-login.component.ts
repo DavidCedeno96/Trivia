@@ -15,6 +15,11 @@ import { StorageMap } from '@ngx-pwa/local-storage'; // Importa LocalStorage
   styleUrls: ['./ventana-login.component.scss'],
 })
 export class VentanaLoginComponent implements OnInit {
+
+  //Ojos
+  hidePassword: boolean = true;
+
+
   @Output() isLoginH = new EventEmitter<boolean>();
 
   helper = new JwtHelperService();
@@ -152,5 +157,8 @@ export class VentanaLoginComponent implements OnInit {
   }
   toggleRememberMe() {
     this.rememberMe = !this.rememberMe;
+  }
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
   }
 }

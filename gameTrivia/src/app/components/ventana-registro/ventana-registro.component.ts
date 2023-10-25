@@ -19,6 +19,10 @@ import { ConstantsService } from 'src/app/constants.service';
   styleUrls: ['./ventana-registro.component.css'],
 })
 export class VentanaRegistroComponent implements OnInit {
+
+   //Ojos
+   hidePassword: boolean = true;
+
   bool: boolean = false;
 
   campo: string = '';
@@ -136,5 +140,9 @@ export class VentanaRegistroComponent implements OnInit {
       // En caso de que el nombre esté vacío o no contenga palabras
       return '';
     }
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
   }
 }

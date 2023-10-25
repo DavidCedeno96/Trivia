@@ -70,6 +70,7 @@
         color: white;
         display: flex;
         align-items: center; /* Centra verticalmente el contenido */  justify-content: center; /* Centra horizontalmente el contenido */
+        z-index: 20;
         
 
       }
@@ -92,12 +93,10 @@
       
       .circle-Player {
         width: 100px;
-        height: 100px;
-        background-color: #007bff;
-        border-radius: 50%;
-        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
-   
-        font-size: 16px;
+        height: 100px;        
+        
+        font-size: 18px;
+        font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;

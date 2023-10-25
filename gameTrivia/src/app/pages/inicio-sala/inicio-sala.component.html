@@ -75,8 +75,10 @@
           >
             Jugar
           </button>
-          <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0" 
-            >Esperando que el administrador active la sala.</div>
+          <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0">
+            <div>Mantente a la espera, </div>
+            <div id="animated-dots">pronto la sala será activada </div>
+          </div>
         </div>
       </div>
     </div>

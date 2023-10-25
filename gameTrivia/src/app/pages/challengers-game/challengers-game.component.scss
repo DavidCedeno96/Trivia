@@ -160,14 +160,14 @@ background-color: white;
   height: 30px; 
   background-color: white; 
   border-radius: 50%; 
-  top: 1px; 
+  top: 3px; 
   left: 50%; 
   transform: translateX(-50%); 
   z-index: -1; 
 }
 
 .custom-slider2 .ngx-slider-span.ngx-slider-bubble.ngx-slider-model-value {
-  top: 310%; 
+  top: 19px; 
   transform: translateY(-500px);
   position: relative; 
 } 

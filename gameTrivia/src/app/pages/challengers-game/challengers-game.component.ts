@@ -262,7 +262,7 @@ export class ChallengersGameComponent
     event.preventDefault();
   }
 
-  colores = ['#c9700394', '#d89e578f', '#b39039b5'];
+  colores = ['#c9700394', '#d89e578f', '#b39039b5','#c9700394', '#d89e578f', '#b39039b5','#c9700394', '#d89e578f', '#b39039b5','#c9700394', '#d89e578f', '#b39039b5'];
 
   constructor(
     private renderer: Renderer2,
@@ -534,7 +534,11 @@ export class ChallengersGameComponent
         this.userClickTime.getTime() - this.startTime.getTime();
       console.log(this.tiempoDelJugador);
 
-      //AQUI PONER LA ACTUALIZACION DE LAS POSICIONES
+     
+
+      if (respuestaSeleccionada.correcta === 1) {
+
+         //AQUI PONER LA ACTUALIZACION DE LAS POSICIONES
       let juego = {
         idSala: this.idSala,
         idJugador: this.idJugador,
@@ -542,8 +546,6 @@ export class ChallengersGameComponent
         posicion: 1,
       };
       this.actualizarPosicion(juego);
-
-      if (respuestaSeleccionada.correcta === 1) {
         // La respuesta es correcta, puedes reproducir un sonido, cambiar el color, etc.
         this.puntosGanados++;
         this.mostrarAlert = true;
@@ -848,8 +850,6 @@ export class ChallengersGameComponent
         }
       },
     };
-
-
 
     /* this.optionsAux1 = {
       readOnly: true,
