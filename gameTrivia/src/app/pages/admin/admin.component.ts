@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2  } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  Renderer2,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
@@ -6,11 +12,7 @@ import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-//import { Location } from '@angular/common';
-//import { environment } from 'src/environments/environments';
-//import { Clipboard } from '@angular/cdk/clipboard';
 import { ClipboardService } from 'ngx-clipboard';
-
 
 @Component({
   selector: 'app-admin',
@@ -128,39 +130,30 @@ export class AdminComponent implements OnInit {
     return imageUrl;
   }
 
-  copiarText(idElement: string) {
-    let content = document.getElementById(idElement);
-    let txtURL = content as HTMLTextAreaElement;
-    txtURL.focus();
-    txtURL.select();
-    document.execCommand('copy');
-  }
-
-  allCopySala(){
+  allCopySala() {
     const textos = [
-      'Sala: '+this.salaItem.nombre,
-      'Link: '+this.currentURL,
-      'Código de sala: '+this.currentCodigo,
+      'Sala: ' + this.salaItem.nombre,
+      'Link: ' + this.currentURL,
+      'Código de sala: ' + this.currentCodigo,
     ];
     const textoAConcatenar = textos.join('\n');
     //this._clipboardService.copy(textoAConcatenar);
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(textoAConcatenar)
+      navigator.clipboard
+        .writeText(textoAConcatenar)
         .then(() => {
           //alert('Texto copiado al portapapeles.');
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('Error al copiar al portapapeles:', err);
           this._clipboardService.copyFromContent(textoAConcatenar);
-         // alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
+          // alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
         });
     } else {
       this._clipboardService.copyFromContent(textoAConcatenar);
       //alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
     }
-    
   }
-
 
   dataSalaOnModal(sala: Sala) {
     this.salaItem = sala;
@@ -173,7 +166,6 @@ export class AdminComponent implements OnInit {
     //console.log(codigo1, codigo2);
   }
 
- 
   cambiarEstado(estado: number, idSala: number) {
     this.constantsService.loading(true);
     this.salaItem.estado = estado;

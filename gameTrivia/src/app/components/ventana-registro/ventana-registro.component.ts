@@ -1,17 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Usuario } from 'src/app/model/UsuarioModel';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { ConstantsService } from 'src/app/constants.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ventana-registro',
@@ -19,9 +10,8 @@ import { ConstantsService } from 'src/app/constants.service';
   styleUrls: ['./ventana-registro.component.css'],
 })
 export class VentanaRegistroComponent implements OnInit {
-
-   //Ojos
-   hidePassword: boolean = true;
+  //Ojos
+  hidePassword: boolean = true;
 
   bool: boolean = false;
 
@@ -69,11 +59,6 @@ export class VentanaRegistroComponent implements OnInit {
   @Output() isLoginH = new EventEmitter<boolean>();
 
   onSubmit() {
-    // Aquí puedes acceder a los valores de nombre de usuario y contraseña
-    /* console.log('Nombre de usuario:', this.mailUsuario);
-    console.log('Contraseña:', this.passwordUsuario);
-    console.log('nombre Usuario:', this.nombreUsuario); */
-    //console.log(this.nuevoUsuario);
     //Del servicio aplicamos la función crear usuario
     this.constantsService.loading(true);
 
@@ -84,8 +69,6 @@ export class VentanaRegistroComponent implements OnInit {
     this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
       next: (data: any) => {
         const { info, error, campo } = data.result;
-        //this.respuesta = data.result;
-        //console.log(data);
         this.campo = campo;
         this.errorEncontrado = info;
         if (error > 0) {
@@ -94,9 +77,21 @@ export class VentanaRegistroComponent implements OnInit {
         } else {
           this.existeError = false;
           // no hay error
-          /* this.openFormModal(); */
-          //this.showDialog();
-          this.isLoginH.emit(true);
+          Swal.fire({
+            title: '¡Usuario Registrado!',
+            text: '¿Desea iniciar sesión?',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            customClass: {
+              confirmButton: 'btn btn-secondary',
+            },
+            showCancelButton: false,
+            buttonsStyling: false,
+          }).then((response) => {
+            if (response.isConfirmed) {
+              this.onClickCambiar();
+            }
+          });
         }
         this.constantsService.loading(false);
       },

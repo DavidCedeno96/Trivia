@@ -204,7 +204,7 @@
                         <h5
                           class="modal-title"
                           id="exampleModalLabel"
-                          style="font-weight: bold; color: #dc8127;"
+                          style="font-weight: bold; color: #dc8127"
                         >
                           Compartir
                         </h5>
@@ -217,54 +217,26 @@
                         ></button>
                       </div>
                       <div class="modal-body">
-                        <div class="text-center mb-3" >
-                          <h5 style="font-weight: bold;">{{ salaItem.nombre }}</h5>
+                        <div class="text-center mb-3">
+                          <h5 style="font-weight: bold">
+                            {{ salaItem.nombre }}
+                          </h5>
                         </div>
                         <div class="row g-3">
                           <div class="col-12 text-truncate">
                             <strong>Link:&nbsp;</strong>
                             <a
                               class="link-primary"
-                              (click)="cambiarPag('/EntradaSala', sala.idSala)"
+                              (click)="
+                                cambiarPag('/EntradaSala', salaItem.idSala)
+                              "
                               >{{ currentURL }}</a
                             >
                           </div>
-                          <!-- <div class="col-4">
-                            <button
-                              class="btn btn-primary btn-sm"
-                              (click)="allCopySala()"
-                            >
-                              Copiar
-                            </button>
-                          </div> -->
                           <div class="col-12 text-truncate">
                             <strong>Código de la sala:&nbsp;</strong>
                             <span>{{ currentCodigo }}</span>
                           </div>
-                         <!--  <div class="col-4">
-                            <button
-                              class="btn btn-primary btn-sm"
-                              (click)="copiarText('txtCodigo')"
-                            >
-                              Copiar
-                            </button>
-                          </div> -->
-                          <textarea
-                            class="currentText"
-                            id="txtCodigo"
-                            cols="1"
-                            rows="1"
-                            readonly
-                            [defaultValue]="currentCodigo"
-                          ></textarea>
-                          <textarea
-                            class="currentText"
-                            id="txtURL"
-                            cols="1"
-                            rows="1"
-                            readonly
-                            [defaultValue]="currentURL"
-                          ></textarea>
                         </div>
                         <div class="row py-2">
                           <div class="col-12 text-end">
