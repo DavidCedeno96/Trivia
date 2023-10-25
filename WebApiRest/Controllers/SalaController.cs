@@ -32,10 +32,10 @@ namespace WebApiRest.Controllers
         }
 
         [HttpGet]
-        [Route("list/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala)
+        [Route("list/{estados}/{idSala}/{idUsuario}")] //{authorId:int:min(1)} {lcid:int=1033}
+        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala, [FromRoute] int idUsuario)
         {
-            SalaItem result = data.GetSala(estados,idSala);
+            SalaItem result = data.GetSala(estados, idSala, idUsuario);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 

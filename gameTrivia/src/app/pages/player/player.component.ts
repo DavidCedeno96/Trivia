@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageMap } from '@ngx-pwa/local-storage';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
@@ -24,13 +23,14 @@ export class PlayerComponent implements OnInit {
 
   sala: Sala = {
     idSala: 0,
-    idEncrypt: '',
     nombre: '',
     imagen: '',
     descripcion: '',
     idModoJuego: 0,
     modoJuego: '',
     estado: 0,
+    totalPreguntas: 0,
+    cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
   };
@@ -48,7 +48,7 @@ export class PlayerComponent implements OnInit {
   buscar() {
     if (this.textoBuscar.trim() !== '') {
       this.constantsService.loading(true);
-      this.salaServicio.listaSalaSearch(1, this.textoBuscar.trim()).subscribe({
+      this.salaServicio.listaSalaSearch(0, this.textoBuscar.trim()).subscribe({
         next: (data: any) => {
           const { info, error, lista } = data.result;
           this.result = info;

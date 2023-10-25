@@ -69,15 +69,18 @@
       <div class="col align-items-center">
         <div class="text-center">
           <button
-            *ngIf="miSala.estado === 1"
+            *ngIf="miSala.estado === 1 && miSala.cantJugadas === 0"
             class="btn btn-secondary btn-lg px-5"
             (click)="validarDataPregOpc()"
           >
             Jugar
           </button>
           <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0">
-            <div>Mantente a la espera, </div>
-            <div id="animated-dots">pronto la sala será activada </div>
+            <div>Mantente a la espera,</div>
+            <div id="animated-dots">pronto la sala será activada</div>
+          </div>
+          <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
+            <div>Ya jugaste en esta sala</div>
           </div>
         </div>
       </div>

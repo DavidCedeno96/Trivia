@@ -1,12 +1,13 @@
 export interface Sala {
   idSala: number;
-  idEncrypt: string;
   nombre: string;
   imagen: string;
   descripcion: string;
   idModoJuego: number;
   modoJuego: string;
   estado: number;
+  totalPreguntas: number;
+  cantJugadas: number;
   fecha_creacion: string;
   fecha_modificacion: string;
 }

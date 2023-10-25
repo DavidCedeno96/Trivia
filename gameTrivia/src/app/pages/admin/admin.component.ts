@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  Renderer2,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
@@ -13,6 +7,7 @@ import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClipboardService } from 'ngx-clipboard';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin',
@@ -34,13 +29,14 @@ export class AdminComponent implements OnInit {
 
   salaItem: Sala = {
     idSala: 0,
-    idEncrypt: '',
     nombre: '',
     imagen: '',
     descripcion: '',
     idModoJuego: 0,
     modoJuego: '',
     estado: 0,
+    totalPreguntas: 0,
+    cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
   };
@@ -53,8 +49,7 @@ export class AdminComponent implements OnInit {
     private messageService: MessageService,
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService,
-    private _clipboardService: ClipboardService,
-    private renderer: Renderer2
+    private _clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +60,7 @@ export class AdminComponent implements OnInit {
   cargarSalas() {
     this.salaServicio.listaSala(0).subscribe({
       next: (data: any) => {
+        console.log(data);
         const { info, error, lista } = data.result;
         this.result = info;
         if (error > 0) {
@@ -166,10 +162,25 @@ export class AdminComponent implements OnInit {
     //console.log(codigo1, codigo2);
   }
 
-  cambiarEstado(estado: number, idSala: number) {
+  cambiarEstado(sala: Sala, estado: number) {
+    if (estado == 1 && sala.totalPreguntas == 0) {
+      Swal.fire({
+        title: '¡No se puede activar la sala!',
+        text: 'La sala no tiene preguntas',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+          confirmButton: 'btn btn-secondary',
+        },
+        showCancelButton: false,
+        buttonsStyling: false,
+      });
+      return;
+    }
+
     this.constantsService.loading(true);
+    this.salaItem = sala;
     this.salaItem.estado = estado;
-    this.salaItem.idSala = idSala;
     this.salaServicio.editarEstado(this.salaItem).subscribe({
       next: (data: any) => {
         const { info, error } = data.result;

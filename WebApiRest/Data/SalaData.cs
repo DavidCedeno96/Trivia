@@ -40,6 +40,7 @@ namespace WebApiRest.Data
                         Descripcion = dr["descripcion"].ToString(),
                         ModoJuego = dr["modoJuego"].ToString(),
                         Estado = Convert.ToInt16(dr["estado"].ToString()),
+                        TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
                         FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
                     });
@@ -95,6 +96,7 @@ namespace WebApiRest.Data
                         Descripcion = dr["descripcion"].ToString(),
                         ModoJuego = dr["modoJuego"].ToString(),
                         Estado = Convert.ToInt16(dr["estado"].ToString()),
+                        TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
                         FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
                     });
@@ -118,7 +120,7 @@ namespace WebApiRest.Data
         }
 
 
-        public SalaItem GetSala(int estados, int idSala)
+        public SalaItem GetSala(int estados, int idSala, int idUsuario)
         {
             SalaItem item = new();      
             
@@ -129,7 +131,8 @@ namespace WebApiRest.Data
                 CommandType = CommandType.StoredProcedure
             };
             cmd.Parameters.AddWithValue("@idSala", idSala);
-            cmd.Parameters.AddWithValue("@estados", estados);
+            cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+            cmd.Parameters.AddWithValue("@estados", estados);            
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -149,6 +152,8 @@ namespace WebApiRest.Data
                         IdModoJuego = Convert.ToInt32(dr["idModoJuego"].ToString()),
                         ModoJuego = dr["modoJuego"].ToString(),
                         Estado = Convert.ToInt16(dr["estado"].ToString()),
+                        TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
+                        CantJugadas = Convert.ToInt32(dr["cantJugadas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
                         FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
                     };                    

@@ -32,13 +32,14 @@ export class SalaComponent implements OnInit {
 
   miSala: Sala = {
     idSala: 1,
-    idEncrypt: '',
     nombre: 'Mi primera sala',
     imagen: 'assets/Imagenes Juego/Imagen test.png',
     descripcion: 'Descripcion Sala',
     idModoJuego: 0,
     modoJuego: 'Challenger',
     estado: 1,
+    totalPreguntas: 0,
+    cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
   };
@@ -85,7 +86,7 @@ export class SalaComponent implements OnInit {
   }
 
   cargarInfoSala(idSala: number) {
-    this.salaServicio.itemSala(0, idSala).subscribe({
+    this.salaServicio.itemSala(0, idSala, 0).subscribe({
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;

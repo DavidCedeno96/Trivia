@@ -9,6 +9,8 @@
         public int IdModoJuego { get; set; }
         public string ModoJuego { get; set; }
         public int Estado { get; set; }
+        public int TotalPreguntas { get; set; }
+        public int CantJugadas { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
     }

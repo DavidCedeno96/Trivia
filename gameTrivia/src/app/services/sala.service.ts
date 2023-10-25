@@ -42,13 +42,20 @@ export class SalaService {
     );
   }
 
-  itemSala(estados: number, idSala: number): Observable<Sala> {
+  itemSala(
+    estados: number,
+    idSala: number,
+    idUsuario: number
+  ): Observable<Sala> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    return this.http.get<Sala>(`${this.apiURL}/list/${estados}/${idSala}`, {
-      headers: headers,
-    });
+    return this.http.get<Sala>(
+      `${this.apiURL}/list/${estados}/${idSala}/${idUsuario}`,
+      {
+        headers: headers,
+      }
+    );
   }
 
   crearSala(formData: FormData): Observable<FormData> {

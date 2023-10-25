@@ -169,7 +169,8 @@ exec sp_B_Sala
 @error = ''
 
 exec sp_B_SalaById
-@idSala = 0,
+@idSala = 77,
+--@idUsuario = 0,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -366,3 +367,18 @@ WHERE TABLE_NAME = 'Usuario';
 SELECT @@VERSION;
 
 ------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+create table pruebas(
+	id int,
+	texto varchar(5)
+)
+
+insert into pruebas (id, texto) values
+(1, 'hola mundo')
+
+select * from  pruebas
+
+select * from Usuario

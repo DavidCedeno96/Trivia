@@ -23,13 +23,14 @@ export class CrearSalaComponent implements OnInit {
 
   nuevaSala: Sala = {
     idSala: 1,
-    idEncrypt: '',
     nombre: '',
     imagen: '',
     descripcion: '',
     idModoJuego: 0,
     modoJuego: '',
     estado: 1,
+    totalPreguntas: 0,
+    cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
   };
@@ -105,7 +106,7 @@ export class CrearSalaComponent implements OnInit {
   }
 
   cargarData(idSala: number) {
-    this.salaServicio.itemSala(0, idSala).subscribe({
+    this.salaServicio.itemSala(0, idSala, 0).subscribe({
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;

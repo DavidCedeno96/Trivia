@@ -17,7 +17,6 @@ import { JuegoChallengerService } from 'src/app/services/juego-challenger.servic
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -41,13 +40,14 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
   miSala: Sala = {
     idSala: 1,
-    idEncrypt: '',
     nombre: 'Mi primera sala',
     imagen: 'assets/Imagenes Juego/Imagen test.png',
     descripcion: 'Descripcion Sala',
     idModoJuego: 0,
     modoJuego: 'Challenger',
     estado: 1,
+    totalPreguntas: 0,
+    cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
   };
@@ -56,7 +56,6 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
 
   ngOnInit(): void {
-    
     this.iniciales = this.obtenerIniciales(this.usuarioService.getUserName()!);
     this.idJugador = parseInt(this.usuarioService.getIdUsuario()!);
     this.route.queryParams.subscribe((params) => {
@@ -66,26 +65,22 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       }
       this.miSala.idSala = parseInt(idSala);
     });
-    this.cargarInfoSala(this.miSala.idSala);
+    this.cargarInfoSala(this.miSala.idSala, this.idJugador);
 
     //Recargar página hasta que se active el juego
 
-    if(this.miSala.estado === 0){
+    if (this.miSala.estado === 0) {
       this.constantsService.loading(true);
-    }
-    else{
+    } else {
       this.constantsService.loading(false);
     }
 
-    
-    
-      setInterval(() => {
-        if (this.miSala.estado === 0) {
-          //console.log('Reload');
-          location.reload();
-        }
-      }, 10000); // 10000 milisegundos (10 segundos)      
-    
+    setInterval(() => {
+      if (this.miSala.estado === 0) {
+        //console.log('Reload');
+        location.reload();
+      }
+    }, 10000); // 10000 milisegundos (10 segundos)
   }
 
   ngAfterViewInit(): void {
@@ -103,8 +98,8 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     private usuarioService: UsuarioService
   ) {}
 
-  cargarInfoSala(idSala: number) {
-    this.salaServicio.itemSala(0, idSala).subscribe({
+  cargarInfoSala(idSala: number, idUsuario: number) {
+    this.salaServicio.itemSala(0, idSala, idUsuario).subscribe({
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;
@@ -157,7 +152,6 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   onClickCambiarTest() {
     //this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
     this.router.navigate(['/MisSalas']);
-
   }
 
   createPosicion() {

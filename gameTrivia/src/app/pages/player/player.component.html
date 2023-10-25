@@ -43,7 +43,7 @@
             [(ngModel)]="textoBuscar"
             (keyup.enter)="buscar()"
           />
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="button" (click)="buscar()">
             <img src="assets/Icons/Lupa.svg" alt="Icono" class="icono-svg2" />
           </button>
         </div>
