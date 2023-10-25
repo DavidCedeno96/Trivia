@@ -16,6 +16,8 @@ import { Sala } from 'src/app/model/SalaModel';
 import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+
+
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -54,7 +56,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
 
   ngOnInit(): void {
-    this.constantsService.loading(true);
+    
     this.iniciales = this.obtenerIniciales(this.usuarioService.getUserName()!);
     this.idJugador = parseInt(this.usuarioService.getIdUsuario()!);
     this.route.queryParams.subscribe((params) => {
@@ -65,6 +67,25 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       this.miSala.idSala = parseInt(idSala);
     });
     this.cargarInfoSala(this.miSala.idSala);
+
+    //Recargar página hasta que se active el juego
+
+    if(this.miSala.estado === 0){
+      this.constantsService.loading(true);
+    }
+    else{
+      this.constantsService.loading(false);
+    }
+
+    
+    
+      setInterval(() => {
+        if (this.miSala.estado === 0) {
+          //console.log('Reload');
+          location.reload();
+        }
+      }, 10000); // 10000 milisegundos (10 segundos)      
+    
   }
 
   ngAfterViewInit(): void {

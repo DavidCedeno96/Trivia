@@ -330,6 +330,7 @@ export class ChallengersGameComponent
   }
 
   ngAfterViewInit() {
+    //Slide para la meta
     this.optionsMeta = {
       readOnly: true,
       floor: 0,
@@ -338,7 +339,7 @@ export class ChallengersGameComponent
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
-            return 'Meta';
+            return '';
 
           default:
             return '';
@@ -583,6 +584,10 @@ export class ChallengersGameComponent
   }
 
   preguntaMalConstestada() {
+
+    const indexCorrecto = this.actualOpcionList.findIndex(item => item.correcta === 1);//Obtengo la id del correcto
+    this.botonSeleccionado[indexCorrecto] = true;//Activo al correcto
+   
     this.mostrarWrongAlert = true;
     this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
     setTimeout(() => {
