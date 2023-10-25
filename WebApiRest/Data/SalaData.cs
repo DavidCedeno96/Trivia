@@ -122,7 +122,7 @@ namespace WebApiRest.Data
 
         public SalaItem GetSala(int estados, int idSala, int idUsuario)
         {
-            SalaItem item = new();      
+            SalaItem item = new();
             
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
@@ -175,6 +175,99 @@ namespace WebApiRest.Data
             }
 
             return item;
+        }
+
+        public SalaList GetSalaRecienteList(int estados, int idUsuario)
+        {
+            SalaList list = new()
+            {
+                Lista = new()
+            };
+
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+
+            SqlCommand cmd = new("sp_B_SalaJuego", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@estados", estados);
+            cmd.Parameters.AddWithValue("@idJugador", idUsuario);
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    list.Lista.Add(new Sala()
+                    {
+                        IdSala = Convert.ToInt32(dr["idSala"].ToString()),
+                        Nombre = dr["nombre"].ToString(),
+                        Imagen = dr["imagen"].ToString(),
+                        Descripcion = dr["descripcion"].ToString(),
+                        ModoJuego = dr["modoJuego"].ToString(),
+                        Estado = Convert.ToInt16(dr["estado"].ToString()),                        
+                        FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                    });
+                }
+
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;
+            }
+            catch (Exception ex)
+            {
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return list;
+        }
+
+        public Response CreateSalaReciente(SalaJuego salaJuego)
+        {
+            Response response = new();
+
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+            SqlCommand cmd = new("sp_C_SalaJuego", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@idSala", salaJuego.IdSala);
+            cmd.Parameters.AddWithValue("@idJugador", salaJuego.IdUsuario);
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+
+                response.Info = cmd.Parameters["@info"].Value.ToString();
+                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                response.Info = ex.Message;
+                response.Error = 1;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return response;
         }
 
         public Response CreateSala(Sala sala)

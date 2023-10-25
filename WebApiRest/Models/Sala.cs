@@ -15,6 +15,12 @@
         public DateTime FechaModificacion { get; set; }
     }
 
+    public class SalaJuego
+    {
+        public int IdSala { get; set; }
+        public int IdUsuario { get; set; }
+    }
+
     public class SalaList
     {
         public string Info { get; set; }

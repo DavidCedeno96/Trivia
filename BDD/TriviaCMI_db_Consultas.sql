@@ -170,7 +170,7 @@ exec sp_B_Sala
 
 exec sp_B_SalaById
 @idSala = 77,
---@idUsuario = 0,
+--@idUsuario = 1,
 @estados = 0, -- 0 va a mostrar todo y 1 o > 1 mostrar las de estado 1
 @info = '',
 @error = ''
@@ -318,14 +318,16 @@ exec sp_U_JuegoChallenger
 
 --- new SPs
 ---- SALA JUEGO ---------------------------------------------
-select * from SalaJuego
+select * from SalaJuego order by fecha_modificacion desc
+--select * from ModoJuego
 
 exec sp_B_SalaJuego	-- ESTE ES PARA LAS 5 SALAS RECIENTES DEL JUGADOR
-@idJugador = 57,
+@estados = 0,
+@idJugador = 9,
 @info = '',
 @error = ''
 
-exec sp_C_SalaJuego		
+exec sp_C_SalaJuego
 @idSala = 3,		
 @idJugador = 3,
 @info = '',

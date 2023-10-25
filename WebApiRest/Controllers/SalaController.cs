@@ -47,6 +47,21 @@ namespace WebApiRest.Controllers
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
+        [HttpGet]
+        [Route("listReciente/{estados}/{idUsuario}")]
+        public IActionResult GetListReciente([FromRoute] int estados, [FromRoute] int idUsuario)
+        {
+            SalaList result = data.GetSalaRecienteList(estados, idUsuario);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpPost]
+        [Route("createReciente")]
+        public IActionResult CreateItemReciente([FromBody] SalaJuego salaJuego)
+        {
+            Response result = data.CreateSalaReciente(salaJuego);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
 
         [HttpPost]
         [Route("create")]

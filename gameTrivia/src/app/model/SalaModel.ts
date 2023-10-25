@@ -12,6 +12,11 @@ export interface Sala {
   fecha_modificacion: string;
 }
 
+export interface SalaJuego {
+  idSala: number;
+  idUsuario: number;
+}
+
 export interface Pregunta {
   idPregunta: number;
   nombre: string;

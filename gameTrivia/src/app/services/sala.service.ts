@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Sala } from '../model/SalaModel';
+import { Sala, SalaJuego } from '../model/SalaModel';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +36,31 @@ export class SalaService {
     });
     return this.http.get<Sala[]>(
       `${this.apiURL}/list?estados=${estados}&buscar=${buscar}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  listaSalaReciente(estados: number, idUsuario: number): Observable<Sala[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<Sala[]>(
+      `${this.apiURL}/listReciente/${estados}/${idUsuario}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  crearSalaReciente(salaJuego: SalaJuego): Observable<SalaJuego> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.post<SalaJuego>(
+      `${this.apiURL}/createReciente`,
+      salaJuego,
       {
         headers: headers,
       }
