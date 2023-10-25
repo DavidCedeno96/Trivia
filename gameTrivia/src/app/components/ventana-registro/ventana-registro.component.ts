@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-ventana-registro',
   templateUrl: './ventana-registro.component.html',
-  styleUrls: ['./ventana-registro.component.css'],
+  styleUrls: ['./ventana-registro.component.scss'],
 })
 export class VentanaRegistroComponent implements OnInit {
   //Ojos
@@ -66,17 +66,19 @@ export class VentanaRegistroComponent implements OnInit {
       this.nuevoUsuario.nombre
     );
 
-    this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
+
+
+  this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
       next: (data: any) => {
         const { info, error, campo } = data.result;
         this.campo = campo;
         this.errorEncontrado = info;
         if (error > 0) {
-          // hay error
+          
           this.existeError = true;
         } else {
           this.existeError = false;
-          // no hay error
+          
           Swal.fire({
             title: '¡Usuario Registrado!',
             text: '¿Desea iniciar sesión?',
@@ -98,7 +100,7 @@ export class VentanaRegistroComponent implements OnInit {
       error: (e) => {
         console.log(e);
       },
-    });
+    }); 
   }
 
   // Método para cambiar el valor del booleano y emitir el evento
