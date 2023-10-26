@@ -203,7 +203,7 @@ export class RankingChallengerComponent
   salir() {
     //this.usuarioService.logout();
     const rol = this.usuarioService.getRol();
-    if (rol == '1') {
+    if (rol == '1' || rol == '3') {
       this.router.navigate(['/Administrador']);
     }
     if (rol == '2') {
