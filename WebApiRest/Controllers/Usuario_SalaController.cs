@@ -38,79 +38,75 @@ namespace WebApiRest.Controllers
         public IActionResult Report([FromRoute] int estados, [FromRoute] int idSala)
         {
             Response result = new();
+            DataTable dt = new();
             string nombreArchivo = "Ranking_sala_" + idSala.ToString() + ".xls";
 
             string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
             if (System.IO.File.Exists(rutaArchivo))
             {
-                result.Info = nombreArchivo;
-                result.Error = 0;
-            }
-            else
+                System.IO.File.Delete(rutaArchivo);
+            }            
+
+            dt.Columns.Add("USUARIO", typeof(string));
+            dt.Columns.Add("SALA", typeof(string));
+            dt.Columns.Add("PUNTAJE", typeof(int));
+            dt.Columns.Add("TIEMPO (ms)", typeof(int));
+            dt.Columns.Add("FECHA", typeof(DateTime));
+
+            Usuario_SalaList response = data.GetUsuario_SalaList(estados, idSala);
+
+            if (response.Error == 0)
             {
-                DataTable dt = new();
-
-                dt.Columns.Add("USUARIO", typeof(string));
-                dt.Columns.Add("SALA", typeof(string));
-                dt.Columns.Add("PUNTAJE", typeof(int));
-                dt.Columns.Add("TIEMPO (ms)", typeof(int));
-                dt.Columns.Add("FECHA", typeof(DateTime));
-
-                Usuario_SalaList response = data.GetUsuario_SalaList(estados, idSala);
-
-                if (response.Error == 0)
+                if (response.Lista.Count > 0)
                 {
-                    if (response.Lista.Count > 0)
+                    foreach (var item in response.Lista)
                     {
-                        foreach (var item in response.Lista)
-                        {
-                            DataRow row = dt.NewRow();
-                            row[0] = item.Usuario;
-                            row[1] = item.Sala;
-                            row[2] = item.Puntaje;
-                            row[3] = item.Tiempo;
-                            row[4] = item.FechaCreacion;
-                            dt.Rows.Add(row);
-                        }
-
-                        HSSFWorkbook workbook = new();
-                        ISheet hoja = workbook.CreateSheet("Ranking");
-                        IRow headerRow = hoja.CreateRow(0);
-
-                        for (int i = 0; i < dt.Columns.Count; i++)
-                        {
-                            headerRow.CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
-                        }
-
-                        for (int rowIndex = 0; rowIndex < dt.Rows.Count; rowIndex++)
-                        {
-                            IRow dataRow = hoja.CreateRow(rowIndex + 1);
-
-                            for (int columnIndex = 0; columnIndex < dt.Columns.Count; columnIndex++)
-                            {
-                                dataRow.CreateCell(columnIndex).SetCellValue(dt.Rows[rowIndex][columnIndex].ToString());
-                            }
-                        }
-                        
-                        //Aqui crea el archivo
-                        FileStream fileStream = new(rutaArchivo, FileMode.Create);
-                        workbook.Write(fileStream);
-
-                        result.Info = nombreArchivo; 
-                        result.Error = 0;
+                        DataRow row = dt.NewRow();
+                        row[0] = item.Usuario;
+                        row[1] = item.Sala;
+                        row[2] = item.Puntaje;
+                        row[3] = item.Tiempo;
+                        row[4] = item.FechaCreacion;
+                        dt.Rows.Add(row);
                     }
-                    else
+
+                    HSSFWorkbook workbook = new();
+                    ISheet hoja = workbook.CreateSheet("Ranking");
+                    IRow headerRow = hoja.CreateRow(0);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
                     {
-                        result.Info = "La lista esta vacia";
-                        result.Error = 1;
+                        headerRow.CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
                     }
+
+                    for (int rowIndex = 0; rowIndex < dt.Rows.Count; rowIndex++)
+                    {
+                        IRow dataRow = hoja.CreateRow(rowIndex + 1);
+
+                        for (int columnIndex = 0; columnIndex < dt.Columns.Count; columnIndex++)
+                        {
+                            dataRow.CreateCell(columnIndex).SetCellValue(dt.Rows[rowIndex][columnIndex].ToString());
+                        }
+                    }
+
+                    //Aqui crea el archivo
+                    FileStream fileStream = new(rutaArchivo, FileMode.Create);
+                    workbook.Write(fileStream);
+
+                    result.Info = nombreArchivo;
+                    result.Error = 0;
                 }
                 else
                 {
-                    result.Info = response.Info;
+                    result.Info = "La lista esta vacia";
                     result.Error = 1;
                 }
-            }            
+            }
+            else
+            {
+                result.Info = response.Info;
+                result.Error = 1;
+            }
 
             return StatusCode(StatusCodes.Status200OK, new { result });
         }

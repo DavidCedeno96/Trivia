@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ofT8I/UBUXHUF+lfoKgiH4+6HbusK+4b95o8dOI1Pso=",
+  "Hash": "RvSfj0gjjMgx23J62zzCwVlnPE9uBtkS4cqOmJcvjYg=",
   "Source": "WebApiRest",
   "BasePath": "_content/WebApiRest",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Ranking\\Ranking_sala.xls",
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Ranking\\Reporte.xls",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
-      "RelativePath": "Content/Archivos/Ranking/Ranking_sala.xls",
+      "RelativePath": "Content/Archivos/Ranking/Reporte.xls",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,7 +31,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Always",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Content\\Archivos\\Ranking\\Ranking_sala.xls"
+      "OriginalItemSpec": "wwwroot\\Content\\Archivos\\Ranking\\Reporte.xls"
+    },
+    {
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Sala\\Reporte.xls",
+      "SourceId": "WebApiRest",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "BasePath": "_content/WebApiRest",
+      "RelativePath": "Content/Archivos/Sala/Reporte.xls",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Archivos\\Sala\\Reporte.xls"
     },
     {
       "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",

@@ -15,10 +15,8 @@ import { StorageMap } from '@ngx-pwa/local-storage'; // Importa LocalStorage
   styleUrls: ['./ventana-login.component.scss'],
 })
 export class VentanaLoginComponent implements OnInit {
-
   //Ojos
   hidePassword: boolean = true;
-
 
   @Output() isLoginH = new EventEmitter<boolean>();
 
@@ -131,7 +129,7 @@ export class VentanaLoginComponent implements OnInit {
             this.router.navigate(['/MisSalas']);
           }
           //Ruta para el administrador
-          if (idRol == 1) {
+          if (idRol == 1 || idRol == 3) {
             this.router.navigate(['/Administrador']);
           }
         }

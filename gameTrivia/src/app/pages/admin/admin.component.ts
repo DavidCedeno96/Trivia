@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
   existeError: boolean = false;
   result: string = '';
   textoBuscar: string = '';
+  idRol: number = 0;
 
   currentURL: string = '';
   currentCodigo: string = '';
@@ -54,6 +55,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.constantsService.loading(true);
+    this.idRol = parseInt(this.usuarioServicio.getRol()!);
     this.cargarSalas();
   }
 
@@ -75,6 +77,34 @@ export class AdminComponent implements OnInit {
       },
       error: (e) => {
         //console.log(e);
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  descargarReporte() {
+    this.constantsService.loading(true);
+    this.salaServicio.reporteSalas(0).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+
+          let url = this.salaServicio.getUrlArchivo(info);
+
+          const element = document.createElement('a');
+          element.download = `Salas.xls`;
+          element.href = url;
+          element.click();
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
         if (e.status === 401) {
           this.router.navigate(['/']);
         }

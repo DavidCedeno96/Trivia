@@ -11,6 +11,7 @@ import { Sala, SalaJuego } from '../model/SalaModel';
 export class SalaService {
   private apiURL: string = environment.URL + '/api/sala'; //Para crear el usuario
   private apiURLImages: string = environment.URL + '/Content/Images/Sala';
+  private apiURLArchivos: string = environment.URL + '/Content/Archivos/Sala';
 
   constructor(
     private http: HttpClient,
@@ -119,5 +120,18 @@ export class SalaService {
     return this.http.delete<number>(`${this.apiURL}/delete?idSala=${idSala}`, {
       headers: headers,
     });
+  }
+
+  reporteSalas(estados: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<any>(`${this.apiURL}/reporte/sala/${estados}`, {
+      headers: headers,
+    });
+  }
+
+  getUrlArchivo(nombreArcivo: string): string {
+    return `${this.apiURLArchivos}/${nombreArcivo}`;
   }
 }
