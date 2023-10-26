@@ -162,10 +162,10 @@ export class AdminComponent implements OnInit {
   }
 
   cambiarEstado(sala: Sala, estado: number) {
-    if (estado == 1 && sala.totalPreguntas == 0) {
+    if (estado == 1 && sala.totalPreguntas < 5) {
       Swal.fire({
         title: '¡No se puede activar la sala!',
-        text: 'La sala no tiene preguntas',
+        text: 'La sala debe tener minimo 5 preguntas',
         icon: 'error',
         confirmButtonText: 'Aceptar',
         customClass: {
