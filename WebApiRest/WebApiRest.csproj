@@ -19,6 +19,16 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\Archivos\Ranking\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Content\Archivos\Ranking\Ranking_sala.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -60,7 +60,6 @@ export class AdminComponent implements OnInit {
   cargarSalas() {
     this.salaServicio.listaSala(0).subscribe({
       next: (data: any) => {
-        console.log(data);
         const { info, error, lista } = data.result;
         this.result = info;
         if (error > 0) {

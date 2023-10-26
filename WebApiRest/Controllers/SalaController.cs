@@ -94,7 +94,7 @@ namespace WebApiRest.Controllers
             }
 
             return StatusCode(StatusCodes.Status200OK, new { result });
-        }
+        }     
 
         [HttpPut]
         [Route("update")]

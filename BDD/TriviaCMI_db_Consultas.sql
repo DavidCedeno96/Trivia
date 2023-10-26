@@ -316,7 +316,7 @@ exec sp_U_JuegoChallenger
 @info = '',
 @error = ''
 
---- new SPs
+
 ---- SALA JUEGO ---------------------------------------------
 select * from SalaJuego order by fecha_modificacion desc
 --select * from ModoJuego

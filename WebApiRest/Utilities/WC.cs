@@ -20,6 +20,12 @@
             return Path.Combine(rutaPrincipal, nombreImagen.Trim());
         }
 
+        public static string GetRutaArchivo(IWebHostEnvironment env, string nombreArchivo, string nombreCarpeta)
+        {
+            string rutaPrincipal = Path.Combine(env.ContentRootPath, "wwwroot", "Content", "Archivos", nombreCarpeta);
+            return Path.Combine(rutaPrincipal, nombreArchivo.Trim());
+        }
+
         public static string GetTrim(string cadena)
         {
             if (cadena != null)
