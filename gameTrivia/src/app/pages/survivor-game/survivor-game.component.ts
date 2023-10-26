@@ -119,7 +119,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //TEMPORIZADOR Y SUMA DEL TIEMPO QUE SE DEMORQA EN RESPONDER
 
   numIntervaloImg: number = 4;
-  countdown: number = 20; // Temporizador principal en segundos
+  countdown: number = 12; // Temporizador principal en segundos
 
   mainTimerInterval: any;
   userClicked: boolean = false;
@@ -135,6 +135,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   tiempoMostrarPrimerModal: number = 5000;
   tiempoMostrarModal: number = 10000;
   tiempoMostrarRespuesta: number = 4500;
+  tiempoMostrarOtraPregunta: number =5500;
 
   //MUSICA
   musicaFondo: HTMLAudioElement | null = null;
@@ -151,6 +152,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   mostrarEspera: boolean= false;
   isLife: boolean = true;
   isUltimoenPie: boolean = false;
+  numerodeEliminados = 0;
 
   //Para una pequeña animacion
   animationState = '';
@@ -166,6 +168,18 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   imgJugadorVivo = "assets/Imagenes Juego/JugadorVivo.png";
   imgJugadorMuerto = "assets/Imagenes Juego/jugadorMuerto.png";
   imgXEliminado = "assets/Imagenes Juego/JugadorXEliminado.png";
+  mostrarEliminados=false;
+  msjResultados = "";
+  msjR1="Obteniendo Resultados de otros jugadores";
+  msjR2="Revisando Resultados";
+
+
+  //Musica compuesta
+  playlist: string[] = [
+    'assets/musicAndSFX/EpicPower_Inicio.mp3',
+    'assets/musicAndSFX/Epic_Power_Loop.mp3',    
+  ];
+  currentTrackIndex: number = 0;
 
     constructor(
     private renderer: Renderer2,
@@ -184,11 +198,14 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngOnInit() {
     //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
-    this.musicaFondo = new Audio();
-    this.musicaFondo.src = 'assets/musicAndSFX/MusicaGame4.mp3'; // Ruta a tu archivo de música
-    this.musicaFondo.loop = true;
-    this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-    this.musicaFondo.play();
+    //this.musicaFondo = new Audio();
+    //this.musicaFondo.src = 'assets/musicAndSFX/MusicaGame4.mp3'; // Ruta a tu archivo de música
+    //this.musicaFondo.loop = true;
+    //this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
+    //this.musicaFondo.play();
+
+    //MUSICA COMPUESTA
+    this.playCurrentTrack();
 
     if (!this.usuarioService.getIdUsuario()) {
       this.router.navigate(['/']);
@@ -219,9 +236,6 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //Para las imagenes de los edificios principales
 
-    if (this.listaDePreguntas.length > 20) {
-      this.numIntervaloImg = 5;
-    }
     this.rellenarPregunta(1);
     //this.updateCenters(window.innerWidth);
     
@@ -231,6 +245,27 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     //this.modal.hide();
+  }
+
+  //Para musica compuesta
+  playCurrentTrack() {
+    this.musicaFondo = new Audio;
+    this.musicaFondo.src= this.playlist[this.currentTrackIndex];
+    this.musicaFondo.load();
+    this.musicaFondo.play();
+    this.musicaFondo.volume = 0.25; 
+    this.musicaFondo.onended = () => {
+      if (this.currentTrackIndex === 0) {
+        this.currentTrackIndex = 1; // Pasa a la segunda pista
+        this.playCurrentTrack();
+      } else {
+        // Reproduce la segunda pista en bucle
+        if(this.musicaFondo){
+          this.musicaFondo.play();
+        }
+        
+      }
+    };
   }
 
   updateNumJugadores(nuevoNumero: number) {
@@ -368,15 +403,25 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mostrarJugadorVivo=true;
     
     const circlesAux: { left: string; top: string }[] = [];
-    const circleSpacing = 50;
+    const circleSpacing = 150;
+    const margin = 200; // Margen de 200px desde los bordes y el centro
+    const minDistance = 100; // Mínima distancia entre círculos
     
     for (let i = 0; i < numCircles; i++) {
-      const randomX = Math.random() * (window.innerWidth - 200 - numCircles * circleSpacing) + i * circleSpacing + 'px';
-      
-      const randomY = Math.random() * (window.innerHeight - 200) + 'px';
-
-      circlesAux.push({ left: randomX, top: randomY });
-    }   
+      let randomX=0, randomY=0;
+    
+      do {
+        randomX = Math.random() * (window.innerWidth - 2 * margin - numCircles * circleSpacing) + margin;
+        randomY = Math.random() * (window.innerHeight - 2 * margin) + margin;
+      } while (circlesAux.some(circle => {
+        const x = parseInt(circle.left, 10);
+        const y = parseInt(circle.top, 10);
+        const distance = Math.sqrt((x - randomX) ** 2 + (y - randomY) ** 2);
+        return distance < minDistance;
+      }));
+    
+      circlesAux.push({ left: randomX + 'px', top: randomY + 'px' });
+    }
     this.circles=circlesAux;
 
     
@@ -394,6 +439,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   mostrarModal() {
     //this.sidebarVisible4 = false;
     //this.value++;
+    this.mostrarEliminados = false;
     this.modalElement = this.el.nativeElement.querySelector('#exampleModal');
     this.modal = new bootstrap.Modal(this.modalElement);
     this.resetTimer();
@@ -410,6 +456,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeModal(id: number) {
     if (this.puedeResponder) {
+      this.msjResultados = this.msjR1;
       //this.userClicked = true;
       this.mostrarEspera=true;
       //this.stopTimer(); // Detiene el temporizador principal
@@ -437,64 +484,70 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.sendResultadoBD();
 
-     /*  if (respuestaSeleccionada.correcta === 1) {
-        
-        this.puntosGanados++;
-        this.mostrarAlert = true;
-        this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
-
-        setTimeout(() => {
-          this.mostrarAlert = false;
-
-          this.modal.hide();
-          this.numPreguntasContestadas++;
-          this.puedeResponder = true;
-          this.countdown = 20;
-        }, 3000); 
-      } else {
-        this.Mensaje_error = 'Respuesta equivocada';
-        this.preguntaMalConstestada();
-      } */
-
-     /*  this.pasarAOtraPregunta(); */
     }
   }
 
+
+  //Despues del temporizador pregunta bien y mal contestada me controlaran las siguientes
+
+
+
   preguntaMalConstestada() {
-    this.mostrarWrongAlert = true;
-    this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
+
+    this.msjResultados = this.msjR2;   
+
+    //Mostramos resultados
+    setTimeout(() => {
+      this.mostrarEspera=false;
+      this.mostrarWrongAlert = true;
+      this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');      
+    }, this.tiempoMostrarRespuesta);
+
+   
+
+    //Cerramos el modal    
     setTimeout(() => {
       this.mostrarWrongAlert = false;
       this.modal.hide();
       //this.numPreguntasContestadas++;
       this.puedeResponder = true;
-      this.countdown = 20;
+      this.countdown = 12;
       this.onClickCambiar();
-    }, this.tiempoMostrarRespuesta); // 3000 milisegundos = 3 segundos
+    }, this.tiempoMostrarRespuesta+5500); // 3000 milisegundos = 3 segundos
   }
 
   preguntaBienContestada(){
-        this.mostrarAlert = true;
-        this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
+    this.msjResultados = this.msjR2;   
 
+    //Mostramos resultados
+    setTimeout(() => {
+      this.mostrarEspera=false;
+    this.mostrarAlert = true;
+    this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
+    }, this.tiempoMostrarRespuesta);
+
+     
         setTimeout(() => {
           this.mostrarAlert = false;
           this.modal.hide();          
           this.puedeResponder = true;
-          this.countdown = 20;
-        }, this.tiempoMostrarRespuesta); 
+          this.countdown = 12;
+        }, this.tiempoMostrarRespuesta+5500); 
   }
 
   pasarAOtraPregunta() {
+
+    
         
     setTimeout(() => {
-      this.getNumJugadoresMuertos();
-    }, 1000);
+      
+      this.mostrarEliminados=true;
+    }, 3000);
 
     if (this.repetirPregunta) {      
       setTimeout(() => {
         this.generarCirculos(2);
-      }, 3500);
+      }, this.tiempoMostrarOtraPregunta);
     }    
 
     //Si toca repetir pregunta restamos 1 pregunta contestada
@@ -557,7 +610,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   startMainTimer() {
     if (!this.isTimerRunning) {
       this.isTimerRunning = true; // Marca que el temporizador está en funcionamiento
-      this.countdown = 20; // Restablece el tiempo en segundos
+      this.countdown = 12; // Restablece el tiempo en segundos
       this.mainTimerInterval = setInterval(() => {
         if (!this.userClicked) {
           this.countdown--; // Temporizador principal disminuye en segundos
@@ -583,14 +636,24 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
             this.Mensaje_error = 'Se acabo el tiempo';
           }
           
-          this.mostrarEspera=false;
+          
           this.puedeResponder = false;
           this.userClicked = true;
           //this.preguntaMalConstestada();
           
+          
           this.stopTimer();
+
+          setTimeout(() => {
+            this.getNumJugadoresMuertos();
+
+          },1000);
+          
           if(this.isLife || this.repetirPregunta){
-            this.pasarAOtraPregunta();
+            setTimeout(() => {
+              this.pasarAOtraPregunta();
+            }, 3000);
+            
           }
           
           

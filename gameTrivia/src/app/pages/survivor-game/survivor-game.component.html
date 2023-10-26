@@ -9,14 +9,43 @@
   <div class="modal-container">
     
     <div class="modal fade mobile-modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+       <!-- VENTANA DE VIENDO RESULTADOS -->     
       <div  class="container containerMsj text-center" *ngIf="mostrarEspera" >
         <p id="animated-dots" style="font-size: 15px;">
-          Obteniendo Resultados de otros jugadores
+          {{msjResultados}}
         </p> 
-      </div>  
-      <div class="modal-dialog modal-dialog-centered" style="position: relative;">
+      </div> 
 
-        
+       <!-- VENTANA DE jUGADORES ELIMINADOS -->     
+       <div  class="container containerMsj text-center"*ngIf="mostrarEliminados"  >
+        <div class="container" style="width: 100%;height: 100%; position: absolute; z-index: 2;">
+          <div class="circle circle-sm circle-md circle-lg">
+            <div class="content text-center" style="font-size: 25px; color: orange; font-weight: bold;">
+              <div>
+                <div class="container">
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                      <div style="font-size: 60px; text-align: right;">
+                        {{ numerodeEliminados }}
+                      </div>
+
+                  </div>
+                  <div class="col-6">
+                    <img class="imgDeath" src="assets/Imagenes Juego/Calavera.png" alt="Death">
+                  </div>
+                </div>
+              </div>
+                
+                Eliminados
+              
+              </div>
+      
+            </div>
+          </div>
+        </div> 
+      </div> 
+
+      <div class="modal-dialog modal-dialog-centered" style="position: relative;">        
             <div class="container " style="position: absolute; z-index: 1;">
           <div class="row">
             <div class="modal-content">

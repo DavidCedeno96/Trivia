@@ -52,8 +52,18 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     fecha_modificacion: '',
   };
 
+  msjChallenger=["¡Bienvenido a Challenger!","Contesta correctamente las preguntas para ganar puntos y avanza rápido para llegar primero a la meta. Tienes 20 segundos por pregunta, ¡Diviértete!"];
+  msjSurvivor=["¡Bienvenido a Survivor!","Responde cada pregunta en un lapso de 12 segundos; un error te elimina. Si todos los participantes activos cometen un fallo en el camino, tendrán una oportunidad adicional.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!"];
+
+  msjJuego=["",""];
+
   @Output() numVentanaH = new EventEmitter<number>();
   isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
+
+  //Para el juego de survivor
+  fechaReferencia: Date = new Date;
+  tiempoRestante: number = 0; // Tiempo en segundos
+  tiempoTerminado: boolean = false;
 
   ngOnInit(): void {
     this.iniciales = this.obtenerIniciales(this.usuarioService.getUserName()!);
@@ -68,19 +78,33 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     this.cargarInfoSala(this.miSala.idSala, this.idJugador);
 
     //Recargar página hasta que se active el juego
-
     if (this.miSala.estado === 0) {
       this.constantsService.loading(true);
     } else {
       this.constantsService.loading(false);
     }
+    //Para el modo Challenger
+    if(this.miSala.modoJuego=='Challenger'){
+      setInterval(() => {
+        if (this.miSala.estado === 0) {
+          //console.log('Reload');
+          location.reload();
+        }
+      }, 10000); // 10000 milisegundos (10 segundos)
 
-    setInterval(() => {
-      if (this.miSala.estado === 0) {
-        //console.log('Reload');
-        location.reload();
-      }
-    }, 10000); // 10000 milisegundos (10 segundos)
+    }
+    
+    //Para el modo survivor
+    if(this.miSala.modoJuego=='Supervivencia'){
+      // Establece la fecha de referencia (por ejemplo, 5 minutos en el futuro)
+    this.fechaReferencia = new Date();
+    this.fechaReferencia.setMinutes(this.fechaReferencia.getMinutes() + 5);
+    
+    // Inicia el temporizador
+    //this.iniciarTemporizador();
+
+    }
+    
   }
 
   ngAfterViewInit(): void {
@@ -110,6 +134,13 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           //no hay error
           this.existeError = false;
           this.miSala = sala;
+          //Cambiar mensaje de acuerdo al modo del juego
+          if (this.miSala.modoJuego=='Challenger') {
+            this.msjJuego=this.msjChallenger;            
+          }
+          if (this.miSala.modoJuego=='Supervivencia') {
+            this.msjJuego=this.msjSurvivor;  
+          }
         }
         this.constantsService.loading(false);
       },

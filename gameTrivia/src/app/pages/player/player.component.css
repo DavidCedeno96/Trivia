@@ -80,3 +80,10 @@ body {
 
 
 }
+
+.imagen-sm{
+  max-height: 160px;
+  min-height: 100px;
+  max-width: 90%;
+  
+}
