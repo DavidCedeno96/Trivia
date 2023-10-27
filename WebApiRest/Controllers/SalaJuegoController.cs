@@ -9,32 +9,32 @@ namespace WebApiRest.Controllers
     [EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     [ApiController]
-    public class JuegoChallengerController : ControllerBase
+    public class SalaJuegoController : ControllerBase
     {
 
-        readonly JuegoChallengerData data = new();
+        readonly SalaJuegoData data = new();
 
         [HttpGet]
         [Route("list/{idSala}/{idJugador}")] //{authorId:int:min(1)} {lcid:int=1033}
         public IActionResult GetList([FromRoute] int idSala, [FromRoute] int idJugador)
         {
-            JuegoChallengerList result = data.GetJuegoChallengerList(idSala, idJugador);
+            SalaJuegoList result = data.GetSalaJuegoList(idSala, idJugador);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateItem([FromBody] JuegoChallenger juegoChallenger)
+        public IActionResult CreateItem([FromBody] SalaJuego salaJuego)
         {
-            Response result = data.CreateJuegoChallenger(juegoChallenger);
+            Response result = data.CreateSalaJuego(salaJuego);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("update")]
-        public IActionResult UpdateItem([FromBody] JuegoChallenger juegoChallenger)
+        public IActionResult UpdateItem([FromBody] SalaJuego salaJuego)
         {
-            Response result = data.UpdateJuegoChallenger(juegoChallenger);
+            Response result = data.UpdateSalaJuego(salaJuego);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

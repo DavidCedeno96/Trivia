@@ -1,6 +1,6 @@
 ﻿namespace WebApiRest.Models
 {
-    public class JuegoChallenger
+    public class SalaJuego
     {
         public int IdSala { get; set; }
         public int IdJugador { get; set; }
@@ -8,10 +8,10 @@
         public int Posicion { get; set; }
     }
 
-    public class JuegoChallengerList
+    public class SalaJuegoList
     {
         public string Info { get; set; }
         public int Error { get; set; }
-        public List<JuegoChallenger> Lista { get; set; }
+        public List<SalaJuego> Lista { get; set; }
     }
 }

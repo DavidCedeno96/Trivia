@@ -71,7 +71,8 @@ create table Opcion(
 );
 
 ---------------------------
-create table JuegoChallenger( -- este es para las posiciones durante el juego challenger
+-- CAMBIARLE EL NOMBRE DE LA TABLA A SalaJuego, tambien a los SPs
+create table SalaJuego( -- este es para las posiciones durante el juego challenger
 	idSala int,
 	idJugador int,
 	iniciales varchar(5),
@@ -80,8 +81,18 @@ create table JuegoChallenger( -- este es para las posiciones durante el juego ch
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
 )
+--drop table JuegoChallenger
 
-create table SalaJuego( -- este es para las salas recientes visitadas
+--create table JuegoSurvivor(
+--	-- idUsuario, idSala, iniciales, puntaje, tiempo fechas..., 
+
+--	fecha_creacion datetime default getdate(),
+--	fecha_modificacion datetime default getdate(),
+--);
+
+---------------------------
+-- CAMBIARLE EL NOMBRE DE LA TABLA A SalaReciente, tambien a los SPs
+create table SalaReciente( -- este es para las salas recientes visitadas
 	idSala int,
 	idJugador int,
 
@@ -89,8 +100,8 @@ create table SalaJuego( -- este es para las salas recientes visitadas
 	fecha_modificacion datetime default getdate(),
 )
 --------------------------------------------
-select * from JuegoChallenger
 select * from SalaJuego
+select * from SalaReciente
 ------------------------------------------------------------------------------------
 select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
@@ -293,44 +304,48 @@ exec sp_C_Usuario_Sala
 @info = '',
 @error = ''
 
----- JUEGO CHALLENGER ---------------------------------------------
+---- SALA JUEGO ---------------------------------------------
 select * from Usuario
-select * from JuegoChallenger
---truncate table JuegoChallenger
+select * from SalaJuego
 
-exec sp_B_JuegoChallenger
+exec sp_B_SalaJuego
 @idSala = 77,		
 @idJugador = 1,
 @info = '',
 @error = ''
 
-exec sp_C_JuegoChallenger	
+exec sp_C_SalaJuego	
 @idSala = 77,
 @idJugador = 34,
 @iniciales = 'MJ',
 @info = '',
 @error = ''
 
-exec sp_U_JuegoChallenger	
+exec sp_U_SalaJuego	
 @idSala = 77,
 @idJugador = 34,	
 @info = '',
 @error = ''
 
+---- JUEGO SURVIVOR ---------------------------------------------
 
----- SALA JUEGO ---------------------------------------------
-select * from SalaJuego order by fecha_modificacion desc
+-- idUsuario, idSala, iniciales, puntaje, tiempo fechas..., 
+
+
+
+---- SALA RECIENTE ---------------------------------------------
+select * from SalaReciente order by fecha_modificacion desc
 --select * from ModoJuego
 
-exec sp_B_SalaJuego	-- ESTE ES PARA LAS 5 SALAS RECIENTES DEL JUGADOR
+exec sp_B_SalaReciente	-- ESTE ES PARA LAS 5 SALAS RECIENTES DEL JUGADOR
 @estados = 0,
-@idJugador = 9,
+@idJugador = 23,
 @info = '',
 @error = ''
 
-exec sp_C_SalaJuego
-@idSala = 3,		
-@idJugador = 3,
+exec sp_C_SalaReciente
+@idSala = 4,		
+@idJugador = 23,
 @info = '',
 @error = ''
 ----------------------------------------------------------------------------

@@ -6,19 +6,19 @@ using Microsoft.Extensions.Options;
 
 namespace WebApiRest.Data
 {
-    public class JuegoChallengerData
+    public class SalaJuegoData
     {
         private readonly Conexion conexion = new();
 
-        public JuegoChallengerList GetJuegoChallengerList(int idSala, int idJugador)
+        public SalaJuegoList GetSalaJuegoList(int idSala, int idJugador)
         {
-            JuegoChallengerList list = new()
+            SalaJuegoList list = new()
             {
                 Lista = new()
             };
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
-            SqlCommand cmd = new("sp_B_JuegoChallenger", sqlConnection)
+            SqlCommand cmd = new("sp_B_SalaJuego", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -34,7 +34,7 @@ namespace WebApiRest.Data
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    list.Lista.Add(new JuegoChallenger()
+                    list.Lista.Add(new SalaJuego()
                     {
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         IdJugador = Convert.ToInt32(dr["idJugador"].ToString()),
@@ -62,12 +62,12 @@ namespace WebApiRest.Data
             return list;
         }
 
-        public Response CreateJuegoChallenger(JuegoChallenger juego)
+        public Response CreateSalaJuego(SalaJuego juego)
         {
             Response response = new();
 
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
-            SqlCommand cmd = new("sp_C_JuegoChallenger", sqlConnection)
+            SqlCommand cmd = new("sp_C_SalaJuego", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -101,12 +101,12 @@ namespace WebApiRest.Data
             return response;
         }
 
-        public Response UpdateJuegoChallenger(JuegoChallenger juego)
+        public Response UpdateSalaJuego(SalaJuego juego)
         {
             Response response = new();
 
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
-            SqlCommand cmd = new("sp_U_JuegoChallenger", sqlConnection)
+            SqlCommand cmd = new("sp_U_SalaJuego", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
             };

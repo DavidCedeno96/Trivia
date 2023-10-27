@@ -189,7 +189,7 @@ namespace WebApiRest.Data
 
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
 
-            SqlCommand cmd = new("sp_B_SalaJuego", sqlConnection)
+            SqlCommand cmd = new("sp_B_SalaReciente", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -236,18 +236,18 @@ namespace WebApiRest.Data
             return list;
         }
 
-        public Response CreateSalaReciente(SalaJuego salaJuego)
+        public Response CreateSalaReciente(SalaReciente salaReciente)
         {
             Response response = new();
 
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
-            SqlCommand cmd = new("sp_C_SalaJuego", sqlConnection)
+            SqlCommand cmd = new("sp_C_SalaReciente", sqlConnection)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@idSala", salaJuego.IdSala);
-            cmd.Parameters.AddWithValue("@idJugador", salaJuego.IdUsuario);
+            cmd.Parameters.AddWithValue("@idSala", salaReciente.IdSala);
+            cmd.Parameters.AddWithValue("@idJugador", salaReciente.IdUsuario);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;

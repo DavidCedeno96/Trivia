@@ -136,9 +136,9 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("createReciente")]
-        public IActionResult CreateItemReciente([FromBody] SalaJuego salaJuego)
+        public IActionResult CreateItemReciente([FromBody] SalaReciente salaReciente)
         {
-            Response result = data.CreateSalaReciente(salaJuego);
+            Response result = data.CreateSalaReciente(salaReciente);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 

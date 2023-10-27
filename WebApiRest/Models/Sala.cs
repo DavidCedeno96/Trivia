@@ -16,7 +16,7 @@
         public DateTime FechaActivacion { get; set; }
     }
 
-    public class SalaJuego
+    public class SalaReciente
     {
         public int IdSala { get; set; }
         public int IdUsuario { get; set; }
