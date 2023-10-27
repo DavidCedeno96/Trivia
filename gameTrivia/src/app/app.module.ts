@@ -49,6 +49,7 @@ import { RankingChallengerComponent } from './components/ranking-challenger/rank
 import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.component';
 import { SurvivorGameComponent } from './pages/survivor-game/survivor-game.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { SurvivorPersonalResultComponent } from './components/survivor-personal-result/survivor-personal-result.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     RankingChallengerComponent,
     EntradaSalaComponent,
     SurvivorGameComponent,
+    SurvivorPersonalResultComponent,
     
   ],
   imports: [
@@ -148,6 +150,11 @@ import { ClipboardModule } from 'ngx-clipboard';
       {
         path: 'RankingChallengers',
         component: RankingChallengerComponent,
+        //canActivate: [authGuard],
+      },
+      {
+        path: 'SurvivorResult',
+        component: SurvivorPersonalResultComponent,
         //canActivate: [authGuard],
       },
     ]),
