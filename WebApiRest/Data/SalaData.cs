@@ -42,7 +42,8 @@ namespace WebApiRest.Data
                         Estado = Convert.ToInt16(dr["estado"].ToString()),
                         TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
-                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString()),
+                        FechaActivacion = Convert.ToDateTime(dr["fecha_activacion"].ToString())
                     });
                 }
 
@@ -98,7 +99,8 @@ namespace WebApiRest.Data
                         Estado = Convert.ToInt16(dr["estado"].ToString()),
                         TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
-                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString()),
+                        FechaActivacion = Convert.ToDateTime(dr["fecha_activacion"].ToString())
                     });
                 }
 
@@ -155,7 +157,8 @@ namespace WebApiRest.Data
                         TotalPreguntas = Convert.ToInt32(dr["totalPreguntas"].ToString()),
                         CantJugadas = Convert.ToInt32(dr["cantJugadas"].ToString()),
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
-                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString()),
+                        FechaActivacion = Convert.ToDateTime(dr["fecha_activacion"].ToString())
                     };                    
                 }
                 dr.NextResult();
@@ -211,7 +214,8 @@ namespace WebApiRest.Data
                         ModoJuego = dr["modoJuego"].ToString(),
                         Estado = Convert.ToInt16(dr["estado"].ToString()),                        
                         FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
-                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString()),
+                        FechaActivacion = Convert.ToDateTime(dr["fecha_activacion"].ToString())
                     });
                 }
 

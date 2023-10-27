@@ -71,7 +71,7 @@ create table Opcion(
 );
 
 ---------------------------
-create table JuegoChallenger(
+create table JuegoChallenger( -- este es para las posiciones durante el juego challenger
 	idSala int,
 	idJugador int,
 	iniciales varchar(5),
@@ -81,7 +81,7 @@ create table JuegoChallenger(
 	fecha_modificacion datetime default getdate(),
 )
 
-create table SalaJuego(
+create table SalaJuego( -- este es para las salas recientes visitadas
 	idSala int,
 	idJugador int,
 
@@ -97,7 +97,8 @@ select * from ModoJuego -- Hacer el insert y no truncar
 ------------------------------------------------------------------------------------
 Insert into Rol (nombre) values 
 ('Administrador'),
-('Jugador')
+('Jugador'),
+('SuperAdministrador')
 
 Insert into ModoJuego (nombre, imagen) values 
 ('Challenger','img1.jpg'),
@@ -200,9 +201,9 @@ exec sp_U_Sala
 
 exec sp_U_SalaByEstado	
 @idSala = 0,
-@estado = 0,
+@estado = 1,
 @info = '',
-@error = ''
+@error = '' 
 
 exec sp_D_Sala	
 @idSala = 0,	
