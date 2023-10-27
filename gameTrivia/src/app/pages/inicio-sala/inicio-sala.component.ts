@@ -91,15 +91,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       this.constantsService.loading(false);
     }
     //Para el modo Challenger
-    if(this.miSala.modoJuego=='Challenger'){
-      setInterval(() => {
-        if (this.miSala.estado === 0) {
-          //console.log('Reload');
-          location.reload();
-        }
-      }, 10000); // 10000 milisegundos (10 segundos)
-
-    }
+   
     
     
     
@@ -138,7 +130,16 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           this.miSala = sala;
           //Cambiar mensaje de acuerdo al modo del juego
           if (this.miSala.modoJuego=='Challenger') {
-            this.msjJuego=this.msjChallenger;            
+            this.msjJuego=this.msjChallenger;
+            if(this.miSala.modoJuego=='Challenger'){
+              setInterval(() => {
+                if (this.miSala.estado === 0) {
+                  //console.log('Reload');
+                  location.reload();
+                }
+              }, 10000); // 10000 milisegundos (10 segundos)
+        
+            }            
           }
           if (this.miSala.modoJuego=='Supervivencia') {
             this.msjJuego=this.msjSurvivor;  
