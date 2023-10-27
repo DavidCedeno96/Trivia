@@ -75,15 +75,23 @@
           </button>
 
 <!--Temporizador para el modo SURVIVOR-->
-          <div class="container">
+          <div class="container" *ngIf="miSala.modoJuego=='Supervivencia'">
             <div class="row">
-              <div class="col-6 d-flex align-items-center justify-content-center">
-                <div style="position: relative; width: 100px; width: 100px;">
+              <div class="col-12 d-flex align-items-center justify-content-center">
+                <div>
+                  
+                </div>
+                <div style="position: relative; width: 100px; width: 100px; font-weight: bold;">
                   <img src="assets/Imagenes Juego/STiempo.png" style="height: 70px; width: auto;" alt="reloj">
                 </div>
-                  <div id="RELOJ" style="position: absolute; ">
-                    A
+                  <div id="RELOJ" style="position: absolute;  " >
+                    <span style="font-weight: bold; color: #DC8127 "
+                    >{{ minutes }}:</span>
+                    <span style="font-weight: bold; color: #DC8127 ">{{ seconds | number: '2.0-0' }}</span>
                   </div>
+
+                  
+
                   
               </div>
             </div>
@@ -94,9 +102,9 @@
             <div>Mantente a la espera,</div>
             <div id="animated-dots">pronto la sala será activada</div>
           </div>
-          <!-- <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
+           <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
             <div>Ya jugaste en esta sala</div>
-          </div> -->
+          </div> 
         </div>
       </div>
     </div>

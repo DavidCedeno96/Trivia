@@ -26,6 +26,13 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   providers: [ConfirmationService],
 })
 export class InicioSalaComponent implements OnInit, AfterViewInit {
+  //Temporizador para survivor
+  private countdown: any = 10;
+  public minutes: number = 3;
+  public seconds: number = 0;
+  private endDate: Date = new Date();
+
+
   @ViewChild('mi_imagen') miImagen: ElementRef | undefined;
   imagenEsHorizontal: boolean = true;
   //nombreSala: string = 'Mi sala!';
@@ -94,20 +101,15 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
     }
     
-    //Para el modo survivor
-    if(this.miSala.modoJuego=='Supervivencia'){
-      // Establece la fecha de referencia (por ejemplo, 5 minutos en el futuro)
-    this.fechaReferencia = new Date();
-    this.fechaReferencia.setMinutes(this.fechaReferencia.getMinutes() + 5);
     
-    // Inicia el temporizador
-    //this.iniciarTemporizador();
+    
 
-    }
+    
     
   }
 
   ngAfterViewInit(): void {
+    
     this.calcularRelacionAspecto();
   }
 
@@ -140,6 +142,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           }
           if (this.miSala.modoJuego=='Supervivencia') {
             this.msjJuego=this.msjSurvivor;  
+            this.temporizador();  
           }
         }
         this.constantsService.loading(false);
@@ -150,6 +153,35 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         }
       },
     });
+  }
+
+  //TEMPORIZADOR
+  temporizador(){
+    // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
+    this.endDate = new Date();
+    this.endDate.setMinutes(this.endDate.getMinutes() + this.minutes);
+
+    // Función para actualizar el temporizador.
+    const updateTimer = () => {
+      const currentTime = new Date();
+      const timeRemaining = this.endDate.getTime() - currentTime.getTime();
+
+      // Calcula minutos y segundos restantes.
+      this.minutes = Math.floor(timeRemaining / 60000);
+      this.seconds = Math.floor((timeRemaining % 60000) / 1000);
+
+      // Comprueba si el temporizador ha terminado.
+      if (timeRemaining <= 0) {
+        // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+      } else {
+        // Llama a setTimeout para actualizar el temporizador cada segundo.
+        this.countdown = setTimeout(updateTimer, 1000);
+      }
+    };
+
+    // Inicializa el temporizador.
+    updateTimer();
+
   }
 
   getImageSala(nombreImagen: string): string {
