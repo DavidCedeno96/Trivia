@@ -265,6 +265,20 @@
   width: auto;
 }
 
+/* Estilo para pantalla grande */
+.containerFondo {
+  background-image: url('../../../assets/Imagenes Juego/SF3web.png');
+  background-size: cover; /* Estira la imagen para ocupar todo el espacio */
+  background-attachment: fixed; /* Fija la imagen de fondo */
+}
+
+/* Media query para dispositivos móviles */
+@media screen and (max-width: 767px) {
+  .containerFondo {
+    background-image: url('../../../assets/Imagenes Juego/SF3movil.png');
+  }
+}
+
 
       
       

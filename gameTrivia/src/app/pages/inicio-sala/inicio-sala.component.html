@@ -73,13 +73,30 @@
           >
             Jugar
           </button>
+
+<!--Temporizador para el modo SURVIVOR-->
+          <div class="container">
+            <div class="row">
+              <div class="col-6 d-flex align-items-center justify-content-center">
+                <div style="position: relative; width: 100px; width: 100px;">
+                  <img src="assets/Imagenes Juego/STiempo.png" style="height: 70px; width: auto;" alt="reloj">
+                </div>
+                  <div id="RELOJ" style="position: absolute; ">
+                    A
+                  </div>
+                  
+              </div>
+            </div>
+          </div>
+
+
           <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0">
             <div>Mantente a la espera,</div>
             <div id="animated-dots">pronto la sala será activada</div>
           </div>
-          <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
+          <!-- <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
             <div>Ya jugaste en esta sala</div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
