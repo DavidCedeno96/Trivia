@@ -34,6 +34,7 @@ export class PlayerComponent implements OnInit {
     cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
+    fechaActivacion: new Date(),
   };
 
   constructor(
