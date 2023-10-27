@@ -32,7 +32,6 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   public seconds: number = 0;
   private endDate: Date = new Date();
 
-
   @ViewChild('mi_imagen') miImagen: ElementRef | undefined;
   imagenEsHorizontal: boolean = true;
   //nombreSala: string = 'Mi sala!';
@@ -57,18 +56,25 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
+    fechaActivacion: new Date(),
   };
 
-  msjChallenger=["¡Bienvenido a Challenger!","Contesta correctamente las preguntas para ganar puntos y avanza rápido para llegar primero a la meta. Tienes 20 segundos por pregunta, ¡Diviértete!"];
-  msjSurvivor=["¡Bienvenido a Survivor!","Responde cada pregunta en un lapso de 12 segundos; un error te elimina. Si todos los participantes activos cometen un fallo en el camino, tendrán una oportunidad adicional.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!"];
+  msjChallenger = [
+    '¡Bienvenido a Challenger!',
+    'Contesta correctamente las preguntas para ganar puntos y avanza rápido para llegar primero a la meta. Tienes 20 segundos por pregunta, ¡Diviértete!',
+  ];
+  msjSurvivor = [
+    '¡Bienvenido a Survivor!',
+    'Responde cada pregunta en un lapso de 12 segundos; un error te elimina. Si todos los participantes activos cometen un fallo en el camino, tendrán una oportunidad adicional.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!',
+  ];
 
-  msjJuego=["",""];
+  msjJuego = ['', ''];
 
   @Output() numVentanaH = new EventEmitter<number>();
   isFinalizoJuego: boolean = false; //Necesitamos obtener un valor si el jugador ya finalizó el juego
 
   //Para el juego de survivor
-  fechaReferencia: Date = new Date;
+  fechaReferencia: Date = new Date();
   tiempoRestante: number = 0; // Tiempo en segundos
   tiempoTerminado: boolean = false;
 
@@ -91,17 +97,9 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       this.constantsService.loading(false);
     }
     //Para el modo Challenger
-   
-    
-    
-    
-
-    
-    
   }
 
   ngAfterViewInit(): void {
-    
     this.calcularRelacionAspecto();
   }
 
@@ -129,21 +127,18 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           this.existeError = false;
           this.miSala = sala;
           //Cambiar mensaje de acuerdo al modo del juego
-          if (this.miSala.modoJuego=='Challenger') {
-            this.msjJuego=this.msjChallenger;
-            if(this.miSala.modoJuego=='Challenger'){
-              setInterval(() => {
-                if (this.miSala.estado === 0) {
-                  //console.log('Reload');
-                  location.reload();
-                }
-              }, 10000); // 10000 milisegundos (10 segundos)
-        
-            }            
+          if (this.miSala.modoJuego == 'Challenger') {
+            this.msjJuego = this.msjChallenger;
+            setInterval(() => {
+              if (this.miSala.estado === 0) {
+                //console.log('Reload');
+                location.reload();
+              }
+            }, 10000); // 10000 milisegundos (10 segundos)
           }
-          if (this.miSala.modoJuego=='Supervivencia') {
-            this.msjJuego=this.msjSurvivor;  
-            this.temporizador();  
+          if (this.miSala.modoJuego == 'Supervivencia') {
+            this.msjJuego = this.msjSurvivor;
+            this.temporizador();
           }
         }
         this.constantsService.loading(false);
@@ -157,9 +152,10 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   }
 
   //TEMPORIZADOR
-  temporizador(){
+  temporizador() {
     // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
-    this.endDate = new Date();
+    this.endDate = new Date(this.miSala.fechaActivacion);
+
     this.endDate.setMinutes(this.endDate.getMinutes() + this.minutes);
 
     // Función para actualizar el temporizador.
@@ -172,8 +168,10 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       this.seconds = Math.floor((timeRemaining % 60000) / 1000);
 
       // Comprueba si el temporizador ha terminado.
-      if (timeRemaining <= 0) {
+      if (timeRemaining < 0) {
         // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+        this.minutes = 0;
+        this.seconds = 0;
       } else {
         // Llama a setTimeout para actualizar el temporizador cada segundo.
         this.countdown = setTimeout(updateTimer, 1000);
@@ -182,7 +180,6 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
     // Inicializa el temporizador.
     updateTimer();
-
   }
 
   getImageSala(nombreImagen: string): string {
@@ -288,13 +285,13 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   } */
 
   calcularRelacionAspecto() {
-    console.log(this.miImagen);
+    //console.log(this.miImagen);
     if (this.miImagen && this.miImagen.nativeElement) {
       const img = this.miImagen.nativeElement;
       img.onload = () => {
         const ancho = img.width;
         const alto = img.height;
-        console.log(`Ancho: ${ancho}px, Alto: ${alto}px`);
+        //console.log(`Ancho: ${ancho}px, Alto: ${alto}px`);
         this.imagenEsHorizontal = ancho < alto;
       };
       //img.src = this.imagenSala; // Asegúrate de que la imagen esté cargada antes de obtener sus dimensiones

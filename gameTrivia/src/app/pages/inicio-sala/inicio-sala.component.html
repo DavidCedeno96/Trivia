@@ -54,9 +54,9 @@
 
     <div class="row">
       <div class="col text-center mx-sm-2 mx-4 my-5">
-        <strong> {{msjJuego[0]}} </strong>
+        <strong> {{ msjJuego[0] }} </strong>
         <br />
-        {{msjJuego[1]}}
+        {{ msjJuego[1] }}
         <br />
       </div>
     </div>
@@ -67,44 +67,63 @@
       <div class="col align-items-center">
         <div class="text-center">
           <button
-            *ngIf="miSala.estado === 1 && miSala.cantJugadas === 0"
+            *ngIf="
+              miSala.estado === 1 &&
+              miSala.cantJugadas === 0 &&
+              miSala.modoJuego === 'Challenger'
+            "
             class="btn btn-secondary btn-lg px-5"
             (click)="validarDataPregOpc()"
           >
             Jugar
           </button>
 
-<!--Temporizador para el modo SURVIVOR-->
-          <div class="container" *ngIf="miSala.modoJuego=='Supervivencia'">
+          <!--Temporizador para el modo SURVIVOR-->
+          <div
+            class="container"
+            *ngIf="miSala.modoJuego == 'Supervivencia' && miSala.estado > 0"
+          >
             <div class="row">
-              <div class="col-12 d-flex align-items-center justify-content-center">
-                <div>
-                  
+              <div
+                class="col-12 d-flex align-items-center justify-content-center"
+              >
+                <div></div>
+                <div
+                  style="
+                    position: relative;
+                    width: 100px;
+                    width: 100px;
+                    font-weight: bold;
+                  "
+                >
+                  <img
+                    src="assets/Imagenes Juego/STiempo.png"
+                    style="height: 70px; width: auto"
+                    alt="reloj"
+                  />
                 </div>
-                <div style="position: relative; width: 100px; width: 100px; font-weight: bold;">
-                  <img src="assets/Imagenes Juego/STiempo.png" style="height: 70px; width: auto;" alt="reloj">
+                <div id="RELOJ" style="position: absolute">
+                  <span style="font-weight: bold; color: #dc8127"
+                    >0{{ minutes }}:</span
+                  >
+                  <span style="font-weight: bold; color: #dc8127">{{
+                    seconds | number : "2.0-0"
+                  }}</span>
                 </div>
-                  <div id="RELOJ" style="position: absolute;  " >
-                    <span style="font-weight: bold; color: #DC8127 "
-                    >{{ minutes }}:</span>
-                    <span style="font-weight: bold; color: #DC8127 ">{{ seconds | number: '2.0-0' }}</span>
-                  </div>
-
-                  
-
-                  
               </div>
             </div>
           </div>
-
 
           <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0">
             <div>Mantente a la espera,</div>
             <div id="animated-dots">pronto la sala será activada</div>
           </div>
-           <div class="textmsj my-3 mb-2" *ngIf="miSala.cantJugadas > 0">
+          <div
+            class="textmsj my-3 mb-2"
+            *ngIf="miSala.estado === 1 && miSala.cantJugadas > 0"
+          >
             <div>Ya jugaste en esta sala</div>
-          </div> 
+          </div>
         </div>
       </div>
     </div>
