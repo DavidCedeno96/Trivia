@@ -34,6 +34,12 @@ declare var bootstrap: any;
   ],
 })
 export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  tiempoPregunta=14;
+
+  msjContadorStart=false;
+
+
   //Menjase error
   Mensaje_error: string = 'Respuesta equivocada';
 
@@ -119,7 +125,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //TEMPORIZADOR Y SUMA DEL TIEMPO QUE SE DEMORQA EN RESPONDER
 
   numIntervaloImg: number = 4;
-  countdown: number = 12; // Temporizador principal en segundos
+  countdown: number = this.tiempoPregunta; // Temporizador principal en segundos
 
   mainTimerInterval: any;
   userClicked: boolean = false;
@@ -143,7 +149,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() PreguntasList: Pregunta_OpcionList[] = [];
 
   //Circulos de nuevos jugadores
-  circles: { left: string; top: string }[] = [];
+  circles: { left: number; top: number }[] = [];
   texts: string[] = ['AB', 'DC', 'CMI', 'AC'];
 
   //Jugadores Eliminados
@@ -401,30 +407,22 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   generarCirculos(numCircles:number){
     this.mostrarJugadorVivo=true;
-    
-    const circlesAux: { left: string; top: string }[] = [];
-    const circleSpacing = 150;
-    const margin = 200; // Margen de 200px desde los bordes y el centro
-    const minDistance = 100; // Mínima distancia entre círculos
-    
-    for (let i = 0; i < numCircles; i++) {
-      let randomX=0, randomY=0;
-    
-      do {
-        randomX = Math.random() * (window.innerWidth - 2 * margin - numCircles * circleSpacing) + margin;
-        randomY = Math.random() * (window.innerHeight - 2 * margin) + margin;
-      } while (circlesAux.some(circle => {
-        const x = parseInt(circle.left, 10);
-        const y = parseInt(circle.top, 10);
-        const distance = Math.sqrt((x - randomX) ** 2 + (y - randomY) ** 2);
-        return distance < minDistance;
-      }));
-    
-      circlesAux.push({ left: randomX + 'px', top: randomY + 'px' });
-    }
-    this.circles=circlesAux;
+    const circlesAux: { left:number; top: number }[] = [];
 
+    const minDistance = 50;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
     
+  
+    for (let i = 0; i < numCircles; i++) {
+      const circle = {
+        left: this.getRandomNumber(50, window.innerWidth - 50), // Asegura que no se desborde en el ancho de la ventana
+        top: this.getRandomNumber(50, window.innerHeight - 50), // Asegura que no se desborde en la altura de la ventana
+      };
+      circlesAux.push(circle);
+    }
+    this.circles = circlesAux;
+
     if(this.numPreguntasContestadas+1>1){
       setTimeout(() => {
         this.mostrarJugadorVivo=false;
@@ -434,6 +432,10 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }
    
     
+}
+
+getRandomNumber(min:number, max:number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
   mostrarModal() {
@@ -490,8 +492,6 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Despues del temporizador pregunta bien y mal contestada me controlaran las siguientes
 
-
-
   preguntaMalConstestada() {
 
     this.msjResultados = this.msjR2;   
@@ -511,7 +511,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.modal.hide();
       //this.numPreguntasContestadas++;
       this.puedeResponder = true;
-      this.countdown = 12;
+      this.countdown = this.tiempoPregunta;
       this.onClickCambiar();
     }, this.tiempoMostrarRespuesta+5500); // 3000 milisegundos = 3 segundos
   }
@@ -531,13 +531,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mostrarAlert = false;
           this.modal.hide();          
           this.puedeResponder = true;
-          this.countdown = 12;
+          this.countdown = this.tiempoPregunta;
         }, this.tiempoMostrarRespuesta+5500); 
   }
 
-  pasarAOtraPregunta() {
-
-    
+  pasarAOtraPregunta() {   
         
     setTimeout(() => {
       
@@ -610,7 +608,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   startMainTimer() {
     if (!this.isTimerRunning) {
       this.isTimerRunning = true; // Marca que el temporizador está en funcionamiento
-      this.countdown = 12; // Restablece el tiempo en segundos
+      this.countdown = this.tiempoPregunta; // Restablece el tiempo en segundos
       this.mainTimerInterval = setInterval(() => {
         if (!this.userClicked) {
           this.countdown--; // Temporizador principal disminuye en segundos
@@ -648,7 +646,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
             this.getNumJugadoresMuertos();
 
           },1000);
-          
+
           if(this.isLife || this.repetirPregunta){
             setTimeout(() => {
               this.pasarAOtraPregunta();
