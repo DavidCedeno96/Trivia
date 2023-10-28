@@ -13,9 +13,16 @@ export interface Sala {
   fechaActivacion: Date;
 }
 
-export interface SalaJuego {
+export interface SalaReciente {
   idSala: number;
   idUsuario: number;
+}
+
+export interface SalaJuego {
+  idSala: number;
+  idJugador: number;
+  iniciales: string;
+  posicion: number;
 }
 
 export interface Pregunta {

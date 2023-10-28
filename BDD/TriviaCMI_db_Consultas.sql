@@ -71,7 +71,6 @@ create table Opcion(
 );
 
 ---------------------------
--- CAMBIARLE EL NOMBRE DE LA TABLA A SalaJuego, tambien a los SPs
 create table SalaJuego( -- este es para las posiciones durante el juego challenger
 	idSala int,
 	idJugador int,
@@ -81,17 +80,8 @@ create table SalaJuego( -- este es para las posiciones durante el juego challeng
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
 )
---drop table JuegoChallenger
-
---create table JuegoSurvivor(
---	-- idUsuario, idSala, iniciales, puntaje, tiempo fechas..., 
-
---	fecha_creacion datetime default getdate(),
---	fecha_modificacion datetime default getdate(),
---);
 
 ---------------------------
--- CAMBIARLE EL NOMBRE DE LA TABLA A SalaReciente, tambien a los SPs
 create table SalaReciente( -- este es para las salas recientes visitadas
 	idSala int,
 	idJugador int,
@@ -99,6 +89,7 @@ create table SalaReciente( -- este es para las salas recientes visitadas
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
 )
+
 --------------------------------------------
 select * from SalaJuego
 select * from SalaReciente

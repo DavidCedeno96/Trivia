@@ -12,8 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
-import { Sala } from 'src/app/model/SalaModel';
-import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
+import { Sala, SalaJuego } from 'src/app/model/SalaModel';
+//import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
+import { SalaJuegoService } from 'src/app/services/sala-juego.service';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -110,7 +111,8 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     private confirmationService: ConfirmationService,
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService,
-    private juegoChallengerService: JuegoChallengerService,
+    //private juegoChallengerService: JuegoChallengerService,
+    private salaJuegoService: SalaJuegoService,
     private usuarioService: UsuarioService
   ) {}
 
@@ -223,7 +225,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       posicion: 0,
     };
 
-    this.juegoChallengerService.createItem(juego).subscribe({
+    this.salaJuegoService.createItem(juego).subscribe({
       next: (data: any) => {
         let { error } = data.result;
         return error;

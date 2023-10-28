@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Sala, SalaJuego } from '../model/SalaModel';
+import { Sala, SalaReciente } from '../model/SalaModel';
 
 @Injectable({
   providedIn: 'root',
@@ -55,13 +55,13 @@ export class SalaService {
     );
   }
 
-  crearSalaReciente(salaJuego: SalaJuego): Observable<SalaJuego> {
+  crearSalaReciente(salaReciente: SalaReciente): Observable<SalaReciente> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    return this.http.post<SalaJuego>(
+    return this.http.post<SalaReciente>(
       `${this.apiURL}/createReciente`,
-      salaJuego,
+      salaReciente,
       {
         headers: headers,
       }

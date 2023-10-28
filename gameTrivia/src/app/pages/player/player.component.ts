@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
-import { Sala, SalaJuego } from 'src/app/model/SalaModel';
+import { Sala, SalaReciente } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -73,8 +73,8 @@ export class PlayerComponent implements OnInit {
     });
   }
 
-  crearSalaReciente(salaJuego: SalaJuego) {
-    this.salaServicio.crearSalaReciente(salaJuego).subscribe({
+  crearSalaReciente(salaReciente: SalaReciente) {
+    this.salaServicio.crearSalaReciente(salaReciente).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
         this.result = info;
@@ -143,11 +143,11 @@ export class PlayerComponent implements OnInit {
       }
 
       if (auxCodigo === idSala) {
-        let salaJuego = {
+        let salaReciente = {
           idSala: this.sala.idSala,
           idUsuario: this.idUsuario,
         };
-        this.crearSalaReciente(salaJuego);
+        this.crearSalaReciente(salaReciente);
 
         this.closeModal.nativeElement.click();
         this.cambiarPag('/EntradaSala', this.sala.idSala);
