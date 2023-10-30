@@ -1,7 +1,59 @@
 <div class="containerFondo"  id="containerFondo" style=" width: 100%;height: 100vh; max-height: 100%; position: relative;">
-  <div class="position-absolute top-50 start-50 translate-middle"></div>
 
-    <div class="centered" *ngIf="!finTemporizador">
+  <div class="position-absolute bottom-0 start-50 translate-middle "  *ngIf="finTemporizador" >
+    <div class="container" style="min-height:50%;">
+      <button
+      class="btn btn-primary btn-lg"            
+    >
+      <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg mx-2" />
+      Salir 
+    </button>
+</div>
+
+       
+       
+      
+  </div>
+
+  <div class="position-absolute top-50 start-50 translate-middle cardSize"  *ngIf="finTemporizador">
+    <div class="card  " style="min-width: 90%; position: relative" style="background-color: rgba(255, 0, 0, 0); border-color: transparent;">
+      <img src="assets/Imagenes Juego/SxFondo.png" class="card-img" alt="PopCard">
+      <div class="card-img-overlay" >             
+
+        <div class="container-fluid my-sm-1 my-lg-4" style="  display: flex;
+        flex-direction: column; height: 100%;">
+          <div class="row" style="height: 35px;"></div>
+
+          <div class="row flex-fill align-items-center justify-content-center pe-4 ">
+            <div class="col text-center textIniciales" style=" color: #F38901; font-weight: bold;">
+                {{InicialesJugador}}
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col text-center pe-4">
+                <div class="btn btnPos p-3 " style="background-color:  #F38901; border-color: transparent; border-radius: 25px; ">
+                  <div class="textPos" style="font-weight: bold; color: white;">
+                    POSICIÓN {{Posicion}}
+                  </div>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="row flex-fill align-items-center justify-content-center">
+            <div class="col text-center">
+                <!-- es para estirar -->
+            </div>
+        </div>
+        <div class="row" style="height: 35px;"></div>
+      </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+
+    <div class="centered " *ngIf="!finTemporizador">
         <div class="container" >
             <div class="row">
               <div class="col text-center">
@@ -18,34 +70,11 @@
             </div>
         </div>
 
-        <div class="container" *ngIf="finTemporizador">
-          <div class="row">
-            <div class="col text-center">
-              <div style="position: relative; ">
-
-                  <div class="z-0 position-absolute bg-dark  
-                    p-5 rounded-3">
-                    <img src="assets/Imagenes Juego/SposicionX.png" alt="panel resultados" style="max-width: 90%;">
-                     
-                  </div> 
-
-                  <div class="z-n2 position-absolute  
-                       bg-primary p-5 rounded-3"> 
-                       <img src="assets/Imagenes Juego/SCirculoPos.png" alt="panel resultados" style="max-width: 90%;">
-                  </div> 
-
-                  <div class="z-n1 position-absolute bg-success  
-                      p-5 rounded-3"> 
-                      <img src="assets/Imagenes Juego/SposicionX.png" alt="panel resultados" style="max-width: 90%;">
-                  </div> 
-
-                <!-- <img src="assets/Imagenes Juego/SposicionX.png" class="position-absolute top-0 start-0" alt="panel resultados" style="max-width: 90%;">
-                <img src="assets/Imagenes Juego/SCirculoPos.png" class="position-absolute top-0 start-0" alt="panel resultados" style="max-width: 90%;">
-                <img src="assets/Imagenes Juego/SCirculoPos.png" class="position-absolute top-0 start-0" alt="panel resultados" style="max-width: 90%;"> -->
-              </div>
-            </div>
-          </div>
-      </div>
+        
     </div>
 
+    
+    
+
 </div>
+

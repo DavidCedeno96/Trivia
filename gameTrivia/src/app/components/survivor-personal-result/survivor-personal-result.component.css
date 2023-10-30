@@ -4,13 +4,53 @@
     background-size: cover; /* Estira la imagen para ocupar todo el espacio */
     background-attachment: fixed; /* Fija la imagen de fondo */
   }
-  
-  /* Media query para dispositivos móviles */
-  @media screen and (max-width: 767px) {
-    .containerFondo {
-      background-image: url('../../../assets/Imagenes Juego/SF3movil.png');
-    }
+
+      /* Estilo para dispositivos LG */
+@media (min-width: 992px) {
+  .textPos{
+    font-size: 30px;
   }
+  .textIniciales{
+    font-size: 60px;
+  }
+  
+}
+@media (min-width: 577px) and (max-width: 991px) {
+  .textIniciales{
+    font-size: 45px;
+  }
+  
+}
+         
+      /* Estilo para dispositivos SM */
+@media (max-width: 576px) {
+  .containerFondo {
+    background-image: url('../../../assets/Imagenes Juego/SF3movil.png');
+  }
+  .cardSize{
+    min-width: 90%; max-height: 80%;
+  }
+
+  .btnPos{
+    transform: translate(0px,-25px);
+  }
+
+  .textPos{
+    font-size: 18px;
+  }
+
+  .textIniciales{
+    font-size: 40px;
+  }
+}
+
+
+
+
+  .btnPos{
+    transform: translate(0px,-35px);
+  }
+
 
   .centered{
     position: relative;
@@ -30,3 +70,24 @@
     left: 50%;
 
   }
+
+
+
+.card-img-overlay {
+  background-color: transparent;
+ }
+
+ .btn-primary {
+  background-color: #3D5057;
+  border: none;
+  font-weight: bold;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}
+.btn-primary:active,:focus {
+  background-color: #DC8127; /* Naranja */
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
+
+}

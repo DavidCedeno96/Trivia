@@ -35,9 +35,14 @@ declare var bootstrap: any;
 })
 export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  respElejigas: number[]=[0,0,0,0];
+  mostrarNumResp=false;
+  txtJugadorX="Jugadores"
+  
   tiempoPregunta=14;
-
   msjContadorStart=false;
+
+  eliminadosSave: PuntosJugador[]=[]; 
 
 
   //Menjase error
@@ -159,6 +164,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   isLife: boolean = true;
   isUltimoenPie: boolean = false;
   numerodeEliminados = 0;
+  txtEliminados="Eliminados";
 
   //Para una pequeña animacion
   animationState = '';
@@ -203,12 +209,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
   }
   ngOnInit() {
-    //MUSICA NO LE PONEMOS EN METODO APARTE PORQUE DEJA DE FUNCIONAR
-    //this.musicaFondo = new Audio();
-    //this.musicaFondo.src = 'assets/musicAndSFX/MusicaGame4.mp3'; // Ruta a tu archivo de música
-    //this.musicaFondo.loop = true;
-    //this.musicaFondo.volume = 0.25; // Volumen (0.5 representa la mitad del volumen)
-    //this.musicaFondo.play();
+   
 
     //MUSICA COMPUESTA
     this.playCurrentTrack();
@@ -350,18 +351,35 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }
         
 
-   if(jugadoresMuertos.length>0){
+    let nuevosMuertos = jugadoresMuertos.filter(item1 => !this.eliminadosSave.find(item2 => item1.idUsuario === item2.idUsuario));
+    this.eliminadosSave=jugadoresMuertos;
+
+
+    this.numerodeEliminados=nuevosMuertos.length;  
+    
+    console.log(jugadoresMuertos);
+    console.log(nuevosMuertos);
+    console.log(nuevosMuertos.length);
+
+   if(nuevosMuertos.length>0){
+
+    if (nuevosMuertos.length==1) {
+      this.txtJugadorX="Jugador"      
+    }else{
+      this.txtJugadorX="Jugadores" 
+
+    }
     
      //this.jugadoresSala=listaJugadoresBD;
      const textsAux: string[] = [];
 
-     for (let i = 0; i < jugadoresMuertos.length; i++) {
-       textsAux.push(jugadoresMuertos[i].iniciales);        
+     for (let i = 0; i < nuevosMuertos.length; i++) {
+       textsAux.push(nuevosMuertos[i].iniciales);        
      }
      //actualizo la lista de texto de los circulos animados
      this.texts=textsAux;
      setTimeout(() => {
-      this.generarCirculos(jugadoresMuertos.length)
+      this.generarCirculos(nuevosMuertos.length)
     },2500);
      
    }
@@ -469,7 +487,7 @@ getRandomNumber(min:number, max:number) {
       const respuestaSeleccionada = this.actualOpcionList[id];
       this.tiempoDelJugador =
         this.userClickTime.getTime() - this.startTime.getTime();
-      console.log(this.tiempoDelJugador);
+      //console.log(this.tiempoDelJugador);
       this.mostrarMsjAnalisis=true;
 
       if (respuestaSeleccionada.correcta == 1) 
@@ -493,11 +511,12 @@ getRandomNumber(min:number, max:number) {
   //Despues del temporizador pregunta bien y mal contestada me controlaran las siguientes
 
   preguntaMalConstestada() {
-
+    this.mostrarEspera=true;//Mostrar cuanso se acaba el tiempo
     this.msjResultados = this.msjR2;   
 
     //Mostramos resultados
     setTimeout(() => {
+      this.mostrarNumResp=true;
       this.mostrarEspera=false;
       this.mostrarWrongAlert = true;
       this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');      
@@ -507,6 +526,7 @@ getRandomNumber(min:number, max:number) {
 
     //Cerramos el modal    
     setTimeout(() => {
+      this.mostrarNumResp=false;
       this.mostrarWrongAlert = false;
       this.modal.hide();
       //this.numPreguntasContestadas++;
@@ -521,13 +541,15 @@ getRandomNumber(min:number, max:number) {
 
     //Mostramos resultados
     setTimeout(() => {
+      this.mostrarNumResp=true;
       this.mostrarEspera=false;
-    this.mostrarAlert = true;
-    this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
+      this.mostrarAlert = true;
+      this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
     }, this.tiempoMostrarRespuesta);
 
      
         setTimeout(() => {
+          this.mostrarNumResp=false;
           this.mostrarAlert = false;
           this.modal.hide();          
           this.puedeResponder = true;
@@ -562,10 +584,9 @@ getRandomNumber(min:number, max:number) {
     }else{
       //Si aun no gana continuar con las preguntas
       if (this.numPreguntasContestadas + 1 < this.listaDePreguntas.length) {
-        setTimeout(() => {
-          //this.activarBoton(this.numPreguntasContestadas + 1, 1);
+        setTimeout(() => {          
           this.rellenarPregunta(this.numPreguntasContestadas + 1);
-        }, 4000);
+        }, this.tiempoMostrarModal-100);
   
         setTimeout(() => {
           this.mostrarModal();

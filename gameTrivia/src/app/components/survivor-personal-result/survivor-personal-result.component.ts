@@ -10,6 +10,11 @@ export class SurvivorPersonalResultComponent implements OnInit {
   public seconds: number = 3;
   finTemporizador: boolean = false;
 
+  InicialesJugador="CMI";
+  NombreJugador="";
+  Posicion=0;
+
+
   ngOnInit() {
     this.mainTimerInterval = setInterval(() => {
       if (this.seconds > 0) {
