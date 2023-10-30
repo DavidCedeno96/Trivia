@@ -27,3 +27,31 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 };
+
+export const authGuardAdmin: CanActivateFn = (route, state) => {
+  const usuarioServicio = inject(UsuarioService);
+
+  if (usuarioServicio.loggedIn()) {
+    if (usuarioServicio.getRol() == '1' || usuarioServicio.getRol() == '3' ) {
+      return true;
+    } else{
+      return true;
+    }
+  } else {
+    return false;
+  }
+};
+
+export const authGuardPlayer: CanActivateFn = (route, state) => {
+  const usuarioServicio = inject(UsuarioService);
+
+  if (usuarioServicio.loggedIn()) {
+    if (usuarioServicio.getRol() == '2' ) {
+      return true;
+    } else{
+      return true;
+    }
+  } else {
+    return false;
+  }
+};
