@@ -25,7 +25,7 @@
     </div>
 
     <div class="container" style="width: 100%; max-height: 110px">
-      <div class="miSlide">
+      <!-- <div class="miSlide">
         <div class="custom-slider3">
           <ngx-slider
             class="slider"
@@ -33,7 +33,7 @@
             [options]="optionsMeta"
           ></ngx-slider>
         </div>
-      </div>
+      </div> -->
       <div *ngFor="let item of listaPosiciones; let i = index;">
         <div class="miSlide" *ngIf="item.posicion<listaDePreguntas.length">
           <div class="custom-slider2">
@@ -155,12 +155,15 @@
                     >
                       <button
                         type="button"
-                        class="btn btn-secondary btn-block text-center my-2"
+                        class="btn btn-secondary btn-block text-center my-2 position-relative"
                         (click)="closeModal(i)"
                         [ngClass]="{'respuesta-correcta': miOpcion.correcta==1 && botonSeleccionado[i], 'respuesta-incorrecta': miOpcion.correcta==0 && botonSeleccionado[i], 
-                        }"
+                        }"                                             
                       >
                         {{ miOpcion.nombre }}
+                        <div class="position-absolute top-50 start-50 translate-middle-y" *ngIf="miOpcion.correcta==0 && botonSeleccionado[i]" >
+                          <img src="assets/Imagenes Juego/SEliminado.png" alt="XOpciones" style="width: 40px; height: 40px; transform: translate(-18px,0px);" >                              
+                       </div>
                       </button>
                     </div>
                   </div>

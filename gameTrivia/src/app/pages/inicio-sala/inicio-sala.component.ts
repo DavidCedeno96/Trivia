@@ -175,6 +175,11 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         this.minutes = 0;
         this.seconds = 0;
       } else {
+        if (timeRemaining <= 2000 && timeRemaining >= 1000) {
+          // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
+          this.router.navigate(['/JuegoSupervivencia']);//Le enviamos al juego survivor
+          
+        }
         // Llama a setTimeout para actualizar el temporizador cada segundo.
         this.countdown = setTimeout(updateTimer, 1000);
       }
@@ -208,7 +213,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       this.numVentanaH.emit(2); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
     }
     if (this.isFinalizoJuego) {
-      this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+      //this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
     }
   }
 
