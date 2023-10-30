@@ -13,7 +13,12 @@ import {
   QueryList,
   OnDestroy,
 } from '@angular/core';
-import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
+import {
+  Opcion,
+  Pregunta,
+  Pregunta_OpcionList,
+  SalaJuego,
+} from 'src/app/model/SalaModel';
 import { Options, LabelType } from 'ngx-slider-v2';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Router } from '@angular/router';
@@ -160,7 +165,7 @@ export class ChallengersGameComponent
 
   listaDePreguntas: Pregunta_OpcionList[] = [];
 
-  listaPosiciones: JuegoChallenger[] = [];
+  listaPosiciones: SalaJuego[] = [];
 
   // numPreguntaActual: number = 0;
   preguntaTexto: string = '';
@@ -553,6 +558,7 @@ export class ChallengersGameComponent
           idJugador: this.idJugador,
           iniciales: 'pp',
           posicion: 1,
+          estadoJuego: 1,
         };
         this.actualizarPosicion(juego);
         // La respuesta es correcta, puedes reproducir un sonido, cambiar el color, etc.
@@ -577,7 +583,7 @@ export class ChallengersGameComponent
     }
   }
 
-  actualizarPosicion(juego: JuegoChallenger) {
+  actualizarPosicion(juego: SalaJuego) {
     this.salaJuegoService.updateItem(juego).subscribe({
       next: (data: any) => {
         let { error } = data.result;

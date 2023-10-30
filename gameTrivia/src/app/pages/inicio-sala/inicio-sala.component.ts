@@ -177,8 +177,8 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       } else {
         if (timeRemaining <= 2000 && timeRemaining >= 1000) {
           // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
-          this.router.navigate(['/JuegoSupervivencia']);//Le enviamos al juego survivor
-          
+          //this.router.navigate(['/JuegoSupervivencia']);//Le enviamos al juego survivor
+          this.cambiarPag('/JuegoSupervivencia', this.miSala.idSala);
         }
         // Llama a setTimeout para actualizar el temporizador cada segundo.
         this.countdown = setTimeout(updateTimer, 1000);
@@ -187,6 +187,12 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
     // Inicializa el temporizador.
     updateTimer();
+  }
+
+  cambiarPag(ruta: string, id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
+    let params = { idSala };
+    this.router.navigate([ruta], { queryParams: params });
   }
 
   getImageSala(nombreImagen: string): string {
@@ -228,6 +234,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       idJugador: this.idJugador,
       iniciales: this.iniciales,
       posicion: 0,
+      estadoJuego: 1,
     };
 
     this.salaJuegoService.createItem(juego).subscribe({

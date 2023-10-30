@@ -7,17 +7,29 @@ import {
   OnInit,
   Renderer2,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EncryptionService } from 'src/app/encryption.service';
-import {  PuntosJugador } from 'src/app/model/PuntosJugador';
-import { Opcion, Pregunta, Pregunta_OpcionList } from 'src/app/model/SalaModel';
+import { PuntosJugador } from 'src/app/model/PuntosJugador';
+import {
+  Opcion,
+  Pregunta,
+  Pregunta_OpcionList,
+  SalaJuego,
+} from 'src/app/model/SalaModel';
 import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 
-
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
+import { SalaJuegoService } from 'src/app/services/sala-juego.service';
+import { PreguntaService } from 'src/app/services/pregunta.service';
 
 declare var bootstrap: any;
 
@@ -34,16 +46,14 @@ declare var bootstrap: any;
   ],
 })
 export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
+  respElejigas: number[] = [0, 0, 0, 0];
+  mostrarNumResp = false;
+  txtJugadorX = 'Jugadores';
 
-  respElejigas: number[]=[0,0,0,0];
-  mostrarNumResp=false;
-  txtJugadorX="Jugadores"
-  
-  tiempoPregunta=14;
-  msjContadorStart=false;
+  tiempoPregunta = 14;
+  msjContadorStart = false;
 
-  eliminadosSave: PuntosJugador[]=[]; 
-
+  eliminadosSave: SalaJuego[] = [];
 
   //Menjase error
   Mensaje_error: string = 'Respuesta equivocada';
@@ -146,25 +156,25 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   tiempoMostrarPrimerModal: number = 5000;
   tiempoMostrarModal: number = 10000;
   tiempoMostrarRespuesta: number = 4500;
-  tiempoMostrarOtraPregunta: number =5500;
+  tiempoMostrarOtraPregunta: number = 5500;
 
   //MUSICA
   musicaFondo: HTMLAudioElement | null = null;
 
-  @Input() PreguntasList: Pregunta_OpcionList[] = [];
+  //@Input() PreguntasList: Pregunta_OpcionList[] = [];
 
   //Circulos de nuevos jugadores
   circles: { left: number; top: number }[] = [];
   texts: string[] = ['AB', 'DC', 'CMI', 'AC'];
 
   //Jugadores Eliminados
-  idJugador=0;
-  jugadoresSala: PuntosJugador[]=[]; 
-  mostrarEspera: boolean= false;
+  idJugador = 0;
+  jugadoresSala: SalaJuego[] = [];
+  mostrarEspera: boolean = false;
   isLife: boolean = true;
   isUltimoenPie: boolean = false;
   numerodeEliminados = 0;
-  txtEliminados="Eliminados";
+  txtEliminados = 'Eliminados';
 
   //Para una pequeña animacion
   animationState = '';
@@ -176,30 +186,32 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   ganoJugador = false;
 
   //Para cambiar la imagen de al fondo
-  mostrarJugadorVivo=true;
-  imgJugadorVivo = "assets/Imagenes Juego/JugadorVivo.png";
-  imgJugadorMuerto = "assets/Imagenes Juego/jugadorMuerto.png";
-  imgXEliminado = "assets/Imagenes Juego/JugadorXEliminado.png";
-  mostrarEliminados=false;
-  msjResultados = "";
-  msjR1="Obteniendo Resultados de otros jugadores";
-  msjR2="Revisando Resultados";
-
+  mostrarJugadorVivo = true;
+  imgJugadorVivo = 'assets/Imagenes Juego/JugadorVivo.png';
+  imgJugadorMuerto = 'assets/Imagenes Juego/jugadorMuerto.png';
+  imgXEliminado = 'assets/Imagenes Juego/JugadorXEliminado.png';
+  mostrarEliminados = false;
+  msjResultados = '';
+  msjR1 = 'Obteniendo Resultados de otros jugadores';
+  msjR2 = 'Revisando Resultados';
 
   //Musica compuesta
   playlist: string[] = [
     'assets/musicAndSFX/EpicPower_Inicio.mp3',
-    'assets/musicAndSFX/Epic_Power_Loop.mp3',    
+    'assets/musicAndSFX/Epic_Power_Loop.mp3',
   ];
   currentTrackIndex: number = 0;
 
-    constructor(
+  constructor(
     private renderer: Renderer2,
     private el: ElementRef,
     private encryptionService: EncryptionService,
     private router: Router,
+    private route: ActivatedRoute,
     private usuarioSalaService: UsuarioSalaService,
     private usuarioService: UsuarioService,
+    private salaJuegoService: SalaJuegoService,
+    private preguntaServicio: PreguntaService,
     private constantsService: ConstantsService,
     private messageService: MessageService
   ) {
@@ -209,44 +221,47 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tiempoDelJugador = 0; //Tiempo que se demora en contestar las preguntas, esto se acumula
   }
   ngOnInit() {
-   
-
     //MUSICA COMPUESTA
     this.playCurrentTrack();
 
-    if (!this.usuarioService.getIdUsuario()) {
-      this.router.navigate(['/']);
-    } else {
-      this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
-    }
+    this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
+
+    this.route.queryParams.subscribe((params) => {
+      let idSala = this.encryptionService.decrypt(params['idSala']);
+      if (idSala === '') {
+        history.back();
+      }
+      this.idSala = parseInt(idSala);
+    });
 
     //Obtengo nuevos jugadores
-    this.getNumJugadoresNuevos();
-    //Test para ve el numero cambiado
-    setTimeout(() => {
-      this.updateNumJugadores(6);
-    },2500);
+    //this.getNumJugadoresNuevos();
+    this.getListaBD(1);
 
+    //Test para ve el numero cambiado
+    /* setTimeout(() => {      
+      this.updateNumJugadores(this.numerodeJugadores);
+    }, 2500); */
 
     setTimeout(() => {
       this.mostrarModal(); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
-      //console.log("Entro");      
+      //console.log("Entro");
     }, this.tiempoMostrarPrimerModal);
 
     //this.idSala = this.PreguntasList[0].pregunta.idSala;//<-Activar cuando tenga preguntas
 
-    for (let i = 0; i < 6; i++) {
+    /* for (let i = 0; i < 6; i++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
-    }
-    console.log(this.listaDePreguntas);
+    } */
+    this.listPreguntas(this.idSala);
+    //console.log(this.listaDePreguntas);
     //this.listaDePreguntas = this.PreguntasList;//ACTIVAR CUANDO TERMINES DE TESTEAR <------------
 
     //Para las imagenes de los edificios principales
-
     this.rellenarPregunta(1);
     //this.updateCenters(window.innerWidth);
-    
-    this.generarCirculos(4);
+
+    //this.generarCirculos(4);
   }
   ngAfterViewInit() {}
 
@@ -254,29 +269,44 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     //this.modal.hide();
   }
 
+  listPreguntas(idSala: number) {
+    this.preguntaServicio.PregListOpList(1, idSala).subscribe({
+      next: (data: any) => {
+        const { error, list } = data.result;
+        if (error === 0) {
+          this.listaDePreguntas = list;
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
   //Para musica compuesta
   playCurrentTrack() {
-    this.musicaFondo = new Audio;
-    this.musicaFondo.src= this.playlist[this.currentTrackIndex];
+    this.musicaFondo = new Audio();
+    this.musicaFondo.src = this.playlist[this.currentTrackIndex];
     this.musicaFondo.load();
     this.musicaFondo.play();
-    this.musicaFondo.volume = 0.25; 
+    this.musicaFondo.volume = 0.25;
     this.musicaFondo.onended = () => {
       if (this.currentTrackIndex === 0) {
         this.currentTrackIndex = 1; // Pasa a la segunda pista
         this.playCurrentTrack();
       } else {
         // Reproduce la segunda pista en bucle
-        if(this.musicaFondo){
+        if (this.musicaFondo) {
           this.musicaFondo.play();
         }
-        
       }
     };
   }
 
   updateNumJugadores(nuevoNumero: number) {
-    console.log("Jugadores "+nuevoNumero);
+    console.log('Jugadores ' + nuevoNumero);
     this.animationState = 'changed';
     this.numerodeJugadores = nuevoNumero;
 
@@ -285,46 +315,49 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 200); // Restablece la animación después de 200 ms
   }
 
-
-  getNumJugadoresNuevos(){
-     //Obtener nuevo jugadores de la bd
-     const listaJugadoresBD = this.getListaBD();
-     this.updateNumJugadores(listaJugadoresBD.length);
-
-     //Comparar la lista de bd con la lista guardada
-     const listaNuevos = this.jugadoresSala.filter((elemento1) => {
-      return !listaJugadoresBD.some((elemento2) => elemento2.idUsuario == elemento1.idUsuario);
-    });
-
-    if(listaNuevos.length>0){
+  async getNumJugadoresNuevos() {
+    //Obtener nuevo jugadores de la bd
+    //let listaJugadoresBD = await this.getListaBD();
+    //console.log('listajugadores => ', listaJugadoresBD);
+    //this.updateNumJugadores(listaJugadoresBD.length);
+    //Comparar la lista de bd con la lista guardada
+    /* let listaNuevos = this.jugadoresSala.filter((elemento1) => {
+      return !listaJugadoresBD.some(
+        (elemento2) => elemento2.idJugador == elemento1.idJugador
+      );
+    }); */
+    /* if (listaNuevos.length > 0) {
       //Si hay nuevo jugadores los guardo en mi lista jugadores Sala
-      this.jugadoresSala=listaJugadoresBD;
+      console.log('listanuevos:', listaNuevos);
+      this.jugadoresSala = listaJugadoresBD;
       const textsAux: string[] = [];
 
       for (let i = 0; i < listaNuevos.length; i++) {
-        textsAux.push(listaNuevos[i].iniciales);        
+        textsAux.push(listaNuevos[i].iniciales);
       }
       //actualizo la lista de texto de los circulos animados
-      this.texts=textsAux;
-      this.generarCirculos(listaNuevos.length)
-    }
-
+      this.texts = textsAux;
+      this.generarCirculos(listaNuevos.length);
+    } */
   }
 
-  getNumJugadoresMuertos(){
-    console.log("Jugadores muertos");
+  async getNumJugadoresMuertos() {
+    console.log('Jugadores muertos');
     //Obtener nuevo jugadores de la bd
-    const listaJugadoresBD = this.getListaBD();
+    const listaJugadoresBD = await this.getListaBD(0);
+    console.log('muertos', listaJugadoresBD.length);
     const PosicionActual = this.numPreguntasContestadas;
-    
-    //Comparar la lista de bd con la lista guardada
-    
 
-    const valorInicial: { jugadoresMuertos: PuntosJugador[]; jugadoresVivos: PuntosJugador[] } = { jugadoresMuertos: [], jugadoresVivos: [] };
+    //Comparar la lista de bd con la lista guardada
+
+    const valorInicial: {
+      jugadoresMuertos: SalaJuego[];
+      jugadoresVivos: SalaJuego[];
+    } = { jugadoresMuertos: [], jugadoresVivos: [] };
 
     const { jugadoresMuertos, jugadoresVivos } = listaJugadoresBD.reduce(
       (result, jugador) => {
-        if (jugador.puntaje < PosicionActual) {
+        if (jugador.posicion < PosicionActual) {
           result.jugadoresMuertos.push(jugador);
         } else {
           result.jugadoresVivos.push(jugador);
@@ -339,99 +372,168 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     //Si solo hay un jugador vivo <-- comprobar si este usuario ganó
     const idJugador = this.usuarioService.getIdUsuario();
 
-    if(jugadoresVivos.length==1){
-      if(jugadoresVivos[0].idUsuario.toString() == idJugador ){
-        this.ganoJugador=true;
+    if (jugadoresVivos.length == 1) {
+      if (jugadoresVivos[0].idJugador.toString() == idJugador) {
+        this.ganoJugador = true;
       }
     }
 
-    if(jugadoresVivos.length==0){
-      this.repetirPregunta=true;
-
+    if (jugadoresVivos.length == 0) {
+      this.repetirPregunta = true;
     }
-        
 
-    let nuevosMuertos = jugadoresMuertos.filter(item1 => !this.eliminadosSave.find(item2 => item1.idUsuario === item2.idUsuario));
-    this.eliminadosSave=jugadoresMuertos;
+    let nuevosMuertos = jugadoresMuertos.filter(
+      (item1) =>
+        !this.eliminadosSave.find(
+          (item2) => item1.idJugador === item2.idJugador
+        )
+    );
+    this.eliminadosSave = jugadoresMuertos;
 
+    this.numerodeEliminados = nuevosMuertos.length;
 
-    this.numerodeEliminados=nuevosMuertos.length;  
-    
     console.log(jugadoresMuertos);
     console.log(nuevosMuertos);
     console.log(nuevosMuertos.length);
 
-   if(nuevosMuertos.length>0){
+    if (nuevosMuertos.length > 0) {
+      if (nuevosMuertos.length == 1) {
+        this.txtJugadorX = 'Jugador';
+      } else {
+        this.txtJugadorX = 'Jugadores';
+      }
 
-    if (nuevosMuertos.length==1) {
-      this.txtJugadorX="Jugador"      
-    }else{
-      this.txtJugadorX="Jugadores" 
+      //this.jugadoresSala=listaJugadoresBD;
+      const textsAux: string[] = [];
 
+      for (let i = 0; i < nuevosMuertos.length; i++) {
+        textsAux.push(nuevosMuertos[i].iniciales);
+      }
+      //actualizo la lista de texto de los circulos animados
+      this.texts = textsAux;
+      setTimeout(() => {
+        this.generarCirculos(nuevosMuertos.length);
+      }, 2500);
     }
-    
-     //this.jugadoresSala=listaJugadoresBD;
-     const textsAux: string[] = [];
-
-     for (let i = 0; i < nuevosMuertos.length; i++) {
-       textsAux.push(nuevosMuertos[i].iniciales);        
-     }
-     //actualizo la lista de texto de los circulos animados
-     this.texts=textsAux;
-     setTimeout(() => {
-      this.generarCirculos(nuevosMuertos.length)
-    },2500);
-     
-   }
-
- }
-
-  getListaBD(){
-    console.log("Obtengo los nuevos jugadores");
-    const listaJugadoresBD:PuntosJugador[] =[{
-      idUsuario: 1,
-      iniciales: 'AB',
-      usuario: 'Ana Benitez',
-      rol: '1',
-      idSala: 1,
-      sala: '1',
-      puntaje: 2,
-      tiempo: 0,
-      fecha_creacion: '',
-      fecha_modificacion: '',
-     },{
-      idUsuario: 2,
-      iniciales: 'FB',
-      usuario: 'Facebook',
-      rol: '1',
-      idSala: 1,
-      sala: '1',
-      puntaje: 4,
-      tiempo: 0,
-      fecha_creacion: '',
-      fecha_modificacion: '',
-     }]; //Lista de la bd TEST - ejemplo
-     return listaJugadoresBD;
   }
 
-  sendResultadoBD(){
-    console.log("Envié mis resultados");
-    this.puntosJugador.puntaje=this.puntosGanados;
-    this.puntosJugador.tiempo=this.tiempoDelJugador;
-  //COLOCAR FUNCION PARA ENVIAR A LA BD
+  async getListaBD(vistaCirculos: number): Promise<SalaJuego[]> {
+    console.log('Obtengo los nuevos jugadores');
 
+    let listaJugadoresBD: SalaJuego[] = []; //Lista de la bd de jugadores
+
+    this.salaJuegoService.getList(80, 1).subscribe({
+      next: (data: any) => {
+        let { error, info, lista } = data.result;
+        if (error === 0) {
+          listaJugadoresBD = lista;
+
+          if (listaJugadoresBD.length > 0) {
+            let jugadoresMuertos = listaJugadoresBD.filter((elemento1) => {
+              if (elemento1.estadoJuego === 0) {
+                return elemento1;
+              }
+              return null;
+            });
+
+            let jugadoresVivos = listaJugadoresBD.filter((elemento1) => {
+              if (elemento1.estadoJuego === 1) {
+                return elemento1;
+              }
+              return null;
+            });
+
+            console.log(
+              'JUGADORES MUERTOS Y VIVOS',
+              jugadoresMuertos,
+              jugadoresVivos
+            );
+
+            this.numerodeJugadores = jugadoresVivos.length;
+            if (vistaCirculos === 0) {
+              this.numerodeEliminados = jugadoresMuertos.length;
+              if (jugadoresMuertos.length > 1) {
+                this.txtJugadorX = 'Jugadores';
+              } else {
+                this.txtJugadorX = 'Jugador';
+              }
+
+              const textsAux: string[] = [];
+              for (let i = 0; i < jugadoresMuertos.length; i++) {
+                textsAux.push(jugadoresMuertos[i].iniciales);
+              }
+              //actualizo la lista de texto de los circulos animados
+              this.texts = textsAux;
+              this.generarCirculos(jugadoresMuertos.length);
+            } else if (vistaCirculos === 1) {
+              const textsAux: string[] = [];
+              for (let i = 0; i < jugadoresVivos.length; i++) {
+                textsAux.push(jugadoresVivos[i].iniciales);
+              }
+              //actualizo la lista de texto de los circulos animados
+              this.texts = textsAux;
+              this.generarCirculos(jugadoresVivos.length);
+            }
+
+            if (jugadoresVivos.length == 1) {
+              this.ganoJugador = true;
+            }
+          }
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+    return listaJugadoresBD;
   }
 
+  sendResultadoBD() {
+    console.log('Envié mis resultados');
+    /* this.puntosJugador.puntaje = this.puntosGanados;
+    this.puntosJugador.tiempo = this.tiempoDelJugador; */
+    let auxEstadoJuego = 0;
+    //COLOCAR FUNCION PARA ENVIAR A LA BD
+    // si es true contestó bien sigue vivo, pero si es false contestó mal esta muerto
+    if (this.isLife) {
+      auxEstadoJuego = 1;
+    } else {
+      auxEstadoJuego = 0;
+    }
 
-  generarCirculos(numCircles:number){
-    this.mostrarJugadorVivo=true;
-    const circlesAux: { left:number; top: number }[] = [];
+    let juego = {
+      idSala: this.idSala,
+      idJugador: this.idUsuario,
+      iniciales: 'PP',
+      posicion: 0,
+      estadoJuego: auxEstadoJuego,
+    };
+
+    this.salaJuegoService.updateItem(juego).subscribe({
+      next: (data: any) => {
+        let { error } = data.result;
+        if (error == 0) {
+          console.log('Posicion actualizada');
+        }
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  generarCirculos(numCircles: number) {
+    this.mostrarJugadorVivo = true;
+    const circlesAux: { left: number; top: number }[] = [];
 
     const minDistance = 50;
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
-    
-  
+
     for (let i = 0; i < numCircles; i++) {
       const circle = {
         left: this.getRandomNumber(50, window.innerWidth - 50), // Asegura que no se desborde en el ancho de la ventana
@@ -441,20 +543,16 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.circles = circlesAux;
 
-    if(this.numPreguntasContestadas+1>1){
+    if (this.numPreguntasContestadas + 1 > 1) {
       setTimeout(() => {
-        this.mostrarJugadorVivo=false;
-        
+        this.mostrarJugadorVivo = false;
       }, 1500);
-
     }
-   
-    
-}
+  }
 
-getRandomNumber(min:number, max:number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  getRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   mostrarModal() {
     //this.sidebarVisible4 = false;
@@ -478,7 +576,7 @@ getRandomNumber(min:number, max:number) {
     if (this.puedeResponder) {
       this.msjResultados = this.msjR1;
       //this.userClicked = true;
-      this.mostrarEspera=true;
+      this.mostrarEspera = true;
       //this.stopTimer(); // Detiene el temporizador principal
       this.userClickTime = new Date();
       this.puedeResponder = false;
@@ -488,116 +586,106 @@ getRandomNumber(min:number, max:number) {
       this.tiempoDelJugador =
         this.userClickTime.getTime() - this.startTime.getTime();
       //console.log(this.tiempoDelJugador);
-      this.mostrarMsjAnalisis=true;
+      this.mostrarMsjAnalisis = true;
 
-      if (respuestaSeleccionada.correcta == 1) 
-      {
+      if (respuestaSeleccionada.correcta == 1) {
         this.puntosGanados++;
-        this.isLife=true;
-        
-      }else{
+        this.isLife = true;
+      } else {
         this.Mensaje_error = 'Respuesta equivocada';
-        this.isLife=false;
+        this.isLife = false;
       }
 
-     // this.numPreguntasContestadas++;
+      // this.numPreguntasContestadas++;
 
       this.sendResultadoBD();
-
     }
   }
-
 
   //Despues del temporizador pregunta bien y mal contestada me controlaran las siguientes
 
   preguntaMalConstestada() {
-    this.mostrarEspera=true;//Mostrar cuanso se acaba el tiempo
-    this.msjResultados = this.msjR2;   
+    this.mostrarEspera = true; //Mostrar cuanso se acaba el tiempo
+    this.msjResultados = this.msjR2;
 
     //Mostramos resultados
     setTimeout(() => {
-      this.mostrarNumResp=true;
-      this.mostrarEspera=false;
+      this.mostrarNumResp = true;
+      this.mostrarEspera = false;
       this.mostrarWrongAlert = true;
-      this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');      
+      this.reproducirSonido('assets/musicAndSFX/QuizWrong.wav');
     }, this.tiempoMostrarRespuesta);
 
-   
-
-    //Cerramos el modal    
+    //Cerramos el modal
     setTimeout(() => {
-      this.mostrarNumResp=false;
+      this.mostrarNumResp = false;
       this.mostrarWrongAlert = false;
       this.modal.hide();
       //this.numPreguntasContestadas++;
       this.puedeResponder = true;
       this.countdown = this.tiempoPregunta;
       this.onClickCambiar();
-    }, this.tiempoMostrarRespuesta+5500); // 3000 milisegundos = 3 segundos
+    }, this.tiempoMostrarRespuesta + 5500); // 3000 milisegundos = 3 segundos
   }
 
-  preguntaBienContestada(){
-    this.msjResultados = this.msjR2;   
+  preguntaBienContestada() {
+    this.msjResultados = this.msjR2;
 
     //Mostramos resultados
     setTimeout(() => {
-      this.mostrarNumResp=true;
-      this.mostrarEspera=false;
+      this.mostrarNumResp = true;
+      this.mostrarEspera = false;
       this.mostrarAlert = true;
       this.reproducirSonido('assets/musicAndSFX/QuizCorrect.wav');
     }, this.tiempoMostrarRespuesta);
 
-     
-        setTimeout(() => {
-          this.mostrarNumResp=false;
-          this.mostrarAlert = false;
-          this.modal.hide();          
-          this.puedeResponder = true;
-          this.countdown = this.tiempoPregunta;
-        }, this.tiempoMostrarRespuesta+5500); 
+    setTimeout(() => {
+      this.mostrarNumResp = false;
+      this.mostrarAlert = false;
+      this.modal.hide();
+      this.puedeResponder = true;
+      this.countdown = this.tiempoPregunta;
+    }, this.tiempoMostrarRespuesta + 5500);
   }
 
-  pasarAOtraPregunta() {   
-        
+  pasarAOtraPregunta() {
     setTimeout(() => {
-      
-      this.mostrarEliminados=true;
+      this.mostrarEliminados = true;
     }, 3000);
 
-    if (this.repetirPregunta) {      
+    if (this.repetirPregunta) {
       setTimeout(() => {
         this.generarCirculos(2);
       }, this.tiempoMostrarOtraPregunta);
-    }    
+    }
 
     //Si toca repetir pregunta restamos 1 pregunta contestada
-    if(this.repetirPregunta){
-      this.numPreguntasContestadas--;      
+    if (this.repetirPregunta) {
+      this.numPreguntasContestadas--;
     }
 
     //Pasamos a la siguiente pregunta
     //Si gano jugador, terminar juego
-    if(this.ganoJugador){
+    if (this.ganoJugador) {
       setTimeout(() => {
         this.onClickCambiar();
       }, 5000);
-    }else{
+    } else {
       //Si aun no gana continuar con las preguntas
       if (this.numPreguntasContestadas + 1 < this.listaDePreguntas.length) {
-        setTimeout(() => {          
+        setTimeout(() => {
           this.rellenarPregunta(this.numPreguntasContestadas + 1);
-        }, this.tiempoMostrarModal-100);
-  
+        }, this.tiempoMostrarModal - 100);
+
         setTimeout(() => {
           this.mostrarModal();
         }, this.tiempoMostrarModal);
-      }    
-      else {
+      } else {
         setTimeout(() => {
           this.onClickCambiar();
         }, 5000);
       }
-    }    
+    }
   }
 
   rellenarPregunta(numPregunta: number) {
@@ -635,47 +723,41 @@ getRandomNumber(min:number, max:number) {
           this.countdown--; // Temporizador principal disminuye en segundos
         }
         if (this.countdown <= 0) {
-          this.numPreguntasContestadas++;  
+          this.numPreguntasContestadas++;
 
-          if (this.isLife) {  
-            if(!this.puedeResponder){
-              this.preguntaBienContestada()  
-            }         
-                               
-          }
-          else{
+          if (this.isLife) {
+            if (!this.puedeResponder) {
+              this.preguntaBienContestada();
+            }
+          } else {
             this.preguntaMalConstestada();
           }
-          if(this.puedeResponder){
-            console.log("No respondió");
-            this.isLife=false;
+          if (this.puedeResponder) {
+            console.log('No respondió');
+            this.isLife = false;
             this.sendResultadoBD();
             this.userClickTime = new Date();
             this.preguntaMalConstestada();
             this.Mensaje_error = 'Se acabo el tiempo';
           }
-          
-          
+
           this.puedeResponder = false;
           this.userClicked = true;
           //this.preguntaMalConstestada();
-          
-          
+
           this.stopTimer();
 
           setTimeout(() => {
-            this.getNumJugadoresMuertos();
+            console.log('AQUI get número muertos');
+            //this.getNumJugadoresMuertos();
+            this.getListaBD(0);
+          }, 1000);
 
-          },1000);
-
-          if(this.isLife || this.repetirPregunta){
+          if (this.isLife || this.repetirPregunta) {
             setTimeout(() => {
               this.pasarAOtraPregunta();
             }, 3000);
-            
           }
-          
-          
         }
       }, 1000); // El temporizador principal se actualiza cada segundo (1000 ms)
     }
@@ -711,6 +793,7 @@ getRandomNumber(min:number, max:number) {
     // @ts-ignore
     this.musicaFondo.currentTime = 0;
     //this.numVentanaH.emit(3); //1 para la ventana inicio sala, 2 para el juego y 3 para la ventana de resultados
+
     this.guardarPuntaje(this.puntosJugador);
   }
 
@@ -725,7 +808,11 @@ getRandomNumber(min:number, max:number) {
             detail: 'ha ocurrido un error con la conexión',
           });
         } else {
-          this.cambiarPag('/RankingChallengers', this.idSala);
+          if (this.isLife) {
+            this.cambiarPag('/RankingChallengers', this.idSala, this.idUsuario);
+          } else {
+            this.cambiarPag('/SurvivorResult', this.idSala, this.idUsuario);
+          }
         }
       },
       error: (e) => {
@@ -736,10 +823,10 @@ getRandomNumber(min:number, max:number) {
     });
   }
 
-
-  cambiarPag(ruta: string, id: number) {
+  cambiarPag(ruta: string, id: number, id2: number) {
     let idSala = this.encryptionService.encrypt(id.toString());
-    let params = { idSala };
+    let idUsuario = this.encryptionService.encrypt(id2.toString());
+    let params = { idSala, idUsuario };
     this.router.navigate([ruta], { queryParams: params });
   }
 }

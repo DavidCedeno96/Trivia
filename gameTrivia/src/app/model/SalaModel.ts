@@ -23,6 +23,7 @@ export interface SalaJuego {
   idJugador: number;
   iniciales: string;
   posicion: number;
+  estadoJuego: number;
 }
 
 export interface Pregunta {

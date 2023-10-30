@@ -39,7 +39,8 @@ namespace WebApiRest.Data
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         IdJugador = Convert.ToInt32(dr["idJugador"].ToString()),
                         Iniciales = dr["iniciales"].ToString(),
-                        Posicion = Convert.ToInt32(dr["posicion"].ToString()),                        
+                        Posicion = Convert.ToInt32(dr["posicion"].ToString()),
+                        EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),
                     });
                 }
                 dr.NextResult();
@@ -113,6 +114,7 @@ namespace WebApiRest.Data
 
             cmd.Parameters.AddWithValue("@idSala", juego.IdSala);
             cmd.Parameters.AddWithValue("@idJugador", juego.IdJugador);
+            cmd.Parameters.AddWithValue("@estadoJuego", juego.EstadoJuego);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
