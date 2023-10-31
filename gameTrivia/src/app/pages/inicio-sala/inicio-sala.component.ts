@@ -29,7 +29,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class InicioSalaComponent implements OnInit, AfterViewInit {
   //Temporizador para survivor
   private countdown: any = 10;
-  public minutes: number = 3;
+  public minutes: number = 1;
   public seconds: number = 0;
   private endDate: Date = new Date();
 

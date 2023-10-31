@@ -423,21 +423,27 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           listaJugadoresBD = lista;
 
           if (listaJugadoresBD.length > 0) {
-            let jugadoresMuertos = listaJugadoresBD.filter((elemento1) => {
-              if (elemento1.estadoJuego === 0) {
-                return elemento1;
+            let jugadoresMuertos: SalaJuego[] = listaJugadoresBD.filter(
+              (elemento1) => {
+                if (elemento1.estadoJuego === 0) {
+                  return elemento1;
+                }
+                return null;
               }
-              return null;
-            });
+            );
 
-            let jugadoresVivos = listaJugadoresBD.filter((elemento1) => {
-              if (elemento1.estadoJuego === 1) {
-                return elemento1;
+            let jugadoresVivos: SalaJuego[] = listaJugadoresBD.filter(
+              (elemento1) => {
+                if (elemento1.estadoJuego === 1) {
+                  return elemento1;
+                }
+                return null;
               }
-              return null;
-            });
+            );
 
             this.numerodeJugadores = jugadoresVivos.length;
+
+            //console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
 
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;

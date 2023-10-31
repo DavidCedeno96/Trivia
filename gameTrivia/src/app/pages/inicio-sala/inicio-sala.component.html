@@ -81,7 +81,13 @@
           <!--Temporizador para el modo SURVIVOR-->
           <div
             class="container"
-            *ngIf="miSala.modoJuego == 'Supervivencia' && miSala.estado > 0 && minutes>0 && seconds>0 &&  miSala.cantJugadas == 0 "
+            *ngIf="
+              miSala.modoJuego == 'Supervivencia' &&
+              miSala.estado > 0 &&
+              minutes >= 0 &&
+              seconds > 0 &&
+              miSala.cantJugadas == 0
+            "
           >
             <div class="row">
               <div
@@ -117,11 +123,16 @@
           <!--Mensaje si llegó tarde a la sala SURVIVOR-->
           <div
             class="textmsj my-3 mb-2"
-            *ngIf="miSala.modoJuego == 'Supervivencia' && miSala.estado > 0 && minutes<=0 && seconds<=0 &&  miSala.cantJugadas == 0 "
+            *ngIf="
+              miSala.modoJuego == 'Supervivencia' &&
+              miSala.estado > 0 &&
+              minutes <= 0 &&
+              seconds <= 0 &&
+              miSala.cantJugadas == 0
+            "
           >
             <div>Lo sentimos, llegaste tarde para jugar en esta sala.</div>
           </div>
-
 
           <div class="textmsj my-3 mb-2" *ngIf="miSala.estado === 0">
             <div>Mantente a la espera,</div>

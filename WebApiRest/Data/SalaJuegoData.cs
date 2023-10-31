@@ -63,6 +63,59 @@ namespace WebApiRest.Data
             return list;
         }
 
+        public SalaJuegoList GetSalaJuegoListByIds(int idSala, int idJugador)
+        {
+            SalaJuegoList list = new()
+            {
+                Lista = new()
+            };
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+
+            SqlCommand cmd = new("sp_B_SalaJuegoByIds", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@idSala", idSala);
+            cmd.Parameters.AddWithValue("@idJugador", idJugador);
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    list.Lista.Add(new SalaJuego()
+                    {
+                        IdSala = Convert.ToInt32(dr["idSala"].ToString()),
+                        IdJugador = Convert.ToInt32(dr["idJugador"].ToString()),
+                        Iniciales = dr["iniciales"].ToString(),
+                        Posicion = Convert.ToInt32(dr["posicion"].ToString()),
+                        EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),
+                    });
+                }
+                dr.NextResult();
+
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;
+
+            }
+            catch (Exception ex)
+            {
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return list;
+        }
+
         public Response CreateSalaJuego(SalaJuego juego)
         {
             Response response = new();

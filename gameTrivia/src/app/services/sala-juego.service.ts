@@ -18,6 +18,12 @@ export class SalaJuegoService {
     );
   }
 
+  getListByIds(idSala: number, idJugador: number): Observable<SalaJuego[]> {
+    return this.http.get<SalaJuego[]>(
+      `${this.apiURL}/listByIds/${idSala}/${idJugador}`
+    );
+  }
+
   createItem(salaJuego: SalaJuego) {
     return this.http.post<SalaJuego>(`${this.apiURL}/create`, salaJuego);
   }
