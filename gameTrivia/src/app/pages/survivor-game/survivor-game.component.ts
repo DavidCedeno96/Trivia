@@ -598,6 +598,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   preguntaMalConstestada() {
     this.mostrarEspera = true; //Mostrar cuanso se acaba el tiempo
     this.msjResultados = this.msjR2;
+    this.isLife = false;
 
     //Mostramos resultados
     setTimeout(() => {
