@@ -245,21 +245,15 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     setTimeout(() => {
       this.mostrarModal(); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
-      //console.log("Entro");
     }, this.tiempoMostrarPrimerModal);
-
-    //this.idSala = this.PreguntasList[0].pregunta.idSala;//<-Activar cuando tenga preguntas
 
     /* for (let i = 0; i < 6; i++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
     } */
     this.listPreguntas(this.idSala);
-    //console.log(this.listaDePreguntas);
-    //this.listaDePreguntas = this.PreguntasList;//ACTIVAR CUANDO TERMINES DE TESTEAR <------------
 
     //Para las imagenes de los edificios principales
     this.rellenarPregunta(1);
-    //this.updateCenters(window.innerWidth);
 
     //this.generarCirculos(4);
   }
@@ -315,18 +309,18 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 200); // Restablece la animación después de 200 ms
   }
 
-  async getNumJugadoresNuevos() {
+  /* async getNumJugadoresNuevos() {
     //Obtener nuevo jugadores de la bd
     //let listaJugadoresBD = await this.getListaBD();
     //console.log('listajugadores => ', listaJugadoresBD);
     //this.updateNumJugadores(listaJugadoresBD.length);
     //Comparar la lista de bd con la lista guardada
-    /* let listaNuevos = this.jugadoresSala.filter((elemento1) => {
+    let listaNuevos = this.jugadoresSala.filter((elemento1) => {
       return !listaJugadoresBD.some(
         (elemento2) => elemento2.idJugador == elemento1.idJugador
       );
-    }); */
-    /* if (listaNuevos.length > 0) {
+    });
+    if (listaNuevos.length > 0) {
       //Si hay nuevo jugadores los guardo en mi lista jugadores Sala
       console.log('listanuevos:', listaNuevos);
       this.jugadoresSala = listaJugadoresBD;
@@ -338,13 +332,13 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       //actualizo la lista de texto de los circulos animados
       this.texts = textsAux;
       this.generarCirculos(listaNuevos.length);
-    } */
-  }
+    }
+  } */
 
-  async getNumJugadoresMuertos() {
+  /* getNumJugadoresMuertos() {
     console.log('Jugadores muertos');
     //Obtener nuevo jugadores de la bd
-    const listaJugadoresBD = await this.getListaBD(0);
+    const listaJugadoresBD = this.getListaBD(0);
     console.log('muertos', listaJugadoresBD.length);
     const PosicionActual = this.numPreguntasContestadas;
 
@@ -415,14 +409,14 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         this.generarCirculos(nuevosMuertos.length);
       }, 2500);
     }
-  }
+  } */
 
-  async getListaBD(vistaCirculos: number): Promise<SalaJuego[]> {
-    console.log('Obtengo los nuevos jugadores');
+  getListaBD(vistaCirculos: number) {
+    console.log('Ingreso de jugadores :D');
 
     let listaJugadoresBD: SalaJuego[] = []; //Lista de la bd de jugadores
 
-    this.salaJuegoService.getList(80, 1).subscribe({
+    this.salaJuegoService.getList(this.idSala, 0).subscribe({
       next: (data: any) => {
         let { error, info, lista } = data.result;
         if (error === 0) {
@@ -443,13 +437,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               return null;
             });
 
-            console.log(
-              'JUGADORES MUERTOS Y VIVOS',
-              jugadoresMuertos,
-              jugadoresVivos
-            );
-
             this.numerodeJugadores = jugadoresVivos.length;
+
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
               if (jugadoresMuertos.length > 1) {
@@ -479,6 +468,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               this.ganoJugador = true;
             }
           }
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.constantsService.mensajeError(),
+            detail: 'ha ocurrido un error con la conexión',
+          });
         }
       },
       error: (e) => {
@@ -487,15 +482,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },
     });
-    return listaJugadoresBD;
   }
 
   sendResultadoBD() {
-    console.log('Envié mis resultados');
-    /* this.puntosJugador.puntaje = this.puntosGanados;
-    this.puntosJugador.tiempo = this.tiempoDelJugador; */
+    console.log('mis resultados');
     let auxEstadoJuego = 0;
-    //COLOCAR FUNCION PARA ENVIAR A LA BD
     // si es true contestó bien sigue vivo, pero si es false contestó mal esta muerto
     if (this.isLife) {
       auxEstadoJuego = 1;
@@ -748,7 +739,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           this.stopTimer();
 
           setTimeout(() => {
-            console.log('AQUI get número muertos');
+            console.log('jugadores muertos');
             //this.getNumJugadoresMuertos();
             this.getListaBD(0);
           }, 1000);

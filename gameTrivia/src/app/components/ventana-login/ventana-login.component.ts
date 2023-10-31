@@ -43,6 +43,8 @@ export class VentanaLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.constantsService.loading(false);
+    const url = window.location;
+    console.log(url.origin);
 
     // Recupera los datos guardados desde el almacenamiento local
     this.localStorage.get('user').subscribe((nombre) => {
