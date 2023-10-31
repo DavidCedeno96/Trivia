@@ -91,11 +91,16 @@ create table SalaReciente( -- este es para las salas recientes visitadas
 );
 
 -----------------------------------------------------------------
-select * from SalaJuego
-select * from SalaReciente
-------------------------------------------------------------------------------------
 select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
+
+select * from SalaReciente
+select * from SalaJuego
+select * from usuario_sala
+------------------------------------------------------------------------------------
+
+truncate table usuario_sala
+truncate table salaJuego
 ------------------------------------------------------------------------------------
 Insert into Rol (nombre) values 
 ('Administrador'),
@@ -106,7 +111,8 @@ Insert into ModoJuego (nombre, imagen) values
 ('Challenger','img1.jpg'),
 ('Supervivencia','img2.jpg')
 
---insert into Usuario (nombre, correo, clave, idRol) values ()
+--insert into Usuario (nombre, clave, idRol) values 
+--('Super CMI', 'admincmi', 3)
 
 --Insert into Sala (nombre, imagen, idModoJuego) values
 --('Sala 1', 'imge1.jpg', 1)
@@ -130,9 +136,6 @@ Insert into ModoJuego (nombre, imagen) values
 --Insert into Usuario (nombre, apellido, correo, clave, idRol) values
 --('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
 ------------------------------------------------------------------------------------
-
-truncate table usuario_sala
-truncate table salaJuego
 
 ---- ROL ---------------------------------------------
 exec sp_B_Rol
