@@ -177,10 +177,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         if (timeRemaining <= 2000 && timeRemaining >= 1000) {
           // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
           this.constantsService.loading(true);
-          this.createPosicion();
-          setTimeout(() => {
-            this.cambiarPag('/JuegoSupervivencia', this.miSala.idSala);
-          }, 1500);
+          this.createPosicion(2);
         }
         // Llama a setTimeout para actualizar el temporizador cada segundo.
         this.countdown = setTimeout(updateTimer, 1000);
@@ -212,8 +209,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       });
     } else {
       this.constantsService.loading(true);
-      this.createPosicion();
-      this.onClickCambiar();
+      this.createPosicion(1);
     }
   }
 
@@ -231,7 +227,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/MisSalas']);
   }
 
-  createPosicion() {
+  createPosicion(IdModoJuego: number) {
     let juego = {
       idSala: this.miSala.idSala,
       idJugador: this.idJugador,
@@ -244,6 +240,11 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       next: (data: any) => {
         let { error } = data.result;
         if (error === 0) {
+          if (IdModoJuego === 1) {
+            this.onClickCambiar();
+          } else if (IdModoJuego === 2) {
+            this.cambiarPag('/JuegoSupervivencia', this.miSala.idSala);
+          }
           this.constantsService.loading(false);
         }
       },
