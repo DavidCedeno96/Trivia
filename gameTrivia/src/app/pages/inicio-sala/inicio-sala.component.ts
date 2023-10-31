@@ -243,9 +243,11 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           if (IdModoJuego === 1) {
             this.onClickCambiar();
           } else if (IdModoJuego === 2) {
-            this.cambiarPag('/JuegoSupervivencia', this.miSala.idSala);
+            setTimeout(() => {
+              this.constantsService.loading(false);
+              this.cambiarPag('/JuegoSupervivencia', this.miSala.idSala);
+            }, 4500);
           }
-          this.constantsService.loading(false);
         }
       },
       error: (e) => {
