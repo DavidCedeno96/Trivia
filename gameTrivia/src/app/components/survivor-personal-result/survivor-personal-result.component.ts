@@ -71,7 +71,7 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
   }
 
   getInfoResultJugador(idSala: number, idJugador: number) {
-    this.salaJuegoService.getListByIds(idSala, idJugador).subscribe({
+    this.salaJuegoService.getList(idSala, 0).subscribe({
       next: (data: any) => {
         let { info, error, lista } = data.result;
         this.info = info;

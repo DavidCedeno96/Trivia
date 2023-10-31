@@ -311,6 +311,12 @@ exec sp_B_SalaJuego
 @info = '',
 @error = ''
 
+exec sp_B_SalaJuegoByIds
+@idSala = 80,		
+@idJugador = 9,
+@info = '',
+@error = ''
+
 exec sp_C_SalaJuego	
 @idSala = 80,
 @idJugador = 33,
