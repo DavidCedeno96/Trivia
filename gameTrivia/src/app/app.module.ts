@@ -39,7 +39,7 @@ import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen
 
 import { NgxSliderModule } from 'ngx-slider-v2';
 
-import { authGuard } from './auth.guard';
+import { authGuard, authGuardAdmin, authGuardPlayer } from './auth.guard';
 
 import { InicioSalaComponent } from './pages/inicio-sala/inicio-sala.component';
 import { ChallengersGameComponent } from './pages/challengers-game/challengers-game.component';
@@ -99,28 +99,28 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'Administrador',
         component: AdminComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuardAdmin],
       },
       {
         path: 'CrearSala',
         component: CrearSalaComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuardAdmin],
       },
-      { path: 'Sala', component: SalaComponent, canActivate: [authGuard] },
+      { path: 'Sala', component: SalaComponent, canActivate: [authGuardAdmin] },
       {
         path: 'Editar_pregunta',
         component: EditarPreguntaComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuardAdmin],
       },
       {
         path: 'Ingresar_Imagen',
         component: IngresarImagenComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuardAdmin],
       },
       {
         path: 'MisSalas',
         component: PlayerComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'Resultados',
@@ -130,22 +130,22 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'InicioSala',
         component: InicioSalaComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'JuegoChallengers',
         component: ChallengersGameComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'JuegoSupervivencia',
         component: SurvivorGameComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'EntradaSala',
         component: EntradaSalaComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'RankingChallengers',
@@ -155,7 +155,7 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'SurvivorResult',
         component: SurvivorPersonalResultComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
     ]),
   ],

@@ -35,7 +35,7 @@ export const authGuardAdmin: CanActivateFn = (route, state) => {
     if (usuarioServicio.getRol() == '1' || usuarioServicio.getRol() == '3' ) {
       return true;
     } else{
-      return true;
+      return false;
     }
   } else {
     return false;
@@ -49,7 +49,7 @@ export const authGuardPlayer: CanActivateFn = (route, state) => {
     if (usuarioServicio.getRol() == '2' ) {
       return true;
     } else{
-      return true;
+      return false;
     }
   } else {
     return false;
