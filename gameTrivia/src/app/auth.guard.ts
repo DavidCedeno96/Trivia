@@ -50,7 +50,11 @@ export const authGuardPlayer: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (usuarioServicio.loggedIn()) {
-    if (usuarioServicio.getRol() == '2') {
+    if (
+      usuarioServicio.getRol() == '2' ||
+      usuarioServicio.getRol() == '1' ||
+      usuarioServicio.getRol() == '3'
+    ) {
       return true;
     } else {
       router.navigate(['/Iniciar_Sesion']);

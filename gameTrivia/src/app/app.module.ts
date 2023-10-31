@@ -51,7 +51,6 @@ import { SurvivorGameComponent } from './pages/survivor-game/survivor-game.compo
 import { ClipboardModule } from 'ngx-clipboard';
 import { SurvivorPersonalResultComponent } from './components/survivor-personal-result/survivor-personal-result.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +71,6 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
     EntradaSalaComponent,
     SurvivorGameComponent,
     SurvivorPersonalResultComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -125,7 +123,7 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'Resultados',
         component: ResultadosAdminComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'InicioSala',
@@ -150,7 +148,7 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'RankingChallengers',
         component: RankingChallengerComponent,
-        //canActivate: [authGuard],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'SurvivorResult',

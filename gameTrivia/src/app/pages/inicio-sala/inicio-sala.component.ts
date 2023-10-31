@@ -146,7 +146,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
       },
       error: (e) => {
         if (e.status === 401) {
-          this.router.navigate(['/Iniciar_Sesion']);
+          this.router.navigate(['/']);
         }
       },
     });

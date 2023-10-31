@@ -31,11 +31,15 @@ export class UsuarioService {
   }
 
   logout() {
+    this.removeLocalItems();
+    this.router.navigate(['/Iniciar_Sesion']);
+  }
+
+  removeLocalItems() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('user');
     localStorage.removeItem('rol');
-    this.router.navigate(['/Iniciar_Sesion']);
   }
 
   getToken() {

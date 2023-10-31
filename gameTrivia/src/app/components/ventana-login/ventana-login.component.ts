@@ -45,12 +45,13 @@ export class VentanaLoginComponent implements OnInit {
     this.constantsService.loading(false);
     const url = window.location;
     console.log(url.origin);
+    this.usuarioServicio.removeLocalItems();
 
     // Recupera los datos guardados desde el almacenamiento local
     this.localStorage.get('user').subscribe((nombre) => {
       if (typeof nombre == 'string') {
         this.loginUsuario.nombre = nombre;
-        console.log(this.loginUsuario.nombre);
+        //console.log(this.loginUsuario.nombre);
       }
     });
 

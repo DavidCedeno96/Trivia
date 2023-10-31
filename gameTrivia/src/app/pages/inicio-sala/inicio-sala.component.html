@@ -148,6 +148,19 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="miSala.cantJugadas > 0">
+      <div class="col align-items-center my-2">
+        <div class="text-center">
+          <button
+            class="btn btn-secondary btn-lg px-5"
+            (click)="cambiarPag('/RankingChallengers', miSala.idSala)"
+          >
+            Ranking
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col align-items-center my-2">
         <div class="text-center">
