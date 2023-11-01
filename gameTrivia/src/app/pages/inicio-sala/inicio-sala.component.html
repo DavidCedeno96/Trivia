@@ -110,31 +110,30 @@
             "
           >
             <div class="row">
-              <div
-                class="col-12 d-flex align-items-center justify-content-center"
-              >
-                <div></div>
-                <div
-                  style="
-                    position: relative;
-                    width: 100px;
-                    width: 100px;
+              <div class="col-12 d-flex align-items-center justify-content-center position-relative" >
+               
+                <div style=" position: relative;
+                    
                     font-weight: bold;
-                  "
-                >
+                  ">
                   <img
-                    src="assets/Imagenes Juego/STiempo.png"
-                    style="height: 70px; width: auto"
+                    src="assets/Imagenes Juego/S2Reloj.png"
+                    style="height: 60px; width: auto"
                     alt="reloj"
                   />
                 </div>
-                <div id="RELOJ" style="position: absolute">
-                  <span style="font-weight: bold; color: #dc8127"
+
+                <div id="RELOJ" class="position-absolute top-50 start-50 translate-middle" style="font-size: 25px;">
+                  <div style="transform: translate(15px,0px);">
+                    <span style="font-weight: bold; color: #dc8127"
                     >0{{ minutes }}:</span
                   >
                   <span style="font-weight: bold; color: #dc8127">{{
                     seconds | number : "2.0-0"
                   }}</span>
+
+                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -207,4 +206,8 @@
       ></button>
     </ng-template>
   </p-confirmDialog>
+
+  <div class="container" style="height: 15px;">
+
+  </div>
 </body>
