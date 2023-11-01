@@ -25,6 +25,10 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
   InicialesJugador: string = 'CMI';
   NombreJugador: string = '';
   Posicion: number = 0;
+  fondoGanar=false;
+  imgJugadorVivo="assets/Imagenes Juego/S3CirculoPlayer.png";
+
+
 
   constructor(
     private router: Router,
@@ -38,7 +42,7 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
+    /* this.route.queryParams.subscribe((params) => {
       let idSala = this.encryptionService.decrypt(params['idSala']);
       let idUsuario = this.encryptionService.decrypt(params['idUsuario']);
       if (idSala === '' || idUsuario === '') {
@@ -46,7 +50,7 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
       }
       this.idUsuario = parseInt(idUsuario);
       this.idSala = parseInt(idSala);
-    });
+    }); */
 
     this.getInfoResultJugador(this.idSala, this.idUsuario);
 
