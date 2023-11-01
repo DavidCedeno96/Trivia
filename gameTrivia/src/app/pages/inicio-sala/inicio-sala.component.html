@@ -1,16 +1,36 @@
 <body
   class="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;"
 >
-  <div class="container-fluid">
-    <div class="extra-container"></div>
+  <div>
+    
     <div class="row align-items-center text-center">
-      <div class="col-12 py-3">
-        <!-- Contenido izquierdo foto -->
-        <img
+      
+      <div class="col-12">
+        <div class="container-orange"> 
+          <div class="extra-container"></div>               
+          <div class="row text-center ">
+            <div class="col">
+              <img
+                src="assets/Imagenes Empresa/LogoBlanco_App.png"
+                style="height: 80px; width: auto"
+                alt="Imagen"
+                class="image-inside-container"
+              />
+            </div>
+          </div>
+          <div class="extra-container"></div>
+      
+          <!-- Mensaje error -->
+          <div class="mb-3 px-md-5" *ngIf="existeError" style="color: #3d5057">
+            {{ result }}
+          </div>
+        </div>
+        
+        <!-- <img
           src="assets/Imagenes Empresa/Logo_App.png"
           alt="Imagen"
           class="img-fluid"
-        />
+        /> -->
       </div>
       <!-- TITULO-->
       <div class="col-sm-12 col-lg-12 text-center">

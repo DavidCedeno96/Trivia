@@ -38,7 +38,7 @@
 
 
 .container{
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   
   justify-content: center;
@@ -55,36 +55,78 @@
 }
 
     /* Estilo para dispositivos LG */
-    @media (min-width: 992px) {
-      .circle-lg{
-          width: 400px;
-          height: 400px;
+@media (min-width: 992px) {
+  .txtYo{
+    font-size: 55px;
+    font-weight: bold;
+  }
+  .imgYo{
+    min-width: 250px;
+    max-width: 350px;
+    height: auto;
+  }
+  .circle-lg{
+    width: 400px;
+    height: 400px;
+  }
+  .imgPreguntas{
+    background-image: url('../../../assets/Imagenes Juego/jugadorMuerto.png');
+  }
+  .imgEliminados{
+    background-image: url('../../../assets/Imagenes Juego/Campero.png');
+  }
+}
 
-      }
-    }
-    
-    @media (min-width: 577px) and (max-width: 991px) {
-      
-      .circle-md{
-          width: 300px;
-          height: 300px;
+.imgArriba{
+  min-width: 100%; height: auto;
+}
 
-      }
-    }
+@media (min-width: 577px) and (max-width: 991px) {
+  .txtYo{
+    font-size: 45px;
+    font-weight: bold;
+  }
+  .imgYo{
+    min-width: 220px;
+    height: auto;
+    max-width: 300px;
+  }
+  .circle-md{
+    width: 300px;
+    height: 300px;
+  }
+  .imgPreguntas{
+    background-image: url('../../../assets/Imagenes Juego/jugadorMuerto.png');
     
-    
-    
-    /* Estilo para dispositivos SM */
-    @media (max-width: 576px) {
-      
-      
-      .circle-sm{
-          width: 200px;
-          height: 200px;
+  }
+  .imgEliminados{
+    background-image: url('../../../assets/Imagenes Juego/Campero.png');
+}
 
-      }
-     
-    }
+}
+      
+/* Estilo para dispositivos SM */
+@media (max-width: 576px) {
+  .txtYo{
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .imgYo{
+    max-width: 60%;
+    /* min-width: 70%; */
+    height: auto;
+  }
+  .circle-sm{
+    width: 200px;
+    height: 200px;
+  }
+  .imgPreguntas{
+    background-image: url('../../../assets/Imagenes Juego/Industria.png');
+  }
+  .imgEliminados{
+    background-image: url('../../../assets/Imagenes Juego/JugadorXEliminado.png');
+  }
+}
 
     .containerMsj {
       position: absolute;
@@ -92,7 +134,7 @@
       margin: 0;
       width: 100%;
       height:100%;
-      background-color: rgba(0, 0, 0, 0.75); 
+      background-color: rgba(0, 0, 0, 0.884); 
       z-index: 4;        
       color: white;
       display: flex;
@@ -278,6 +320,24 @@ background-attachment: fixed; /* Fija la imagen de fondo */
   background-image: url('../../../assets/Imagenes Juego/SF3movil.png');
 }
 }
+
+.elementScroll {  
+  min-width: 100%;
+  overflow-y: auto;
+}
+
+#image-container {
+  max-height: 300px; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto;
+}
+
+.custom-image {
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  height: auto;
+  max-width: 100%; /* Para asegurarse de que la imagen no se extienda más allá de su contenedor */
+}
+
+
 
 
     

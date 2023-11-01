@@ -66,7 +66,7 @@ const routes: Routes = [
   {
     path: 'JuegoSupervivencia',
     component: SurvivorGameComponent,
-    canActivate: [authGuardPlayer],
+    //canActivate: [authGuardPlayer],
   },
   {
     path: 'EntradaSala',
@@ -81,7 +81,7 @@ const routes: Routes = [
   {
     path: 'SurvivorResult',
     component: SurvivorPersonalResultComponent,
-    canActivate: [authGuardPlayer],
+   // canActivate: [authGuardPlayer],
   },
 
 ];

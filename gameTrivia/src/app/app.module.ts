@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
+import { KnobModule } from 'primeng/knob';
+
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -82,6 +84,8 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
+    
+    KnobModule,
     NgxSliderModule,
     SliderModule,
     SidebarModule,
@@ -138,7 +142,7 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'JuegoSupervivencia',
         component: SurvivorGameComponent,
-        canActivate: [authGuardPlayer],
+        //canActivate: [authGuardPlayer],
       },
       {
         path: 'EntradaSala',
