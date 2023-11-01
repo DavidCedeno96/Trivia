@@ -95,8 +95,8 @@ select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
 
 select * from SalaReciente
-select * from SalaJuego
 select * from usuario_sala
+select * from salaJuego
 ------------------------------------------------------------------------------------
 
 truncate table usuario_sala

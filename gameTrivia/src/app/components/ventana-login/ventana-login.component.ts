@@ -126,8 +126,9 @@ export class VentanaLoginComponent implements OnInit {
             });
           }
 
-          //Ruta para el jugador
+          this.constantsService.startWatching();
 
+          //Ruta para el jugador
           if (idRol == 2) {
             this.router.navigate(['/MisSalas']);
           }

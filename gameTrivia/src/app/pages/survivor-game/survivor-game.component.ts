@@ -168,7 +168,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   texts: string[] = ['AB', 'DC', 'CMI', 'AC'];
 
   //Jugadores Eliminados
-  idJugador = 0;
+  //idJugador = 0;
   //jugadoresSala: SalaJuego[] = [];
   mostrarEspera: boolean = false;
   isLife: boolean = true;
@@ -203,27 +203,26 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   currentTrackIndex: number = 0;
 
   //NUEVA LISTA
-  jugadoresSurvivor: SalaJuego[]=[];
-  //jugador para testear
+  jugadoresSurvivor: SalaJuego[] = [];
+
   jugador: SalaJuego = {
     idSala: 0,
     idJugador: 0,
-    iniciales: "MM",
+    iniciales: 'MM',
     posicion: 0,
-    estadoJuego: 0,};
+    estadoJuego: 0,
+  };
 
-    //Temporizador para revisar los resultados
-    timer: any;
-    remainingTime = 6; // Tiempo en segundos
-    valorKnob=0;
+  //Temporizador para revisar los resultados
+  timer: any;
+  remainingTime = 6; // Tiempo en segundos
+  valorKnob = 0;
 
-    //Mostrar jugador o jugadores
-    jugadorYo=true;
-    inicialesYo="";
-    viewotrosjugadores=true;
-    fondoPreguntas=true;
-    
-    
+  //Mostrar jugador o jugadores
+  jugadorYo = true;
+  inicialesYo = '';
+  viewotrosjugadores = true;
+  fondoPreguntas = true;
 
   constructor(
     private renderer: Renderer2,
@@ -249,17 +248,17 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.idUsuario = parseInt(this.usuarioService.getIdUsuario()!);
 
-   this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe((params) => {
       let idSala = this.encryptionService.decrypt(params['idSala']);
       if (idSala === '') {
         history.back();
       }
       this.idSala = parseInt(idSala);
-    }); 
+    });
 
     //Obtengo nuevos jugadores
     //this.getNumJugadoresNuevos();
-    this.getListaBD(1);//ACTIVAR CUANDO TERMINES DE TESTEAR <------------
+    this.getListaBD(1); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
 
     //Test para ve el numero cambiado
     /* setTimeout(() => {      
@@ -267,12 +266,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 2500); */
 
     setTimeout(() => {
-      this.jugadorYo=false;
-      this.viewotrosjugadores=false;
+      this.jugadorYo = false;
+      this.viewotrosjugadores = false;
       this.mostrarModal(); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
     }, this.tiempoMostrarPrimerModal);
 
-/*      for (let i = 0; i < 6; i++) {
+    /*      for (let i = 0; i < 6; i++) {
       this.listaDePreguntas.push(this.preguntaOpcionActual);
     } 
 
@@ -280,7 +279,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.jugadoresSurvivor.push(this.jugador);      
       
     } */
-    this.listPreguntas(this.idSala);//ACTIVAR CUANDO TERMINES DE TESTEAR <------------
+    this.listPreguntas(this.idSala); //ACTIVAR CUANDO TERMINES DE TESTEAR <------------
 
     //Para las imagenes de los edificios principales
     this.rellenarPregunta(1);
@@ -442,7 +441,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   } */
 
   getListaBD(vistaCirculos: number) {
-   // console.log('Ingreso de jugadores :D');
+    // console.log('Ingreso de jugadores :D');
 
     let listaJugadoresBD: SalaJuego[] = []; //Lista de la bd de jugadores
 
@@ -451,6 +450,15 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         let { error, info, lista } = data.result;
         if (error === 0) {
           listaJugadoresBD = lista;
+
+          listaJugadoresBD = listaJugadoresBD.filter((element) => {
+            if (element.idJugador !== this.idUsuario) {
+              return element;
+            } else {
+              this.jugador = element;
+              return null;
+            }
+          });
 
           if (listaJugadoresBD.length > 0) {
             let jugadoresMuertos: SalaJuego[] = listaJugadoresBD.filter(
@@ -473,15 +481,15 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.numerodeJugadores = jugadoresVivos.length;
 
-            //console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
+            console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
 
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
               if (jugadoresMuertos.length > 1) {
-                this.jugadoresSurvivor=jugadoresMuertos;//Actualizo mi for del html
+                this.jugadoresSurvivor = jugadoresMuertos; //Actualizo mi for del html
                 //this.txtJugadorX = 'Jugadores';
               } else {
-                this.jugadoresSurvivor=[];//Vacio el for
+                this.jugadoresSurvivor = []; //Vacio el for
                 //this.txtJugadorX = 'Jugador';
               }
 
@@ -491,16 +499,14 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               }
               //actualizo la lista de texto de los circulos animados
               this.texts = textsAux;
-              this.generarCirculos(jugadoresMuertos.length);
             } else if (vistaCirculos === 1) {
-              this.jugadoresSurvivor=jugadoresVivos;//Actualizo mi for del html
+              this.jugadoresSurvivor = jugadoresVivos; //Actualizo mi for del html
               const textsAux: string[] = [];
               for (let i = 0; i < jugadoresVivos.length; i++) {
                 textsAux.push(jugadoresVivos[i].iniciales);
               }
               //actualizo la lista de texto de los circulos animados
               this.texts = textsAux;
-              this.generarCirculos(jugadoresVivos.length);
             }
 
             if (jugadoresVivos.length == 1) {
@@ -596,8 +602,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
       mainBody.style.overflowY = 'hidden';
     }
     //Cambiamos las imgs de la parte de arriba
-    this.fondoPreguntas=true;
-    this.viewotrosjugadores=false;
+    this.fondoPreguntas = true;
+    this.viewotrosjugadores = false;
 
     this.modal.show();
     //this.musicaFondo.play();
@@ -640,7 +646,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   preguntaMalConstestada() {
     this.mostrarEspera = true; //Mostrar cuanso se acaba el tiempo
-   
+
     this.msjResultados = this.msjR2;
     this.isLife = false;
 
@@ -655,8 +661,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     //Cerramos el modal
     setTimeout(() => {
       //Cambiamos las imgs de la parte de arriba
-      this.fondoPreguntas=false;
-      this.viewotrosjugadores=true;
+      this.fondoPreguntas = false;
+      this.viewotrosjugadores = true;
 
       this.mostrarNumResp = false;
       this.mostrarWrongAlert = false;
@@ -670,7 +676,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   preguntaBienContestada() {
     this.msjResultados = this.msjR2;
-    
+
     this.mostrarEspera = true;
 
     //Mostramos resultados
@@ -683,8 +689,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     setTimeout(() => {
       //Cambiamos las imgs de la parte de arriba
-      this.fondoPreguntas=false;
-      this.viewotrosjugadores=true;
+      this.fondoPreguntas = false;
+      this.viewotrosjugadores = true;
 
       this.mostrarNumResp = false;
       this.mostrarAlert = false;
@@ -876,20 +882,20 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate([ruta], { queryParams: params });
   }
 
-   // Función para iniciar o reiniciar el temporizador
-   startTimerKnob() {
-    const tiempoRecogido=this.countdown+2;
+  // Función para iniciar o reiniciar el temporizador
+  startTimerKnob() {
+    const tiempoRecogido = this.countdown + 2;
     if (this.timer) {
       clearInterval(this.timer); // Detiene el temporizador anterior si existe
     }
 
     this.timer = setInterval(() => {
       if (this.remainingTime === 0) {
-        this.valorKnob=100;
+        this.valorKnob = 100;
         clearInterval(this.timer); // Detiene el temporizador después de 6 segundos
         // Puedes realizar alguna acción aquí cuando el temporizador llegue a cero
       } else {
-        this.valorKnob += (100 / tiempoRecogido); // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
+        this.valorKnob += 100 / tiempoRecogido; // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
         this.remainingTime -= 1;
       }
     }, 1000);
@@ -897,8 +903,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Función para reiniciar el temporizador
   restartTimerKnob() {
-    const tiempoRecogido=this.countdown+2;
-    this.valorKnob=0;
+    const tiempoRecogido = this.countdown + 2;
+    this.valorKnob = 0;
     this.remainingTime = tiempoRecogido; // Reinicia el tiempo a 6 segundos
     this.startTimerKnob(); // Inicia el temporizador nuevamente
   }
