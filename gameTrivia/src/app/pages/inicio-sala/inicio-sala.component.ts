@@ -241,7 +241,10 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         let { error } = data.result;
         if (error === 0) {
           if (IdModoJuego === 1) {
-            this.onClickCambiar();
+            setTimeout(() => {
+              this.constantsService.loading(false);
+              this.onClickCambiar();
+            }, 3500);
           } else if (IdModoJuego === 2) {
             setTimeout(() => {
               this.constantsService.loading(false);

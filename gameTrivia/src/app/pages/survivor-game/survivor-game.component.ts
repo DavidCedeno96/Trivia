@@ -451,14 +451,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         if (error === 0) {
           listaJugadoresBD = lista;
 
-          listaJugadoresBD = listaJugadoresBD.filter((element) => {
-            if (element.idJugador !== this.idUsuario) {
-              return element;
-            } else {
-              this.jugador = element;
-              return null;
-            }
-          });
+          let jugador: SalaJuego = listaJugadoresBD.find((element) => {
+            return element.idJugador === this.idUsuario;
+          })!;
+
+          this.jugador = jugador;
 
           if (listaJugadoresBD.length > 0) {
             let jugadoresMuertos: SalaJuego[] = listaJugadoresBD.filter(
@@ -481,7 +478,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.numerodeJugadores = jugadoresVivos.length;
 
-            console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
+            //console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
 
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
@@ -861,9 +858,10 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
           });
         } else {
           if (this.isLife) {
-            this.cambiarPag('/RankingChallengers', this.idSala, this.idUsuario);
+            //this.cambiarPag('/RankingChallengers', this.idSala, this.idUsuario, isWinner);
+            this.cambiarPag('/SurvivorResult', this.idSala, this.idUsuario, 1);
           } else {
-            this.cambiarPag('/SurvivorResult', this.idSala, this.idUsuario);
+            this.cambiarPag('/SurvivorResult', this.idSala, this.idUsuario, 0);
           }
         }
       },
@@ -875,10 +873,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  cambiarPag(ruta: string, id: number, id2: number) {
+  cambiarPag(ruta: string, id: number, id2: number, gano: number) {
     let idSala = this.encryptionService.encrypt(id.toString());
     let idUsuario = this.encryptionService.encrypt(id2.toString());
-    let params = { idSala, idUsuario };
+    let isWinner = this.encryptionService.encrypt(gano.toString());
+    let params = { idSala, idUsuario, isWinner };
     this.router.navigate([ruta], { queryParams: params });
   }
 

@@ -7,7 +7,7 @@ import { UsuarioService } from './services/usuario.service';
 })
 export class ConstantsService {
   private timeoutId!: number;
-  private tiempoDeInactividad: number = 300000; // 10 minutos
+  private tiempoDeInactividad: number = 480000; // 8 minutos
 
   constructor(
     private router: Router,
@@ -38,6 +38,7 @@ export class ConstantsService {
   }
 
   startWatching() {
+    console.log(this.tiempoDeInactividad);
     this.resetTimer();
     document.addEventListener('mousemove', () => this.resetTimer());
     document.addEventListener('keydown', () => this.resetTimer());

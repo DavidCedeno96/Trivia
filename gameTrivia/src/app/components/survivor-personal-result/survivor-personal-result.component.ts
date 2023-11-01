@@ -21,14 +21,13 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
 
   idSala: number = 0;
   idUsuario: number = 0;
+  isWinner: number = 0;
 
   InicialesJugador: string = 'CMI';
   NombreJugador: string = '';
-  Posicion: number = 0;
-  fondoGanar=false;
-  imgJugadorVivo="assets/Imagenes Juego/S3CirculoPlayer.png";
-
-
+  Puntos: number = 0;
+  fondoGanar = false;
+  imgJugadorVivo = 'assets/Imagenes Juego/S3CirculoPlayer.png';
 
   constructor(
     private router: Router,
@@ -36,21 +35,29 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
     private encryptionService: EncryptionService,
     private salaJuegoService: SalaJuegoService
   ) {
-    window.onpopstate = () => {
+    /* window.onpopstate = () => {
       this.router.navigate(['/MisSalas']); // Aquí puedes realizar la acción que deseas al bloquear el evento de volver atrás.      // Por ejemplo, puedes redirigir al usuario a una página específica:      // window.location.href = '/pagina-de-destino';      // O puedes mostrar un mensaje de advertencia.
-    };
+    }; */
   }
 
   ngOnInit() {
-    /* this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe((params) => {
       let idSala = this.encryptionService.decrypt(params['idSala']);
       let idUsuario = this.encryptionService.decrypt(params['idUsuario']);
-      if (idSala === '' || idUsuario === '') {
+      let isWinner = this.encryptionService.decrypt(params['isWinner']);
+      if (idSala === '' || idUsuario === '' || isWinner === '') {
         history.back();
       }
       this.idUsuario = parseInt(idUsuario);
       this.idSala = parseInt(idSala);
-    }); */
+      this.isWinner = parseInt(isWinner);
+
+      if (this.isWinner > 0) {
+        this.fondoGanar = true;
+      } else {
+        this.fondoGanar = false;
+      }
+    });
 
     this.getInfoResultJugador(this.idSala, this.idUsuario);
 
@@ -90,7 +97,8 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
           })!;
 
           this.InicialesJugador = salaJuegoItem.iniciales;
-          this.Posicion = listSalaJuego.indexOf(salaJuegoItem) + 1;
+          this.Puntos = salaJuegoItem.posicion;
+          //this.Pocision = listSalaJuego.indexOf(salaJuegoItem) + 1;
         }
       },
       error: (e) => {
@@ -99,6 +107,12 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
         }
       },
     });
+  }
+
+  cambiarPag(ruta: string, id: number) {
+    let idSala = this.encryptionService.encrypt(id.toString());
+    let params = { idSala };
+    this.router.navigate([ruta], { queryParams: params });
   }
 
   ngOnDestroy() {

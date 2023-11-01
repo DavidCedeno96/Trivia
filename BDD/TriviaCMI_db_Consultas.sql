@@ -95,12 +95,12 @@ select * from Rol -- Hacer el insert y no truncar
 select * from ModoJuego -- Hacer el insert y no truncar
 
 select * from SalaReciente
-select * from usuario_sala
-select * from salaJuego
+select * from Usuario_Sala
+select * from SalaJuego
 ------------------------------------------------------------------------------------
 
-truncate table usuario_sala
-truncate table salaJuego
+truncate table Usuario_Sala
+truncate table SalaJuego
 ------------------------------------------------------------------------------------
 Insert into Rol (nombre) values 
 ('Administrador'),
@@ -131,7 +131,7 @@ Insert into ModoJuego (nombre, imagen) values
 --('Tiene 7 litros',0,1)
 
 --insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
---(33,78,6,29687)
+--(33,10,6,29687)
 
 --Insert into Usuario (nombre, apellido, correo, clave, idRol) values
 --('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
