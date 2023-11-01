@@ -39,7 +39,7 @@
             type="text"
             class="form-control"
             style="background-color: #fff"
-            placeholder="Sala..."
+            placeholder="Ingrese el nombre de la sala"
             [(ngModel)]="textoBuscar"
             (keyup.enter)="buscar()"
           />
@@ -67,9 +67,7 @@
     <!-- SALAS  -->
     <div class="container">
       <div class="row">
-        <div class="col py-2">
-          Últimas 6 salas visitadas
-        </div>
+        <div class="col py-2">{{ msjSalas }}</div>
       </div>
       <div class="row">
         <div class="col-md-6" *ngFor="let sala of misSalas">
@@ -95,22 +93,21 @@
                   class="col-sm-6 col-lg-6 align-items-center text-center text-lg-start my-3"
                 >
                   <div class="container">
-                    <div style="text-align: center; margin: 0 auto;">
+                    <div style="text-align: center; margin: 0 auto">
                       {{ sala.nombre }}
                     </div>
 
-                    <div style="text-align: center; margin: 0 auto;">
+                    <div style="text-align: center; margin: 0 auto">
                       <button
-                      class="btn btn-primary btn-md my-2" 
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      (click)="abrirModal(sala)"
-                    >
-                      Ingresar
-                    </button>
-
+                        class="btn btn-primary btn-md my-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        (click)="abrirModal(sala)"
+                      >
+                        Ingresar
+                      </button>
                     </div>
-                    
+
                     <!-- <div class="row">id: {{ sala.idSala }}</div> -->
                   </div>
                 </div>

@@ -208,9 +208,10 @@ export class RankingChallengerComponent
     }
     if (rol == '2') {
       //this.router.navigate(['/MisSalas']);
-      let idSala = this.encryptionService.encrypt(this.idSala.toString());
+      /* let idSala = this.encryptionService.encrypt(this.idSala.toString());
       let params = { idSala };
-      this.router.navigate(['/EntradaSala'], { queryParams: params });
+      this.router.navigate(['/EntradaSala'], { queryParams: params }); */
+      this.router.navigate(['/MisSalas']);
     }
   }
 }

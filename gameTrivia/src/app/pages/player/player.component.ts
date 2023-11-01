@@ -21,6 +21,7 @@ export class PlayerComponent implements OnInit {
   result: string = '';
   codigo: string = '';
   errorCodigo: string = '';
+  msjSalas: string = 'Últimas 6 salas visitadas';
 
   sala: Sala = {
     idSala: 0,
@@ -94,8 +95,8 @@ export class PlayerComponent implements OnInit {
   }
 
   buscar() {
+    this.constantsService.loading(true);
     if (this.textoBuscar.trim() !== '') {
-      this.constantsService.loading(true);
       this.salaServicio.listaSalaSearch(0, this.textoBuscar.trim()).subscribe({
         next: (data: any) => {
           const { info, error, lista } = data.result;
@@ -105,6 +106,33 @@ export class PlayerComponent implements OnInit {
           } else {
             this.existeError = false;
             this.misSalas = lista;
+            if (this.misSalas.length > 1) {
+              this.msjSalas = `${this.misSalas.length} salas encontradas`;
+            } else if (this.misSalas.length === 1) {
+              this.msjSalas = `Una sala encontrada`;
+            } else {
+              this.msjSalas = `No se pudo encontrar la sala o no existe la sala`;
+            }
+          }
+          this.constantsService.loading(false);
+        },
+        error: (e) => {
+          if (e.status === 401) {
+            this.router.navigate(['/']);
+          }
+        },
+      });
+    } else {
+      this.salaServicio.listaSala(0).subscribe({
+        next: (data: any) => {
+          const { info, error, lista } = data.result;
+          this.result = info;
+          if (error > 0) {
+            this.existeError = true;
+          } else {
+            this.existeError = false;
+            this.misSalas = lista;
+            this.msjSalas = `Todas las salas`;
           }
           this.constantsService.loading(false);
         },
