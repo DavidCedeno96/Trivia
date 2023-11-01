@@ -482,7 +482,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
-              if (jugadoresMuertos.length > 1) {
+              if (jugadoresMuertos.length > 0) {
                 this.jugadoresSurvivor = jugadoresMuertos; //Actualizo mi for del html
                 //this.txtJugadorX = 'Jugadores';
               } else {
