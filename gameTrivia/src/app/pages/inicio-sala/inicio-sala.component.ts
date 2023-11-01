@@ -66,7 +66,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   ];
   msjSurvivor = [
     '¡Bienvenido a Survivor!',
-    'Responde cada pregunta en un lapso de 12 segundos; un error te elimina. Si todos los participantes activos cometen un fallo en el camino, tendrán una oportunidad adicional.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!',
+    'Responde cada pregunta en un lapso de 12 segundos; si te equivocas serás eliminado.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!',
   ];
 
   msjJuego = ['', ''];

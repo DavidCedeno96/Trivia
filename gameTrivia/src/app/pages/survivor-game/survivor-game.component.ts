@@ -224,6 +224,9 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   viewotrosjugadores = true;
   fondoPreguntas = true;
 
+  //Mensajes
+  isNadiePerdio=false;
+
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
@@ -483,9 +486,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
               if (jugadoresMuertos.length > 0) {
+                this.isNadiePerdio=false;
                 this.jugadoresSurvivor = jugadoresMuertos; //Actualizo mi for del html
                 //this.txtJugadorX = 'Jugadores';
               } else {
+                this.isNadiePerdio=true;
                 this.jugadoresSurvivor = []; //Vacio el for
                 //this.txtJugadorX = 'Jugador';
               }
@@ -657,6 +662,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //Cerramos el modal
     setTimeout(() => {
+      this.isNadiePerdio=false;
       //Cambiamos las imgs de la parte de arriba
       this.fondoPreguntas = false;
       this.viewotrosjugadores = true;
@@ -685,6 +691,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }, this.tiempoMostrarRespuesta);
 
     setTimeout(() => {
+      this.isNadiePerdio=false;
       //Cambiamos las imgs de la parte de arriba
       this.fondoPreguntas = false;
       this.viewotrosjugadores = true;
