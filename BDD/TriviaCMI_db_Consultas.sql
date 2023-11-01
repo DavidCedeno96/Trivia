@@ -100,7 +100,6 @@ select * from SalaJuego
 ------------------------------------------------------------------------------------
 
 truncate table Usuario_Sala
-truncate table SalaJuego
 ------------------------------------------------------------------------------------
 Insert into Rol (nombre) values 
 ('Administrador'),

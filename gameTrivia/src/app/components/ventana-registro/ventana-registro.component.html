@@ -64,24 +64,32 @@
               <div class="mb-3 px-md-5">
                 <div class="input-group">
                   <input
-                  [(ngModel)]="nuevoUsuario.contrasena"
-                  type="{{ hidePassword ? 'password' : 'text' }}"
-                  class="form-control"
-                  id="password"
-                  placeholder="Ingresa tu DPI"
-                  name="passwordUsuario"
-                  required
-                />
+                    [(ngModel)]="nuevoUsuario.contrasena"
+                    type="{{ hidePassword ? 'password' : 'text' }}"
+                    class="form-control"
+                    id="password"
+                    placeholder="Ingresa tu DPI"
+                    name="passwordUsuario"
+                    required
+                  />
 
-                <div class="input-group-append" >
-                  <span class="input-group-text rounded-eye " (click)="togglePasswordVisibility()" style="height: 46px; position: relative;">
-                      <i class="fa" [ngClass]="{'fa-eye-slash': hidePassword, 'fa-eye': !hidePassword}"></i>
-                      
-                  </span>
-              </div>
-
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text rounded-eye"
+                      (click)="togglePasswordVisibility()"
+                      style="height: 46px; position: relative"
+                    >
+                      <i
+                        class="fa"
+                        [ngClass]="{
+                          'fa-eye-slash': hidePassword,
+                          'fa-eye': !hidePassword
+                        }"
+                      ></i>
+                    </span>
+                  </div>
                 </div>
-                
+
                 <small
                   class="ms-3"
                   *ngIf="existeError && campo === 'clave'"
