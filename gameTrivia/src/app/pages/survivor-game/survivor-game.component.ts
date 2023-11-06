@@ -485,14 +485,17 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (vistaCirculos === 0) {
               this.numerodeEliminados = jugadoresMuertos.length;
+              console.log(jugadoresMuertos.length);
               if (jugadoresMuertos.length > 0) {
                 this.isNadiePerdio=false;
                 this.jugadoresSurvivor = jugadoresMuertos; //Actualizo mi for del html
                 //this.txtJugadorX = 'Jugadores';
               } else {
+                console.log(this.isNadiePerdio);
                 this.isNadiePerdio=true;
                 this.jugadoresSurvivor = []; //Vacio el for
                 //this.txtJugadorX = 'Jugador';
+                console.log(this.isNadiePerdio);
               }
 
               const textsAux: string[] = [];
@@ -901,7 +904,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.timer); // Detiene el temporizador después de 6 segundos
         // Puedes realizar alguna acción aquí cuando el temporizador llegue a cero
       } else {
-        this.valorKnob += 100 / tiempoRecogido; // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
+        const valor = Math.round(this.valorKnob + 100 / tiempoRecogido);
+        this.valorKnob = valor; // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
         this.remainingTime -= 1;
       }
     }, 1000);

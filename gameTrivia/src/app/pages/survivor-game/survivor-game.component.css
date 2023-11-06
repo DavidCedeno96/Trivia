@@ -337,6 +337,16 @@ background-attachment: fixed; /* Fija la imagen de fondo */
   max-width: 100%; /* Para asegurarse de que la imagen no se extienda más allá de su contenedor */
 }
 
+::ng-deep .p-progressbar .p-progressbar-value {
+  background: #F29523;
+  border-radius: 20px;
+}
+
+::ng-deep .p-progressbar  {  
+  border-radius: 20px;
+}
+
+
 
 
 

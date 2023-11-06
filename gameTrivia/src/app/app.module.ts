@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 /* import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'; */
+import {ProgressBarModule} from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -84,7 +85,8 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
-    
+
+    ProgressBarModule,    
     KnobModule,
     NgxSliderModule,
     SliderModule,
