@@ -99,10 +99,10 @@ export class VentanaLoginComponent implements OnInit {
           const decodeToken = this.helper.decodeToken(info);
           //console.log(decodeToken);
           let { idRol, nombre, id } = decodeToken;
-          localStorage.setItem('id', id);
           localStorage.setItem('token', info);
-          localStorage.setItem('rol', idRol);
-          localStorage.setItem('user', nombre);
+          //localStorage.setItem('id', id);
+          //localStorage.setItem('rol', idRol);
+          //localStorage.setItem('user', nombre);
 
           //GUARDO ESTO EN LA CASILLA DE RECUERDAME
           if (this.rememberMe) {

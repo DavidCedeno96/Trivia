@@ -37,9 +37,6 @@ export class UsuarioService {
 
   removeLocalItems() {
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
-    localStorage.removeItem('user');
-    localStorage.removeItem('rol');
   }
 
   getToken() {
@@ -47,26 +44,44 @@ export class UsuarioService {
   }
 
   getRol() {
-    if (!localStorage.getItem('rol')) {
+    let idRol = '';
+
+    if (this.loggedIn()) {
+      let token = this.getToken();
+      const decodeToken = this.helper.decodeToken(token!);
+      idRol = decodeToken.idRol;
+    } else {
       this.router.navigate(['/']);
     }
 
-    return localStorage.getItem('rol');
+    return idRol;
   }
 
   getIdUsuario() {
-    if (!localStorage.getItem('id')) {
+    let idUsuario = '';
+
+    if (this.loggedIn()) {
+      let token = this.getToken();
+      const decodeToken = this.helper.decodeToken(token!);
+      idUsuario = decodeToken.id;
+    } else {
       this.router.navigate(['/']);
     }
 
-    return localStorage.getItem('id');
+    return idUsuario;
   }
 
   getUserName() {
-    if (!localStorage.getItem('user')) {
+    let nombre = '';
+
+    if (this.loggedIn()) {
+      let token = this.getToken();
+      const decodeToken = this.helper.decodeToken(token!);
+      nombre = decodeToken.nombre;
+    } else {
       this.router.navigate(['/']);
     }
 
-    return localStorage.getItem('user');
+    return nombre;
   }
 }
