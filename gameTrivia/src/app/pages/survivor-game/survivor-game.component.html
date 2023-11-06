@@ -329,6 +329,7 @@
 
     <!-- jUGADOR PRINCIPAL    
  -->
+ 
     <div class="container text-center pt-2 position-relative" *ngIf="jugadorYo">
       <div class="position-absolute top-50 start-50 translate-middle">
         <div class="txtYo">
@@ -338,11 +339,11 @@
       <img class="imgYo" [src]="imgJugadorVivo" />
     </div>
 
-    <div class="text-center py-2" *ngIf="isNadiePerdio" style="font-size: 20px;"> 
-     Todos pasan a la siguiente roda.
-    </div>
-
-    
+    <div *ngIf="!fondoPreguntas" >
+      <div class="text-center py-2" *ngIf="isNadiePerdio" style="font-size: 20px;"> 
+        Todos pasan a la siguiente roda.
+       </div>
+     </div>
 
     <!--     ELEMENTOS LISTA JUGADORES
  -->

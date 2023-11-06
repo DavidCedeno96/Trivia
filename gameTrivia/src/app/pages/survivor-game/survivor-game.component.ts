@@ -119,6 +119,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //PARA LA SALA
   numerodeJugadores: number = 0;
   AuxNumerodeJugadores: number = 0;
+  auxMuertos=0;
 
   //sala y usuario
 
@@ -483,19 +484,25 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
             //console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
 
+            this.numerodeEliminados = jugadoresMuertos.length;
+              if(jugadoresMuertos.length == this.auxMuertos){
+                this.isNadiePerdio=true;
+                this.auxMuertos=jugadoresMuertos.length;
+              }
+
             if (vistaCirculos === 0) {
-              this.numerodeEliminados = jugadoresMuertos.length;
+              
               console.log(jugadoresMuertos.length);
               if (jugadoresMuertos.length > 0) {
-                this.isNadiePerdio=false;
+                //this.isNadiePerdio=false;
                 this.jugadoresSurvivor = jugadoresMuertos; //Actualizo mi for del html
                 //this.txtJugadorX = 'Jugadores';
               } else {
-                console.log(this.isNadiePerdio);
-                this.isNadiePerdio=true;
+                //console.log(this.isNadiePerdio);
+                //this.isNadiePerdio=true;
                 this.jugadoresSurvivor = []; //Vacio el for
                 //this.txtJugadorX = 'Jugador';
-                console.log(this.isNadiePerdio);
+                //console.log(this.isNadiePerdio);
               }
 
               const textsAux: string[] = [];
@@ -610,6 +617,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fondoPreguntas = true;
     this.viewotrosjugadores = false;
 
+    this.isNadiePerdio=false;
     this.modal.show();
     //this.musicaFondo.play();
     //TIEMPO
@@ -694,7 +702,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }, this.tiempoMostrarRespuesta);
 
     setTimeout(() => {
-      this.isNadiePerdio=false;
+      //this.isNadiePerdio=false;
       //Cambiamos las imgs de la parte de arriba
       this.fondoPreguntas = false;
       this.viewotrosjugadores = true;
@@ -904,7 +912,10 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(this.timer); // Detiene el temporizador después de 6 segundos
         // Puedes realizar alguna acción aquí cuando el temporizador llegue a cero
       } else {
-        const valor = Math.round(this.valorKnob + 100 / tiempoRecogido);
+        let valor = Math.round(this.valorKnob + 100 / tiempoRecogido);
+        if(valor>100){
+          valor=100;
+        }
         this.valorKnob = valor; // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
         this.remainingTime -= 1;
       }

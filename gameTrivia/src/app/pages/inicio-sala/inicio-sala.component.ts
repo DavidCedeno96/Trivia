@@ -156,34 +156,50 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   temporizador() {
     // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
     this.endDate = new Date(this.miSala.fechaActivacion);
-
+    console.log(this.endDate);
+  
     this.endDate.setMinutes(this.endDate.getMinutes() + this.minutes);
-
+    console.log(this.endDate);
+    
     // Función para actualizar el temporizador.
     const updateTimer = () => {
       const currentTime = new Date();
       const timeRemaining = this.endDate.getTime() - currentTime.getTime();
-
+      console.log(this.endDate.getTime());
+      console.log('currentTime');
+      console.log(currentTime);
+      console.log('timeRemaining');
+      console.log(timeRemaining);
+      
       // Calcula minutos y segundos restantes.
-      this.minutes = Math.floor(timeRemaining / 60000);
-      this.seconds = Math.floor((timeRemaining % 60000) / 1000);
-
+      const minutesRemaining = Math.floor(timeRemaining / 60000);
+      const secondsRemaining = Math.floor((timeRemaining % 60000) / 1000);
+      
+      console.log("Minutos");
+      console.log(minutesRemaining);
+      console.log("Segundos");
+      console.log(secondsRemaining);
+  
       // Comprueba si el temporizador ha terminado.
-      if (timeRemaining < 0) {
+      if (timeRemaining <= 0) {
         // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
         this.minutes = 0;
         this.seconds = 0;
       } else {
+        this.minutes = minutesRemaining;
+        this.seconds = secondsRemaining;
+  
         if (timeRemaining <= 2000 && timeRemaining >= 1000) {
           // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
           this.constantsService.loading(true);
           this.createPosicion(2);
         }
+        
         // Llama a setTimeout para actualizar el temporizador cada segundo.
         this.countdown = setTimeout(updateTimer, 1000);
       }
     };
-
+  
     // Inicializa el temporizador.
     updateTimer();
   }
