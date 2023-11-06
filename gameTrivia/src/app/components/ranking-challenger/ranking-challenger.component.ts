@@ -97,6 +97,11 @@ export class RankingChallengerComponent
 
   ngAfterContentChecked(): void {}
 
+  refrescarRanking() {
+    this.constantsService.loading(true);
+    this.getRankingList(this.idSala);
+  }
+
   getRankingList(idSala: number) {
     this.usuarioSalaService.listBySalaRanking(1, idSala).subscribe({
       next: (data: any) => {

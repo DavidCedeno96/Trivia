@@ -6,8 +6,15 @@
 <div class="container my-4">
   <div class="row">
     <div class="col-sm-12 col-lg-6">
-      <div class="row">
-        <H3 class="my-4" style="font-weight: bold"> RESULTADOS </H3>
+      <div class="row g-3 my-4 align-items-center">
+        <div class="col-auto">
+          <h3 style="font-weight: bold">RESULTADOS</h3>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-primary" (click)="refrescarRanking()">
+            Refrescar Ranking
+          </button>
+        </div>
       </div>
 
       <div class="row">
@@ -17,17 +24,17 @@
         >
           <div class="row">
             <div class="col text-center py-2">
-              <img class="logoCMI"
+              <img
+                class="logoCMI"
                 src="assets/Imagenes Empresa/LogoBlanco_App.png"
                 alt="cmiBlanco"
-                
               />
             </div>
             <div class="mb-3 text-center" *ngIf="idRol === 1 || idRol === 3">
               <button
                 class="btn btn-primary btn-sm px-3"
                 (click)="descargarRanking()"
-                style="font-size: medium;"
+                style="font-size: medium"
               >
                 Descargar Ranking
               </button>
@@ -36,13 +43,16 @@
           <div class="row">
             <div class="col" style="position: relative">
               <div class="scrollable-list mx-auto" #scrollableList>
-                <table class=" mx-auto">
+                <table class="mx-auto">
                   <tbody>
                     <td>
                       <ul class="list-group">
                         <li
                           class="list-group-item d-flex justify-content-between align-items-center odd"
-                          *ngFor="let miJugador of listaJugadores; let i = index"
+                          *ngFor="
+                            let miJugador of listaJugadores;
+                            let i = index
+                          "
                           [class]="i % 2 === 0 ? 'even' : 'odd'"
                           [ngClass]="{
                             'gris-oscuro': miJugador.usuario == nombreJugador
@@ -58,7 +68,7 @@
                             </div>
                             <!-- Círculo con dos letras -->
                           </div>
-      
+
                           <div
                             class="container mx-4"
                             style="
@@ -69,19 +79,20 @@
                               align-items: center;
                             "
                           >
-                            <div class="player-text text-truncate">{{ miJugador.usuario }}</div>
+                            <div class="player-text text-truncate">
+                              {{ miJugador.usuario }}
+                            </div>
                           </div>
                           <!-- Texto "Jugador" alineado a la izquierda -->
-                          <span class="badge bg-primary rounded-pill custom-badge"
+                          <span
+                            class="badge bg-primary rounded-pill custom-badge"
                             >{{ miJugador.puntaje }} puntos</span
                           >
                         </li>
                       </ul>
-
                     </td>
                   </tbody>
                 </table>
-               
               </div>
             </div>
           </div>
@@ -95,8 +106,10 @@
           class="container xs-none sm-none md-block lg-block"
           style="height: 81px"
         ></div>
-        <div class="p-2 d-md-none d-sm-none d-none d-lg-block d-xl-block text-center" >
-          <div class="card mx-auto" style="max-width: 70%;">
+        <div
+          class="p-2 d-md-none d-sm-none d-none d-lg-block d-xl-block text-center"
+        >
+          <div class="card mx-auto" style="max-width: 70%">
             <div class="card-top">
               <!-- Imagen con fondo naranja -->
               <img
