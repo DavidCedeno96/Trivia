@@ -57,7 +57,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
-    fechaActivacion: new Date(),
+    fechaActivacion: '',
   };
 
   msjChallenger = [

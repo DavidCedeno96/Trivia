@@ -40,7 +40,7 @@ export class AdminComponent implements OnInit {
     cantJugadas: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
-    fechaActivacion: new Date(),
+    fechaActivacion: '',
   };
 
   constructor(
@@ -161,7 +161,7 @@ export class AdminComponent implements OnInit {
       'Cuando estés logueado en nuestra página de trivias, puedes ingresar directamente a la sala a través del link proporcionado. También puedes utilizar el buscador en la página principal, introduciendo el nombre de la sala y después introduces el código de la sala para acceder.',
       '',
       'Link de la Sala: ' + this.currentURL,
-      'Nombre de la Sala: ' + this.salaItem.nombre,      
+      'Nombre de la Sala: ' + this.salaItem.nombre,
       'Código de Sala: ' + this.currentCodigo,
     ];
     const textoAConcatenar = textos.join('\n');
@@ -213,6 +213,8 @@ export class AdminComponent implements OnInit {
     this.constantsService.loading(true);
     this.salaItem = sala;
     this.salaItem.estado = estado;
+    this.salaItem.fechaActivacion = this.constantsService.getISODate();
+
     this.salaServicio.editarEstado(this.salaItem).subscribe({
       next: (data: any) => {
         const { info, error } = data.result;

@@ -208,8 +208,9 @@ exec sp_U_Sala
 @error = ''
 
 exec sp_U_SalaByEstado	
-@idSala = 0,
-@estado = 1,
+@idSala = 8,
+@estado = 0,
+@fechaActivacion = '2023-11-06T11:23:10',
 @info = '',
 @error = '' 
 

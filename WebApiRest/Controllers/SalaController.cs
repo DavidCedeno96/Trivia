@@ -228,7 +228,19 @@ namespace WebApiRest.Controllers
         [Route("delete")]
         public IActionResult DeleteItem([FromQuery] int idSala)
         {
+            string nombreArchivo = "Ranking_sala_" + idSala.ToString() + ".xls";            
+
             Response result = data.DeleteSala(idSala);
+
+            if(result.Error == 0)
+            {
+                string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
+                if (System.IO.File.Exists(rutaArchivo))
+                {
+                    System.IO.File.Delete(rutaArchivo);
+                }
+            }
+
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

@@ -10,7 +10,7 @@ export interface Sala {
   cantJugadas: number;
   fecha_creacion: string;
   fecha_modificacion: string;
-  fechaActivacion: Date;
+  fechaActivacion: string;
 }
 
 export interface SalaReciente {

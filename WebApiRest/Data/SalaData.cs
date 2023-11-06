@@ -365,8 +365,9 @@ namespace WebApiRest.Data
                 CommandType = CommandType.StoredProcedure
             };
             
-            cmd.Parameters.AddWithValue("@idSala", sala.IdSala);
-            cmd.Parameters.AddWithValue("@estado", sala.Estado);            
+            cmd.Parameters.AddWithValue("@idSala", sala.IdSala);            
+            cmd.Parameters.AddWithValue("@estado", sala.Estado);
+            cmd.Parameters.AddWithValue("@fechaActivacion", sala.FechaActivacion);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;

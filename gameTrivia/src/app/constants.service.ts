@@ -44,6 +44,18 @@ export class ConstantsService {
     document.addEventListener('keydown', () => this.resetTimer());
   }
 
+  getISODate(): string {
+    const fecha = new Date();
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const hora = String(fecha.getHours()).padStart(2, '0');
+    const minutos = String(fecha.getMinutes()).padStart(2, '0');
+    const segundos = String(fecha.getSeconds()).padStart(2, '0');
+    const fechaFormateada = `${año}-${mes}-${dia}T${hora}:${minutos}:${segundos}`;
+    return fechaFormateada;
+  }
+
   loading(visible: boolean) {
     //, none: boolean
     const loading = document.getElementById('loading');
