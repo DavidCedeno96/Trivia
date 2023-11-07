@@ -346,6 +346,12 @@ background-attachment: fixed; /* Fija la imagen de fondo */
   border-radius: 20px;
 }
 
+.custom-btn {
+  width: 90%;
+  margin: 0 auto; /* Centra el botón horizontalmente en el modal */
+}
+
+
 
 
 

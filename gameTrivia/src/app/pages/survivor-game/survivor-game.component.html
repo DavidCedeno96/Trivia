@@ -169,7 +169,7 @@
         </div>
 
         <div class="modal-body">
-          <div class="container">
+          <div>
             <div class="row">
               <div class="col text-center">
                 <div *ngFor="let miOpcion of actualOpcionList; let i = index">
@@ -181,7 +181,7 @@
                   </div>
                   <button
                     type="button"
-                    class="btn btn-secondary btn-block text-center my-2"
+                    class="btn custom-btn btn-secondary btn-block text-center my-2"
                     (click)="closeModal(i)"
                     [ngClass]="{'respuesta-correcta': miOpcion.correcta==1 && botonSeleccionado[i], 'respuesta-incorrecta': miOpcion.correcta==0 && botonSeleccionado[i], 
                          }"
