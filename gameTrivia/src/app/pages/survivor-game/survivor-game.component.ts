@@ -658,6 +658,11 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //Despues del temporizador pregunta bien y mal contestada me controlaran las siguientes
 
   preguntaMalConstestada() {
+    const indexCorrecto = this.actualOpcionList.findIndex(
+      (item) => item.correcta === 1
+    ); //Obtengo la id del correcto
+    this.botonSeleccionado[indexCorrecto] = true; //Activo al correcto
+
     this.mostrarEspera = true; //Mostrar cuanso se acaba el tiempo
 
     this.msjResultados = this.msjR2;

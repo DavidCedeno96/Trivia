@@ -29,6 +29,8 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
   fondoGanar = false;
   imgJugadorVivo = 'assets/Imagenes Juego/S3CirculoPlayer.png';
 
+  verRanking: boolean=false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -41,6 +43,13 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
   }
 
   ngOnInit() {
+
+    setTimeout(() => {
+      this.verRanking=true;     
+      //console.log(this.verRanking);    
+    }, 60000); 
+
+
     this.route.queryParams.subscribe((params) => {
       let idSala = this.encryptionService.decrypt(params['idSala']);
       let idUsuario = this.encryptionService.decrypt(params['idUsuario']);
@@ -54,6 +63,7 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
 
       if (this.isWinner > 0) {
         this.fondoGanar = true;
+        this.verRanking=true;
       } else {
         this.fondoGanar = false;
       }
@@ -70,6 +80,8 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
         // Aquí puedes agregar una acción personalizada cuando el temporizador haya finalizado.
       }
     }, 1000);
+
+   
   }
 
   canActivate(): boolean {
