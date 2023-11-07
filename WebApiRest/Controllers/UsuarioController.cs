@@ -47,7 +47,7 @@ namespace WebApiRest.Controllers
                 claims.AddClaim(new Claim("id", result.Usuario.IdUsuario.ToString()));
                 claims.AddClaim(new Claim("nombre", result.Usuario.Nombre));
                 claims.AddClaim(new Claim("idRol", result.Usuario.IdRol.ToString()));
-                claims.AddClaim(new Claim("rol", result.Usuario.Rol));
+                claims.AddClaim(new Claim(ClaimTypes.Role, result.Usuario.Rol));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = claims,

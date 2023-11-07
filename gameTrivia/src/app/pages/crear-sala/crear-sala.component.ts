@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
@@ -21,6 +22,9 @@ export class CrearSalaComponent implements OnInit {
   existeError: boolean = false;
   result: string = '';
 
+  nombreInput: FormControl;
+  descripcionInput: FormControl;
+
   nuevaSala: Sala = {
     idSala: 1,
     nombre: '',
@@ -42,7 +46,16 @@ export class CrearSalaComponent implements OnInit {
     private route: ActivatedRoute,
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService
-  ) {}
+  ) {
+    this.nombreInput = new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+    ]);
+    this.descripcionInput = new FormControl('', [
+      Validators.required,
+      Validators.maxLength(200),
+    ]);
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -92,11 +105,15 @@ export class CrearSalaComponent implements OnInit {
     this.constantsService.loading(true);
     switch (this.type) {
       case 'crear': {
-        this.crearNuevaSala();
+        if (this.validForm()) {
+          this.crearNuevaSala();
+        }
         break;
       }
       case 'editar': {
-        this.editarSala();
+        if (this.validForm()) {
+          this.editarSala();
+        }
         break;
       }
       default: {
@@ -200,5 +217,21 @@ export class CrearSalaComponent implements OnInit {
         }
       },
     });
+  }
+
+  validForm(): boolean {
+    let isValid: boolean = true;
+    if (this.nombreInput.hasError('maxlength')) {
+      isValid = false;
+    }
+
+    if (this.descripcionInput.hasError('maxlength')) {
+      isValid = false;
+    }
+
+    if (!isValid) {
+      this.constantsService.loading(false);
+    }
+    return isValid;
   }
 }

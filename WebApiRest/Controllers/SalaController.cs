@@ -12,7 +12,7 @@ namespace WebApiRest.Controllers
 {
     [EnableCors("ReglasCors")]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize] // en los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role poner => [Authorize(Roles = "Administrador,SuperAdministrador")] 
     [ApiController]
     public class SalaController : ControllerBase
     {
