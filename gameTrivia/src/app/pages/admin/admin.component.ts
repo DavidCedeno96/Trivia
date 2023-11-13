@@ -8,6 +8,7 @@ import { SalaService } from 'src/app/services/sala.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClipboardService } from 'ngx-clipboard';
 import Swal from 'sweetalert2';
+import { TimeApiService } from 'src/app/services/time-api.service';
 
 @Component({
   selector: 'app-admin',
@@ -27,6 +28,8 @@ export class AdminComponent implements OnInit {
 
   currentURL: string = '';
   currentCodigo: string = '';
+
+  timeLondon: string = '';
 
   salaItem: Sala = {
     idSala: 0,
@@ -51,6 +54,7 @@ export class AdminComponent implements OnInit {
     private messageService: MessageService,
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService,
+    private timeApiService: TimeApiService,
     private _clipboardService: ClipboardService
   ) {}
 
@@ -58,6 +62,8 @@ export class AdminComponent implements OnInit {
     this.constantsService.loading(true);
     this.idRol = parseInt(this.usuarioServicio.getRol()!);
     this.cargarSalas();
+
+    this.getTimeLondon();
   }
 
   cargarSalas() {
@@ -213,7 +219,8 @@ export class AdminComponent implements OnInit {
     this.constantsService.loading(true);
     this.salaItem = sala;
     this.salaItem.estado = estado;
-    this.salaItem.fechaActivacion = this.constantsService.getISODate();
+    //this.salaItem.fechaActivacion = this.constantsService.getISODate();
+    this.salaItem.fechaActivacion = this.timeLondon;
 
     this.salaServicio.editarEstado(this.salaItem).subscribe({
       next: (data: any) => {
@@ -241,6 +248,22 @@ export class AdminComponent implements OnInit {
         if (e.status === 401) {
           this.router.navigate(['/']);
         }
+      },
+    });
+  }
+
+  getTimeLondon() {
+    this.timeApiService.getLondonTime().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        console.log('TIME LONDRES', data.datetime.split('.')[0]);
+        const currentTime = new Date(data.datetime);
+        console.log('currentTime', currentTime);
+
+        this.timeLondon = data.datetime.split('.')[0];
+      },
+      error: (e) => {
+        console.log(e);
       },
     });
   }

@@ -19,9 +19,6 @@ import { SalaService } from 'src/app/services/sala.service';
 import { TimeApiService } from 'src/app/services/time-api.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-
-
-
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -84,9 +81,8 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   tiempoTerminado: boolean = false;
 
   //MiHora
-  miHora: any; 
-  horaActual:any;
-  segundosRestantes: number=0;
+  miHora: any;
+  segundosRestantes: number = 0;
   timer: any;
 
   ngOnInit(): void {
@@ -123,7 +119,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     private constantsService: ConstantsService,
     private salaJuegoService: SalaJuegoService,
     private usuarioService: UsuarioService,
-    private timeApiService: TimeApiService,
+    private timeApiService: TimeApiService
   ) {}
 
   cargarInfoSala(idSala: number, idUsuario: number) {
@@ -151,8 +147,11 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           if (this.miSala.modoJuego == 'Supervivencia') {
             this.msjJuego = this.msjSurvivor;
 
+            /* const currentTime = new Date(this.miSala.fechaActivacion);
+            this.temporizador2(currentTime); */
+
             //llamo a la api de tiempo
-             this.obtenerHora();
+            this.obtenerHora();
 
             //const currentTime = new Date();
             //this.temporizador(currentTime);
@@ -168,7 +167,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  obtenerHora(){
+  obtenerHora() {
     this.timeApiService.getLondonTime().subscribe(
       (data) => {
         this.miHora = data;
@@ -176,10 +175,9 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         //this.endDate = this.miHora.datetime; // Obtener la hora
         //this.milisegundos = new Date(this.horaLondres.datetime).getTime(); // Obtener los milisegundos
         const currentTime = new Date(this.miHora.datetime);
-        console.log("currentTime");
-        console.log(currentTime);        
+        console.log('currentTime');
+        console.log(currentTime);
         this.temporizador2(currentTime);
-        
       },
       (error) => {
         console.error('Error al obtener la hora', error);
@@ -188,7 +186,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   }
 
   //TEMPORIZADOR
- /*  temporizador() {
+  /*  temporizador() {
     // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
     this.endDate = new Date(this.miSala.fechaActivacion);
     console.log(this.endDate);
@@ -239,63 +237,56 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     updateTimer();
   } */
 
-  temporizador2(currentTime:Date){
-    console.log("this.endDate");
+  temporizador2(currentTime: Date) {
+    console.log('this.endDate');
     console.log(this.endDate);
     this.endDate = new Date(this.miSala.fechaActivacion);
     this.endDate.setMinutes(this.endDate.getMinutes() + this.minutes);
-    console.log("this.endDate");
+    console.log('this.endDate');
     console.log(this.endDate);
     const fechaFin = this.endDate;
     const fechaFinAdd2 = new Date(fechaFin.getTime());
-    fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes()+ this.minutes);
+    fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes() + this.minutes);
 
-    console.log("fechaFinAdd2");
+    console.log('fechaFinAdd2');
     console.log(fechaFinAdd2);
     //const timeRemaining = this.endDate.getTime() - currentTime.getTime();
-    const diferenciaEnMilisegundos = Math.abs(fechaFinAdd2.getTime() - currentTime.getTime());
+    const diferenciaEnMilisegundos = Math.abs(
+      fechaFinAdd2.getTime() - currentTime.getTime()
+    );
     this.segundosRestantes = Math.round(diferenciaEnMilisegundos / 1000); // Convertir a segundos
 
     console.log(this.segundosRestantes);
     console.log(diferenciaEnMilisegundos);
 
     this.timer = setInterval(() => {
-      if(this.segundosRestantes>0){
+      if (this.segundosRestantes > 0) {
         this.segundosRestantes--;
-      const seconds = this.segundosRestantes;
-      //console.log("seconds");
-      //console.log(seconds);
+        const seconds = this.segundosRestantes;
+        //console.log("seconds");
+        //console.log(seconds);
 
-      // Comprueba si el temporizador ha terminado.
-      if ( this.segundosRestantes <= 0) {
-        // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
-        this.minutes = 0;
-        this.seconds = 0;
+        // Comprueba si el temporizador ha terminado.
+        if (this.segundosRestantes <= 0) {
+          // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+          this.minutes = 0;
+          this.seconds = 0;
+        } else {
+          this.minutes = Math.floor(seconds / 60);
+          this.seconds = seconds % 60;
+          //console.log(this.minutes );
+          //console.log(this.seconds );
+
+          if (seconds <= 2 && seconds >= 1) {
+            // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
+            this.constantsService.loading(true);
+            this.createPosicion(2);
+          }
+        }
       } else {
-        
-        this.minutes = Math.floor(seconds / 60);
-        this.seconds = seconds % 60;
-        //console.log(this.minutes );
-        //console.log(this.seconds );
-  
-        if (seconds <= 2 && seconds >= 1) {
-          // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
-          this.constantsService.loading(true);
-          this.createPosicion(2);
-        }               
-      }
-
-      }else{
         clearInterval(this.timer);
-      }     
-
+      }
     }, 1000);
-
-   
-
-
-
-
   }
 
   cambiarPag(ruta: string, id: number) {
