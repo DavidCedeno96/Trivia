@@ -53,6 +53,8 @@ import { EntradaSalaComponent } from './pages/entrada-sala/entrada-sala.componen
 import { SurvivorGameComponent } from './pages/survivor-game/survivor-game.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { SurvivorPersonalResultComponent } from './components/survivor-personal-result/survivor-personal-result.component';
+import { GestionarUsuariosComponent } from './pages/gestionar-usuarios/gestionar-usuarios.component';
+import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
     EntradaSalaComponent,
     SurvivorGameComponent,
     SurvivorPersonalResultComponent,
+    GestionarUsuariosComponent,
+    CrearUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -159,6 +163,16 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
       {
         path: 'SurvivorResult',
         component: SurvivorPersonalResultComponent,
+        canActivate: [authGuardPlayer],
+      },
+      {
+        path: 'GestionarUsuarios',
+        component: GestionarUsuariosComponent,
+        canActivate: [authGuardPlayer],
+      },
+      {
+        path: 'CrearUsuario',
+        component: CrearUsuarioComponent,
         canActivate: [authGuardPlayer],
       },
     ]),

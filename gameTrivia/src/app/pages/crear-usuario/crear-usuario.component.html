@@ -1,0 +1,140 @@
+<body class="justify-content-center align-items-center">
+    <div class="container-white py-2">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-8 pt-2">
+              <!-- Contenido izquierdo -->
+              <a [routerLink]="['/GestionarUsuarios']">
+                <div class="container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="#3D5057"
+                    class="bi bi-arrow-left-circle-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+                    />
+                    ::before
+                  </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+          <img
+            src="assets/Imagenes Empresa/Logo_App.png"
+            style="height: 80px; width: auto"
+            alt="Imagen"
+            class="image-inside-container"
+          />
+        </div>
+      </div>
+    </div>
+  
+    <div class="container-with-shadow"></div>
+  
+    <div class="container">
+      <!-- Instruccion para editar -->
+      <form
+        class="container"
+        ngNativeValidate
+        #form
+        (ngSubmit)="form.checkValidity() ? UpsertSala() : null"
+      >
+        <div class="row">
+          <div class="col">
+            <h2 class="text-center py-3" style="color: white; font-weight: bold">
+              {{ titulo }}
+            </h2>
+          </div>
+        </div>
+        <div>
+          <!-- Mensaje error -->
+          <div
+            class="mb-3 px-md-5 text-center"
+            *ngIf="existeError === true"
+            style="color: rgb(0, 0, 0)"
+          >
+            {{ result }}
+          </div>
+        </div>
+        <div class="row mx-4" style="vertical-align: middle">
+          <div class="row g-3">
+            <div class="col-12">
+              <!-- Input nombre sala -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control custom-placeholder"
+                  placeholder="Nombre del Usuario *"
+                  [(ngModel)]="nuevoUsuario.nombre"
+                  [formControl]="nombreInput"
+                  name="nombre"
+                  required
+                />
+              </div>              
+            </div>
+            
+            
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <!-- Input DPI USUARIO -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control custom-placeholder"
+                  placeholder="DPI del Usuario"
+                  [(ngModel)]="nuevoUsuario.contrasena"
+                  [formControl]="dpiInput"
+                  name="DPI"
+                  required
+                />
+              </div>              
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12">
+                  <!-- Input nombre sala -->
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control custom-placeholder"
+                      placeholder="Correo"
+                      [(ngModel)]="nuevoUsuario.correo"
+                      [formControl]="correoInput"
+                      name="correo"
+                      required
+                    />
+                  </div>              
+                </div>
+                
+                
+              </div>
+            
+            
+          </div>
+        </div>
+        
+        <!-- Los botones para el modo -->
+        <div class="row">
+          
+          <div class="container" style="height: 30px"></div>
+          <div class="container text-center">
+            <button type="submit" class="btn btn-primary px-5 btn-lg">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+  
