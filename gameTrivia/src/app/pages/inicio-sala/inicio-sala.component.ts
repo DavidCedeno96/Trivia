@@ -12,11 +12,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
-import { Sala, SalaJuego } from 'src/app/model/SalaModel';
+import { Sala } from 'src/app/model/SalaModel';
 //import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
 import { SalaJuegoService } from 'src/app/services/sala-juego.service';
 import { SalaService } from 'src/app/services/sala.service';
+import { TimeApiService } from 'src/app/services/time-api.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+
+
+
 
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -79,6 +83,12 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   tiempoRestante: number = 0; // Tiempo en segundos
   tiempoTerminado: boolean = false;
 
+  //MiHora
+  miHora: any; 
+  horaActual:any;
+  segundosRestantes: number=0;
+  timer: any;
+
   ngOnInit(): void {
     this.iniciales = this.obtenerIniciales(this.usuarioService.getUserName()!);
     this.idJugador = parseInt(this.usuarioService.getIdUsuario()!);
@@ -112,7 +122,8 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     private encryptionService: EncryptionService,
     private constantsService: ConstantsService,
     private salaJuegoService: SalaJuegoService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private timeApiService: TimeApiService,
   ) {}
 
   cargarInfoSala(idSala: number, idUsuario: number) {
@@ -139,7 +150,12 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           }
           if (this.miSala.modoJuego == 'Supervivencia') {
             this.msjJuego = this.msjSurvivor;
-            this.temporizador();
+
+            //llamo a la api de tiempo
+             this.obtenerHora();
+
+            //const currentTime = new Date();
+            //this.temporizador(currentTime);
           }
         }
         this.constantsService.loading(false);
@@ -152,8 +168,27 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     });
   }
 
+  obtenerHora(){
+    this.timeApiService.getLondonTime().subscribe(
+      (data) => {
+        this.miHora = data;
+        console.log('Hora de Londres:', this.miHora); // Puedes manipular los datos como desees
+        //this.endDate = this.miHora.datetime; // Obtener la hora
+        //this.milisegundos = new Date(this.horaLondres.datetime).getTime(); // Obtener los milisegundos
+        const currentTime = new Date(this.miHora.datetime);
+        console.log("currentTime");
+        console.log(currentTime);        
+        this.temporizador2(currentTime);
+        
+      },
+      (error) => {
+        console.error('Error al obtener la hora', error);
+      }
+    );
+  }
+
   //TEMPORIZADOR
-  temporizador() {
+ /*  temporizador() {
     // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
     this.endDate = new Date(this.miSala.fechaActivacion);
     console.log(this.endDate);
@@ -202,6 +237,65 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
   
     // Inicializa el temporizador.
     updateTimer();
+  } */
+
+  temporizador2(currentTime:Date){
+    console.log("this.endDate");
+    console.log(this.endDate);
+    this.endDate = new Date(this.miSala.fechaActivacion);
+    this.endDate.setMinutes(this.endDate.getMinutes() + this.minutes);
+    console.log("this.endDate");
+    console.log(this.endDate);
+    const fechaFin = this.endDate;
+    const fechaFinAdd2 = new Date(fechaFin.getTime());
+    fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes()+ this.minutes);
+
+    console.log("fechaFinAdd2");
+    console.log(fechaFinAdd2);
+    //const timeRemaining = this.endDate.getTime() - currentTime.getTime();
+    const diferenciaEnMilisegundos = Math.abs(fechaFinAdd2.getTime() - currentTime.getTime());
+    this.segundosRestantes = Math.round(diferenciaEnMilisegundos / 1000); // Convertir a segundos
+
+    console.log(this.segundosRestantes);
+    console.log(diferenciaEnMilisegundos);
+
+    this.timer = setInterval(() => {
+      if(this.segundosRestantes>0){
+        this.segundosRestantes--;
+      const seconds = this.segundosRestantes;
+      //console.log("seconds");
+      //console.log(seconds);
+
+      // Comprueba si el temporizador ha terminado.
+      if ( this.segundosRestantes <= 0) {
+        // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+        this.minutes = 0;
+        this.seconds = 0;
+      } else {
+        
+        this.minutes = Math.floor(seconds / 60);
+        this.seconds = seconds % 60;
+        //console.log(this.minutes );
+        //console.log(this.seconds );
+  
+        if (seconds <= 2 && seconds >= 1) {
+          // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
+          this.constantsService.loading(true);
+          this.createPosicion(2);
+        }               
+      }
+
+      }else{
+        clearInterval(this.timer);
+      }     
+
+    }, 1000);
+
+   
+
+
+
+
   }
 
   cambiarPag(ruta: string, id: number) {
