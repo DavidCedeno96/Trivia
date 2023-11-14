@@ -10,10 +10,10 @@ create table Rol(
 
 create table Usuario(
 	idUsuario int identity(1,1) primary key,
-	nombre varchar(40) not null,
+	nombre varchar(60) not null,
 	apellido varchar(15),
 	correo varchar(40),
-	clave varchar(30) unique not null,
+	clave varchar(20),
 	foto varchar(50),
 	idRol int references Rol(idRol) not null,	
 	estado int default 1,
@@ -167,6 +167,8 @@ exec sp_U_Usuario
 exec sp_B_UsuarioLogin	
 @nombre = 'caicaza',
 @clave = '1234567',
+@correo = '',
+@tipoLogin = 1,
 @info = '',
 @error = '' 
 ---- SALA ---------------------------------------------
@@ -208,9 +210,9 @@ exec sp_U_Sala
 @error = ''
 
 exec sp_U_SalaByEstado	
-@idSala = 8,
-@estado = 0,
-@fechaActivacion = '2023-11-06T11:23:10',
+@idSala = 15,
+@estado = 1,
+@fechaActivacion = '2023-11-13T17:06:43',
 @info = '',
 @error = '' 
 
@@ -364,9 +366,17 @@ EXEC sp_spaceused
 
 EXEC sp_helpdb 'TriviaCMI_db';
 
+---
+SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
+   WHERE ROUTINE_TYPE = 'PROCEDURE'
+   ORDER BY ROUTINE_NAME 
+
+---
 SELECT 
+	tc.CONSTRAINT_TYPE,
     tc.CONSTRAINT_NAME,
-    kcu.COLUMN_NAME
+	tc.TABLE_NAME,
+    kcu.COLUMN_NAME	
 FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
 JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu
     ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
@@ -374,26 +384,17 @@ WHERE
     tc.TABLE_NAME = 'Usuario' AND 
     tc.CONSTRAINT_TYPE = 'UNIQUE'    
 
+---
+SELECT tc.COLUMN_NAME, tc.DATA_TYPE, tc.CHARACTER_MAXIMUM_LENGTH, tc.IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS tc
+WHERE tc.TABLE_NAME = 'Usuario';
 
-SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
-   WHERE ROUTINE_TYPE = 'PROCEDURE'
-   ORDER BY ROUTINE_NAME 
-
-
-SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Usuario';
-
+---
 SELECT @@VERSION;
 
 -- CAMBIOS ----------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
-create table pruebas(
-	id int,
-	texto varchar(5)
-)
-
 insert into pruebas (id, texto) values
 (1, 'hola mundo')
 

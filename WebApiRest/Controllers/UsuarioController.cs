@@ -16,12 +16,12 @@ namespace WebApiRest.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        readonly UsuarioData data = new();        
-        readonly Settings settings = new();    
+        readonly UsuarioData data = new();
+        readonly Settings settings = new();
 
         public UsuarioController(IConfiguration configuration)
         {
-            settings = configuration.GetSection("settings").Get<Settings>();            
+            settings = configuration.GetSection("settings").Get<Settings>();
         }
         
         [HttpGet]
@@ -35,9 +35,9 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("auth")]
-        public IActionResult LoginUsuario([FromBody] Usuario usuario)
+        public IActionResult LoginUsuario([FromBody] Usuario usuario, [FromQuery] int tipoLogin) //HASTA AQUI ME QUEDE PONER EL TIPO DE LOGIN
         {            
-            UsuarioItem result = data.Login(usuario);
+            UsuarioItem result = data.Login(usuario, tipoLogin);
 
             if(result.Error == 0)
             {                
@@ -47,6 +47,7 @@ namespace WebApiRest.Controllers
                 claims.AddClaim(new Claim("id", result.Usuario.IdUsuario.ToString()));
                 claims.AddClaim(new Claim("nombre", result.Usuario.Nombre));
                 claims.AddClaim(new Claim("idRol", result.Usuario.IdRol.ToString()));
+                claims.AddClaim(new Claim("tipoLogin", tipoLogin.ToString()));
                 claims.AddClaim(new Claim(ClaimTypes.Role, result.Usuario.Rol));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {

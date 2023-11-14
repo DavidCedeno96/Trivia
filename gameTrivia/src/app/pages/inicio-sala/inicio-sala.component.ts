@@ -167,28 +167,26 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     });
   }
 
-
-  obtenerHora(){
-    this.timeApiService.getLondonTime().subscribe(
-      (data) => {
+  obtenerHora() {
+    this.timeApiService.getLondonTime().subscribe({
+      next: (data: any) => {
         this.miHora = data;
         const dateTimeString = this.miHora.datetime;
-        //console.log('Hora de Londres:', this.miHora);        
-        const timeLondon = dateTimeString.split('.')[0]; 
+        //console.log('Hora de Londres:', this.miHora);
+        const timeLondon = dateTimeString.split('.')[0];
         const currentDate = new Date(timeLondon);
         //console.log("currentDate");
-        //console.log(currentDate);        
-                
-        this.temporizador2(currentDate);        
+        //console.log(currentDate);
+        this.temporizador2(currentDate);
       },
-      (error) => {
-        console.error('Error al obtener la hora', error);
-      }
-    );
+      error: (e) => {
+        console.error('Error al obtener la hora', e);
+      },
+    });
   }
 
   //TEMPORIZADOR
- /*  temporizador() {
+  /*  temporizador() {
     // Calcula la fecha de finalización sumando 3 minutos a la fecha actual.
     this.endDate = new Date(this.miSala.fechaActivacion);
     console.log(this.endDate);
@@ -239,61 +237,53 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     updateTimer();
   } */
 
-  temporizador2(currentTime:Date){
-    
-    this.endDate = new Date(this.miSala.fechaActivacion);    
+  temporizador2(currentTime: Date) {
+    this.endDate = new Date(this.miSala.fechaActivacion);
     //console.log("this.endDate");
     //console.log(this.endDate);
     const fechaFin = this.endDate;
     const fechaFinAdd2 = new Date(fechaFin.getTime());
-    fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes()+ this.minutes);
+    fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes() + this.minutes);
 
     //console.log("fechaFinAdd2");
     //console.log(fechaFinAdd2);
     //const timeRemaining = this.endDate.getTime() - currentTime.getTime();
-    const diferenciaEnMilisegundos = Math.abs(fechaFinAdd2.getTime() - currentTime.getTime());
+    const diferenciaEnMilisegundos = Math.abs(
+      fechaFinAdd2.getTime() - currentTime.getTime()
+    );
     this.segundosRestantes = Math.round(diferenciaEnMilisegundos / 1000); // Convertir a segundos
 
     console.log(this.segundosRestantes);
     console.log(diferenciaEnMilisegundos);
 
     this.timer = setInterval(() => {
-      if(this.segundosRestantes>0){
+      if (this.segundosRestantes > 0) {
         this.segundosRestantes--;
-      const seconds = this.segundosRestantes;
-      //console.log("seconds");
-      //console.log(seconds);
+        const seconds = this.segundosRestantes;
+        //console.log("seconds");
+        //console.log(seconds);
 
-      // Comprueba si el temporizador ha terminado.
-      if ( this.segundosRestantes <= 0) {
-        // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
-        this.minutes = 0;
-        this.seconds = 0;
+        // Comprueba si el temporizador ha terminado.
+        if (this.segundosRestantes <= 0) {
+          // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+          this.minutes = 0;
+          this.seconds = 0;
+        } else {
+          this.minutes = Math.floor(seconds / 60);
+          this.seconds = seconds % 60;
+          //console.log(this.minutes );
+          //console.log(this.seconds );
+
+          if (seconds <= 2 && seconds >= 1) {
+            // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
+            this.constantsService.loading(true);
+            this.createPosicion(2);
+          }
+        }
       } else {
-        
-        this.minutes = Math.floor(seconds / 60);
-        this.seconds = seconds % 60;
-        //console.log(this.minutes );
-        //console.log(this.seconds );
-  
-        if (seconds <= 2 && seconds >= 1) {
-          // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
-          this.constantsService.loading(true);
-          this.createPosicion(2);
-        }               
-      }
-
-      }else{
         clearInterval(this.timer);
-      }     
-
+      }
     }, 1000);
-
-   
-
-
-
-
   }
 
   cambiarPag(ruta: string, id: number) {

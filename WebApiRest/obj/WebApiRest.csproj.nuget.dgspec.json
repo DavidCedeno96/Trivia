@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[6.0.22, )"
             },
+            "Microsoft.AspNetCore.SignalR.Client": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
             "NPOI": {
               "target": "Package",
               "version": "[2.6.2, )"

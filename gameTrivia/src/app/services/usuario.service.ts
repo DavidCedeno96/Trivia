@@ -22,8 +22,14 @@ export class UsuarioService {
     return this.http.post<Usuario>(`${this.apiURL}/Create`, modelo);
   }
 
-  loginUsuario(modelo: LoginUsuario): Observable<LoginUsuario> {
-    return this.http.post<LoginUsuario>(`${this.apiURL}/auth`, modelo);
+  loginUsuario(
+    modelo: LoginUsuario,
+    tipoLogin: number
+  ): Observable<LoginUsuario> {
+    return this.http.post<LoginUsuario>(
+      `${this.apiURL}/auth?tipoLogin=${tipoLogin}`,
+      modelo
+    );
   }
 
   loggedIn() {
@@ -83,5 +89,19 @@ export class UsuarioService {
     }
 
     return nombre;
+  }
+
+  getTipoLogin() {
+    let tipoLogin = '';
+
+    if (this.loggedIn()) {
+      let token = this.getToken();
+      const decodeToken = this.helper.decodeToken(token!);
+      tipoLogin = decodeToken.tipoLogin;
+    } else {
+      this.router.navigate(['/']);
+    }
+
+    return tipoLogin;
   }
 }

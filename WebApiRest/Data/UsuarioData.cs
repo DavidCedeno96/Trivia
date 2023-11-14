@@ -62,7 +62,7 @@ namespace WebApiRest.Data
             return list;
         }
 
-        public UsuarioItem Login(Usuario usuario)
+        public UsuarioItem Login(Usuario usuario, int tipoLogin)
         {
             UsuarioItem item = new();
             
@@ -72,8 +72,10 @@ namespace WebApiRest.Data
             {
                 CommandType = CommandType.StoredProcedure
             };
-            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(usuario.Nombre));
+            cmd.Parameters.AddWithValue("@nombre", WC.GetTrim(usuario.Nombre));            
             cmd.Parameters.AddWithValue("@clave", WC.GetTrim(usuario.Contrasena));
+            cmd.Parameters.AddWithValue("@correo", WC.GetTrim(usuario.Correo));
+            cmd.Parameters.AddWithValue("@tipoLogin", tipoLogin);
 
             cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
