@@ -168,12 +168,12 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
       {
         path: 'GestionarUsuarios',
         component: GestionarUsuariosComponent,
-        canActivate: [authGuardPlayer],
+        canActivate: [authGuardAdmin],
       },
       {
         path: 'CrearUsuario',
         component: CrearUsuarioComponent,
-        canActivate: [authGuardPlayer],
+        canActivate: [authGuardAdmin],
       },
     ]),
   ],

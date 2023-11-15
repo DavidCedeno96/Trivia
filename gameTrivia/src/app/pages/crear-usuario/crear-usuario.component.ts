@@ -26,6 +26,8 @@ export class CrearUsuarioComponent {
   dpiInput: FormControl;
   correoInput: FormControl;
 
+  RolSeleccionado = 1;
+
  /*  nuevoUsuario: Usuario = {
     idUsuario: 0,
     nombre: "Marcela Confiable",

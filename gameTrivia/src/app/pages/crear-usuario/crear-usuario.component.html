@@ -115,11 +115,36 @@
                       required
                     />
                   </div>              
-                </div>
-                
-                
-              </div>
-            
+                </div>  
+            </div> 
+
+            <div class="row g-2">
+              <div class="col-12">
+                <!-- Input ROL -->
+                <div class="container">
+                  <div class="row py-2">
+                    <div class="col" style="font-weight: bold">
+                      Rol actual
+                    </div>
+                  </div>
+
+                 
+                  <select
+                    [(ngModel)]="RolSeleccionado"
+                    class="form-select"
+                    aria-label="Default select example"
+                    required [value]="1">
+                    
+                    <option value=1>Usuario</option>
+                    <option value=2>Administrador</option>
+                    
+                  </select>
+
+                  
+                </div>    
+              </div>  
+          </div> 
+
             
           </div>
         </div>

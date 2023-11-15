@@ -46,6 +46,9 @@ export class AdminComponent implements OnInit {
     fechaActivacion: '',
   };
 
+  cardsPerPage: number = 6;
+    currentPage: number = 1;
+
   constructor(
     private salaServicio: SalaService,
     private usuarioServicio: UsuarioService,
@@ -317,5 +320,22 @@ export class AdminComponent implements OnInit {
 
   cerrarSesion() {
     this.usuarioServicio.logout();
+  }
+
+  //PAGINACION
+
+  get cardsToShow(): any[] {
+    const startIndex = (this.currentPage - 1) * this.cardsPerPage;
+    const endIndex = startIndex + this.cardsPerPage;
+    return this.misSalas.slice(startIndex, endIndex);
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+
+  get pages(): number[] {
+    const pageCount = Math.ceil(this.misSalas.length / this.cardsPerPage);
+    return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
 }

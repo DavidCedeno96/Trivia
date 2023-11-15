@@ -87,33 +87,3 @@ body {
   max-width: 90%;
   
 }
-
-.pagination > li > a
-{
-    background-color: white;
-    color: #5A4181;
-}
-
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover
-{
-    color: #5a5a5a;
-    background-color: #eee;
-    border-color: #ddd;
-}
-
-.pagination > .active > a
-{
-    color: white;
-    background-color: #DC8127 !Important;
-    border: solid 1px #DC8127 !Important;
-}
-
-.pagination > .active > a:hover
-{
-    background-color: #DC8127 !Important;
-    border: solid 1px #DC8127;
-}
-

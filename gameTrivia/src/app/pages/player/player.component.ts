@@ -43,6 +43,9 @@ export class PlayerComponent implements OnInit {
    cardsPerPage: number = 6;
     currentPage: number = 1;
 
+    //Quitar el boton salir
+    isLogin2=false;
+
   constructor(
     private router: Router,
     private usuarioServicio: UsuarioService,
@@ -54,6 +57,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit(): void {
     this.constantsService.loading(true);
     this.idUsuario = parseInt(this.usuarioServicio.getIdUsuario()!);
+    this.isLogin2 = this.usuarioServicio.getTipoLogin()=="2";
 
     this.salasRecientes(this.idUsuario);
   }
@@ -212,4 +216,6 @@ export class PlayerComponent implements OnInit {
     const pageCount = Math.ceil(this.misSalas.length / this.cardsPerPage);
     return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
+
+  
 }

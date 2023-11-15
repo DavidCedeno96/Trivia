@@ -1,8 +1,55 @@
 <body class="justify-content-center align-items-center">
   <div class="container-orange py-2">
     <div class="row">
-      <!-- Contenido derecho -->
-      <div class="col mx-2">
+      <!-- Menu -->
+      <div class="col">
+
+        <nav class="navbar">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="background-color: #3d5057; ">
+              <span class="navbar-toggler-icon" ></span>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="border-radius: 0; background-color: #fff; font-weight: bold;">
+              <div class="offcanvas-header">
+                <img src="assets/Imagenes Empresa/Logo_AppMenu.png" alt="Logo_AppMenu.png" style="max-height: 40px; width: auto; ">
+                <!-- <h5 class="offcanvas-title ps-2" id="offcanvasNavbarLabel" style="font-weight: bold; font-size: 30px; color: #3d5057;">
+                  
+                  Menú</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <hr>
+              <div class="offcanvas-body" >
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    
+                    <a class="nav-link active" aria-current="page" routerLink="/Administrador" data-bs-dismiss="offcanvas">
+                      <img src="assets/Imagenes Juego/ImagenDefault.png" alt="imgSala" style="height: 60px; width: auto ;">
+                      Salas
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link"  routerLink="/GestionarUsuarios" data-bs-dismiss="offcanvas">
+                      <img  class="pe-2" src="assets/Imagenes Juego/Usuarios.png" alt="imgSala" style="height: 60px; width: auto ;">
+                      Usuarios
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" (click)="cerrarSesion()" data-bs-dismiss="offcanvas">
+                      <img class="ps-3 pe-3" src="assets/Icons/Puerta4.svg"  style="height: 40px; width: auto ;" />
+                      Salir
+                    </a>
+                  </li>
+                 
+                </ul>
+                
+              </div>
+            </div>
+          </div>
+          
+        </nav>
+
+      </div>
+      <!-- <div class="col mx-2">
         <button
           class="btn btn-primary d-flex text-end px-4"
           style="float: right"
@@ -11,7 +58,7 @@
           <img src="assets/Icons/Puerta3.svg" alt="Icono" class="icono-svg" />
           Salir
         </button>
-      </div>
+      </div> -->
     </div>
 
     <div class="row text-center">
@@ -49,7 +96,7 @@
           </button>
         </div>
       </div>
-      <div class="col-6 col-lg-auto text-end px-3 py-3">
+      <div class="col-6 col-lg-auto px-3 py-3">
         <button
           type="button"
           class="btn btn-primary px-4"
@@ -95,7 +142,7 @@
     <div class="container">
       <div class="row">
         <div class="mx-auto">
-          <div class="card my-2" *ngFor="let sala of misSalas">
+          <div class="card my-2" *ngFor="let sala of cardsToShow">
             <div class="card-body">
               <div class="row align-items-center">
                 <div
@@ -194,6 +241,8 @@
                     Desactivado
                   </button>
                 </div>
+
+                
                 <!-- INICIO MODAL -->
                 <div
                   class="modal fade"
@@ -273,6 +322,31 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="container" style="height: 15px;">
+  </div>
+
+        <!-- Paginación de Bootstrap -->
+  <nav aria-label="Page navigation modal-2">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+        <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === pages.length">
+        <a class="page-link" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container" style="height: 15px;">
   </div>
 
   <p-toast [styleClass]="'col-10 col-md-6 col-lg-3'"></p-toast>
