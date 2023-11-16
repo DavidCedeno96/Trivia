@@ -21,7 +21,7 @@ namespace WebApiRest.Utilities
             if (!RE.ValidRE(usuario.Nombre, "invalid"))
             {
                 result.Error = 1;
-                result.Info = WC.GetErrorLetras();
+                result.Info = WC.GetInvalid();
                 result.Campo = "nombre";
                 validForm = false;
             }

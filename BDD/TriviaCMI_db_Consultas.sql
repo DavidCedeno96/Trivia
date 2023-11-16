@@ -149,7 +149,7 @@ exec sp_B_Usuario
 
 exec sp_B_UsuarioById
 @estados = 0,
-@idUsuario = 0,
+@idUsuario =1,
 @info = '',
 @error = ''
 
@@ -415,11 +415,7 @@ WHERE tc.TABLE_NAME = 'Usuario';
 SELECT @@VERSION;
 
 -- CAMBIOS ----------------------------------------------------------------------------------
--- create => [sp_B_UsuarioByAll] [sp_D_Usuario] [sp_B_UsuarioById]
--- alter => [sp_C_Usuario] [sp_U_Usuario]
-
---ALTER TABLE Usuario
---ADD CONSTRAINT CHK_Clave_NotEmpty CHECK (Clave <> '');
+--
 
 ------------------------------------------------------------------------------------
 insert into pruebas (id, texto) values

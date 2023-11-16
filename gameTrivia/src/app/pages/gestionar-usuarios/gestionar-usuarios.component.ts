@@ -74,43 +74,39 @@ export class GestionarUsuariosComponent {
     }
   }
 
-  eliminarSala(idSala: number) {
+  eliminarUsuario(idUsuario: number) {
     this.constantsService.loading(true);
-    /*  this.salaServicio.eliminarSala(idSala).subscribe({
+    this.usuarioServicio.eliminarUsuario(idUsuario).subscribe({
       next: (data: any) => {
-        const { info, error } = data.result;
+        let { info, error } = data.result;
         this.result = info;
         if (error > 0) {
           this.existeError = true;
           this.messageService.add({
             severity: 'error',
             summary: this.constantsService.mensajeError(),
-            detail: 'No se pudo eliminar la sala',
+            detail: 'No se pudo eliminar el usuario',
           });
         } else {
           this.existeError = false;
-          this.cargarSalas();
+          this.listarUsuarios('', true);
           this.messageService.add({
             severity: 'success',
             summary: this.constantsService.mensajeSatisfactorio(),
-            detail: 'Sala eliminada',
+            detail: 'Usuario eliminado',
           });
         }
         this.constantsService.loading(false);
       },
-      error: (e) => {
-        if (e.status === 401) {
-          this.router.navigate(['/']);
-        }
-      },
-    }); */
+      error: (e) => {},
+    });
   }
 
-  confirmEliminar(idSala: number) {
+  confirmEliminar(idUsuario: number) {
     this.confirmationService.confirm({
       message: '¿Seguro desea eliminar el usuario?',
       header: 'Confirmación Eliminar',
-      accept: () => this.eliminarSala(idSala),
+      accept: () => this.eliminarUsuario(idUsuario),
     });
   }
 

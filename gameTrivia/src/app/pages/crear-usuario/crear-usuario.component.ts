@@ -12,27 +12,20 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./crear-usuario.component.css'],
 })
 export class CrearUsuarioComponent {
-  selectedCard: number = 0; // Inicialmente, ninguna tarjeta está seleccionada
-  notSelectCard: boolean = false;
-  selectedFile: File | null = null;
   type: string = '';
   //imageSala: string = '';
   titulo: string = '';
 
   existeError: boolean = false;
   result: string = '';
+  campo: string = '';
 
   nombreInput: FormControl;
   dpiInput: FormControl;
   correoInput: FormControl;
 
-  /*  nuevoUsuario: Usuario = {
-    idUsuario: 0,
-    nombre: "Marcela Confiable",
-    correo: "mconfiable@cmi.com",
-    contrasena: "",//contraseña o DPI
-    idRol: 0,
-    iniciales: "MC", }; */
+  verErrorInputs: boolean = false;
+
   nuevoUsuario: Usuario = {
     idUsuario: 0,
     nombre: '',
@@ -51,11 +44,17 @@ export class CrearUsuarioComponent {
   ) {
     this.nombreInput = new FormControl('', [
       Validators.required,
+      Validators.maxLength(60),
+    ]);
+    this.dpiInput = new FormControl('', [
+      Validators.required,
       Validators.maxLength(20),
     ]);
-    this.dpiInput = new FormControl('', []);
-
-    this.correoInput = new FormControl('', []);
+    this.correoInput = new FormControl('', [
+      Validators.required,
+      Validators.maxLength(40),
+      Validators.email,
+    ]);
   }
 
   ngOnInit(): void {
@@ -88,32 +87,19 @@ export class CrearUsuarioComponent {
     }
   }
 
-  selectCard(id: number) {
-    this.selectedCard = id; // Cambia la tarjeta seleccionada al hacer clic
-    this.notSelectCard = false;
-  }
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile?.name);
-  }
-
   UpsertSala() {
-    if (this.selectedCard === 0) {
-      this.notSelectCard = true;
-      return;
-    }
     this.constantsService.loading(true);
+    this.verErrorInputs = true;
     switch (this.type) {
       case 'crear': {
         if (this.validForm()) {
-          this.crearNuevaSala();
+          this.crearNuevoUsuario();
         }
         break;
       }
       case 'editar': {
         if (this.validForm()) {
-          this.editarSala();
+          this.editarUsuario();
         }
         break;
       }
@@ -127,7 +113,6 @@ export class CrearUsuarioComponent {
   cargarData(idUsuario: number) {
     this.usuarioServicio.getUsuario(0, idUsuario).subscribe({
       next: (data: any) => {
-        console.log(data);
         let { error, info, usuario } = data.result;
         this.result = info;
         this.existeError = error;
@@ -144,97 +129,46 @@ export class CrearUsuarioComponent {
         }
       },
     });
-    /* this.salaServicio.itemSala(0, idSala, 0).subscribe({
-      next: (data: any) => {
-        const { info, error, sala } = data.result;
-        this.result = info;
-        console.log(this.result);
-        if (error > 0) {
-          //hay error
-          this.existeError = true;
-        } else {
-          //no hay error
-          this.existeError = false;
-          this.nuevaSala = sala;
-          
-          if (this.nuevaSala.descripcion === 'N/A') {
-            this.nuevaSala.descripcion = '';
-          }
-          this.selectedCard = this.nuevaSala.idModoJuego;
-        }
-        this.constantsService.loading(false);
-      },
-      error: (e) => {
-        if (e.status === 401) {
-          this.router.navigate(['/']);
-        } else if (e.status == 400) {
-          history.back();
-        }
-      },
-    }); */
   }
 
-  crearNuevaSala() {
-    const formData = new FormData();
-    formData.append('nombre', this.nuevoUsuario.nombre.trim());
-    formData.append('contrasena', this.nuevoUsuario.contrasena.trim());
-    formData.append('correo', this.nuevoUsuario.correo.trim());
-    if (this.selectedFile) {
-      formData.append('archivo', this.selectedFile);
-    }
-
-    /*  this.salaServicio.crearSala(formData).subscribe({
+  crearNuevoUsuario() {
+    this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
       next: (data: any) => {
-        const { info, error, campo } = data.result;
+        let { info, error, campo } = data.result;
         this.result = info;
-        //console.log(info, campo);
-        if (error > 0) {
-          this.result += '_' + campo;
-          this.existeError = true;
-        } else {
-          this.existeError = false;
+        this.existeError = error;
+        this.campo = campo;
+        if (error === 0) {
           this.router.navigate(['/GestionarUsuarios']);
         }
         this.constantsService.loading(false);
       },
       error: (e) => {
-        //console.log(e);
-        if (e.status === 401) {
+        if (e.status === 401 || e.status === 403) {
           this.router.navigate(['/']);
         }
       },
-    }); */
+    });
   }
 
-  editarSala() {
-    const formData = new FormData();
-    formData.append('idSala', this.nuevoUsuario.idUsuario.toString());
-    formData.append('nombre', this.nuevoUsuario.nombre.trim());
-    formData.append('contrasena', this.nuevoUsuario.contrasena.trim());
-    formData.append('correo', this.nuevoUsuario.correo.trim());
-    if (this.selectedFile) {
-      formData.append('archivo', this.selectedFile);
-    }
-    /*  this.salaServicio.editarSala(formData).subscribe({
+  editarUsuario() {
+    this.usuarioServicio.editarUsuario(this.nuevoUsuario).subscribe({
       next: (data: any) => {
-        const { info, error, campo } = data.result;
+        let { info, error, campo } = data.result;
         this.result = info;
-        console.log(info, campo);
-        if (error > 0) {
-          this.existeError = true;
-        } else {
-          this.existeError = false;
+        this.existeError = error;
+        this.campo = campo;
+        if (error === 0) {
           this.router.navigate(['/GestionarUsuarios']);
         }
         this.constantsService.loading(false);
       },
       error: (e) => {
-        //console.log(e);
-        if (e.status === 401) {
+        if (e.status === 401 || e.status === 403) {
           this.router.navigate(['/']);
         }
       },
-    }); */
+    });
   }
 
   selectRol(event: Event) {
@@ -245,13 +179,13 @@ export class CrearUsuarioComponent {
   getIndexRol(idRol: number): number {
     switch (idRol) {
       case 1: {
-        return 1;
-      }
-      case 2: {
         return 2;
       }
+      case 2: {
+        return 3;
+      }
       case 3: {
-        return 0;
+        return 1;
       }
       default:
         {
@@ -267,6 +201,13 @@ export class CrearUsuarioComponent {
     }
 
     if (this.dpiInput.hasError('maxlength')) {
+      isValid = false;
+    }
+
+    if (
+      this.correoInput.hasError('maxlength') ||
+      this.correoInput.hasError('email')
+    ) {
       isValid = false;
     }
 

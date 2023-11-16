@@ -246,9 +246,16 @@ namespace WebApiRest.Data
                 sqlConnection.Open();
                 cmd.ExecuteNonQuery();
 
-                response.Info = cmd.Parameters["@info"].Value.ToString();
-                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+                string info = cmd.Parameters["@info"].Value.ToString();
+                int error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
 
+                response.Info = info.Split(',')[0];
+                response.Error = error;
+                if (info.Contains(','))
+                {
+                    response.Campo = WC.GetTrim(info.Split(',')[1]);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -287,9 +294,16 @@ namespace WebApiRest.Data
             {
                 sqlConnection.Open();
                 cmd.ExecuteNonQuery();
+                
+                string info = cmd.Parameters["@info"].Value.ToString();
+                int error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
 
-                response.Info = cmd.Parameters["@info"].Value.ToString();
-                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+                response.Info = info.Split(',')[0];
+                response.Error = error;
+                if (info.Contains(','))
+                {
+                    response.Campo = WC.GetTrim(info.Split(',')[1]);
+                }
 
             }
             catch (Exception ex)
