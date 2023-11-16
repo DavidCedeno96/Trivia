@@ -93,4 +93,38 @@ body {
   .link-primary {
     cursor: pointer;
   }
+
+  .navbar-toggler, .navbar-toggler.active {
+    border-radius:20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar-toggler-icon {
+    background-size: 80%; 
+    background-image: url('../../../assets/Imagenes Juego/Menu.png');
+    
+  }
+  
+  .nav-link {
+    display: inline;  
+  }
+  
+  .nav-item {
+    padding-bottom: 15px;
+  }
+  
+  .nav-link.active, .navbar-nav .nav-link.show {
+    color: #dc8127;
+  }
+  
+  .nav-link:active, .nav-link:focus {
+    background-color: rgba(0, 0, 0, 0); /* Naranja */
+    border-color: none; /* Color del borde si deseas cambiarlo también */
+    border-radius: 0px;
+    box-shadow: none;
+  }
+  
+  
+  
+  
   
