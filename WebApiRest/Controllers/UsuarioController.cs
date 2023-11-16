@@ -26,16 +26,34 @@ namespace WebApiRest.Controllers
         
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
-        [Authorize]
+        [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
         public IActionResult GetList([FromRoute] int estados)
         {
             UsuarioList result = data.GetUsuarioList(estados);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
+        [HttpGet]
+        [Route("list")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
+        public IActionResult GetSearch([FromQuery] int estados, [FromQuery] string buscar)
+        {
+            UsuarioList result = data.GetUsuarioList(estados, buscar);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpGet]
+        [Route("list/{estados}/{idUsuario}")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
+        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idUsuario)
+        {
+            UsuarioItem result = data.GetUsuario(estados, idUsuario);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
         [HttpPost]
         [Route("auth")]
-        public IActionResult LoginUsuario([FromBody] Usuario usuario, [FromQuery] int tipoLogin) //HASTA AQUI ME QUEDE PONER EL TIPO DE LOGIN
+        public IActionResult LoginUsuario([FromBody] Usuario usuario, [FromQuery] int tipoLogin)
         {            
             UsuarioItem result = data.Login(usuario, tipoLogin);
 
@@ -78,6 +96,30 @@ namespace WebApiRest.Controllers
             }
             
             return StatusCode(StatusCodes.Status200OK, new { result });
-        }        
+        }
+
+        [HttpPut]
+        [Route("update")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
+        public IActionResult UpdateItem([FromBody] Usuario usuario)
+        {
+            Response result = VF.ValidarUsuario(usuario);
+
+            if (result.Error == 0)
+            {
+                result = data.UpdateUsuario(usuario);
+            }
+
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
+        public IActionResult DeleteItem([FromQuery] int idUsuario)
+        {
+            Response result = data.DeleteUsuario(idUsuario);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
     }
 }

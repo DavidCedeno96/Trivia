@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environments';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/UsuarioModel';
@@ -17,6 +17,30 @@ export class UsuarioService {
   helper = new JwtHelperService();
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  listaUsuario(estados: number, buscar: string): Observable<Usuario[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`,
+    });
+    return this.http.get<Usuario[]>(
+      `${this.apiURL}/list?estados=${estados}&buscar=${buscar}`,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  getUsuario(estados: number, idUsuario: number) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`,
+    });
+    return this.http.get<Usuario[]>(
+      `${this.apiURL}/list/${estados}/${idUsuario}`,
+      {
+        headers: headers,
+      }
+    );
+  }
 
   crearUsuario(modelo: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiURL}/Create`, modelo);

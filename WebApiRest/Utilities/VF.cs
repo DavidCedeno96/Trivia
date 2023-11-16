@@ -11,6 +11,13 @@ namespace WebApiRest.Utilities
         {
             Response result = new();
             bool validForm = true;
+            if (!RE.ValidRE(usuario.Correo, "email"))
+            {
+                result.Error = 1;
+                result.Info = WC.GetErrorCorreo();
+                result.Campo = "correo";
+                validForm = false;
+            }
             if (!RE.ValidRE(usuario.Nombre, "invalid"))
             {
                 result.Error = 1;
