@@ -109,8 +109,6 @@ export class VentanaLoginComponent implements OnInit {
       .loginUsuario(this.loginUsuario, this.tipoLogin)
       .subscribe({
         next: (data: any) => {
-          console.log(data);
-
           const { info, error } = data.result;
           if (error > 0) {
             // hay error

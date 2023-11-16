@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUEHRkctCf02ZsPggqY9e4QAAAAACAAAAAAAQZgAAAAEAACAAAAAXMP8UdonIK8eQi2BpCi3Hm2wNQok3s4T7HbT38D4gGAAAAAAOgAAAAAIAACAAAAAGqAd9SENI+PiqmLS+thCm6miZGlG+mvLkVSYcCWQKayAAAADT3dqzliK/sF2b+Jw0uuwg2naL/seWteRsdodoDWz2QUAAAAAPgDyhL1nYKg4JZl/JwP0Q8YsHf4hvrAsco+aWrp0Tz3o+6rmzOuHrqUtF3VwhqE0o48LsQBEFX6hJgboR8i1E</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.244.34/www.triviacmi.somee.com</_PublishTargetUrl>
-    <History>True|2023-11-14T20:57:28.3229155Z;True|2023-11-07T11:08:46.4535491-05:00;True|2023-11-06T15:25:25.3587437-05:00;True|2023-10-31T13:08:40.9830113-05:00;True|2023-10-31T10:55:29.7921844-05:00;True|2023-10-28T18:45:08.5838203-05:00;True|2023-10-26T16:01:49.4969701-05:00;True|2023-10-26T13:02:53.7201518-05:00;True|2023-10-26T08:57:25.4302243-05:00;True|2023-10-26T08:51:50.9631443-05:00;True|2023-10-25T13:04:22.3345673-05:00;True|2023-10-25T10:57:29.2670609-05:00;True|2023-10-24T18:02:33.2588271-05:00;True|2023-10-24T10:58:42.0791845-05:00;True|2023-10-24T10:30:56.9764889-05:00;True|2023-10-23T14:23:20.0086759-05:00;True|2023-10-20T14:17:39.1803496-05:00;</History>
+    <History>True|2023-11-16T18:17:49.0458965Z;True|2023-11-14T15:57:28.3229155-05:00;True|2023-11-07T11:08:46.4535491-05:00;True|2023-11-06T15:25:25.3587437-05:00;True|2023-10-31T13:08:40.9830113-05:00;True|2023-10-31T10:55:29.7921844-05:00;True|2023-10-28T18:45:08.5838203-05:00;True|2023-10-26T16:01:49.4969701-05:00;True|2023-10-26T13:02:53.7201518-05:00;True|2023-10-26T08:57:25.4302243-05:00;True|2023-10-26T08:51:50.9631443-05:00;True|2023-10-25T13:04:22.3345673-05:00;True|2023-10-25T10:57:29.2670609-05:00;True|2023-10-24T18:02:33.2588271-05:00;True|2023-10-24T10:58:42.0791845-05:00;True|2023-10-24T10:30:56.9764889-05:00;True|2023-10-23T14:23:20.0086759-05:00;True|2023-10-20T14:17:39.1803496-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -201,19 +201,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 18:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/14/2023 15:54:35</publishTime>
+      <publishTime>11/16/2023 13:14:58</publishTime>
     </File>
     <File Include="WebApiRest.deps.json">
-      <publishTime>11/14/2023 15:54:31</publishTime>
+      <publishTime>11/16/2023 13:14:55</publishTime>
     </File>
     <File Include="WebApiRest.dll">
-      <publishTime>11/14/2023 15:54:31</publishTime>
+      <publishTime>11/16/2023 13:14:54</publishTime>
     </File>
     <File Include="WebApiRest.exe">
-      <publishTime>11/14/2023 15:54:31</publishTime>
+      <publishTime>11/16/2023 13:14:54</publishTime>
     </File>
     <File Include="WebApiRest.pdb">
-      <publishTime>11/14/2023 15:54:31</publishTime>
+      <publishTime>11/16/2023 13:14:54</publishTime>
     </File>
     <File Include="WebApiRest.runtimeconfig.json">
       <publishTime>11/14/2023 13:04:56</publishTime>

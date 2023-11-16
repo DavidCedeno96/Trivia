@@ -114,7 +114,7 @@ namespace WebApiRest.Data {
             {
                 sqlConnection.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                if (dr.Read())
                 {
                     item.Pregunta = new Pregunta()
                     {

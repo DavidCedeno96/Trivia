@@ -13,7 +13,7 @@ create table Usuario(
 	nombre varchar(60) not null,
 	apellido varchar(15),
 	correo varchar(40),
-	clave varchar(20),
+	clave varchar(20) CHECK (clave <> ''),
 	foto varchar(50),
 	idRol int references Rol(idRol) not null,	
 	estado int default 1,
@@ -81,7 +81,6 @@ create table SalaJuego( -- este es para las posiciones durante el juego challeng
 	fecha_modificacion datetime default getdate(),
 );
 
----------------------------
 create table SalaReciente( -- este es para las salas recientes visitadas
 	idSala int,
 	idJugador int,
@@ -132,8 +131,8 @@ Insert into ModoJuego (nombre, imagen) values
 --insert into Usuario_Sala (idUsuario, idSala, puntaje, tiempo) values
 --(33,10,6,29687)
 
---Insert into Usuario (nombre, apellido, correo, clave, idRol) values
---('Byron', 'Cedeño', 'david3@gmail.com', 'admin', 1);
+Insert into Usuario (nombre, correo, idRol) values
+('user', 'myUser@gmail.com', 2);
 ------------------------------------------------------------------------------------
 
 ---- ROL ---------------------------------------------
@@ -148,19 +147,15 @@ exec sp_B_Usuario
 @info = '',
 @error = ''
 
-exec sp_C_Usuario
-@nombre = 'miJugador2',
-@clave = 'jugador123',
-@idRol = 2,
+exec sp_B_UsuarioById
+@estados = 0,
+@idUsuario = 0,
 @info = '',
 @error = ''
 
-exec sp_U_Usuario
-@idUsuario = 57, 
-@nombre = 'juan_editsdaweadcfdee',
-@correo = 'juan@edit.com',
-@clave = '123450',
-@idRol = 2,
+exec sp_B_UsuarioByAll	
+@buscar = 'byron',
+@estados = 0,
 @info = '',
 @error = ''
 
@@ -171,6 +166,28 @@ exec sp_B_UsuarioLogin
 @tipoLogin = 1,
 @info = '',
 @error = '' 
+
+exec sp_C_Usuario
+@nombre = 'miJugador4',
+@clave = '12345555456',
+@correo = '',
+@idRol = 2,
+@info = '',
+@error = ''
+
+exec sp_U_Usuario
+@idUsuario = 1081, 
+@nombre = 'user_edit',
+@clave = '12344',
+@correo = '',
+@idRol = 2,
+@info = '',
+@error = ''
+
+exec sp_D_Usuario	
+@idUsuario = 0,	
+@info = '',
+@error = ''
 ---- SALA ---------------------------------------------
 select * from ModoJuego
 
@@ -384,6 +401,11 @@ WHERE
     tc.TABLE_NAME = 'Usuario' AND 
     tc.CONSTRAINT_TYPE = 'UNIQUE'    
 
+----
+SELECT *
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME = 'Usuario' AND CONSTRAINT_TYPE = 'CHECK';
+
 ---
 SELECT tc.COLUMN_NAME, tc.DATA_TYPE, tc.CHARACTER_MAXIMUM_LENGTH, tc.IS_NULLABLE
 FROM INFORMATION_SCHEMA.COLUMNS tc
@@ -393,11 +415,24 @@ WHERE tc.TABLE_NAME = 'Usuario';
 SELECT @@VERSION;
 
 -- CAMBIOS ----------------------------------------------------------------------------------
+-- create => [sp_B_UsuarioByAll] [sp_D_Usuario] [sp_B_UsuarioById]
+-- alter => [sp_C_Usuario] [sp_U_Usuario]
+
+--ALTER TABLE Usuario
+--ADD CONSTRAINT CHK_Clave_NotEmpty CHECK (Clave <> '');
 
 ------------------------------------------------------------------------------------
 insert into pruebas (id, texto) values
-(1, 'hola mundo')
+(3, 'hola'),
+(2, 'mund'),
+(1, 'prue'),
+(1, 'hola'),
+(2, 'mund'),
+(1, 'prue')
 
 select * from  pruebas
 
-select * from Usuario
+select 
+	sum(case when texto = 'hola' then 1 else 0 end) AS CountTextoHola,
+	sum(case when texto = 'mund' then 1 else 0 end) AS CountTextoMund
+from  pruebas
