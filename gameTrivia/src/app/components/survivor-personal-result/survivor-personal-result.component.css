@@ -125,18 +125,6 @@
       }
 
 
-
-/* Estilo para pantalla grande */
-.containerFondo {
-background-image: url('../../../assets/Imagenes Juego/SF3web.png');
-background-size: cover; /* Estira la imagen para ocupar todo el espacio */
-background-attachment: fixed; /* Fija la imagen de fondo */
-}
-
-
-
-
-
 #image-container {
   max-height: 300px; /* Ajusta la altura máxima según tus necesidades */
   overflow-y: auto;
