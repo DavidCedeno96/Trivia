@@ -67,7 +67,13 @@
     <!-- SALAS  -->
     <div class="container">
       <div class="row">
-        <div class="col py-2">{{ msjSalas }}</div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li [class.active]="elementoActivo == 0"  class="breadcrumb-item"><a (click)="todasLasSalas()">Todas las Salas</a></li>
+            <li [class.active]="elementoActivo == 1"  class="breadcrumb-item" aria-current="page"><a (click)="salasRecientes2()">Últimas salas visitas</a> </li>
+          </ol>
+        </nav>
+       <!--  <div class="col py-2">{{ msjSalas }}</div> -->
       </div>
       <div class="row">
         <div class="col-md-6" *ngFor="let sala of cardsToShow">

@@ -46,7 +46,7 @@ const routes: Routes = [
   {
     path: 'MisSalas',
     component: PlayerComponent,
-    canActivate: [authGuardPlayer],
+    //canActivate: [authGuardPlayer],
   },
   {
     path: 'Resultados',

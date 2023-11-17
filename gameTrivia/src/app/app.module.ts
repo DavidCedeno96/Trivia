@@ -128,7 +128,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
       {
         path: 'MisSalas',
         component: PlayerComponent,
-        canActivate: [authGuardPlayer],
+        //canActivate: [authGuardPlayer],
       },
       {
         path: 'Resultados',

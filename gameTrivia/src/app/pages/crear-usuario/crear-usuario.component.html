@@ -69,7 +69,12 @@
         <div class="row g-3">
           <div class="col-12">
             <!-- Input nombre Usuario -->
-            <div class="input-group">
+            <div class="mb-3" style="font-weight: bold;"
+            *ngIf="isEditar">
+            Nombre y Apellido del Usuario
+          </div>
+
+            <div class=" input-group">
               <input
                 type="text"
                 class="form-control custom-placeholder"
@@ -100,11 +105,17 @@
         <div class="row g-3">
           <div class="col-12">
             <!-- Input DPI USUARIO -->
+
+            <div class="mb-3" style="font-weight: bold;"
+            *ngIf="isEditar">
+            DPI del Usuario
+          </div>
+
             <div class="input-group">
               <input
                 type="text"
                 class="form-control custom-placeholder"
-                placeholder="DPI del Usuario"
+                placeholder="DPI del Usuario *"
                 [(ngModel)]="nuevoUsuario.contrasena"
                 [formControl]="dpiInput"
                 name="DPI"
@@ -130,6 +141,12 @@
           <div class="row g-3">
             <div class="col-12">
               <!-- Input correo Usuario -->
+
+              <div class="mb-3" style="font-weight: bold;"
+            *ngIf="isEditar">
+            Correo Electrónico
+          </div>
+
               <div class="input-group">
                 <input
                   type="text"
@@ -167,6 +184,8 @@
 
           <div class="row g-2">
             <div class="col-12">
+              
+
               <!-- Input ROL -->
               <div class="container">
                 <div class="row py-2">
@@ -174,7 +193,7 @@
                 </div>
 
                 <select
-                  class="form-control"
+                  class="form-select form-control "
                   aria-label="Default select example"
                   required
                   (change)="selectRol($event)"

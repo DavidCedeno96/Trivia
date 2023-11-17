@@ -46,6 +46,9 @@ export class PlayerComponent implements OnInit {
     //Quitar el boton salir
     isLogin2=false;
 
+    //Para los nuevos filtros
+    elementoActivo: number = 0;
+
   constructor(
     private router: Router,
     private usuarioServicio: UsuarioService,
@@ -59,10 +62,35 @@ export class PlayerComponent implements OnInit {
     this.idUsuario = parseInt(this.usuarioServicio.getIdUsuario()!);
     this.isLogin2 = this.usuarioServicio.getTipoLogin()=="2";
 
-    this.salasRecientes(this.idUsuario);
+    this.todasLasSalas();
+
+    //this.salasRecientes(this.idUsuario);
   }
 
   salasRecientes(idUsuario: number) {
+    this.salaServicio.listaSalaReciente(0, idUsuario).subscribe({
+      next: (data: any) => {
+        let { info, error, lista } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+          this.misSalas = lista;
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  salasRecientes2() {
+    this.elementoActivo=1;
+    const idUsuario=this.idUsuario;
     this.salaServicio.listaSalaReciente(0, idUsuario).subscribe({
       next: (data: any) => {
         let { info, error, lista } = data.result;
@@ -132,7 +160,8 @@ export class PlayerComponent implements OnInit {
         },
       });
     } else {
-      this.salaServicio.listaSala(0).subscribe({
+      this.todasLasSalas();
+      /* this.salaServicio.listaSala(0).subscribe({
         next: (data: any) => {
           const { info, error, lista } = data.result;
           this.result = info;
@@ -150,8 +179,32 @@ export class PlayerComponent implements OnInit {
             this.router.navigate(['/']);
           }
         },
-      });
+      }); */
     }
+  }
+
+  todasLasSalas(){
+    this.elementoActivo=0;
+    this.salaServicio.listaSala(0).subscribe({
+      next: (data: any) => {
+        const { info, error, lista } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+          this.misSalas = lista;
+          this.msjSalas = `Todas las salas`;
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+
   }
 
   getImageSala(nombreImagen: string): string {

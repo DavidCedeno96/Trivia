@@ -35,6 +35,8 @@ export class CrearUsuarioComponent {
     iniciales: 'MC',
   };
 
+  isEditar=false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -74,6 +76,7 @@ export class CrearUsuarioComponent {
         break;
       }
       case 'editar': {
+        this.isEditar=true;
         this.constantsService.loading(true);
         this.titulo = 'Editar Usuario';
         this.cargarData(this.nuevoUsuario.idUsuario);
