@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TimeApiService {
-  private apiUrl = 'http://worldtimeapi.org/api/timezone/Europe/London'; // URL de la API de WorldTimeAPI
+  private apiUrl = 'https://worldtimeapi.org/api/timezone/Europe/London'; // URL de la API de WorldTimeAPI
 
   constructor(private http: HttpClient) {}
 

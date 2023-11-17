@@ -293,6 +293,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {}
 
   ngOnDestroy(): void {
+    this.stopTimer()
     this.modal.hide();
   }
 
@@ -825,7 +826,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
             this.getListaBD(0);
           }, 1000);
 
-          if (this.isLife || this.repetirPregunta) {
+          /* if (this.isLife || this.repetirPregunta) {
+            setTimeout(() => {
+              this.pasarAOtraPregunta();
+            }, 3000);
+          } */
+          if (this.isLife) {
             setTimeout(() => {
               this.pasarAOtraPregunta();
             }, 3000);
