@@ -5,6 +5,8 @@ import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Usuario } from 'src/app/model/UsuarioModel';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ClipboardService } from 'ngx-clipboard';
+
 
 @Component({
   selector: 'app-gestionar-usuarios',
@@ -32,7 +34,8 @@ export class GestionarUsuariosComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private encryptionService: EncryptionService,
-    private constantsService: ConstantsService
+    private constantsService: ConstantsService,
+    private _clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -118,5 +121,39 @@ export class GestionarUsuariosComponent {
 
   cerrarSesion() {
     this.usuarioServicio.logout();
+  }
+
+  copyUsuario(usuario: string){
+
+    /* "Estimado [Nombre del Usuario],
+
+Nos complace informarte que tu clave de acceso ha sido restablecido con éxito. A continuación, encontrarás tu nueva contraseña, creada con la máxima seguridad para proteger tu cuenta. Apreciamos tu confianza en nuestro servicio y te recordamos la importancia de mantener esta información de manera confidencial. */
+    const textos = [
+      'Estimado usuario,',
+      'Nos complace informarte que tu nombre de usuario ha sido recuperada con éxito. Apreciamos tu confianza en nuestro servicio y te recordamos la importancia de mantener esta información de manera confidencial. Recuerda que tu contraseña es tu DPI Personal',
+      'Nombre de usuario: ' + usuario,      
+    ];
+    const textoAConcatenar = textos.join('\n');
+    //this._clipboardService.copy(textoAConcatenar);
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(textoAConcatenar)
+        .then(() => {
+          //alert('Texto copiado al portapapeles.');
+          this.messageService.add({
+            severity: 'success',
+            summary: this.constantsService.mensajeSatisfactorio(),
+            detail: 'Información copiada',
+          });
+        })
+        .catch((err) => {
+          console.error('Error al copiar al portapapeles:', err);
+          this._clipboardService.copyFromContent(textoAConcatenar);
+          // alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
+        });
+    } else {
+      this._clipboardService.copyFromContent(textoAConcatenar);
+      //alert('Texto copiado al portapapeles utilizando ngx-clipboard.');
+    }
   }
 }

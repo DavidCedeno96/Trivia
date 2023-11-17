@@ -156,12 +156,12 @@
                       {{ usuario.nombre }}
                     </div>
 
-                    <div *ngIf="usuario.correo != ''">
+                    <div *ngIf="usuario.correo != 'N/A'">
                       <strong>Email:</strong>
                       {{ usuario.correo }}
                     </div>
 
-                    <div *ngIf="usuario.contrasena != ''">
+                    <div *ngIf="usuario.contrasena != 'N/A'">
                       <strong>DPI:</strong>
                       {{ usuario.contrasena }}
                     </div>
@@ -169,6 +169,15 @@
                 </div>
                 <!-- Botones -->
                 <div class="col-sm-12 col-lg-4 text-end">
+                  <button
+                    type="button"
+                    class="btn btn-secondary mx-1"
+                    (click)="
+                    copyUsuario(usuario.nombre)"
+                  >
+                    
+                    Copiar
+                  </button>
                   <button
                     type="button"
                     class="btn btn-secondary mx-1"

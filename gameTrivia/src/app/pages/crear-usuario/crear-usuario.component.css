@@ -122,7 +122,11 @@ body {
 
 }
 .form-control {
-  border-radius: 15px;  
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 
 }
+
+
 
