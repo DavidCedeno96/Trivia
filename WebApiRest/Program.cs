@@ -14,7 +14,7 @@ builder.Services.AddCors(option =>
     option.AddPolicy(name: misReglasCors,
     builder =>
     {
-        builder.WithOrigins(settings.Origin) // => Este tambien acepta una lista de strings
+        builder.WithOrigins("*") // => Este tambien acepta una lista de strings
             .WithMethods("GET", "POST", "PUT", "DELETE")
             .AllowAnyHeader();
 
