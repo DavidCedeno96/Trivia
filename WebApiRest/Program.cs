@@ -6,7 +6,6 @@ using WebApiRest.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var origins = builder.Configuration.GetSection("AllowedHosts").Get<string>();
 var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 
 //CORS
@@ -15,7 +14,7 @@ builder.Services.AddCors(option =>
     option.AddPolicy(name: misReglasCors,
     builder =>
     {
-        builder.WithOrigins(origins.Split(";")) // => Este tambien acepta una lista de strings
+        builder.WithOrigins(settings.Origin) // => Este tambien acepta una lista de strings
             .WithMethods("GET", "POST", "PUT", "DELETE")
             .AllowAnyHeader();
 
