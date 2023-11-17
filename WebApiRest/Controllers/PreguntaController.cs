@@ -158,20 +158,20 @@ namespace WebApiRest.Controllers {
                                 {
                                     if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("pregunta"))
                                     {
-                                        pregunta.Nombre = filaData.GetCell(j).ToString().Trim();
+                                        pregunta.Nombre = WC.GetTrim(filaData.GetCell(j, MissingCellPolicy.CREATE_NULL_AS_BLANK).ToString());
                                         pregunta.IdSala = idSala;
                                     }
                                     else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("opcion"))
                                     {
                                         listOp.Add(new Opcion
                                         {
-                                            Nombre = filaData.GetCell(j).ToString().Trim(),
+                                            Nombre = WC.GetTrim(filaData.GetCell(j, MissingCellPolicy.CREATE_NULL_AS_BLANK).ToString()),
                                             Correcta = 0
                                         });
                                     }
                                     else if (filaEncabezado.GetCell(j).ToString().ToLower().Contains("correcta"))
                                     {
-                                        string opcCorrecta = "opcion " + filaData.GetCell(j).ToString().ToLower().Trim();
+                                        string opcCorrecta = "opcion " + WC.GetTrim(filaData.GetCell(j, MissingCellPolicy.CREATE_NULL_AS_BLANK).ToString().ToLower());
                                         for (int k = 0; k < 4; k++)
                                         {
                                             if (filaEncabezado.GetCell(k + 1).ToString().ToLower().Trim().Equals(opcCorrecta))

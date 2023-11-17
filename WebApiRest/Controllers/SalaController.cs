@@ -12,7 +12,7 @@ namespace WebApiRest.Controllers
 {
     [EnableCors("ReglasCors")]
     [Route("api/[controller]")]
-    [Authorize] // en los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role poner => [Authorize(Roles = "Administrador,SuperAdministrador")] 
+    //[Authorize] // en los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role poner => [Authorize(Roles = "Administrador,SuperAdministrador")] 
     [ApiController]
     public class SalaController : ControllerBase
     {
@@ -28,6 +28,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize]
         public IActionResult GetList([FromRoute] int estados)
         {
             SalaList result = data.GetSalaList(estados);
@@ -36,6 +37,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("list/{estados}/{idSala}/{idUsuario}")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize]
         public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala, [FromRoute] int idUsuario)
         {
             SalaItem result = data.GetSala(estados, idSala, idUsuario);
@@ -44,6 +46,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("list")]
+        [Authorize]
         public IActionResult GetSearch([FromQuery] int estados, [FromQuery] string buscar)
         {
             SalaList result = data.GetSalaList(estados, buscar);
@@ -52,6 +55,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("reporte/sala/{estados}")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult ReportSala([FromRoute] int estados)
         {
             Response result = new();
@@ -128,6 +132,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("listReciente/{estados}/{idUsuario}")]
+        [Authorize]
         public IActionResult GetListReciente([FromRoute] int estados, [FromRoute] int idUsuario)
         {
             SalaList result = data.GetSalaRecienteList(estados, idUsuario);
@@ -136,6 +141,7 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("createReciente")]
+        [Authorize]
         public IActionResult CreateItemReciente([FromBody] SalaReciente salaReciente)
         {
             Response result = data.CreateSalaReciente(salaReciente);
@@ -144,6 +150,7 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult CreateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
         {
             Response result = VF.ValidarSala(sala);
@@ -177,6 +184,7 @@ namespace WebApiRest.Controllers
 
         [HttpPut]
         [Route("update")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult UpdateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
         {
             Response result = VF.ValidarSala(sala);
@@ -218,6 +226,7 @@ namespace WebApiRest.Controllers
 
         [HttpPut]
         [Route("updateEstado")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult UpdateItemEstado([FromBody] Sala sala)
         {
             Response result = data.UpdateSalaEstado(sala);
@@ -226,6 +235,7 @@ namespace WebApiRest.Controllers
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult DeleteItem([FromQuery] int idSala)
         {
             string nombreArchivo = "Ranking_sala_" + idSala.ToString() + ".xls";            

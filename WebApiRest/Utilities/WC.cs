@@ -2,6 +2,8 @@
 {
     public static class WC
     {
+        private static readonly string adminRol = "Administrador";
+        private static readonly string superAdminRol = "SuperAdministrador";
 
         private static readonly string satisfactorio = "Satisfactorio";        
         private static readonly string archivoExistente = "El archivo ya existe";
@@ -50,6 +52,14 @@
             return false;
         }
 
+        public static string GetAdminRol()
+        {
+            return adminRol;
+        }
+        public static string GetSuperAdminRol()
+        {
+            return superAdminRol;
+        }
         public static string GetSatisfactorio()
         {
             return satisfactorio;
