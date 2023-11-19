@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiRest.Controllers
 {
-    [EnableCors("ReglasCors")]
+    //[EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase

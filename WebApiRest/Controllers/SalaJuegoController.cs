@@ -6,7 +6,7 @@ using WebApiRest.Models;
 
 namespace WebApiRest.Controllers
 {
-    [EnableCors("ReglasCors")]
+    //[EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     [ApiController]
     public class SalaJuegoController : ControllerBase

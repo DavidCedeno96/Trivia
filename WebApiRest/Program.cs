@@ -10,18 +10,11 @@ var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 
 //CORS
 var misReglasCors = "ReglasCors";
-builder.Services.AddCors(option =>
-    option.AddPolicy(name: misReglasCors,
-    builder =>
-    {
-        builder.WithOrigins("*") // => Este tambien acepta una lista de strings
-            .WithMethods("GET", "POST", "PUT", "DELETE")
-            .AllowAnyHeader();
-
-        //.WithHeaders("Authorization") // Permitir el encabezado Authorization
-        //.AllowCredentials();
-    })
-);
+builder.Services.AddCors(p => p.AddPolicy(misReglasCors, build => {
+    build.WithOrigins(settings.Origin)
+    .AllowAnyHeader()
+    .AllowAnyMethod();
+}));
 
 //JWT
 var keyBytes = Encoding.UTF8.GetBytes(settings.SecretKey);

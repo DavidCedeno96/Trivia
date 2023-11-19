@@ -9,7 +9,7 @@ using WebApiRest.Utilities;
 
 namespace WebApiRest.Controllers {
 
-    [EnableCors("ReglasCors")]
+    //[EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]    

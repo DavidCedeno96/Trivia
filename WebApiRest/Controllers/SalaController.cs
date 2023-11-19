@@ -10,7 +10,7 @@ using WebApiRest.Utilities;
 
 namespace WebApiRest.Controllers
 {
-    [EnableCors("ReglasCors")]
+    //[EnableCors("ReglasCors")]
     [Route("api/[controller]")]
     //[Authorize] // en los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role poner => [Authorize(Roles = "Administrador,SuperAdministrador")] 
     [ApiController]
