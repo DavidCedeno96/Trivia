@@ -266,20 +266,21 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
   temporizador2(currentTime: Date) {
     this.endDate = new Date(this.miSala.fechaActivacion);
-    //console.log("this.endDate");
-    //console.log(this.endDate);
+    console.log("this.endDate");
+    console.log(this.endDate);
     const fechaFin = this.endDate;
     const fechaFinAdd2 = new Date(fechaFin.getTime());
     fechaFinAdd2.setMinutes(fechaFinAdd2.getMinutes() + this.minutes);
 
-    //console.log("fechaFinAdd2");
-    //console.log(fechaFinAdd2);
+    console.log("fechaFinAdd2");
+    console.log(fechaFinAdd2);
     //const timeRemaining = this.endDate.getTime() - currentTime.getTime();
     const diferenciaEnMilisegundos = Math.abs(
       fechaFinAdd2.getTime() - currentTime.getTime()
     );
     this.segundosRestantes = Math.round(diferenciaEnMilisegundos / 1000); // Convertir a segundos
-
+    
+    console.log("this.segundosRestantes");
     console.log(this.segundosRestantes);
     console.log(diferenciaEnMilisegundos);
 
