@@ -96,7 +96,35 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  descargarReporte() {
+  descargarReporteSalasUsuarios() {
+    this.constantsService.loading(true);
+    this.usuario_SalaServicio.reporteRanking(0).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+
+          let url = this.usuario_SalaServicio.getUrlArchivo(info);
+
+          const element = document.createElement('a');
+          element.download = `Ranking.xls`;
+          element.href = url;
+          element.click();
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  descargarReporteSalas() {
     this.constantsService.loading(true);
     this.salaServicio.reporteSalas(0).subscribe({
       next: (data: any) => {

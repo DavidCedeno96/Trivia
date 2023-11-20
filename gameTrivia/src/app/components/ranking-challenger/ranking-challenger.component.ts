@@ -133,7 +133,7 @@ export class RankingChallengerComponent
 
   descargarRanking() {
     this.constantsService.loading(true);
-    this.usuarioSalaService.reporteRanking(0, this.idSala).subscribe({
+    this.usuarioSalaService.reporteRankingById(0, this.idSala).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
         this.result = info;

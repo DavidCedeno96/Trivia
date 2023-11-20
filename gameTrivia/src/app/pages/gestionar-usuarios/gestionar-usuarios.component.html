@@ -77,10 +77,14 @@
                       Usuarios
                     </a>
                   </li>
-                  <li class="nav-item" *ngIf="idRol === 3">
+                  <li
+                    class="nav-item"
+                    *ngIf="idRol === 3"
+                    style="cursor: pointer"
+                  >
                     <a
                       class="nav-link"
-                      (click)="descargarReporte()"
+                      (click)="descargarReporteSalasUsuarios()"
                       data-bs-dismiss="offcanvas"
                     >
                       <img

@@ -7,7 +7,7 @@ import { Usuario } from 'src/app/model/UsuarioModel';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { SalaService } from 'src/app/services/sala.service';
-
+import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
 
 @Component({
   selector: 'app-gestionar-usuarios',
@@ -28,12 +28,13 @@ export class GestionarUsuariosComponent {
   currentCodigo: string = '';
 
   timeLondon: string = '';
-  idRol=0;
+  idRol = 0;
 
   constructor(
     private salaServicio: SalaService,
     private router: Router,
     private usuarioServicio: UsuarioService,
+    private usuario_salaServicio: UsuarioSalaService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private encryptionService: EncryptionService,
@@ -45,7 +46,6 @@ export class GestionarUsuariosComponent {
     this.constantsService.loading(true);
     this.listarUsuarios('', true);
     this.idRol = parseInt(this.usuarioServicio.getRol()!);
-
   }
 
   listarUsuarios(buscar: string, cargaInicial: boolean) {
@@ -128,9 +128,9 @@ export class GestionarUsuariosComponent {
     this.usuarioServicio.logout();
   }
 
-  descargarReporte() {
+  descargarReporteSalasUsuarios() {
     this.constantsService.loading(true);
-    this.salaServicio.reporteSalas(0).subscribe({
+    this.usuario_salaServicio.reporteRanking(0).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
         this.result = info;
@@ -139,10 +139,10 @@ export class GestionarUsuariosComponent {
         } else {
           this.existeError = false;
 
-          let url = this.salaServicio.getUrlArchivo(info);
+          let url = this.usuario_salaServicio.getUrlArchivo(info);
 
           const element = document.createElement('a');
-          element.download = `Salas.xls`;
+          element.download = `Ranking.xls`;
           element.href = url;
           element.click();
         }
@@ -156,15 +156,14 @@ export class GestionarUsuariosComponent {
     });
   }
 
-  copyUsuario(usuario: string){
-
+  copyUsuario(usuario: string) {
     /* "Estimado [Nombre del Usuario],
 
 Nos complace informarte que tu clave de acceso ha sido restablecido con éxito. A continuación, encontrarás tu nueva contraseña, creada con la máxima seguridad para proteger tu cuenta. Apreciamos tu confianza en nuestro servicio y te recordamos la importancia de mantener esta información de manera confidencial. */
     const textos = [
       'Estimado usuario,',
       'Nos complace informarte que tu nombre de usuario ha sido recuperada con éxito. Apreciamos tu confianza en nuestro servicio y te recordamos la importancia de mantener esta información de manera confidencial. Recuerda que tu contraseña es tu DPI Personal',
-      'Nombre de usuario: ' + usuario,      
+      'Nombre de usuario: ' + usuario,
     ];
     const textoAConcatenar = textos.join('\n');
     //this._clipboardService.copy(textoAConcatenar);

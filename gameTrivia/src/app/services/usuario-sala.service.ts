@@ -57,7 +57,7 @@ export class UsuarioSalaService {
     });
   }
 
-  reporteRanking(estados: number, idSala: number): Observable<any> {
+  reporteRankingById(estados: number, idSala: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
@@ -67,6 +67,15 @@ export class UsuarioSalaService {
         headers: headers,
       }
     );
+  }
+
+  reporteRanking(estados: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.get<any>(`${this.apiURL}/reporte/ranking/${estados}`, {
+      headers: headers,
+    });
   }
 
   getUrlArchivo(nombreArcivo: string): string {

@@ -306,8 +306,13 @@ exec sp_D_OpcionByIdPregunta
 ---- USUARIO_SALA ---------------------------------------------
 select * from Usuario_Sala 
 
+exec sp_B_Usuario_Sala		
+@estados = 0,
+@info = '',
+@error = ''
+
 exec sp_B_Usuario_SalaByIdSala	
-@idSala = 78,
+@idSala = 80,
 @estados = 0,
 @info = '',
 @error = ''
@@ -419,8 +424,10 @@ WHERE tc.TABLE_NAME = 'Usuario';
 SELECT @@VERSION;
 
 -- CAMBIOS ----------------------------------------------------------------------------------
--- 
+-- [sp_B_Usuario_Sala] [sp_B_Usuario_SalaByIdSala] [sp_C_Usuario] [sp_U_Usuario]
 
+--ALTER TABLE Usuario
+--ALTER COLUMN correo VARCHAR(50);
 ------------------------------------------------------------------------------------
 insert into pruebas (id, texto) values
 (3, 'hola'),

@@ -9,6 +9,61 @@ namespace WebApiRest.Data
     {
         private readonly Conexion conexion = new();
 
+        public Usuario_SalaList GetUsuario_SalaList(int estados)
+        {
+            Usuario_SalaList list = new()
+            {
+                Lista = new()
+            };
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+
+            SqlCommand cmd = new("sp_B_Usuario_Sala", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };            
+            cmd.Parameters.AddWithValue("@estados", estados);
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    list.Lista.Add(new Usuario_Sala()
+                    {
+                        Usuario = dr["usuario"].ToString(),
+                        Correo = dr["correo"].ToString(),
+                        Rol = dr["rol"].ToString(),
+                        Sala = dr["sala"].ToString(),                        
+                        Descripcion = dr["descripcion"].ToString(),
+                        Puntaje = Convert.ToInt32(dr["puntaje"].ToString()),
+                        Tiempo = Convert.ToInt32(dr["tiempo"].ToString()),
+                        FechaCreacion = Convert.ToDateTime(dr["fecha_creacion"].ToString()),
+                        FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
+                    });
+                }
+
+                list.Info = WC.GetSatisfactorio();
+                list.Error = 0;
+
+            }
+            catch (Exception ex)
+            {
+                list.Info = ex.Message;
+                list.Error = 1;
+                list.Lista = null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return list;
+        }
+
         public Usuario_SalaList GetUsuario_SalaList(int estados, int idSala)
         {
             Usuario_SalaList list = new()
@@ -36,6 +91,7 @@ namespace WebApiRest.Data
                     list.Lista.Add(new Usuario_Sala()
                     {
                         Usuario = dr["usuario"].ToString(),
+                        Correo = dr["correo"].ToString(),
                         Rol = dr["rol"].ToString(),
                         Sala = dr["sala"].ToString(),                        
                         Puntaje = Convert.ToInt32(dr["puntaje"].ToString()),                        
