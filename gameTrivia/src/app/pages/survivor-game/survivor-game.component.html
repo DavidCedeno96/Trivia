@@ -1,7 +1,7 @@
 <!-- <app-esperar-jchallengers ></app-esperar-jchallengers>
  -->
 
-<div class="modal-container text-center">
+ <div class="modal-container text-center">
   <div
     class="modal fade mobile-modal"
     id="exampleModal"
@@ -335,6 +335,7 @@
         <div class="txtYo">
           {{ jugador.iniciales }}
         </div>
+        <div>(Tú)</div>
       </div>
       <img class="imgYo" [src]="imgJugadorVivo" />
     </div>
@@ -358,10 +359,16 @@
           class="col-sm-2 col-4 text-center"
           *ngFor="let miJugador of jugadoresSurvivor; let i = index"
         >
-          <div
-            class="container position-relative py-3"
-            style="min-height: 120px; min-width: 120px"
-            *ngIf="miJugador.idJugador !== idUsuario"
+
+        <!-- CIRCULO -->
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div
+
+            class="container position-relative py-3 ctranlation"
+            style="min-height: 120px; min-width: 120px;"
+            *ngIf="miJugador.idJugador !== idUsuario"s
           >
             <div
               class="position-absolute top-50 start-50 translate-middle"
@@ -381,13 +388,36 @@
                 alt="muerto"
                 style="max-width: 40px; height: auto"
               />
-            </div>
+            </div>             
+            
+            
             <img
               [src]="mostrarJugadorVivo ? imgJugadorVivo : imgJugadorMuerto"
               class="img-fluid"
               alt="Image"
             />
           </div>
+
+            </div>
+          </div>
+
+           <!-- NOMBRE USUARIO -->
+
+          <div class="row" style="padding-right: 0px;" >
+            <div class="col">
+              <div class="text-center">
+                 {{names[i]}} 
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          
+
+          
+        
+          
         </div>
       </div>
     </div>

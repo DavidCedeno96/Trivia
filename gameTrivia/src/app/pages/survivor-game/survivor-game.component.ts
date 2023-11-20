@@ -167,6 +167,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //Circulos de nuevos jugadores
   circles: { left: number; top: number }[] = [];
   texts: string[] = ['AB', 'DC', 'CMI', 'AC'];
+  names: string[] = [''];
 
   //Jugadores Eliminados
   //idJugador = 0;
@@ -507,19 +508,39 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               }
 
               const textsAux: string[] = [];
+              const namesAux: string[] = [];
               for (let i = 0; i < jugadoresMuertos.length; i++) {
                 textsAux.push(jugadoresMuertos[i].iniciales);
+
+                //PARA LOS NOMBRES                
+                // Divide el texto en palabras
+                const nombres = jugadoresMuertos[i].iniciales.split(' ');//CAMBIAR ESTA PARTE NO HAY NOMBRES
+
+                // Toma las dos primeras palabras y las une
+                const nombres2p = nombres.slice(0, 2).join(' ');                
+                namesAux.push(nombres2p);
               }
               //actualizo la lista de texto de los circulos animados
               this.texts = textsAux;
+              this.names = namesAux;
             } else if (vistaCirculos === 1) {
               this.jugadoresSurvivor = jugadoresVivos; //Actualizo mi for del html
               const textsAux: string[] = [];
+              const namesAux: string[] = [];
               for (let i = 0; i < jugadoresVivos.length; i++) {
                 textsAux.push(jugadoresVivos[i].iniciales);
+
+                 //PARA LOS NOMBRES                
+                // Divide el texto en palabras
+                const nombres = jugadoresMuertos[i].iniciales.split(' ');//CAMBIAR ESTA PARTE NO HAY NOMBRES
+
+                // Toma las dos primeras palabras y las une
+                const nombres2p = nombres.slice(0, 2).join(' ');                
+                namesAux.push(nombres2p);
               }
               //actualizo la lista de texto de los circulos animados
               this.texts = textsAux;
+              this.names = namesAux;
             }
 
             if (jugadoresVivos.length == 1) {
