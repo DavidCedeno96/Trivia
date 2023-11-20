@@ -6,6 +6,7 @@ import { EncryptionService } from 'src/app/encryption.service';
 import { Usuario } from 'src/app/model/UsuarioModel';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { SalaService } from 'src/app/services/sala.service';
 
 
 @Component({
@@ -27,8 +28,10 @@ export class GestionarUsuariosComponent {
   currentCodigo: string = '';
 
   timeLondon: string = '';
+  idRol=0;
 
   constructor(
+    private salaServicio: SalaService,
     private router: Router,
     private usuarioServicio: UsuarioService,
     private confirmationService: ConfirmationService,
@@ -41,6 +44,8 @@ export class GestionarUsuariosComponent {
   ngOnInit(): void {
     this.constantsService.loading(true);
     this.listarUsuarios('', true);
+    this.idRol = parseInt(this.usuarioServicio.getRol()!);
+
   }
 
   listarUsuarios(buscar: string, cargaInicial: boolean) {
@@ -121,6 +126,34 @@ export class GestionarUsuariosComponent {
 
   cerrarSesion() {
     this.usuarioServicio.logout();
+  }
+
+  descargarReporte() {
+    this.constantsService.loading(true);
+    this.salaServicio.reporteSalas(0).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+
+          let url = this.salaServicio.getUrlArchivo(info);
+
+          const element = document.createElement('a');
+          element.download = `Salas.xls`;
+          element.href = url;
+          element.click();
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
   }
 
   copyUsuario(usuario: string){

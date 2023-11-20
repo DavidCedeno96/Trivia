@@ -23,19 +23,25 @@
                   <li class="nav-item">
                     
                     <a class="nav-link active" aria-current="page" routerLink="/Administrador" data-bs-dismiss="offcanvas">
-                      <img src="assets/Imagenes Juego/ImagenDefault.png" alt="imgSala" style="height: 60px; width: auto ;">
+                      <img class="ps-3 pe-2" src="assets/Imagenes Juego/sala.png" alt="imgSala" style="height: 30px; width: auto ;">
                       Salas
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link"  routerLink="/GestionarUsuarios" data-bs-dismiss="offcanvas">
-                      <img  class="pe-2" src="assets/Imagenes Juego/Usuarios.png" alt="imgSala" style="height: 60px; width: auto ;">
+                      <img  class="ps-3 pe-2" src="assets/Imagenes Juego/usuario.png" alt="imgSala" style="height: 30px; width: auto ;">
                       Usuarios
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="idRol === 3">
+                    <a class="nav-link" (click)="descargarReporte()" data-bs-dismiss="offcanvas" >
+                      <img  class="ps-3 pe-2" src="assets/Imagenes Juego/reporte.png" alt="imgSala2" style="height: 30px; width: auto ;">
+                      Reporte Salas
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" (click)="cerrarSesion()" data-bs-dismiss="offcanvas">
-                      <img class="ps-3 pe-3" src="assets/Icons/Puerta4.svg"  style="height: 40px; width: auto ;" />
+                      <img class="ps-3 pe-2" src="assets/Imagenes Juego/salir.png"  style="height: 30px; width: auto ;" />
                       Salir
                     </a>
                   </li>
@@ -80,7 +86,7 @@
         Buscar
       </div>
       <!-- Buscador de Salas -->
-      <div class="{{ idRol === 3 ? 'col-lg-6' : 'col-lg-8' }} col-10 py-lg-3">
+      <div class=" col-8 py-lg-3">
         <div class="input-group">
           <input
             type="text"
@@ -118,11 +124,11 @@
           Nueva
         </button>
       </div>
-      <div class="col-6 col-lg-auto px-3 py-3" *ngIf="idRol === 3">
+      <!-- <div class="col-6 col-lg-auto px-3 py-3" *ngIf="idRol === 3">
         <button class="btn btn-primary px-4" (click)="descargarReporte()">
           Reporte salas
         </button>
-      </div>
+      </div> -->
     </div>
 
     <!-- Mensaje error -->
@@ -222,6 +228,16 @@
                     (click)="dataSalaOnModal(sala)"
                   >
                     Compartir
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-secondary mx-1 my-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                   
+                  >
+                    Resetear
                   </button>
 
                   <button
