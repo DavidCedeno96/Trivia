@@ -245,7 +245,93 @@
                 </div>
                 <!-- Botones -->
                 <div class="col-sm-12 col-lg-4 text-end">
-                  <button
+
+                  <div class="container mt-5">
+
+
+                    <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="false">
+                      <button id="button-basic" dropdownToggle type="button" 
+                         class="btn btn-primary dropdown-toggle"
+                         aria-controls="dropdown-basic">
+                         Configuración <span class="caret"></span>
+                      </button>
+
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" style="background-color: #3d5057;"
+                         role="menu" aria-labelledby="button-basic">
+                         <li role="menuitem"><a class="dropdown-item"  (click)="cambiarPag('/Sala', sala.idSala)"><img
+                          src="assets/Icons/Editar.svg"
+                          alt="Icono"
+                          class="icono-svg2"                    
+                        />                        
+                        <strong>Editar</strong></a></li>
+
+                        <li role="menuitem"><a class="dropdown-item" (click)="confirmEliminar(sala.idSala)">
+                        <img
+                          src="assets/Icons/Basurero.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        <strong>Eliminar</strong></a></li>
+
+                         <li role="menuitem"><a class="dropdown-item"  (click)="cambiarPag('/RankingChallengers', sala.idSala)"><img
+                          src="assets/Icons/Trofeo.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        Resultados</a></li>
+                         <li data-bs-toggle="modal"
+                         data-bs-target="#exampleModal" role="menuitem"><a class="dropdown-item" (click)="dataSalaOnModal(sala)">Compartir</a></li>                         
+                         <li role="menuitem"><a class="dropdown-item" (click)="confirmResetear(sala.idSala)">Resetear</a>
+                         </li>
+                         <li *ngIf="sala.estado === 1" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 0)">Activado</a>
+                         </li>
+                         <li *ngIf="sala.estado === 0" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 1)">Desactivado</a>
+                         </li>
+                      </ul>
+                   </div>
+
+                    
+                  </div>
+                  <!-- <select class="form-select" aria-label="Default select example">
+                    <option selected>Ajustes</option>
+
+                    <option  (click)="cambiarPag('/Sala', sala.idSala)" ><img
+                      src="assets/Icons/Editar.svg"
+                      alt="Icono"
+                      class="icono-svg2"                    
+                    />
+                    Editar
+                  </option>
+
+                    <option  (click)="confirmEliminar(sala.idSala)"><img
+                      src="assets/Icons/Basurero.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Eliminar
+                  </option>
+
+                    <option >
+                      <img
+                      src="assets/Icons/Trofeo.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Resultados
+                    </option>
+
+                    <option >
+                      <img
+                      src="assets/Icons/Trofeo.svg"
+                      alt="Icono"
+                      class="icono-svg2"
+                    />
+                    Resultados
+                    </option>
+                  </select> -->
+
+                  
+                  <!-- <button
                     type="button"
                     class="btn btn-secondary mx-1"
                     (click)="cambiarPag('/Sala', sala.idSala)"
@@ -314,7 +400,7 @@
                     (click)="cambiarEstado(sala, 1)"
                   >
                     Desactivado
-                  </button>
+                  </button> -->
                 </div>
 
                 <!-- INICIO MODAL -->

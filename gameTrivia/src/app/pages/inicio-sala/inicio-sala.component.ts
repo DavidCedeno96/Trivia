@@ -275,43 +275,50 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     console.log("fechaFinAdd2");
     console.log(fechaFinAdd2);
     //const timeRemaining = this.endDate.getTime() - currentTime.getTime();
-    const diferenciaEnMilisegundos = Math.abs(
-      fechaFinAdd2.getTime() - currentTime.getTime()
-    );
+    const diferenciaEnMilisegundos = fechaFinAdd2.getTime() - currentTime.getTime();
+    
     this.segundosRestantes = Math.round(diferenciaEnMilisegundos / 1000); // Convertir a segundos
     
     console.log("this.segundosRestantes");
     console.log(this.segundosRestantes);
     console.log(diferenciaEnMilisegundos);
 
-    this.timer = setInterval(() => {
-      if (this.segundosRestantes > 0) {
-        this.segundosRestantes--;
-        const seconds = this.segundosRestantes;
-        //console.log("seconds");
-        //console.log(seconds);
-
-        // Comprueba si el temporizador ha terminado.
-        if (this.segundosRestantes <= 0) {
-          // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
-          this.minutes = 0;
-          this.seconds = 0;
-        } else {
-          this.minutes = Math.floor(seconds / 60);
-          this.seconds = seconds % 60;
-          //console.log(this.minutes );
-          //console.log(this.seconds );
-
-          if (seconds <= 2 && seconds >= 1) {
-            // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
-            this.constantsService.loading(true);
-            this.createPosicion(2);
+    if (diferenciaEnMilisegundos>0) {
+      this.timer = setInterval(() => {
+        if (this.segundosRestantes > 0) {
+          this.segundosRestantes--;
+          const seconds = this.segundosRestantes;
+          //console.log("seconds");
+          //console.log(seconds);
+  
+          // Comprueba si el temporizador ha terminado.
+          if (this.segundosRestantes <= 0) {
+            // Puedes agregar aquí una acción para ejecutar cuando el temporizador haya finalizado.
+            this.minutes = 0;
+            this.seconds = 0;
+          } else {
+            this.minutes = Math.floor(seconds / 60);
+            this.seconds = seconds % 60;
+            //console.log(this.minutes );
+            //console.log(this.seconds );
+  
+            if (seconds <= 2 && seconds >= 1) {
+              // Aquí puedes agregar una acción para cuando al temporizador le falten 2 segundos.
+              this.constantsService.loading(true);
+              this.createPosicion(2);
+            }
           }
+        } else {
+          clearInterval(this.timer);
         }
-      } else {
-        clearInterval(this.timer);
-      }
-    }, 1000);
+      }, 1000);
+      
+    }else{
+      this.minutes=0;
+      this.seconds=0;
+    }
+
+    
   }
 
   cambiarPag(ruta: string, id: number) {

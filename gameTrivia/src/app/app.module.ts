@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
 import { KnobModule } from 'primeng/knob';
+import { MenuModule } from 'primeng/menu';
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -38,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
 //import { NgxDropzoneModule } from 'ngx-dropzone';
+import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 import { NgxSliderModule } from 'ngx-slider-v2';
 
@@ -84,11 +86,13 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
     DropdownModule,
     ClipboardModule,
 
+    BsDropdownModule,
+
     /* ButtonModule,
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
-
+    MenuModule,
     ProgressBarModule,
     KnobModule,
     NgxSliderModule,
@@ -176,7 +180,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
       },
     ]),
   ],
-  providers: [],
+  providers: [BsDropdownConfig],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

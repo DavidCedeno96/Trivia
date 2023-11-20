@@ -10,6 +10,10 @@ import { ClipboardService } from 'ngx-clipboard';
 import Swal from 'sweetalert2';
 import { TimeApiService } from 'src/app/services/time-api.service';
 import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
+import { MenuItem, } from 'primeng/api';
+
+//import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-admin',
@@ -50,6 +54,8 @@ export class AdminComponent implements OnInit {
   cardsPerPage: number = 6;
   currentPage: number = 1;
 
+  items: MenuItem[] | undefined;
+
   constructor(
     private salaServicio: SalaService,
     private usuarioServicio: UsuarioService,
@@ -69,6 +75,8 @@ export class AdminComponent implements OnInit {
     this.cargarSalas();
 
     this.getTimeLondon();
+
+   // this.itemsMenu();
   }
 
   cargarSalas() {
@@ -413,4 +421,51 @@ export class AdminComponent implements OnInit {
     const pageCount = Math.ceil(this.misSalas.length / this.cardsPerPage);
     return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
+
+/*   itemsMenu(){
+    this.items = [
+      {
+          label: 'Options',
+          items: [
+              {
+                  label: 'Update',
+                  icon: 'pi pi-refresh',
+                  command: () => {
+                      this.update();
+                  }
+              },
+              {
+                  label: 'Delete',
+                  icon: 'pi pi-times',
+                  command: () => {
+                      this.delete();
+                  }
+              }
+          ]
+      },
+      {
+          label: 'Navigate',
+          items: [
+              {
+                  label: 'Angular',
+                  icon: 'pi pi-external-link',
+                  url: 'http://angular.io'
+              },
+              {
+                  label: 'Router',
+                  icon: 'pi pi-upload',
+                  routerLink: '/fileupload'
+              }
+          ]
+      }
+  ];
+  }
+
+  update() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+}
+
+delete() {
+    this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+} */
 }
