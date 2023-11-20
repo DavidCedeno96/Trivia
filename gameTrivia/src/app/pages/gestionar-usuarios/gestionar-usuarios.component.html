@@ -3,57 +3,114 @@
     <div class="row">
       <!-- Menu -->
       <div class="col">
-
         <nav class="navbar">
           <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="background-color: #3d5057; ">
-              <span class="navbar-toggler-icon" ></span>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+              aria-label="Toggle navigation"
+              style="background-color: #3d5057"
+            >
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="border-radius: 0; background-color: #fff; font-weight: bold;">
+            <div
+              class="offcanvas offcanvas-start"
+              tabindex="-1"
+              id="offcanvasNavbar"
+              aria-labelledby="offcanvasNavbarLabel"
+              style="
+                border-radius: 0;
+                background-color: #fff;
+                font-weight: bold;
+              "
+            >
               <div class="offcanvas-header">
-                <img src="assets/Imagenes Empresa/Logo_AppMenu.png" alt="Logo_AppMenu.png" style="max-height: 40px; width: auto; ">
+                <img
+                  src="assets/Imagenes Empresa/Logo_AppMenu.png"
+                  alt="Logo_AppMenu.png"
+                  style="max-height: 40px; width: auto"
+                />
                 <!-- <h5 class="offcanvas-title ps-2" id="offcanvasNavbarLabel" style="font-weight: bold; font-size: 30px; color: #3d5057;">
                   
                   Menú</h5> -->
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
               </div>
-              <hr>
-              <div class="offcanvas-body" >
+              <hr />
+              <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    
-                    <a class="nav-link " aria-current="page" routerLink="/Administrador" data-bs-dismiss="offcanvas">
-                      <img class="ps-3 pe-2" src="assets/Imagenes Juego/sala.png" alt="imgSala" style="height: 30px; width: auto ;">
+                    <a
+                      class="nav-link"
+                      aria-current="page"
+                      routerLink="/Administrador"
+                      data-bs-dismiss="offcanvas"
+                    >
+                      <img
+                        class="ps-3 pe-2"
+                        src="assets/Imagenes Juego/sala.png"
+                        alt="imgSala"
+                        style="height: 30px; width: auto"
+                      />
                       Salas
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active"  routerLink="/GestionarUsuarios" data-bs-dismiss="offcanvas">
-                      <img  class="ps-3 pe-2" src="assets/Imagenes Juego/usuario.png" alt="imgSala" style="height: 30px; width: auto ;">
+                    <a
+                      class="nav-link active"
+                      routerLink="/GestionarUsuarios"
+                      data-bs-dismiss="offcanvas"
+                    >
+                      <img
+                        class="ps-3 pe-2"
+                        src="assets/Imagenes Juego/usuario.png"
+                        alt="imgSala"
+                        style="height: 30px; width: auto"
+                      />
                       Usuarios
                     </a>
                   </li>
                   <li class="nav-item" *ngIf="idRol === 3">
-                    <a class="nav-link" (click)="descargarReporte()" data-bs-dismiss="offcanvas" >
-                      <img  class="ps-3 pe-2" src="assets/Imagenes Juego/reporte.png" alt="imgSala2" style="height: 30px; width: auto ;">
+                    <a
+                      class="nav-link"
+                      (click)="descargarReporte()"
+                      data-bs-dismiss="offcanvas"
+                    >
+                      <img
+                        class="ps-3 pe-2"
+                        src="assets/Imagenes Juego/reporte.png"
+                        alt="imgSala2"
+                        style="height: 30px; width: auto"
+                      />
                       Reporte Salas
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" (click)="cerrarSesion()" data-bs-dismiss="offcanvas">
-                      <img class="ps-3 pe-2" src="assets/Imagenes Juego/salir.png"  style="height: 30px; width: auto ;" />
+                  <li class="nav-item" style="cursor: pointer">
+                    <a
+                      class="nav-link"
+                      (click)="cerrarSesion()"
+                      data-bs-dismiss="offcanvas"
+                    >
+                      <img
+                        class="ps-3 pe-2"
+                        src="assets/Imagenes Juego/salir.png"
+                        style="height: 30px; width: auto"
+                      />
                       Salir
                     </a>
                   </li>
-                 
                 </ul>
-                
               </div>
             </div>
           </div>
-          
         </nav>
-
       </div>
       <!-- Contenido derecho -->
       <!-- <div class="col mx-2">
@@ -178,10 +235,8 @@
                   <button
                     type="button"
                     class="btn btn-secondary mx-1"
-                    (click)="
-                    copyUsuario(usuario.nombre)"
+                    (click)="copyUsuario(usuario.nombre)"
                   >
-                    
                     Copiar
                   </button>
                   <button

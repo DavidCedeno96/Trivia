@@ -119,7 +119,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   //PARA LA SALA
   numerodeJugadores: number = 0;
   AuxNumerodeJugadores: number = 0;
-  auxMuertos=0;
+  auxMuertos = 0;
 
   //sala y usuario
 
@@ -210,6 +210,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   jugador: SalaJuego = {
     idSala: 0,
     idJugador: 0,
+    nombre: 'prueba',
     iniciales: 'MM',
     posicion: 0,
     estadoJuego: 0,
@@ -227,7 +228,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   fondoPreguntas = true;
 
   //Mensajes
-  isNadiePerdio=false;
+  isNadiePerdio = false;
 
   constructor(
     private renderer: Renderer2,
@@ -294,7 +295,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {}
 
   ngOnDestroy(): void {
-    this.stopTimer()
+    this.stopTimer();
     this.modal.hide();
   }
 
@@ -487,13 +488,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
             //console.log('JUGADORES', jugadoresMuertos, jugadoresVivos);
 
             this.numerodeEliminados = jugadoresMuertos.length;
-              if(jugadoresMuertos.length == this.auxMuertos){
-                this.isNadiePerdio=true;
-                this.auxMuertos=jugadoresMuertos.length;
-              }
+            if (jugadoresMuertos.length == this.auxMuertos) {
+              this.isNadiePerdio = true;
+              this.auxMuertos = jugadoresMuertos.length;
+            }
 
             if (vistaCirculos === 0) {
-              
               console.log(jugadoresMuertos.length);
               if (jugadoresMuertos.length > 0) {
                 //this.isNadiePerdio=false;
@@ -512,12 +512,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               for (let i = 0; i < jugadoresMuertos.length; i++) {
                 textsAux.push(jugadoresMuertos[i].iniciales);
 
-                //PARA LOS NOMBRES                
+                //PARA LOS NOMBRES
                 // Divide el texto en palabras
-                const nombres = jugadoresMuertos[i].iniciales.split(' ');//CAMBIAR ESTA PARTE NO HAY NOMBRES
+                const nombres = jugadoresMuertos[i].nombre.split(' '); //CAMBIAR ESTA PARTE NO HAY NOMBRES
 
                 // Toma las dos primeras palabras y las une
-                const nombres2p = nombres.slice(0, 2).join(' ');                
+                const nombres2p = nombres.slice(0, 2).join(' ');
                 namesAux.push(nombres2p);
               }
               //actualizo la lista de texto de los circulos animados
@@ -530,12 +530,12 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
               for (let i = 0; i < jugadoresVivos.length; i++) {
                 textsAux.push(jugadoresVivos[i].iniciales);
 
-                 //PARA LOS NOMBRES                
+                //PARA LOS NOMBRES
                 // Divide el texto en palabras
-                const nombres = jugadoresMuertos[i].iniciales.split(' ');//CAMBIAR ESTA PARTE NO HAY NOMBRES
+                const nombres = jugadoresMuertos[i].nombre.split(' '); //CAMBIAR ESTA PARTE NO HAY NOMBRES
 
                 // Toma las dos primeras palabras y las une
-                const nombres2p = nombres.slice(0, 2).join(' ');                
+                const nombres2p = nombres.slice(0, 2).join(' ');
                 namesAux.push(nombres2p);
               }
               //actualizo la lista de texto de los circulos animados
@@ -576,6 +576,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     let juego = {
       idSala: this.idSala,
       idJugador: this.idUsuario,
+      nombre: 'prueba',
       iniciales: 'PP',
       posicion: 0,
       estadoJuego: auxEstadoJuego,
@@ -639,7 +640,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fondoPreguntas = true;
     this.viewotrosjugadores = false;
 
-    this.isNadiePerdio=false;
+    this.isNadiePerdio = false;
     this.modal.show();
     //this.musicaFondo.play();
     //TIEMPO
@@ -700,7 +701,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //Cerramos el modal
     setTimeout(() => {
-      this.isNadiePerdio=false;
+      this.isNadiePerdio = false;
       //Cambiamos las imgs de la parte de arriba
       this.fondoPreguntas = false;
       this.viewotrosjugadores = true;
@@ -945,8 +946,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         // Puedes realizar alguna acción aquí cuando el temporizador llegue a cero
       } else {
         let valor = Math.round(this.valorKnob + 100 / tiempoRecogido);
-        if(valor>100){
-          valor=100;
+        if (valor > 100) {
+          valor = 100;
         }
         this.valorKnob = valor; // Aumenta el valor en 100/6 (aproximadamente 16.67%) cada segundo
         this.remainingTime -= 1;

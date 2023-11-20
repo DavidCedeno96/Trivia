@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eUb19HxPGVU0NqY5QjZQBEt4+JTEFON8rWWAdnKTi0Y=",
+  "Hash": "u+Btd+hFkAchudiVdVY3pfnjZzM+nTXwls5gktKif18=",
   "Source": "WebApiRest",
   "BasePath": "_content/WebApiRest",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "WebApiRest\\wwwroot",
       "Source": "WebApiRest",
-      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Ranking\\Reporte.xls",
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Ranking\\Reporte.xls",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Archivos/Ranking/Reporte.xls",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Archivos\\Ranking\\Reporte.xls"
     },
     {
-      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Sala\\Reporte.xls",
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Archivos\\Sala\\Reporte.xls",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Archivos/Sala/Reporte.xls",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\Content\\Archivos\\Sala\\Reporte.xls"
     },
     {
-      "Identity": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",
+      "Identity": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\Content\\Images\\Sala\\default.png",
       "SourceId": "WebApiRest",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\David\\Documents\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Alejandro\\OneDrive - Digimentore SA\\Escritorio\\GitHub\\Trivia\\WebApiRest\\wwwroot\\",
       "BasePath": "_content/WebApiRest",
       "RelativePath": "Content/Images/Sala/default.png",
       "AssetKind": "All",

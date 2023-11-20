@@ -48,6 +48,15 @@ export class UsuarioSalaService {
     );
   }
 
+  deleteRanking(idSala: Number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
+    });
+    return this.http.delete<any>(`${this.apiURL}/delete?idSala=${idSala}`, {
+      headers: headers,
+    });
+  }
+
   reporteRanking(estados: number, idSala: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,

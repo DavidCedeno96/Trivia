@@ -21,6 +21,7 @@ export interface SalaReciente {
 export interface SalaJuego {
   idSala: number;
   idJugador: number;
+  nombre: string;
   iniciales: string;
   posicion: number;
   estadoJuego: number;

@@ -556,6 +556,7 @@ export class ChallengersGameComponent
         let juego = {
           idSala: this.idSala,
           idJugador: this.idJugador,
+          nombre: 'prueba',
           iniciales: 'pp',
           posicion: 1,
           estadoJuego: 1,

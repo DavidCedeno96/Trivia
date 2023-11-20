@@ -11,8 +11,7 @@ using WebApiRest.Utilities;
 namespace WebApiRest.Controllers
 {
     //[EnableCors("ReglasCors")]
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/[controller]")]    
     [ApiController]
     public class Usuario_SalaController : ControllerBase
     {
@@ -27,6 +26,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("list/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
+        [Authorize]
         public IActionResult GetList([FromRoute] int estados, [FromRoute] int idSala)
         {
             Usuario_SalaList result = data.GetUsuario_SalaList(estados, idSala);
@@ -35,6 +35,7 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("reporte/ranking/{estados}/{idSala}")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
         public IActionResult Report([FromRoute] int estados, [FromRoute] int idSala)
         {
             Response result = new();
@@ -113,10 +114,20 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize]
         public IActionResult CreateItem([FromBody] Usuario_Sala usuario_sala)
         {
             Response result = data.CreateUsuario_Sala(usuario_sala);
             return StatusCode(StatusCodes.Status200OK, new { result });
-        }        
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        [Authorize(Roles = "Administrador,SuperAdministrador")]
+        public IActionResult DeleteItem([FromQuery] int idSala)
+        {
+            Response result = data.DeleteUsuario_Sala(idSala);
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
     }
 }

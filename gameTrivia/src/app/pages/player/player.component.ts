@@ -38,16 +38,16 @@ export class PlayerComponent implements OnInit {
     fechaActivacion: '',
   };
 
-   //PAGINACION
+  //PAGINACION
 
-   cardsPerPage: number = 6;
-    currentPage: number = 1;
+  cardsPerPage: number = 6;
+  currentPage: number = 1;
 
-    //Quitar el boton salir
-    isLogin2=false;
+  //Quitar el boton salir
+  isLogin2 = false;
 
-    //Para los nuevos filtros
-    elementoActivo: number = 0;
+  //Para los nuevos filtros
+  elementoActivo: number = 0;
 
   constructor(
     private router: Router,
@@ -60,7 +60,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit(): void {
     this.constantsService.loading(true);
     this.idUsuario = parseInt(this.usuarioServicio.getIdUsuario()!);
-    this.isLogin2 = this.usuarioServicio.getTipoLogin()=="2";
+    this.isLogin2 = this.usuarioServicio.getTipoLogin() == '2';
 
     this.todasLasSalas();
 
@@ -89,8 +89,8 @@ export class PlayerComponent implements OnInit {
   }
 
   salasRecientes2() {
-    this.elementoActivo=1;
-    const idUsuario=this.idUsuario;
+    this.elementoActivo = 1;
+    const idUsuario = this.idUsuario;
     this.salaServicio.listaSalaReciente(0, idUsuario).subscribe({
       next: (data: any) => {
         let { info, error, lista } = data.result;
@@ -111,7 +111,7 @@ export class PlayerComponent implements OnInit {
     });
   }
 
-  crearSalaReciente(salaReciente: SalaReciente) {
+  /* crearSalaReciente(salaReciente: SalaReciente) {
     this.salaServicio.crearSalaReciente(salaReciente).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
@@ -129,7 +129,7 @@ export class PlayerComponent implements OnInit {
         }
       },
     });
-  }
+  } */
 
   buscar() {
     this.constantsService.loading(true);
@@ -183,8 +183,8 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  todasLasSalas(){
-    this.elementoActivo=0;
+  todasLasSalas() {
+    this.elementoActivo = 0;
     this.salaServicio.listaSala(0).subscribe({
       next: (data: any) => {
         const { info, error, lista } = data.result;
@@ -204,7 +204,6 @@ export class PlayerComponent implements OnInit {
         }
       },
     });
-
   }
 
   getImageSala(nombreImagen: string): string {
@@ -233,11 +232,11 @@ export class PlayerComponent implements OnInit {
       }
 
       if (auxCodigo === idSala) {
-        let salaReciente = {
+        /* let salaReciente = {
           idSala: this.sala.idSala,
           idUsuario: this.idUsuario,
         };
-        this.crearSalaReciente(salaReciente);
+        this.crearSalaReciente(salaReciente); */
 
         this.closeModal.nativeElement.click();
         this.cambiarPag('/EntradaSala', this.sala.idSala);
@@ -269,6 +268,4 @@ export class PlayerComponent implements OnInit {
     const pageCount = Math.ceil(this.misSalas.length / this.cardsPerPage);
     return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
-
-  
 }

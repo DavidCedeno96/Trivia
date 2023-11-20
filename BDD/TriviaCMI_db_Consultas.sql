@@ -312,12 +312,16 @@ exec sp_B_Usuario_SalaByIdSala
 @info = '',
 @error = ''
 
-
 exec sp_C_Usuario_Sala	
 @idUsuario = 23,
 @idSala = 78,
 @puntaje = 8,
 @tiempo = 34623,
+@info = '',
+@error = ''
+
+exec sp_D_Usuario_Sala
+@idSala = 0,	
 @info = '',
 @error = ''
 
@@ -328,13 +332,13 @@ select * from Usuario_Sala
 select * from SalaJuego
 
 exec sp_B_SalaJuego
-@idSala = 80,		
-@idJugador = 0,
+@idSala = 78,		
+@idJugador = 1,
 @info = '',
 @error = ''
 
 exec sp_B_SalaJuegoByIds
-@idSala = 80,		
+@idSala = 78,		
 @idJugador = 9,
 @info = '',
 @error = ''

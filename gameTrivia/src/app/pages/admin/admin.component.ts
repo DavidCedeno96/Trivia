@@ -9,6 +9,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ClipboardService } from 'ngx-clipboard';
 import Swal from 'sweetalert2';
 import { TimeApiService } from 'src/app/services/time-api.service';
+import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
 
 @Component({
   selector: 'app-admin',
@@ -47,11 +48,12 @@ export class AdminComponent implements OnInit {
   };
 
   cardsPerPage: number = 6;
-    currentPage: number = 1;
+  currentPage: number = 1;
 
   constructor(
     private salaServicio: SalaService,
     private usuarioServicio: UsuarioService,
+    private usuario_SalaServicio: UsuarioSalaService,
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -271,6 +273,42 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  resetearSala(idSala: number) {
+    this.constantsService.loading(true);
+    this.usuario_SalaServicio.deleteRanking(idSala).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.existeError = error;
+        this.result = info;
+        if (error === 0) {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.constantsService.mensajeSatisfactorio(),
+            detail: 'Sala reseteada',
+          });
+        } else if (error === 2) {
+          this.messageService.add({
+            severity: 'warn',
+            summary: this.constantsService.mensajeError(),
+            detail: info,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.constantsService.mensajeError(),
+            detail: 'No se pudo resetear la sala',
+          });
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401 || e.status === 403) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
   eliminarSala(idSala: number) {
     this.constantsService.loading(true);
     this.salaServicio.eliminarSala(idSala).subscribe({
@@ -308,6 +346,15 @@ export class AdminComponent implements OnInit {
       message: '¿Seguro desea eliminar la sala?',
       header: 'Confirmación Eliminar',
       accept: () => this.eliminarSala(idSala),
+    });
+  }
+
+  confirmResetear(idSala: number) {
+    this.confirmationService.confirm({
+      message: '¿Seguro desea resetear la sala?</br>Se eliminará el ranking',
+      header: 'Confirmación Resetear',
+      /* icon: 'pi pi-exclamation-triangle', */
+      accept: () => this.resetearSala(idSala),
     });
   }
 

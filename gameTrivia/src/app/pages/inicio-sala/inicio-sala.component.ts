@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
-import { Sala } from 'src/app/model/SalaModel';
+import { Sala, SalaReciente } from 'src/app/model/SalaModel';
 //import { JuegoChallengerService } from 'src/app/services/juego-challenger.service';
 import { SalaJuegoService } from 'src/app/services/sala-juego.service';
 import { SalaService } from 'src/app/services/sala.service';
@@ -134,6 +134,13 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           //no hay error
           this.existeError = false;
           this.miSala = sala;
+
+          let salaReciente = {
+            idSala: idSala,
+            idUsuario: idUsuario,
+          };
+          this.crearSalaReciente(salaReciente);
+
           //Cambiar mensaje de acuerdo al modo del juego
           if (this.miSala.modoJuego == 'Challenger') {
             this.msjJuego = this.msjChallenger;
@@ -158,6 +165,26 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
           }
         }
         this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  crearSalaReciente(salaReciente: SalaReciente) {
+    this.salaServicio.crearSalaReciente(salaReciente).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          this.existeError = true;
+        } else {
+          this.existeError = false;
+        }
+        //this.constantsService.loading(false);
       },
       error: (e) => {
         if (e.status === 401) {
@@ -329,6 +356,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     let juego = {
       idSala: this.miSala.idSala,
       idJugador: this.idJugador,
+      nombre: 'Prueba',
       iniciales: this.iniciales,
       posicion: 0,
       estadoJuego: 1,

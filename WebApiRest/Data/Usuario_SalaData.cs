@@ -102,5 +102,42 @@ namespace WebApiRest.Data
 
             return response;
         }
+
+        public Response DeleteUsuario_Sala(int idSala)
+        {
+            Response response = new();
+
+            SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
+            SqlCommand cmd = new("sp_D_Usuario_Sala", sqlConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@idSala", idSala);            
+
+            cmd.Parameters.Add("@info", SqlDbType.VarChar, int.MaxValue).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+
+                response.Info = cmd.Parameters["@info"].Value.ToString();
+                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                response.Info = ex.Message;
+                response.Error = 1;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return response;
+        }
     }
 }

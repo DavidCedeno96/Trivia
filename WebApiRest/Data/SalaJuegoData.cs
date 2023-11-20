@@ -38,6 +38,7 @@ namespace WebApiRest.Data
                     {
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         IdJugador = Convert.ToInt32(dr["idJugador"].ToString()),
+                        Nombre = dr["nombre"].ToString(),
                         Iniciales = dr["iniciales"].ToString(),
                         Posicion = Convert.ToInt32(dr["posicion"].ToString()),
                         EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),
@@ -91,6 +92,7 @@ namespace WebApiRest.Data
                     {
                         IdSala = Convert.ToInt32(dr["idSala"].ToString()),
                         IdJugador = Convert.ToInt32(dr["idJugador"].ToString()),
+                        Nombre = dr["nombre"].ToString(),
                         Iniciales = dr["iniciales"].ToString(),
                         Posicion = Convert.ToInt32(dr["posicion"].ToString()),
                         EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),

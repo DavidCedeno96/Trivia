@@ -4,6 +4,7 @@
     {
         public int IdSala { get; set; }
         public int IdJugador { get; set; }
+        public string Nombre { get; set; }
         public string Iniciales { get; set; }
         public int Posicion { get; set; }
         public int EstadoJuego { get; set; }

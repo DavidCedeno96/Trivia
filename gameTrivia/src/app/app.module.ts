@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 /* import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog'; */
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -22,7 +22,6 @@ import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
 import { KnobModule } from 'primeng/knob';
-
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -90,7 +89,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
     NgxDropzoneModule,
     ToastModule, */
 
-    ProgressBarModule,    
+    ProgressBarModule,
     KnobModule,
     NgxSliderModule,
     SliderModule,
@@ -128,7 +127,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
       {
         path: 'MisSalas',
         component: PlayerComponent,
-        //canActivate: [authGuardPlayer],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'Resultados',
