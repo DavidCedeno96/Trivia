@@ -1,6 +1,6 @@
 USE [TriviaCMI_db]
 GO
-/****** Object:  Table [dbo].[ModoJuego]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[ModoJuego]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,7 +18,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Opcion]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Opcion]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -37,7 +37,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Pregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,7 +55,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[pruebas]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[pruebas]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -65,7 +65,7 @@ CREATE TABLE [dbo].[pruebas](
 	[texto] [varchar](5) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rol]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Rol]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -82,14 +82,14 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Sala](
 	[idSala] [int] IDENTITY(1,1) NOT NULL,
-	[nombre] [varchar](40) NULL,
+	[nombre] [varchar](40) NOT NULL,
 	[imagen] [varchar](50) NULL,
 	[descripcion] [varchar](200) NULL,
 	[idModoJuego] [int] NOT NULL,
@@ -103,7 +103,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SalaJuego]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[SalaJuego]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +118,7 @@ CREATE TABLE [dbo].[SalaJuego](
 	[estadoJuego] [int] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SalaReciente]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[SalaReciente]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -130,7 +130,7 @@ CREATE TABLE [dbo].[SalaReciente](
 	[fecha_modificacion] [datetime] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Usuario]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +139,7 @@ CREATE TABLE [dbo].[Usuario](
 	[idUsuario] [int] IDENTITY(1,1) NOT NULL,
 	[nombre] [varchar](60) NOT NULL,
 	[apellido] [varchar](15) NULL,
-	[correo] [varchar](40) NULL,
+	[correo] [varchar](50) NULL,
 	[clave] [varchar](20) NULL,
 	[foto] [varchar](50) NULL,
 	[idRol] [int] NOT NULL,
@@ -152,7 +152,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  Table [dbo].[Usuario_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1343,7 +1343,7 @@ INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [f
 GO
 INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (31, N'Super', N'dd', N'qwew', N'super', NULL, 3, 1, CAST(N'2023-09-28T15:39:10.457' AS DateTime), CAST(N'2023-09-28T15:39:10.457' AS DateTime))
 GO
-INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (33, N'Paulina', NULL, N'Gomez', N'1234', NULL, 2, 1, CAST(N'2023-09-28T17:34:34.730' AS DateTime), CAST(N'2023-09-28T17:34:34.730' AS DateTime))
+INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (33, N'Paulina Gomez', NULL, N'pau@gmail.com', N'04001726960550', NULL, 2, 1, CAST(N'2023-09-28T17:34:34.730' AS DateTime), CAST(N'2023-11-21T12:10:10.990' AS DateTime))
 GO
 INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (34, N'Benito', NULL, N'benito@correo.com', N'12345', NULL, 2, 1, CAST(N'2023-09-29T11:50:57.703' AS DateTime), CAST(N'2023-09-29T11:50:57.703' AS DateTime))
 GO
@@ -1380,6 +1380,14 @@ GO
 INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1079, N'miJugador_edit', NULL, N'miJugador@correo.com', N'1234567890121', NULL, 2, 0, CAST(N'2023-11-14T17:42:22.837' AS DateTime), CAST(N'2023-11-16T16:47:12.947' AS DateTime))
 GO
 INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1089, N'Dana', NULL, N'dana@correo.com', N'1234567890122', NULL, 2, 1, CAST(N'2023-11-16T16:16:40.520' AS DateTime), CAST(N'2023-11-16T16:16:40.520' AS DateTime))
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1091, N'Rita Lasoo', NULL, N'rita.lasso@digimentore.com.ec', N'10203040506070', NULL, 2, 1, CAST(N'2023-11-20T13:35:29.537' AS DateTime), CAST(N'2023-11-20T13:35:29.537' AS DateTime))
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1092, N'Elver Galaraga', NULL, NULL, N'11203040506070', NULL, 2, 1, CAST(N'2023-11-20T13:36:11.603' AS DateTime), CAST(N'2023-11-20T13:36:11.603' AS DateTime))
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1093, N'alan brito', NULL, NULL, N'0400123456789', NULL, 2, 1, CAST(N'2023-11-21T12:04:28.563' AS DateTime), CAST(N'2023-11-21T12:04:28.563' AS DateTime))
+GO
+INSERT [dbo].[Usuario] ([idUsuario], [nombre], [apellido], [correo], [clave], [foto], [idRol], [estado], [fecha_creacion], [fecha_modificacion]) VALUES (1094, N'alan brito', NULL, NULL, N'0400123456798', NULL, 2, 1, CAST(N'2023-11-21T12:06:56.237' AS DateTime), CAST(N'2023-11-21T12:06:56.237' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[Usuario] OFF
 GO
@@ -1471,7 +1479,7 @@ ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [CHK_Clave_NotEmpty] CHE
 GO
 ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [CHK_Clave_NotEmpty]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_OpcionByIdPregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_OpcionByIdPregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1525,7 +1533,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Pregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Pregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1558,7 +1566,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaById]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaById]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1612,7 +1620,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaByIdSala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_PreguntaByIdSala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1666,7 +1674,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Rol]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Rol]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1692,7 +1700,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1745,7 +1753,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaByAll]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaByAll]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1808,7 +1816,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaById]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaById]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1889,7 +1897,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaJuego]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaJuego]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1913,7 +1921,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaJuegoByIds]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaJuegoByIds]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1937,7 +1945,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_SalaReciente]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_SalaReciente]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2014,7 +2022,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Usuario]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Usuario]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2061,12 +2069,78 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_Usuario_SalaByIdSala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_Usuario_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create procedure [dbo].[sp_B_Usuario_SalaByIdSala]	
+CREATE procedure [dbo].[sp_B_Usuario_Sala]	
+		
+	@estados int,
+
+	@info varchar(max) output,
+	@error int output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	if(@estados > 0)
+	begin	
+
+		select * from Usuario_Sala
+	
+		Select
+		u.idUsuario,
+		u.nombre as 'usuario',
+		ISNULL(u.correo,'N/A') as 'correo',
+		r.nombre as 'rol', 
+		s.idSala,
+		s.nombre as 'sala',
+		ISNULL(s.descripcion,'N/A') as 'descripcion',
+		us.fecha_creacion,
+		us.fecha_modificacion,
+		us.puntaje,
+		us.tiempo	
+		from Usuario_Sala us
+		inner join Usuario u on u.idUsuario = us.idUsuario
+		inner join Sala s on s.idSala = us.idSala
+		inner join Rol r on r.idRol = u.idRol
+		where us.estado > 0
+		order by puntaje desc, tiempo asc
+
+	end
+	else
+	begin 
+
+		Select
+		u.idUsuario,
+		u.nombre as 'usuario',
+		ISNULL(u.correo,'N/A') as 'correo',
+		r.nombre as 'rol', 
+		s.idSala,
+		s.nombre as 'sala',
+		ISNULL(s.descripcion,'N/A') as 'descripcion',
+		us.fecha_creacion,
+		us.fecha_modificacion,
+		us.puntaje,
+		us.tiempo	
+		from Usuario_Sala us
+		inner join Usuario u on u.idUsuario = us.idUsuario
+		inner join Sala s on s.idSala = us.idSala
+		inner join Rol r on r.idRol = u.idRol		
+		order by puntaje desc, tiempo asc
+
+	end
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_B_Usuario_SalaByIdSala]    Script Date: 21/11/2023 16:06:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_B_Usuario_SalaByIdSala]	
 	
 	@idSala int,
 	@estados int,
@@ -2084,6 +2158,7 @@ BEGIN
 		Select
 		u.idUsuario,
 		u.nombre as 'usuario',
+		ISNULL(u.correo, 'N/A') as 'correo',
 		r.nombre as 'rol', 
 		s.idSala,
 		s.nombre as 'sala',
@@ -2105,6 +2180,7 @@ BEGIN
 		Select
 		u.idUsuario,
 		u.nombre as 'usuario',
+		ISNULL(u.correo, 'N/A') as 'correo',
 		r.nombre as 'rol', 
 		s.idSala,
 		s.nombre as 'sala',
@@ -2123,7 +2199,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioByAll]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioByAll]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2187,7 +2263,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioById]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioById]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2257,7 +2333,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioLogin]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_B_UsuarioLogin]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2365,7 +2441,7 @@ BEGIN
 	print @info
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Opcion]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Opcion]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2432,7 +2508,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Pregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Pregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2484,7 +2560,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2527,7 +2603,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_SalaJuego]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_SalaJuego]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2584,7 +2660,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_SalaReciente]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_SalaReciente]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2640,7 +2716,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Usuario]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Usuario]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2649,7 +2725,7 @@ CREATE procedure [dbo].[sp_C_Usuario]
 	
 	@nombre varchar(60),
 	@apellido varchar(15) = null,
-	@correo varchar(40) = null,
+	@correo varchar(50) = null,
 	@clave varchar(20),
 	@foto varchar(50) = null,
 	@idRol int,	
@@ -2715,7 +2791,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_C_Usuario_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_C_Usuario_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2774,7 +2850,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_OpcionByIdPregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_OpcionByIdPregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2810,7 +2886,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Pregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Pregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2870,7 +2946,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2949,12 +3025,12 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Usuario]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Usuario]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create procedure [dbo].[sp_D_Usuario] 
+CREATE procedure [dbo].[sp_D_Usuario] 
 	
 	@idUsuario int,	
 
@@ -2965,11 +3041,27 @@ BEGIN
 
 	SET NOCOUNT ON;
 	
-	declare @countIdUsuario int = 0
+	declare @countIdUsuario int = 0, @idRol int = 0, @contAdmins int = 0
 	select @countIdUsuario = COUNT(*) from Usuario where idUsuario = @idUsuario
+	select @idRol = idRol from Usuario where idUsuario = @idUsuario	
 
 	if(@countIdUsuario > 0)
 	begin 
+		
+		if(@idRol = 1 or @idRol = 3)
+		begin
+			select @contAdmins = COUNT(*) from Usuario where (idRol = 1 or idRol = 3) and idUsuario <> @idUsuario
+
+			if(@contAdmins = 0)
+			begin
+				set @info = 'No se puede eliminar el usuario porque solo queda un administrador o superadministrador'
+				set @error = 1
+
+				print @info
+
+				RETURN
+			end
+		end		
 
 		BEGIN TRY								
 
@@ -3009,7 +3101,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_D_Usuario_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_D_Usuario_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3060,7 +3152,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Opcion]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Opcion]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3122,7 +3214,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Pregunta]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Pregunta]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3160,7 +3252,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Sala]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Sala]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3215,7 +3307,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_SalaByEstado]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_SalaByEstado]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3286,7 +3378,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_SalaJuego]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_SalaJuego]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3336,7 +3428,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_U_Usuario]    Script Date: 20/11/2023 12:08:50 ******/
+/****** Object:  StoredProcedure [dbo].[sp_U_Usuario]    Script Date: 21/11/2023 16:06:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3346,7 +3438,7 @@ CREATE procedure [dbo].[sp_U_Usuario]
 	@idUsuario int, 
 	@nombre varchar(60),
 	@apellido varchar(15) = null,
-	@correo varchar(40),
+	@correo varchar(50),
 	@clave varchar(20),
 	@foto varchar(50) = null,
 	@idRol int,	
@@ -3358,13 +3450,10 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	Declare @contCorreo int = 0, @contClave int = 0, @contRolAdmin int = 0, @auxIdRol int = 0
+	Declare @contCorreo int = 0, @contClave int = 0, @auxIdRol int = 0, @contAdmins int = 0
 	Select @contCorreo = COUNT(*) from Usuario where correo = @correo and idUsuario <> @idUsuario
-	Select @contClave = COUNT(*) from Usuario where clave = @clave and idUsuario <> @idUsuario
-	Select @contRolAdmin = COUNT(*) from Usuario where idRol = 1 or idRol = 3
-	Select @auxIdRol = idRol from Usuario where idUsuario = @idUsuario	
-	
-	--if(@idRol = 2 and @contRolAdmin = 1)
+	Select @contClave = COUNT(*) from Usuario where clave = @clave and idUsuario <> @idUsuario	
+	Select @auxIdRol = idRol from Usuario where idUsuario = @idUsuario		
 
 	if(@contClave > 0)
 	begin
@@ -3378,6 +3467,21 @@ BEGIN
 	end	
 	else
 	begin
+
+		if((@auxIdRol = 1 or @auxIdRol = 3) and @idRol = 2)
+		begin
+			select @contAdmins = COUNT(*) from Usuario where (idRol = 1 or idRol = 3) and idUsuario <> @idUsuario
+
+			if(@contAdmins = 0)
+			begin
+				set @info = 'No se puede editar el usuario porque solo queda un administrador o superadministrador'
+				set @error = 1
+
+				print @info
+
+				RETURN
+			end
+		end	
 		
 		BEGIN TRY  
 			Update Usuario set 

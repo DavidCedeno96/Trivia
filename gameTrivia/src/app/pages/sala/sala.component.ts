@@ -178,7 +178,7 @@ export class SalaComponent implements OnInit {
       next: (data: Blob) => {
         const urlObject = window.URL.createObjectURL(data);
         const element = document.createElement('a');
-        element.download = `formatoCMI.xlsx`;
+        element.download = `formatoPreguntasCMI.xlsx`;
         element.href = urlObject;
         element.click();
         this.constantsService.loading(false);

@@ -60,13 +60,12 @@ namespace WebApiRest.Controllers
         {
             Response result = new();
             DataTable dt = new();
-            string nombreArchivo = "Reporte_Salas.xls";
 
+            string hora = WC.GetHoraActual(DateTime.Now);
+            string nombreArchivo = $"Salas{hora}.xls";
             string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
-            if (System.IO.File.Exists(rutaArchivo))
-            {
-                System.IO.File.Delete(rutaArchivo);
-            }            
+
+            WC.EliminarArchivosAntiguos(_env, nombreCarpeta, "Salas");
 
             dt.Columns.Add("NOMBRE", typeof(string));
             dt.Columns.Add("MODO DE JUEGO", typeof(string));

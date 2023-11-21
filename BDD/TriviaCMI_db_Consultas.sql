@@ -418,28 +418,26 @@ WHERE TABLE_NAME = 'Usuario' AND CONSTRAINT_TYPE = 'CHECK';
 ---
 SELECT tc.COLUMN_NAME, tc.DATA_TYPE, tc.CHARACTER_MAXIMUM_LENGTH, tc.IS_NULLABLE
 FROM INFORMATION_SCHEMA.COLUMNS tc
-WHERE tc.TABLE_NAME = 'Usuario';
+WHERE tc.TABLE_NAME = 'Sala';
 
 ---
 SELECT @@VERSION;
 
 -- CAMBIOS ----------------------------------------------------------------------------------
--- [sp_B_Usuario_Sala] [sp_B_Usuario_SalaByIdSala] [sp_C_Usuario] [sp_U_Usuario]
+-- 
 
---ALTER TABLE Usuario
---ALTER COLUMN correo VARCHAR(50);
 ------------------------------------------------------------------------------------
-insert into pruebas (id, texto) values
-(3, 'hola'),
-(2, 'mund'),
-(1, 'prue'),
-(1, 'hola'),
-(2, 'mund'),
-(1, 'prue')
+--insert into pruebas (id, texto) values
+--(3, 'hola'),
+--(2, 'mund'),
+--(1, 'prue'),
+--(1, 'hola'),
+--(2, 'mund'),
+--(1, 'prue')
 
-select * from  pruebas
+--select * from  pruebas
 
-select 
-	sum(case when texto = 'hola' then 1 else 0 end) AS CountTextoHola,
-	sum(case when texto = 'mund' then 1 else 0 end) AS CountTextoMund
-from  pruebas
+--select 
+--	sum(case when texto = 'hola' then 1 else 0 end) AS CountTextoHola,
+--	sum(case when texto = 'mund' then 1 else 0 end) AS CountTextoMund
+--from  pruebas

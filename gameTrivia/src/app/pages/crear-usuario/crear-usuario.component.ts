@@ -35,7 +35,7 @@ export class CrearUsuarioComponent {
     iniciales: 'MC',
   };
 
-  isEditar=false;
+  isEditar = false;
 
   constructor(
     private router: Router,
@@ -54,7 +54,7 @@ export class CrearUsuarioComponent {
     ]);
     this.correoInput = new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(50),
       Validators.email,
     ]);
   }
@@ -76,7 +76,7 @@ export class CrearUsuarioComponent {
         break;
       }
       case 'editar': {
-        this.isEditar=true;
+        this.isEditar = true;
         this.constantsService.loading(true);
         this.titulo = 'Editar Usuario';
         this.cargarData(this.nuevoUsuario.idUsuario);

@@ -10,10 +10,9 @@ import { ClipboardService } from 'ngx-clipboard';
 import Swal from 'sweetalert2';
 import { TimeApiService } from 'src/app/services/time-api.service';
 import { UsuarioSalaService } from 'src/app/services/usuario-sala.service';
-import { MenuItem, } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 //import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
   selector: 'app-admin',
@@ -76,7 +75,7 @@ export class AdminComponent implements OnInit {
 
     this.getTimeLondon();
 
-   // this.itemsMenu();
+    // this.itemsMenu();
   }
 
   cargarSalas() {
@@ -121,6 +120,12 @@ export class AdminComponent implements OnInit {
           element.download = `Ranking.xls`;
           element.href = url;
           element.click();
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.constantsService.mensajeSatisfactorio(),
+            detail: 'La descarga del reporte ha comenzado',
+          });
         }
         this.constantsService.loading(false);
       },
@@ -422,7 +427,7 @@ export class AdminComponent implements OnInit {
     return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
 
-/*   itemsMenu(){
+  /*   itemsMenu(){
     this.items = [
       {
           label: 'Options',

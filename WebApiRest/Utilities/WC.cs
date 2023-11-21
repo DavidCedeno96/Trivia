@@ -1,10 +1,7 @@
 ﻿namespace WebApiRest.Utilities
 {
     public static class WC
-    {
-        private static readonly string adminRol = "Administrador";
-        private static readonly string superAdminRol = "SuperAdministrador";
-
+    {        
         private static readonly string satisfactorio = "Satisfactorio";        
         private static readonly string archivoExistente = "El archivo ya existe";
         private static readonly string errorArchivo = "Tipo de archivo no permitido";        
@@ -36,7 +33,40 @@
             }
             return "";
         }
-        
+
+        public static string GetHoraActual(DateTime dateTime)
+        {            
+            int hora = dateTime.Hour;
+            int minuto = dateTime.Minute;
+            int segundo = dateTime.Second;
+            int miliSegundo = dateTime.Millisecond;
+
+            return $"_{hora}-{minuto}-{segundo}-{miliSegundo}";
+        }
+
+        public static void EliminarArchivosAntiguos(IWebHostEnvironment env, string nombreCarpeta, string infoNombreArchivo)
+        {            
+            string rutaArchivos = Path.Combine(env.ContentRootPath, "wwwroot", "Content", "Archivos", nombreCarpeta);
+            string[] archivos = Directory.GetFiles(rutaArchivos);            
+            DateTime fechaHoy = DateTime.Now.Date;
+
+            List<FileInfo> archivosAntiguos = archivos
+                .Select(archivo => new FileInfo(archivo))
+                .Where(info => !fechaHoy.Equals(info.LastWriteTime.Date) && info.Name.Contains(infoNombreArchivo))
+                .ToList();                                   
+
+            if (archivosAntiguos.Count > 0)
+            {
+                foreach (var archivo in archivosAntiguos)
+                {
+                    if (File.Exists(archivo.FullName))
+                    {
+                        File.Delete(archivo.FullName);
+                    }                    
+                }
+            }            
+        }
+
         public static bool GetArchivoPermitido(string tipos, string nombreArchivo)
         {
             string extension = Path.GetExtension(nombreArchivo.ToLower());
@@ -51,15 +81,7 @@
             
             return false;
         }
-
-        public static string GetAdminRol()
-        {
-            return adminRol;
-        }
-        public static string GetSuperAdminRol()
-        {
-            return superAdminRol;
-        }
+        
         public static string GetSatisfactorio()
         {
             return satisfactorio;

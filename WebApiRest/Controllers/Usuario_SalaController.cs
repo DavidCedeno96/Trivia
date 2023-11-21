@@ -40,13 +40,12 @@ namespace WebApiRest.Controllers
         {
             Response result = new();
             DataTable dt = new();
-            string nombreArchivo = "Ranking_sala_" + idSala.ToString() + ".xls";
 
+            string hora = WC.GetHoraActual(DateTime.Now);
+            string nombreArchivo = $"Resultado_Sala{hora}.xls";
             string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
-            if (System.IO.File.Exists(rutaArchivo))
-            {
-                System.IO.File.Delete(rutaArchivo);
-            }            
+
+            WC.EliminarArchivosAntiguos(_env, nombreCarpeta, "Resultado_Sala");
 
             dt.Columns.Add("USUARIO", typeof(string));
             dt.Columns.Add("CORREO", typeof(string));
@@ -121,13 +120,12 @@ namespace WebApiRest.Controllers
         {
             Response result = new();
             DataTable dt = new();
-            string nombreArchivo = "Reporte_Salas_Jugadores.xls";
 
+            string hora = WC.GetHoraActual(DateTime.Now);
+            string nombreArchivo = $"Salas_Jugadores{hora}.xls";
             string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
-            if (System.IO.File.Exists(rutaArchivo))
-            {
-                System.IO.File.Delete(rutaArchivo);
-            }
+
+            WC.EliminarArchivosAntiguos(_env, nombreCarpeta, "Salas_Jugadores");
 
             dt.Columns.Add("USUARIO", typeof(string));
             dt.Columns.Add("CORREO", typeof(string));
@@ -157,7 +155,7 @@ namespace WebApiRest.Controllers
                     }
 
                     HSSFWorkbook workbook = new();
-                    ISheet hoja = workbook.CreateSheet("Ranking");
+                    ISheet hoja = workbook.CreateSheet("Jugadores_Salas");
                     IRow headerRow = hoja.CreateRow(0);
 
                     for (int i = 0; i < dt.Columns.Count; i++)

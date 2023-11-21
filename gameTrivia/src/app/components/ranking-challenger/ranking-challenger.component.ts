@@ -8,6 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { PuntosJugador } from 'src/app/model/PuntosJugador';
@@ -18,6 +19,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   selector: 'app-ranking-challenger',
   templateUrl: './ranking-challenger.component.html',
   styleUrls: ['./ranking-challenger.component.css'],
+  providers: [MessageService],
 })
 export class RankingChallengerComponent
   implements AfterViewInit, AfterContentChecked, OnInit
@@ -58,7 +60,8 @@ export class RankingChallengerComponent
     private router: Router,
     private route: ActivatedRoute,
     private encryptionService: EncryptionService,
-    private constantsService: ConstantsService
+    private constantsService: ConstantsService,
+    private messageService: MessageService
   ) {
     //this.testIniciales = this.obtenerIniciales(this.nombreJugador);
     // this.cd.detectChanges();
@@ -148,6 +151,12 @@ export class RankingChallengerComponent
           element.download = `Ranking.xls`;
           element.href = url;
           element.click();
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.constantsService.mensajeSatisfactorio(),
+            detail: 'La descarga del reporte ha comenzado',
+          });
         }
         this.constantsService.loading(false);
       },
