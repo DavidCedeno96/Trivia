@@ -48,6 +48,7 @@ namespace WebApiRest.Controllers
             WC.EliminarArchivosAntiguos(_env, nombreCarpeta, "Resultado_Sala");
 
             dt.Columns.Add("USUARIO", typeof(string));
+            dt.Columns.Add("DPI", typeof(string));
             dt.Columns.Add("CORREO", typeof(string));
             dt.Columns.Add("SALA", typeof(string));
             dt.Columns.Add("PUNTAJE", typeof(int));
@@ -64,11 +65,12 @@ namespace WebApiRest.Controllers
                     {
                         DataRow row = dt.NewRow();
                         row[0] = item.Usuario;
-                        row[1] = item.Correo;
-                        row[2] = item.Sala;
-                        row[3] = item.Puntaje;
-                        row[4] = item.Tiempo;
-                        row[5] = item.FechaCreacion;
+                        row[1] = item.Dpi;
+                        row[2] = item.Correo;
+                        row[3] = item.Sala;
+                        row[4] = item.Puntaje;
+                        row[5] = item.Tiempo;
+                        row[6] = item.FechaCreacion;
                         dt.Rows.Add(row);
                     }
 
@@ -128,6 +130,7 @@ namespace WebApiRest.Controllers
             WC.EliminarArchivosAntiguos(_env, nombreCarpeta, "Salas_Jugadores");
 
             dt.Columns.Add("USUARIO", typeof(string));
+            dt.Columns.Add("DPI", typeof(string));
             dt.Columns.Add("CORREO", typeof(string));
             dt.Columns.Add("SALA", typeof(string));
             dt.Columns.Add("DESCRIPCIÓN", typeof(string));
@@ -145,12 +148,13 @@ namespace WebApiRest.Controllers
                     {
                         DataRow row = dt.NewRow();
                         row[0] = item.Usuario;
-                        row[1] = item.Correo;
-                        row[2] = item.Sala;
-                        row[3] = item.Descripcion;
-                        row[4] = item.Puntaje;
-                        row[5] = item.Tiempo;
-                        row[6] = item.FechaCreacion;
+                        row[1] = item.Dpi;
+                        row[2] = item.Correo;
+                        row[3] = item.Sala;
+                        row[4] = item.Descripcion;
+                        row[5] = item.Puntaje;
+                        row[6] = item.Tiempo;
+                        row[7] = item.FechaCreacion;
                         dt.Rows.Add(row);
                     }
 

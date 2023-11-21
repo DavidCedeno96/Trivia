@@ -35,6 +35,7 @@ namespace WebApiRest.Data
                     list.Lista.Add(new Usuario_Sala()
                     {
                         Usuario = dr["usuario"].ToString(),
+                        Dpi = dr["clave"].ToString(),
                         Correo = dr["correo"].ToString(),
                         Rol = dr["rol"].ToString(),
                         Sala = dr["sala"].ToString(),                        
@@ -91,6 +92,7 @@ namespace WebApiRest.Data
                     list.Lista.Add(new Usuario_Sala()
                     {
                         Usuario = dr["usuario"].ToString(),
+                        Dpi = dr["clave"].ToString(),
                         Correo = dr["correo"].ToString(),
                         Rol = dr["rol"].ToString(),
                         Sala = dr["sala"].ToString(),                        
