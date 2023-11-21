@@ -249,11 +249,17 @@
                   <div class="container mt-5">
 
 
-                    <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="false">
+                    <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
                       <button id="button-basic" dropdownToggle type="button" 
                          class="btn btn-primary dropdown-toggle"
                          aria-controls="dropdown-basic">
-                         Configuración <span class="caret"></span>
+                         <img
+                          src="assets/Icons/Engrane.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        <strong>Configuración</strong>
+                          <span class="caret"></span>
                       </button>
 
                       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" style="background-color: #3d5057;"
@@ -278,14 +284,42 @@
                           alt="Icono"
                           class="icono-svg2"
                         />
-                        Resultados</a></li>
+                        <strong>Resultados</strong>
+                        </a></li>
                          <li data-bs-toggle="modal"
-                         data-bs-target="#exampleModal" role="menuitem"><a class="dropdown-item" (click)="dataSalaOnModal(sala)">Compartir</a></li>                         
-                         <li role="menuitem"><a class="dropdown-item" (click)="confirmResetear(sala.idSala)">Resetear</a>
+                         data-bs-target="#exampleModal" role="menuitem"><a class="dropdown-item" (click)="dataSalaOnModal(sala)">
+                          <img
+                          src="assets/Icons/Compartir.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        /> <strong>Compartir</strong>
+                          </a></li>                         
+                         <li role="menuitem"><a class="dropdown-item" (click)="confirmResetear(sala.idSala)">
+                          <img
+                          src="assets/Icons/Reset.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        <strong>Resetear</strong>
+                          </a>
                          </li>
-                         <li *ngIf="sala.estado === 1" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 0)">Activado</a>
+                         <li *ngIf="sala.estado === 1" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 0)">
+                          <img
+                          src="assets/Icons/Activado.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        <strong>Activado</strong>
+                          </a>
                          </li>
-                         <li *ngIf="sala.estado === 0" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 1)">Desactivado</a>
+                         <li *ngIf="sala.estado === 0" role="menuitem"><a class="dropdown-item"(click)="cambiarEstado(sala, 1)">
+                          <img
+                          src="assets/Icons/Desactivado.svg"
+                          alt="Icono"
+                          class="icono-svg2"
+                        />
+                        <strong>Desactivado</strong>
+                          </a>
                          </li>
                       </ul>
                    </div>
