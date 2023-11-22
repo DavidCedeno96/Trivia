@@ -11,7 +11,7 @@ var settings = builder.Configuration.GetSection("settings").Get<Settings>();
 //CORS
 var misReglasCors = "ReglasCors";
 builder.Services.AddCors(p => p.AddPolicy(misReglasCors, build => {
-    build.WithOrigins(settings.Origin)
+    build.WithOrigins(settings.Origin.Split(','))
     .AllowAnyHeader()
     .AllowAnyMethod();
 }));
