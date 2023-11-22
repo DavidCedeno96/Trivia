@@ -23,6 +23,7 @@ export class VentanaRegistroComponent implements OnInit {
     correo: '',
     contrasena: '',
     idRol: 2,
+    rol: '',
     iniciales: '',
   };
   //respuesta: Result = {info:"", error:0};
@@ -66,19 +67,16 @@ export class VentanaRegistroComponent implements OnInit {
       this.nuevoUsuario.nombre
     );
 
-
-
-  this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
+    this.usuarioServicio.crearUsuario(this.nuevoUsuario).subscribe({
       next: (data: any) => {
         const { info, error, campo } = data.result;
         this.campo = campo;
         this.errorEncontrado = info;
         if (error > 0) {
-          
           this.existeError = true;
         } else {
           this.existeError = false;
-          
+
           Swal.fire({
             title: '¡Usuario Registrado!',
             text: '¿Desea iniciar sesión?',
@@ -100,7 +98,7 @@ export class VentanaRegistroComponent implements OnInit {
       error: (e) => {
         console.log(e);
       },
-    }); 
+    });
   }
 
   // Método para cambiar el valor del booleano y emitir el evento

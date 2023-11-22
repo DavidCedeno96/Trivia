@@ -32,6 +32,7 @@ export class CrearUsuarioComponent {
     correo: '',
     contrasena: '', //contraseña o DPI
     idRol: 0,
+    rol: '',
     iniciales: 'MC',
   };
 

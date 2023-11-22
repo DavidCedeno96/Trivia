@@ -31,7 +31,6 @@ export class GestionarUsuariosComponent {
   idRol = 0;
 
   constructor(
-    private salaServicio: SalaService,
     private router: Router,
     private usuarioServicio: UsuarioService,
     private usuario_salaServicio: UsuarioSalaService,
