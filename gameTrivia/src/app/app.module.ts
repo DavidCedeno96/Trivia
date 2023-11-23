@@ -39,7 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IngresarImagenComponent } from './pages/ingresar-imagen/ingresar-imagen.component';
 
 //import { NgxDropzoneModule } from 'ngx-dropzone';
-import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { BsDropdownModule, BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 import { NgxSliderModule } from 'ngx-slider-v2';
 
@@ -151,7 +151,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
       {
         path: 'JuegoSupervivencia',
         component: SurvivorGameComponent,
-        //canActivate: [authGuardPlayer],
+        canActivate: [authGuardPlayer],
       },
       {
         path: 'EntradaSala',

@@ -98,7 +98,7 @@ export class SalaService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.usuarioServicio.getToken()}`,
     });
-    headers.append('Access-Control-Allow-Credentials', 'true');
+    //headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.put<FormData>(`${this.apiURL}/update`, formData, {
       headers: headers,
     });
