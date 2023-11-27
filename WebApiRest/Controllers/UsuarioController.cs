@@ -27,35 +27,35 @@ namespace WebApiRest.Controllers
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
-        public IActionResult GetList([FromRoute] int estados)
+        public async Task<IActionResult> GetList([FromRoute] int estados)
         {
-            UsuarioList result = data.GetUsuarioList(estados);
+            UsuarioList result = await data.GetUsuarioList(estados);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("list")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
-        public IActionResult GetSearch([FromQuery] int estados, [FromQuery] string buscar)
+        public async Task<IActionResult> GetSearch([FromQuery] int estados, [FromQuery] string buscar)
         {
-            UsuarioList result = data.GetUsuarioList(estados, buscar);
+            UsuarioList result = await data.GetUsuarioList(estados, buscar);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("list/{estados}/{idUsuario}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
-        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idUsuario)
+        public async Task<IActionResult> GetItem([FromRoute] int estados, [FromRoute] int idUsuario)
         {
-            UsuarioItem result = data.GetUsuario(estados, idUsuario);
+            UsuarioItem result = await data.GetUsuario(estados, idUsuario);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("auth")]
-        public IActionResult LoginUsuario([FromBody] Usuario usuario, [FromQuery] int tipoLogin)
+        public async Task<IActionResult> LoginUsuario([FromBody] Usuario usuario, [FromQuery] int tipoLogin)
         {            
-            UsuarioItem result = data.Login(usuario, tipoLogin);
+            UsuarioItem result = await data.Login(usuario, tipoLogin);
 
             if(result.Error == 0)
             {                
@@ -86,13 +86,13 @@ namespace WebApiRest.Controllers
 
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateItem([FromBody] Usuario usuario)
+        public async Task<IActionResult> CreateItem([FromBody] Usuario usuario)
         {
             Response result = VF.ValidarUsuario(usuario);
 
             if(result.Error == 0)
             {
-                result = data.CreateUsuario(usuario);
+                result = await data.CreateUsuario(usuario);
             }
             
             return StatusCode(StatusCodes.Status200OK, new { result });
@@ -101,13 +101,13 @@ namespace WebApiRest.Controllers
         [HttpPut]
         [Route("update")]
         [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
-        public IActionResult UpdateItem([FromBody] Usuario usuario)
+        public async Task<IActionResult> UpdateItem([FromBody] Usuario usuario)
         {
             Response result = VF.ValidarUsuario(usuario);
 
             if (result.Error == 0)
             {
-                result = data.UpdateUsuario(usuario);
+                result = await data.UpdateUsuario(usuario);
             }
 
             return StatusCode(StatusCodes.Status200OK, new { result });
@@ -116,9 +116,9 @@ namespace WebApiRest.Controllers
         [HttpDelete]
         [Route("delete")]
         [Authorize(Roles = "Administrador,SuperAdministrador")] //En los claims estan guardados los roles al iniciar sesion en el token: ClaimTypes.Role
-        public IActionResult DeleteItem([FromQuery] int idUsuario)
+        public async Task<IActionResult> DeleteItem([FromQuery] int idUsuario)
         {
-            Response result = data.DeleteUsuario(idUsuario);
+            Response result = await data.DeleteUsuario(idUsuario);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

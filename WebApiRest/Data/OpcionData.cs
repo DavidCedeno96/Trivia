@@ -8,7 +8,7 @@ namespace WebApiRest.Data {
 
         private readonly Conexion conexion = new();
 
-        public OpcionList GetOpcionList(int estados, int idPregunta)
+        public async Task<OpcionList> GetOpcionList(int estados, int idPregunta)
         {
             OpcionList list = new()
             {
@@ -28,9 +28,9 @@ namespace WebApiRest.Data {
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new Opcion()
                     {
@@ -43,7 +43,7 @@ namespace WebApiRest.Data {
                         FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
                     });
                 }
-                dr.NextResult();
+                await dr.NextResultAsync();
 
                 list.Info = cmd.Parameters["@info"].Value.ToString();
                 list.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -57,13 +57,13 @@ namespace WebApiRest.Data {
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;
         }
 
-        public Response CreateOpcion(Opcion opcion) {
+        public async Task<Response> CreateOpcion(Opcion opcion) {
             Response response = new();
 
             SqlConnection sqlConnection = new(conexion.GetConnectionSqlServer());
@@ -79,8 +79,8 @@ namespace WebApiRest.Data {
             cmd.Parameters.Add("@error", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             try {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -89,13 +89,13 @@ namespace WebApiRest.Data {
                 response.Info = ex.Message;
                 response.Error = 1;
             } finally {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;
         }
 
-        public Response UpdateOpcion(Opcion opcion)
+        public async Task<Response> UpdateOpcion(Opcion opcion)
         {
             Response response = new();
 
@@ -115,8 +115,8 @@ namespace WebApiRest.Data {
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -129,13 +129,13 @@ namespace WebApiRest.Data {
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;
         }
 
-        public Response DeleteOpcion(int idOpcion, int idPregunta)
+        public async Task<Response> DeleteOpcion(int idOpcion, int idPregunta)
         {
             Response response = new();
 
@@ -153,8 +153,8 @@ namespace WebApiRest.Data {
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -167,7 +167,7 @@ namespace WebApiRest.Data {
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;

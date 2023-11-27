@@ -319,8 +319,8 @@ export class AdminComponent implements OnInit {
     this.usuario_SalaServicio.deleteRanking(idSala).subscribe({
       next: (data: any) => {
         let { info, error } = data.result;
-        this.existeError = error;
-        this.result = info;
+        /* this.existeError = error;
+        this.result = info; */
         if (error === 0) {
           this.messageService.add({
             severity: 'success',

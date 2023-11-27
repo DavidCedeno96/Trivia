@@ -17,7 +17,7 @@ export class PreguntaService {
   ) {}
 
   getArchivo(): Observable<Blob> {
-    return this.http.get('assets/archivos/FormatoCMI.xlsx', {
+    return this.http.get('assets/archivos/FormatoPreguntasCMI.xlsx', {
       responseType: 'blob',
     });
   }

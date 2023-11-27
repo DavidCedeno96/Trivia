@@ -29,34 +29,34 @@ namespace WebApiRest.Controllers
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize]
-        public IActionResult GetList([FromRoute] int estados)
+        public async Task<IActionResult> GetList([FromRoute] int estados)
         {
-            SalaList result = data.GetSalaList(estados);
+            SalaList result = await data.GetSalaList(estados);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("list/{estados}/{idSala}/{idUsuario}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize]
-        public IActionResult GetItem([FromRoute] int estados, [FromRoute] int idSala, [FromRoute] int idUsuario)
+        public async Task<IActionResult> GetItem([FromRoute] int estados, [FromRoute] int idSala, [FromRoute] int idUsuario)
         {
-            SalaItem result = data.GetSala(estados, idSala, idUsuario);
+            SalaItem result = await data.GetSala(estados, idSala, idUsuario);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("list")]
         [Authorize]
-        public IActionResult GetSearch([FromQuery] int estados, [FromQuery] string buscar)
+        public async Task<IActionResult> GetSearch([FromQuery] int estados, [FromQuery] string buscar)
         {
-            SalaList result = data.GetSalaList(estados, buscar);
+            SalaList result = await data.GetSalaList(estados, buscar);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("reporte/sala/{estados}")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult ReportSala([FromRoute] int estados)
+        public async Task<IActionResult> ReportSala([FromRoute] int estados)
         {
             Response result = new();
             DataTable dt = new();
@@ -72,7 +72,7 @@ namespace WebApiRest.Controllers
             dt.Columns.Add("DESCRIPCIÓN", typeof(string));
             dt.Columns.Add("FECHA", typeof(DateTime));
             
-            SalaList response = data.GetSalaList(estados);
+            SalaList response = await data.GetSalaList(estados);
 
             if (response.Error == 0)
             {
@@ -132,25 +132,25 @@ namespace WebApiRest.Controllers
         [HttpGet]
         [Route("listReciente/{estados}/{idUsuario}")]
         [Authorize]
-        public IActionResult GetListReciente([FromRoute] int estados, [FromRoute] int idUsuario)
+        public async Task<IActionResult> GetListReciente([FromRoute] int estados, [FromRoute] int idUsuario)
         {
-            SalaList result = data.GetSalaRecienteList(estados, idUsuario);
+            SalaList result = await data.GetSalaRecienteList(estados, idUsuario);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("createReciente")]
         [Authorize]
-        public IActionResult CreateItemReciente([FromBody] SalaReciente salaReciente)
+        public async Task<IActionResult> CreateItemReciente([FromBody] SalaReciente salaReciente)
         {
-            Response result = data.CreateSalaReciente(salaReciente);
+            Response result = await data.CreateSalaReciente(salaReciente);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult CreateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
+        public async Task<IActionResult> CreateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
         {
             Response result = VF.ValidarSala(sala);
             string rutaArchivo = "";
@@ -169,7 +169,7 @@ namespace WebApiRest.Controllers
 
             if (result.Error == 0)
             {
-                result = data.CreateSala(sala);
+                result = await data.CreateSala(sala);
                 if (result.Error == 0 && !rutaArchivo.Equals(""))
                 {
                     //Aqui creamos una nueva imagen
@@ -184,7 +184,7 @@ namespace WebApiRest.Controllers
         [HttpPut]
         [Route("update")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult UpdateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
+        public async Task<IActionResult> UpdateItem([FromForm] IFormFile archivo, [FromForm] Sala sala)
         {
             Response result = VF.ValidarSala(sala);
             string rutaArchivo = "";
@@ -203,7 +203,7 @@ namespace WebApiRest.Controllers
 
             if (result.Error == 0)
             {
-                result = data.UpdateSala(sala);
+                result = await data.UpdateSala(sala);
                 if (result.Error == 0 && !rutaArchivo.Equals("")) {
                     string imagenAnterior = result.Info.Split(":")[1];
                     result.Info = result.Info.Split(",")[0];
@@ -226,30 +226,18 @@ namespace WebApiRest.Controllers
         [HttpPut]
         [Route("updateEstado")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult UpdateItemEstado([FromBody] Sala sala)
+        public async Task<IActionResult> UpdateItemEstado([FromBody] Sala sala)
         {
-            Response result = data.UpdateSalaEstado(sala);
+            Response result = await data.UpdateSalaEstado(sala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpDelete]
         [Route("delete")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult DeleteItem([FromQuery] int idSala)
+        public async Task<IActionResult> DeleteItem([FromQuery] int idSala)
         {
-            string nombreArchivo = "Ranking_sala_" + idSala.ToString() + ".xls";            
-
-            Response result = data.DeleteSala(idSala);
-
-            if(result.Error == 0)
-            {
-                string rutaArchivo = WC.GetRutaArchivo(_env, nombreArchivo, nombreCarpeta);
-                if (System.IO.File.Exists(rutaArchivo))
-                {
-                    System.IO.File.Delete(rutaArchivo);
-                }
-            }
-
+            Response result = await data.DeleteSala(idSala);           
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

@@ -27,16 +27,16 @@ namespace WebApiRest.Controllers
         [HttpGet]
         [Route("list/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
         [Authorize]
-        public IActionResult GetList([FromRoute] int estados, [FromRoute] int idSala)
+        public async Task<IActionResult> GetList([FromRoute] int estados, [FromRoute] int idSala)
         {
-            Usuario_SalaList result = data.GetUsuario_SalaList(estados, idSala);
+            Usuario_SalaList result = await data.GetUsuario_SalaList(estados, idSala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("reporte/ranking/{estados}/{idSala}")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult ReportById([FromRoute] int estados, [FromRoute] int idSala)
+        public async Task<IActionResult> ReportById([FromRoute] int estados, [FromRoute] int idSala)
         {
             Response result = new();
             DataTable dt = new();
@@ -55,7 +55,7 @@ namespace WebApiRest.Controllers
             dt.Columns.Add("TIEMPO (ms)", typeof(int));
             dt.Columns.Add("FECHA", typeof(DateTime));
 
-            Usuario_SalaList response = data.GetUsuario_SalaList(estados, idSala);
+            Usuario_SalaList response = await data.GetUsuario_SalaList(estados, idSala);
 
             if (response.Error == 0)
             {
@@ -118,7 +118,7 @@ namespace WebApiRest.Controllers
         [HttpGet]
         [Route("reporte/ranking/{estados}")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult ReportAll([FromRoute] int estados)
+        public async Task<IActionResult> ReportAll([FromRoute] int estados)
         {
             Response result = new();
             DataTable dt = new();
@@ -138,7 +138,7 @@ namespace WebApiRest.Controllers
             dt.Columns.Add("TIEMPO (ms)", typeof(int));
             dt.Columns.Add("FECHA", typeof(DateTime));
 
-            Usuario_SalaList response = data.GetUsuario_SalaList(estados);
+            Usuario_SalaList response = await data.GetUsuario_SalaList(estados);
 
             if (response.Error == 0)
             {
@@ -202,18 +202,18 @@ namespace WebApiRest.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize]
-        public IActionResult CreateItem([FromBody] Usuario_Sala usuario_sala)
+        public async Task<IActionResult> CreateItem([FromBody] Usuario_Sala usuario_sala)
         {
-            Response result = data.CreateUsuario_Sala(usuario_sala);
+            Response result = await data.CreateUsuario_Sala(usuario_sala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpDelete]
         [Route("delete")]
         [Authorize(Roles = "Administrador,SuperAdministrador")]
-        public IActionResult DeleteItem([FromQuery] int idSala)
+        public async Task<IActionResult> DeleteItem([FromQuery] int idSala)
         {
-            Response result = data.DeleteUsuario_Sala(idSala);
+            Response result = await data.DeleteUsuario_Sala(idSala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

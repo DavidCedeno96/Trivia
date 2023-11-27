@@ -10,7 +10,7 @@ namespace WebApiRest.Data
     {
         private readonly Conexion conexion = new();
 
-        public SalaJuegoList GetSalaJuegoList(int idSala, int idJugador)
+        public async Task<SalaJuegoList> GetSalaJuegoList(int idSala, int idJugador)
         {
             SalaJuegoList list = new()
             {
@@ -30,9 +30,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new SalaJuego()
                     {
@@ -44,7 +44,7 @@ namespace WebApiRest.Data
                         EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),
                     });
                 }
-                dr.NextResult();
+                await dr.NextResultAsync();
 
                 list.Info = WC.GetSatisfactorio();
                 list.Error = 0;
@@ -58,13 +58,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;
         }
 
-        public SalaJuegoList GetSalaJuegoListByIds(int idSala, int idJugador)
+        public async Task<SalaJuegoList> GetSalaJuegoListByIds(int idSala, int idJugador)
         {
             SalaJuegoList list = new()
             {
@@ -84,9 +84,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new SalaJuego()
                     {
@@ -98,7 +98,7 @@ namespace WebApiRest.Data
                         EstadoJuego = Convert.ToInt32(dr["estadoJuego"].ToString()),
                     });
                 }
-                dr.NextResult();
+                await dr.NextResultAsync();
 
                 list.Info = WC.GetSatisfactorio();
                 list.Error = 0;
@@ -112,13 +112,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;
         }
 
-        public Response CreateSalaJuego(SalaJuego juego)
+        public async Task<Response> CreateSalaJuego(SalaJuego juego)
         {
             Response response = new();
 
@@ -137,8 +137,8 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -151,13 +151,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;
         }
 
-        public Response UpdateSalaJuego(SalaJuego juego)
+        public async Task<Response> UpdateSalaJuego(SalaJuego juego)
         {
             Response response = new();
 
@@ -176,8 +176,8 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -190,7 +190,7 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;

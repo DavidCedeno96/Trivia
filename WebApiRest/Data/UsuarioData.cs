@@ -9,7 +9,7 @@ namespace WebApiRest.Data
     {
         private readonly Conexion conexion = new();
 
-        public UsuarioList GetUsuarioList(int estados)
+        public async Task<UsuarioList> GetUsuarioList(int estados)
         {
             UsuarioList list = new() {
                 Lista = new()
@@ -28,9 +28,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new Usuario()
                     {
@@ -56,13 +56,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;
         }
 
-        public UsuarioList GetUsuarioList(int estados, string buscar)
+        public async Task<UsuarioList> GetUsuarioList(int estados, string buscar)
         {
             UsuarioList list = new()
             {
@@ -83,9 +83,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new Usuario()
                     {
@@ -111,13 +111,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;
         }
 
-        public UsuarioItem GetUsuario(int estados, int idUsuario)
+        public async Task<UsuarioItem> GetUsuario(int estados, int idUsuario)
         {
             UsuarioItem item = new();
 
@@ -135,9 +135,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                if (await dr.ReadAsync())
                 {
                     item.Usuario = new Usuario()
                     {
@@ -152,7 +152,7 @@ namespace WebApiRest.Data
                         FechaModificacion = Convert.ToDateTime(dr["fecha_modificacion"].ToString())
                     };
                 }
-                dr.NextResult();
+                await dr.NextResultAsync();
 
                 item.Info = cmd.Parameters["@info"].Value.ToString();
                 item.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -165,13 +165,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return item;
         }        
 
-        public UsuarioItem Login(Usuario usuario, int tipoLogin)
+        public async Task<UsuarioItem> Login(Usuario usuario, int tipoLogin)
         {
             UsuarioItem item = new();
             
@@ -191,9 +191,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                if (await dr.ReadAsync())
                 {
                     item.Usuario = new Usuario()
                     {
@@ -204,7 +204,7 @@ namespace WebApiRest.Data
                         Rol = dr["rol"].ToString(),                        
                     };
                 }
-                dr.NextResult();
+                await dr.NextResultAsync();
 
                 item.Info = cmd.Parameters["@info"].Value.ToString();
                 item.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());                
@@ -217,13 +217,13 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return item;
         }
 
-        public Response CreateUsuario (Usuario usuario)
+        public async Task<Response> CreateUsuario (Usuario usuario)
         {
             Response response = new();
 
@@ -243,8 +243,8 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 string info = cmd.Parameters["@info"].Value.ToString();
                 int error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -264,14 +264,14 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;
 
         }
 
-        public Response UpdateUsuario(Usuario usuario)
+        public async Task<Response> UpdateUsuario(Usuario usuario)
         {
             Response response = new();
 
@@ -292,8 +292,8 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
                 
                 string info = cmd.Parameters["@info"].Value.ToString();
                 int error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -313,14 +313,14 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;
 
         }
 
-        public Response DeleteUsuario(int idUsuario)
+        public async Task<Response> DeleteUsuario(int idUsuario)
         {
             Response response = new();
 
@@ -337,8 +337,8 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                await sqlConnection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
 
                 response.Info = cmd.Parameters["@info"].Value.ToString();
                 response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
@@ -351,7 +351,7 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return response;

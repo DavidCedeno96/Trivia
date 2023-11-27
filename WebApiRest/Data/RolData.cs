@@ -10,7 +10,7 @@ namespace WebApiRest.Data
     {
         private readonly Conexion conexion = new();
 
-        public RolList GetRolList(int estados)
+        public async Task<RolList> GetRolList(int estados)
         {
             RolList list = new() {
                 Lista = new()
@@ -29,9 +29,9 @@ namespace WebApiRest.Data
 
             try
             {
-                sqlConnection.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                await sqlConnection.OpenAsync();
+                SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                while (await dr.ReadAsync())
                 {
                     list.Lista.Add(new Rol()
                     {
@@ -54,7 +54,7 @@ namespace WebApiRest.Data
             }
             finally
             {
-                sqlConnection.Close();
+                await sqlConnection.CloseAsync();
             }
 
             return list;

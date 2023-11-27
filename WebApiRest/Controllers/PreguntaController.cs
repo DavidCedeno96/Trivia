@@ -20,34 +20,34 @@ namespace WebApiRest.Controllers {
 
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetList([FromRoute] int estados) {
-            PreguntaList result = dataPregunta.GetPreguntaList(estados);
+        public async Task<IActionResult> GetList([FromRoute] int estados) {
+            PreguntaList result = await dataPregunta.GetPreguntaList(estados);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("list/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetList([FromRoute] int estados, [FromRoute] int idSala) {
-            PreguntaList result = dataPregunta.GetPreguntaList(estados, idSala);
+        public async Task<IActionResult> GetList([FromRoute] int estados, [FromRoute] int idSala) {
+            PreguntaList result = await dataPregunta.GetPreguntaList(estados, idSala);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 
         [HttpGet]
         [Route("pregOpc/{estados}/{idPregunta}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetPregunta_OpcionList([FromRoute] int estados, [FromRoute] int idPregunta)
+        public async Task<IActionResult> GetPregunta_OpcionList([FromRoute] int estados, [FromRoute] int idPregunta)
         {
-            PreguntaItem resultPregunta = dataPregunta.GetPregunta(estados, idPregunta);
-            OpcionList resultOpcion = dataOpcion.GetOpcionList(estados, idPregunta);
+            PreguntaItem resultPregunta = await dataPregunta.GetPregunta(estados, idPregunta);
+            OpcionList resultOpcion = await dataOpcion.GetOpcionList(estados, idPregunta);
 
             return StatusCode(StatusCodes.Status200OK, new { resultPregunta, resultOpcion });
         }
 
         [HttpGet]
         [Route("listPregOpc/{estados}/{idSala}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetPreguntaList_opcionList([FromRoute] int estados, [FromRoute] int idSala)
+        public async Task<IActionResult> GetPreguntaList_opcionList([FromRoute] int estados, [FromRoute] int idSala)
         {
             bool hayErrorlist = false;
-            PreguntaList resultPregList = dataPregunta.GetPreguntaList(estados, idSala);            
+            PreguntaList resultPregList = await dataPregunta.GetPreguntaList(estados, idSala);            
             PreguntaList_opciones result = new()
             {
                 List = new(),
@@ -60,8 +60,8 @@ namespace WebApiRest.Controllers {
                 for (int i = 0; i < resultPregList.Lista.Count; i++)
                 {
                     int idPregunta = resultPregList.Lista[i].IdPregunta;
-                    PreguntaItem resultPregunta = dataPregunta.GetPregunta(estados, idPregunta);
-                    OpcionList resultOpcion = dataOpcion.GetOpcionList(estados, idPregunta);
+                    PreguntaItem resultPregunta = await dataPregunta.GetPregunta(estados, idPregunta);
+                    OpcionList resultOpcion = await dataOpcion.GetOpcionList(estados, idPregunta);
 
                     result.List.Add(new Pregunta_OpcionList()
                     {
@@ -87,7 +87,7 @@ namespace WebApiRest.Controllers {
 
         [HttpPost]
         [Route("create")]
-        public IActionResult CreateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
+        public async Task<IActionResult> CreateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
 
             Response resultPregunta = VF.ValidarPregunta(pregunta_opcionList.Pregunta);
             Response resultOpcion = new();
@@ -100,12 +100,12 @@ namespace WebApiRest.Controllers {
             }
 
             if(resultPregunta.Error == 0 && resultOpcion.Error == 0) {
-                result = dataPregunta.CreatePregunta(pregunta_opcionList.Pregunta);
+                result = await dataPregunta.CreatePregunta(pregunta_opcionList.Pregunta);
                 if(result.Error == 0) {
                     int idPregunta = Convert.ToInt32(result.Info.Split(":")[1].ToString().Trim());
                     foreach (var item in pregunta_opcionList.OpcionList) {
                         item.IdPregunta = idPregunta;
-                        result = dataOpcion.CreateOpcion(item);                        
+                        result = await dataOpcion.CreateOpcion(item);                        
                     }                               
                 }
             } else if(resultPregunta.Error > 0) {
@@ -123,7 +123,7 @@ namespace WebApiRest.Controllers {
 
         [HttpPost]
         [Route("import")]
-        public IActionResult ImportList([FromForm] IFormFile archivo, [FromForm] int idSala)
+        public async Task<IActionResult> ImportList([FromForm] IFormFile archivo, [FromForm] int idSala)
         {
             bool hayErrorlist = false;
             Response result = new();
@@ -224,14 +224,14 @@ namespace WebApiRest.Controllers {
 
                             if (resultPregunta.Error == 0 && resultOpcion.Error == 0)
                             {
-                                result = dataPregunta.CreatePregunta(item.Pregunta);
+                                result = await dataPregunta.CreatePregunta(item.Pregunta);
                                 if (result.Error == 0)
                                 {
                                     int idPregunta = Convert.ToInt32(result.Info.Split(":")[1].ToString().Trim());
                                     foreach (var op in item.OpcionList)
                                     {
                                         op.IdPregunta = idPregunta;
-                                        result = dataOpcion.CreateOpcion(op);
+                                        result = await dataOpcion.CreateOpcion(op);
                                     }
                                     if (result.Error == 0)
                                     {
@@ -293,7 +293,7 @@ namespace WebApiRest.Controllers {
 
         [HttpPut]
         [Route("update")]
-        public IActionResult UpdateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
+        public async Task<IActionResult> UpdateItem([FromBody] Pregunta_OpcionList pregunta_opcionList) {
 
             Response resultPregunta = VF.ValidarPregunta(pregunta_opcionList.Pregunta);
             Response resultOpcion = new();
@@ -309,19 +309,19 @@ namespace WebApiRest.Controllers {
 
             if (resultPregunta.Error == 0 && resultOpcion.Error == 0)
             {
-                result = dataPregunta.UpdatePregunta(pregunta_opcionList.Pregunta);
+                result = await dataPregunta.UpdatePregunta(pregunta_opcionList.Pregunta);
                 if (result.Error == 0)
                 {                    
                     foreach (var item in pregunta_opcionList.OpcionList)
                     {                        
-                        result = dataOpcion.UpdateOpcion(item);                        
+                        result = await dataOpcion.UpdateOpcion(item);                        
                     }
                     if(result.Error == 0)
                     {
                         int ultimoIdOpcion = Convert.ToInt32(result.Info.Split(":")[1]);
                         int idPregunta = pregunta_opcionList.Pregunta.IdPregunta;
                         //Aqui elimina los que no pertencen
-                        result = dataOpcion.DeleteOpcion(ultimoIdOpcion, idPregunta);
+                        result = await dataOpcion.DeleteOpcion(ultimoIdOpcion, idPregunta);
                     }
                 }
             }
@@ -343,8 +343,8 @@ namespace WebApiRest.Controllers {
 
         [HttpDelete]
         [Route("delete")]
-        public IActionResult DeleteItem([FromQuery] int idPregunta) {
-            Response result = dataPregunta.DeletePregunta(idPregunta);
+        public async Task<IActionResult> DeleteItem([FromQuery] int idPregunta) {
+            Response result = await dataPregunta.DeletePregunta(idPregunta);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }

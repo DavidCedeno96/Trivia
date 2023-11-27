@@ -16,9 +16,9 @@ namespace WebApiRest.Controllers
 
         [HttpGet]
         [Route("list/{estados}")] //{authorId:int:min(1)} {lcid:int=1033}
-        public IActionResult GetList([FromRoute] int estados)
+        public async Task<IActionResult> GetList([FromRoute] int estados)
         {
-            RolList result = data.GetRolList(estados);
+            RolList result = await data.GetRolList(estados);
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
     }
