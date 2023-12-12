@@ -96,6 +96,7 @@ namespace WebApiRest.Controllers
                     //Aqui crea el archivo
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
                     workbook.Write(fileStream);
+                    fileStream.Dispose();
 
                     result.Info = nombreArchivo;
                     result.Error = 0;
@@ -180,6 +181,7 @@ namespace WebApiRest.Controllers
                     //Aqui crea el archivo
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
                     workbook.Write(fileStream);
+                    fileStream.Dispose();
 
                     result.Info = nombreArchivo;
                     result.Error = 0;

@@ -110,6 +110,7 @@ namespace WebApiRest.Controllers
                     //Aqui crea el archivo
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
                     workbook.Write(fileStream);
+                    fileStream.Dispose();
 
                     result.Info = nombreArchivo;
                     result.Error = 0;
@@ -172,9 +173,10 @@ namespace WebApiRest.Controllers
                 result = await data.CreateSala(sala);
                 if (result.Error == 0 && !rutaArchivo.Equals(""))
                 {
-                    //Aqui creamos una nueva imagen
+                    //Aqui creamos una nueva imagen                    
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
-                    archivo.CopyTo(fileStream);
+                    await archivo.CopyToAsync(fileStream);
+                    await fileStream.DisposeAsync();
                 }
             }
 
@@ -216,7 +218,8 @@ namespace WebApiRest.Controllers
 
                     //Aqui creamos una nueva imagen
                     FileStream fileStream = new(rutaArchivo, FileMode.Create);
-                    archivo.CopyTo(fileStream);
+                    await archivo.CopyToAsync(fileStream);
+                    await fileStream.DisposeAsync();
                 }
             }        
 
