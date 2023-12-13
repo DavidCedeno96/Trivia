@@ -53,6 +53,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//Este es para acceder al index.html de wwwroot
+app.UseDefaultFiles();
+
 //Crear una nueva carpeta llamada wwwroot
 //Guardar una nueva imagen default.png => propiedades => Copiar en el directorio de salida => Copiar siempre
 //Recuperar imagenes del wwwroot/Content
