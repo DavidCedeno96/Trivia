@@ -2,8 +2,12 @@
   <div class="container-white py-2">
     <div class="row">
       <div class="container-fluid">
+        
         <div class="row">
-          <div class="col-8 pt-2">
+          <div class="col">
+            <app-menu-lateral></app-menu-lateral>
+          </div>
+          <div class="col pt-2 text-end">
             <!-- Contenido izquierdo -->
             <a [routerLink]="['/GestionarUsuarios']">
               <div class="container">
@@ -215,4 +219,5 @@
       </div>
     </form>
   </div>
+  <div class="container" style="height: 20px;"></div>
 </body>

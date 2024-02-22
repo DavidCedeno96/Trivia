@@ -59,6 +59,7 @@ import { SurvivorPersonalResultComponent } from './components/survivor-personal-
 import { GestionarUsuariosComponent } from './pages/gestionar-usuarios/gestionar-usuarios.component';
 import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
 import { IngresarJuegoComponent } from './pages/ingresar-juego/ingresar-juego.component';
+import { MenuLateralComponent } from './components/menu-lateral/menu-lateral.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,8 @@ import { IngresarJuegoComponent } from './pages/ingresar-juego/ingresar-juego.co
     GestionarUsuariosComponent,
     CrearUsuarioComponent,
     IngresarJuegoComponent,
+    MenuLateralComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -188,6 +191,13 @@ import { IngresarJuegoComponent } from './pages/ingresar-juego/ingresar-juego.co
         component: IngresarJuegoComponent,
         //canActivate: [authGuardPlayer],
       },
+      {
+        path: 'MenuLateral',
+        component: MenuLateralComponent,
+        //canActivate: [authGuardPlayer],
+      },
+
+      
     ]),
   ],
   providers: [BsDropdownConfig],

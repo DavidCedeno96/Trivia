@@ -3,6 +3,7 @@ import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { EncryptionService } from 'src/app/encryption.service';
 import { SalaJuego } from 'src/app/model/SalaModel';
 import { SalaJuegoService } from 'src/app/services/sala-juego.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 const preventBackNavigation = true;
 
@@ -35,7 +36,8 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
     private router: Router,
     private route: ActivatedRoute,
     private encryptionService: EncryptionService,
-    private salaJuegoService: SalaJuegoService
+    private salaJuegoService: SalaJuegoService,
+    private usuarioService: UsuarioService,
   ) {
     /* window.onpopstate = () => {
       this.router.navigate(['/MisSalas']); // Aquí puedes realizar la acción que deseas al bloquear el evento de volver atrás.      // Por ejemplo, puedes redirigir al usuario a una página específica:      // window.location.href = '/pagina-de-destino';      // O puedes mostrar un mensaje de advertencia.
@@ -125,6 +127,21 @@ export class SurvivorPersonalResultComponent implements OnInit, CanActivate {
     let idSala = this.encryptionService.encrypt(id.toString());
     let params = { idSala };
     this.router.navigate([ruta], { queryParams: params });
+  }
+
+  salir() {
+    //this.usuarioService.logout();
+    const rol = this.usuarioService.getRol();
+    if (rol == '1' || rol == '3') {
+      this.router.navigate(['/Administrador']);
+    }
+    if (rol == '2') {
+      //this.router.navigate(['/MisSalas']);
+      let idSala = this.encryptionService.encrypt(this.idSala.toString());
+      let params = { idSala };
+      this.router.navigate(['/EntradaSala'], { queryParams: params }); 
+      //this.router.navigate(['/MisSalas']);
+    }
   }
 
   ngOnDestroy() {
