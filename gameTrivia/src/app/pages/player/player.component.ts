@@ -36,6 +36,7 @@ export class PlayerComponent implements OnInit {
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
+    fechaCierre: '',
   };
 
   //PAGINACION

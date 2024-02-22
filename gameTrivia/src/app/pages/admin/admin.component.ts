@@ -48,6 +48,7 @@ export class AdminComponent implements OnInit {
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
+    fechaCierre: '',
   };
 
   cardsPerPage: number = 6;

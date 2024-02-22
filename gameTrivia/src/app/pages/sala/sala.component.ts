@@ -43,6 +43,7 @@ export class SalaComponent implements OnInit {
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
+    fechaCierre: '',
   };
 
   preguntasSala: Pregunta[] = [

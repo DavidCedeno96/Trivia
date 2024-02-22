@@ -55,7 +55,7 @@
           </h2>
         </div>
       </div>
-      
+
       <div>
         <!-- Mensaje error -->
         <div
@@ -125,19 +125,17 @@
           <div class="col-12 me-auto">
             <p>Fecha y hora de caducidad del enlace</p>
             <span class="p-float-label">
-              <p-calendar [(ngModel)]="date" 
-            [showTime]="true" 
-            [showSeconds]="true"
-            [showIcon]="true"
-            inputId="kill_date"
-            
-            ></p-calendar>
-             
-          </span>
-            
-
-          </div>       
-            
+              <p-calendar
+                [(ngModel)]="date"
+                [showTime]="true"
+                [showSeconds]="true"
+                [showIcon]="true"
+                inputId="kill_date"
+                name="fechacirerr"
+              ></p-calendar>
+            </span>
+          </div>
+          <button type="button" (click)="setDate()">clic</button>
         </div>
       </div>
       <div class="row mx-4 py-3" style="vertical-align: middle">
@@ -212,7 +210,5 @@
     </form>
   </div>
 
-  <div class="container" style="height: 20px;">
-
-  </div>
+  <div class="container" style="height: 20px"></div>
 </body>

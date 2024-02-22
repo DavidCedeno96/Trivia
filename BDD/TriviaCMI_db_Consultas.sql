@@ -1,93 +1,39 @@
-use TriviaCMI_db
+USE TriviaCMI_db;
 
-create table Rol(
-	idRol int identity(1,1) primary key,
-	nombre varchar(20) not null,
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+EXEC sp_spaceused
 
-create table Usuario(
-	idUsuario int identity(1,1) primary key,
-	nombre varchar(60) not null,
-	apellido varchar(15),
-	correo varchar(40),
-	clave varchar(20) CHECK (clave <> ''),
-	foto varchar(50),
-	idRol int references Rol(idRol) not null,	
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+EXEC sp_helpdb 'TriviaCMI_db';
 
-create table ModoJuego(
-	idModoJuego int identity(1,1) primary key,
-	nombre varchar(15) not null,
-	imagen varchar(50),
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+---
+SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
+   WHERE ROUTINE_TYPE = 'PROCEDURE'
+   ORDER BY ROUTINE_NAME 
 
-create table Sala(
-	idSala int identity(1,1) primary key,
-	nombre varchar(40) not null,
-	imagen varchar(50),
-	descripcion varchar(200),
-	idModoJuego int references ModoJuego(idModoJuego) not null,
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+---
+SELECT 
+	tc.CONSTRAINT_TYPE,
+    tc.CONSTRAINT_NAME,
+	tc.TABLE_NAME,
+    kcu.COLUMN_NAME	
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
+JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu
+    ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
+WHERE 
+    tc.TABLE_NAME = 'Usuario' AND 
+    tc.CONSTRAINT_TYPE = 'UNIQUE'    
 
-create table Usuario_Sala(
-	idUsuario int references Usuario(idUsuario) not null,
-	idSala int references Sala(idSala) not null,
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-	puntaje int default 0,
-	tiempo int default 0
-);
+----
+SELECT *
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME = 'Usuario' AND CONSTRAINT_TYPE = 'CHECK';
 
-create table Pregunta(
-	idPregunta int identity(1,1) primary key,
-	nombre varchar(150) not null,
-	idSala int references Sala(idSala) not null,
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+---
+SELECT tc.COLUMN_NAME, tc.DATA_TYPE, tc.CHARACTER_MAXIMUM_LENGTH, tc.IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS tc
+WHERE tc.TABLE_NAME = 'Usuario';
 
-create table Opcion(
-	idOpcion int identity(1,1) primary key,
-	nombre varchar(150) not null,
-	correcta int not null,
-	idPregunta int references Pregunta(idPregunta) not null,
-	estado int default 1,
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
-
----------------------------
-create table SalaJuego( -- este es para las posiciones durante el juego challenger
-	idSala int,
-	idJugador int,
-	iniciales varchar(5),
-	posicion int,
-
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
-
-create table SalaReciente( -- este es para las salas recientes visitadas
-	idSala int,
-	idJugador int,
-
-	fecha_creacion datetime default getdate(),
-	fecha_modificacion datetime default getdate(),
-);
+---
+SELECT @@VERSION;
 
 -----------------------------------------------------------------
 select * from Rol -- Hacer el insert y no truncar
@@ -168,6 +114,12 @@ exec sp_B_UsuarioLogin
 @error = '' 
 
 exec sp_C_Usuario
+@nombre = 'David Cedeño',
+@idRol = 2,
+@info = '',
+@error = ''
+
+exec sp_C_Usuario
 @nombre = 'miJugador4',
 @clave = '12345555456',
 @correo = '',
@@ -210,10 +162,11 @@ exec sp_B_SalaByAll
 @error = ''
 
 exec sp_C_Sala	
-@nombre = 'Sala 3',
+@nombre = 'mi sala CMI',
 @imagen = '',
 @descripcion = '',
 @idModoJuego = 2,
+@fechaCierre = '2024',
 @info = '',
 @error = ''
 
@@ -223,6 +176,7 @@ exec sp_U_Sala
 @imagen = 'myImage2.png',
 @descripcion = 'desc 1',
 @idModoJuego = 2,
+@fechaCierre = '',
 @info = '', 
 @error = ''
 
@@ -384,60 +338,19 @@ select * from Pregunta where idSala = 63
 select * from Opcion where idPregunta = 43
 select * from Opcion where idPregunta = 44
 
-
---delete from Pregunta where idPregunta = 41
-
-USE TriviaCMI_db;
-EXEC sp_spaceused
-
-EXEC sp_helpdb 'TriviaCMI_db';
-
----
-SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES 
-   WHERE ROUTINE_TYPE = 'PROCEDURE'
-   ORDER BY ROUTINE_NAME 
-
----
-SELECT 
-	tc.CONSTRAINT_TYPE,
-    tc.CONSTRAINT_NAME,
-	tc.TABLE_NAME,
-    kcu.COLUMN_NAME	
-FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
-JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu
-    ON tc.CONSTRAINT_NAME = kcu.CONSTRAINT_NAME
-WHERE 
-    tc.TABLE_NAME = 'Usuario' AND 
-    tc.CONSTRAINT_TYPE = 'UNIQUE'    
-
-----
-SELECT *
-FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-WHERE TABLE_NAME = 'Usuario' AND CONSTRAINT_TYPE = 'CHECK';
-
----
-SELECT tc.COLUMN_NAME, tc.DATA_TYPE, tc.CHARACTER_MAXIMUM_LENGTH, tc.IS_NULLABLE
-FROM INFORMATION_SCHEMA.COLUMNS tc
-WHERE tc.TABLE_NAME = 'Sala';
-
----
-SELECT @@VERSION;
-
 -- CAMBIOS ----------------------------------------------------------------------------------
---
+-- ALTER TABLE Sala ALTER COLUMN nombre varchar(60) not null
+-- ALTER TABLE Sala ADD fechaCierre datetime;
+-- update Sala set fechaCierre = GETDATE() + 1
+-- ALTER TABLE Sala ALTER COLUMN fechaCierre datetime not null
+
+-- SPs
+-- sp_B_Sala
+-- sp_B_SalaById
+-- sp_B_SalaByAll
+-- sp_C_Sala
+-- sp_U_Sala
+-- sp_C_Usuario
+-- sp_B_Usuario
 
 ------------------------------------------------------------------------------------
---insert into pruebas (id, texto) values
---(3, 'hola'),
---(2, 'mund'),
---(1, 'prue'),
---(1, 'hola'),
---(2, 'mund'),
---(1, 'prue')
-
---select * from  pruebas
-
---select 
---	sum(case when texto = 'hola' then 1 else 0 end) AS CountTextoHola,
---	sum(case when texto = 'mund' then 1 else 0 end) AS CountTextoMund
---from  pruebas

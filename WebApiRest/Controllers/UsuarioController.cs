@@ -82,7 +82,7 @@ namespace WebApiRest.Controllers
             }
 
             return StatusCode(StatusCodes.Status200OK, new { result });
-        }
+        }        
 
         [HttpPost]
         [Route("create")]
@@ -95,6 +95,20 @@ namespace WebApiRest.Controllers
                 result = await data.CreateUsuario(usuario);
             }
             
+            return StatusCode(StatusCodes.Status200OK, new { result });
+        }
+
+        [HttpPost]
+        [Route("create/jugador")]
+        public async Task<IActionResult> CreateItemJugador([FromBody] Usuario usuario)
+        {
+            Response result = VF.ValidarUsuario(usuario);
+
+            if (result.Error == 0)
+            {
+                result = await data.CreateUsuarioJugador(usuario);
+            }
+
             return StatusCode(StatusCodes.Status200OK, new { result });
         }
 

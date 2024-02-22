@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { ConstantsService } from 'src/app/constants.service';
 import { EncryptionService } from 'src/app/encryption.service';
 import { Sala } from 'src/app/model/SalaModel';
 import { SalaService } from 'src/app/services/sala.service';
+import { TimeApiService } from 'src/app/services/time-api.service';
 
 @Component({
   selector: 'app-crear-sala',
@@ -38,11 +40,13 @@ export class CrearSalaComponent implements OnInit {
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
+    fechaCierre: '',
   };
 
   date: Date | undefined;
 
   constructor(
+    private timeServicio: TimeApiService,
     private salaServicio: SalaService,
     private router: Router,
     private route: ActivatedRoute,
@@ -130,13 +134,15 @@ export class CrearSalaComponent implements OnInit {
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;
-        console.log(this.result);
+        console.log(data);
         if (error > 0) {
           //hay error
           this.existeError = true;
         } else {
           //no hay error
           this.existeError = false;
+          console.log(sala.fechaCierre, new Date(sala.fechaCierre));
+          this.date = new Date(sala.fechaCierre);
           this.nuevaSala = sala;
           /* this.imageSala = `${this.salaServicio.getURLImages()}/${
             this.nuevaSala.imagen
@@ -235,5 +241,30 @@ export class CrearSalaComponent implements OnInit {
       this.constantsService.loading(false);
     }
     return isValid;
+  }
+
+  setDate() {
+    console.log(this.date, this.setFecha(this.date?.toString()!));
+
+    console.log(this.timeServicio.convertToLondonTime(this.date!));
+
+    console.log(
+      this.timeServicio.convertToLondonTime(this.date!).subscribe({
+        next: (data: any) => {
+          console.log(data);
+        },
+      })
+    );
+  }
+
+  /* setFecha(fecha: Date): string {
+    let pipe = new DatePipe('en-US');
+    return pipe.transform(fecha, 'dd/MM/yyyy')!;
+  } */
+
+  setFecha(fecha: string): string {
+    let date = new Date(fecha);
+    let pipe = new DatePipe('en-US');
+    return pipe.transform(date, 'yyyy-MM-dd HH:mm:ss')!;
   }
 }
