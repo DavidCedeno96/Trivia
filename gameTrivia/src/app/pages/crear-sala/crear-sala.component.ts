@@ -40,6 +40,8 @@ export class CrearSalaComponent implements OnInit {
     fechaActivacion: '',
   };
 
+  date: Date | undefined;
+
   constructor(
     private salaServicio: SalaService,
     private router: Router,

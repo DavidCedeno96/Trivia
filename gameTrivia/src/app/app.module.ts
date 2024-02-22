@@ -23,6 +23,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
 import { KnobModule } from 'primeng/knob';
 import { MenuModule } from 'primeng/menu';
+import { CalendarModule } from 'primeng/calendar';
+
 
 //Ventanas creadas
 import { VentanaLoginComponent } from './components/ventana-login/ventana-login.component';
@@ -56,6 +58,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { SurvivorPersonalResultComponent } from './components/survivor-personal-result/survivor-personal-result.component';
 import { GestionarUsuariosComponent } from './pages/gestionar-usuarios/gestionar-usuarios.component';
 import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.component';
+import { IngresarJuegoComponent } from './pages/ingresar-juego/ingresar-juego.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
     SurvivorPersonalResultComponent,
     GestionarUsuariosComponent,
     CrearUsuarioComponent,
+    IngresarJuegoComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +96,7 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
     DialogModule,
     NgxDropzoneModule,
     ToastModule, */
+    CalendarModule,
     MenuModule,
     ProgressBarModule,
     KnobModule,
@@ -177,6 +182,11 @@ import { CrearUsuarioComponent } from './pages/crear-usuario/crear-usuario.compo
         path: 'CrearUsuario',
         component: CrearUsuarioComponent,
         canActivate: [authGuardAdmin],
+      },
+      {
+        path: 'IngresarJuego',
+        component: IngresarJuegoComponent,
+        //canActivate: [authGuardPlayer],
       },
     ]),
   ],

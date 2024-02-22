@@ -201,17 +201,20 @@
   <div class="container-with-shadow"></div>
   <!-- TITULO Y BUSCADOR -->
   <div class="container">
-    <!-- SALAS CREADAS -->
+    <!-- Usuarios CREADOS -->
     <div class="container">
       <div class="row">
-        <div class="col-12 mx-auto">
+
+        <div class="col-6 mx-auto" *ngIf="Usuarios.length === 0 || auxUsuarios.length === 0">
           <div
-            class="mt-5 text-center"
-            *ngIf="Usuarios.length === 0 || auxUsuarios.length === 0"
-          >
+            class="mt-5 text-center">
             <h3>No se pudo encontrar ningun usuario</h3>
           </div>
-          <div class="card my-2" *ngFor="let usuario of Usuarios">
+         </div>
+        
+        <div class="col-sm-12 col-lg-6 mx-auto" *ngFor="let usuario of Usuarios">
+          
+          <div class="card my-2" >
             <div class="card-body">
               <div class="row align-items-center">
                 <div
@@ -231,7 +234,7 @@
                     <div *ngIf="usuario.contrasena != 'N/A'">
                       <strong>DPI:</strong>
                       {{ usuario.contrasena }}
-                    </div>
+                    </div> 
 
                     <div>
                       <strong>Rol:</strong>
@@ -239,8 +242,9 @@
                     </div>
                   </div>
                 </div>
+                
                 <!-- Botones -->
-                <div class="col-sm-12 col-lg-4 text-end">
+                <div class="col-sm-12 col-lg-4 text-end my-2">
                   <button
                     type="button"
                     class="btn btn-secondary mx-1"

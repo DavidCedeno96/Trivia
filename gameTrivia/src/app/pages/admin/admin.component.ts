@@ -406,6 +406,13 @@ export class AdminComponent implements OnInit {
     this.router.navigate([ruta], { queryParams: params });
   }
 
+  cambiarPag2(ruta: string, type: string, id1: number, id2: number) {
+    let idSala = this.encryptionService.encrypt(id1.toString());
+    let idPregunta = this.encryptionService.encrypt(id2.toString());
+    let params = { type, idSala, idPregunta };
+    this.router.navigate([ruta], { queryParams: params });
+  }
+
   cerrarSesion() {
     this.usuarioServicio.logout();
   }

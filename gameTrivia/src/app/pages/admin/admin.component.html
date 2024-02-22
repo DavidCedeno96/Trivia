@@ -279,13 +279,28 @@
                         <li role="menuitem">
                           <a
                             class="dropdown-item"
-                            (click)="cambiarPag('/Sala', sala.idSala)"
+                            (click)="cambiarPag2('/CrearSala', 'editar', sala.idSala, 0)"
+                            
                             ><img
                               src="assets/Icons/Editar.svg"
                               alt="Icono"
                               class="icono-svg2"
                             />
                             <strong>Editar</strong></a
+                          >
+                        </li>
+
+                        <li role="menuitem">
+                          <a
+                            class="dropdown-item"
+                            (click)="cambiarPag('/Sala', sala.idSala)"
+                            ><img
+                              src="assets/Icons/Preguntas.svg"
+                              alt="Icono"
+                              class="icono-svg2"
+                              style="color: #fff;"
+                            />
+                            <strong>Banco de preguntas</strong></a
                           >
                         </li>
 
@@ -317,6 +332,20 @@
                             <strong>Resultados</strong>
                           </a>
                         </li>
+
+                        <li role="menuitem">
+                          <a
+                            class="dropdown-item"
+                            
+                            ><img
+                              src="assets/Icons/Reporte.svg"
+                              alt="Icono"
+                              class="icono-svg2"
+                            />
+                            <strong>Reporte</strong>
+                          </a>
+                        </li>
+
                         <li
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal"
