@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, forkJoin, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TimeApiService {
   private apiUrl = 'https://worldtimeapi.org/api/timezone/Europe/London'; // URL de la API de WorldTimeAPI
+  private localTimeUrl = 'https://worldtimeapi.org/api/ip'; // Obtener la hora local de la máquina
+
 
   constructor(private http: HttpClient) {}
 
@@ -14,36 +16,52 @@ export class TimeApiService {
     return this.http.get(this.apiUrl);
   }
 
-  convertToLondonTime(userDateTime: Date): Observable<string> {
-    // Convertir la fecha y hora del usuario a un formato ISO string
-    const userISOString = userDateTime.toISOString();
-    console.log('FECHA user', userISOString);
+  // Método para obtener la diferencia de offset entre la zona horaria del usuario y la de Londres
+  getOffsetDifference(): Observable<number> {
+    // Realizar las solicitudes a las APIs de WorldTimeAPI para obtener los offsets
+    const localOffset$ = this.http.get<any>(this.localTimeUrl).pipe(map(data => data.raw_offset));
+    const londonOffset$ = this.http.get<any>(this.apiUrl).pipe(map(data => data.raw_offset));
 
-    // Realizar una solicitud a la API de WorldTimeAPI para obtener la hora actual en Londres
-    return this.http.get<any>(this.apiUrl).pipe(
-      map((data: any) => {
-        // Obtener el offset de la zona horaria actual de Londres
-        const londonOffsetString = data.utc_offset;
+    // Combinar los observables de offset y calcular la diferencia
+    return combineLatest([localOffset$, londonOffset$]).pipe(
+      map(([localOffset, londonOffset]) => {
+        // Calcular la diferencia entre los offsets en segundos
+        const offsetDifferenceSeconds = localOffset - londonOffset;
 
-        // Extraer las horas y minutos del offset
-        const offsetParts = londonOffsetString.split(':');
-        const offsetHours = parseInt(offsetParts[0]);
-        const offsetMinutes = parseInt(offsetParts[1]);
+        // Convertir la diferencia de offset a horas
+        const offsetDifferenceHours = offsetDifferenceSeconds / 3600;
 
-        // Crear un objeto Date con la fecha y hora proporcionada por el usuario
-        const userDateTime = new Date(userISOString);
-
-        // Ajustar la fecha y hora sumando el offset de Londres en horas y minutos
-        userDateTime.setHours(userDateTime.getHours() + offsetHours);
-        userDateTime.setMinutes(userDateTime.getMinutes() + offsetMinutes);
-
-        // Formatear la fecha y hora en Londres en un formato legible
-        const formattedDate = userDateTime.toLocaleDateString();
-        const formattedTime = userDateTime.toLocaleTimeString();
-
-        // Devolver la fecha y hora formateadas como una cadena
-        return `${formattedDate} ${formattedTime}`;
+        // Devolver la diferencia de offset en horas
+        console.log(offsetDifferenceHours);
+        return offsetDifferenceHours;
       })
     );
   }
+
+  convertToLondonTime(userDateTime: Date): Observable<string>  {
+    // Realizar las solicitudes a las APIs de WorldTimeAPI para obtener los offsets
+    const localOffset$ = this.http.get<any>(this.localTimeUrl).pipe(map(data => data.raw_offset));
+    const londonOffset$ = this.http.get<any>(this.apiUrl).pipe(map(data => data.raw_offset));
+
+    // Combinar los observables de offset y calcular la diferencia
+    return combineLatest([localOffset$, londonOffset$]).pipe(
+      map(([localOffset, londonOffset]) => {
+        // Calcular la diferencia entre los offsets en segundos
+        const offsetDifferenceSeconds = localOffset - londonOffset;
+
+        // Convertir la diferencia de offset a horas
+        const offsetDifferenceHours = offsetDifferenceSeconds / 3600;
+
+        // Devolver la diferencia de offset en horas
+        console.log(offsetDifferenceHours);
+        userDateTime.setHours(userDateTime.getHours() - offsetDifferenceHours);
+        console.log(userDateTime);
+        console.log("FIN CODIGO");
+        //FIN CODIGO
+        return userDateTime.toISOString();
+      })
+    );
+  }
+
+  
 }
