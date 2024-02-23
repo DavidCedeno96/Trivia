@@ -49,6 +49,7 @@ export class AdminComponent implements OnInit {
     fecha_modificacion: '',
     fechaActivacion: '',
     fechaCierre: '',
+    fechaCierreLondon: '',
   };
 
   cardsPerPage: number = 6;
@@ -119,6 +120,45 @@ export class AdminComponent implements OnInit {
 
           const element = document.createElement('a');
           element.download = `Ranking.xls`;
+          element.href = url;
+          element.click();
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.constantsService.mensajeSatisfactorio(),
+            detail: 'La descarga del reporte ha comenzado',
+          });
+        }
+        this.constantsService.loading(false);
+      },
+      error: (e) => {
+        if (e.status === 401) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
+  descargarRanking(idSala: number) {
+    this.constantsService.loading(true);
+    this.usuario_SalaServicio.reporteRankingById(0, idSala).subscribe({
+      next: (data: any) => {
+        let { info, error } = data.result;
+        this.result = info;
+        if (error > 0) {
+          //this.existeError = true;
+          this.messageService.add({
+            severity: 'error',
+            summary: this.constantsService.mensajeError(),
+            detail: info,
+          });
+        } else {
+          this.existeError = false;
+
+          let url = this.usuario_SalaServicio.getUrlArchivo(info);
+
+          const element = document.createElement('a');
+          element.download = `Ranking_sala.xls`;
           element.href = url;
           element.click();
 
@@ -242,7 +282,7 @@ export class AdminComponent implements OnInit {
     let codigo1 = this.constantsService.randomNumber(10, 99);
     let codigo2 = this.constantsService.randomNumber(10, 99);
 
-    this.currentURL = `${window.location.origin}/EntradaSala?idSala=${idSala}`;
+    this.currentURL = `${window.location.origin}/IngresarJuego?idSala=${idSala}`;
     this.currentCodigo = codigo1 + sala.idSala.toString() + codigo2;
     //console.log(codigo1, codigo2);
   }

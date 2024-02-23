@@ -41,6 +41,7 @@ export class CrearSalaComponent implements OnInit {
     fecha_modificacion: '',
     fechaActivacion: '',
     fechaCierre: '',
+    fechaCierreLondon: '',
   };
 
   date: Date | undefined;
@@ -134,14 +135,12 @@ export class CrearSalaComponent implements OnInit {
       next: (data: any) => {
         const { info, error, sala } = data.result;
         this.result = info;
-        console.log(data);
         if (error > 0) {
           //hay error
           this.existeError = true;
         } else {
           //no hay error
           this.existeError = false;
-          console.log(sala.fechaCierre, new Date(sala.fechaCierre));
           this.date = new Date(sala.fechaCierre);
           this.nuevaSala = sala;
           /* this.imageSala = `${this.salaServicio.getURLImages()}/${
@@ -165,64 +164,87 @@ export class CrearSalaComponent implements OnInit {
   }
 
   crearNuevaSala() {
-    const formData = new FormData();
-    formData.append('nombre', this.nuevaSala.nombre.trim());
-    formData.append('descripcion', this.nuevaSala.descripcion.trim());
-    formData.append('idModoJuego', this.selectedCard.toString());
-    if (this.selectedFile) {
-      formData.append('archivo', this.selectedFile);
-    }
-
-    this.salaServicio.crearSala(formData).subscribe({
-      next: (data: any) => {
-        const { info, error, campo } = data.result;
-        this.result = info;
-        //console.log(info, campo);
-        if (error > 0) {
-          this.result += '_' + campo;
-          this.existeError = true;
-        } else {
-          this.existeError = false;
-          this.router.navigate(['/Administrador']);
+    this.nuevaSala.fechaCierre = this.setFecha(this.date?.toString()!);
+    this.timeServicio.convertToLondonTime(this.date!).subscribe({
+      next: (dataDate: any) => {
+        const formData = new FormData();
+        formData.append('nombre', this.nuevaSala.nombre.trim());
+        formData.append('descripcion', this.nuevaSala.descripcion.trim());
+        formData.append('idModoJuego', this.selectedCard.toString());
+        formData.append('fechaCierre', this.nuevaSala.fechaCierre);
+        formData.append('FechaCierreLondon', this.setFecha(dataDate));
+        if (this.selectedFile) {
+          formData.append('archivo', this.selectedFile);
         }
-        this.constantsService.loading(false);
+
+        this.salaServicio.crearSala(formData).subscribe({
+          next: (data: any) => {
+            const { info, error, campo } = data.result;
+            this.result = info;
+            //console.log(info, campo);
+            if (error > 0) {
+              this.result += '_' + campo;
+              this.existeError = true;
+            } else {
+              this.existeError = false;
+              this.router.navigate(['/Administrador']);
+            }
+            this.constantsService.loading(false);
+          },
+          error: (e) => {
+            //console.log(e);
+            if (e.status === 401) {
+              this.router.navigate(['/']);
+            }
+          },
+        });
       },
       error: (e) => {
-        //console.log(e);
-        if (e.status === 401) {
-          this.router.navigate(['/']);
-        }
+        console.log(e);
+        this.router.navigate(['/Administrador']);
       },
     });
   }
 
   editarSala() {
-    const formData = new FormData();
-    formData.append('idSala', this.nuevaSala.idSala.toString());
-    formData.append('nombre', this.nuevaSala.nombre.trim());
-    formData.append('descripcion', this.nuevaSala.descripcion.trim());
-    formData.append('idModoJuego', this.selectedCard.toString());
-    if (this.selectedFile) {
-      formData.append('archivo', this.selectedFile);
-    }
-    this.salaServicio.editarSala(formData).subscribe({
-      next: (data: any) => {
-        const { info, error, campo } = data.result;
-        this.result = info;
-        console.log(info, campo);
-        if (error > 0) {
-          this.existeError = true;
-        } else {
-          this.existeError = false;
-          this.router.navigate(['/Administrador']);
+    this.nuevaSala.fechaCierre = this.setFecha(this.date?.toString()!);
+    this.timeServicio.convertToLondonTime(this.date!).subscribe({
+      next: (dataDate: any) => {
+        const formData = new FormData();
+        formData.append('idSala', this.nuevaSala.idSala.toString());
+        formData.append('nombre', this.nuevaSala.nombre.trim());
+        formData.append('descripcion', this.nuevaSala.descripcion.trim());
+        formData.append('idModoJuego', this.selectedCard.toString());
+        formData.append('fechaCierre', this.nuevaSala.fechaCierre);
+        formData.append('FechaCierreLondon', this.setFecha(dataDate));
+        if (this.selectedFile) {
+          formData.append('archivo', this.selectedFile);
         }
-        this.constantsService.loading(false);
+
+        this.salaServicio.editarSala(formData).subscribe({
+          next: (data: any) => {
+            const { info, error, campo } = data.result;
+            this.result = info;
+            console.log(info, campo);
+            if (error > 0) {
+              this.existeError = true;
+            } else {
+              this.existeError = false;
+              this.router.navigate(['/Administrador']);
+            }
+            this.constantsService.loading(false);
+          },
+          error: (e) => {
+            //console.log(e);
+            if (e.status === 401) {
+              this.router.navigate(['/']);
+            }
+          },
+        });
       },
       error: (e) => {
-        //console.log(e);
-        if (e.status === 401) {
-          this.router.navigate(['/']);
-        }
+        console.log(e);
+        this.router.navigate(['/Administrador']);
       },
     });
   }
@@ -242,25 +264,6 @@ export class CrearSalaComponent implements OnInit {
     }
     return isValid;
   }
-
-  setDate() {
-    console.log(this.date, this.setFecha(this.date?.toString()!));
-
-    console.log(this.timeServicio.convertToLondonTime(this.date!));
-
-    console.log(
-      this.timeServicio.convertToLondonTime(this.date!).subscribe({
-        next: (data: any) => {
-          console.log(data);
-        },
-      })
-    );
-  }
-
-  /* setFecha(fecha: Date): string {
-    let pipe = new DatePipe('en-US');
-    return pipe.transform(fecha, 'dd/MM/yyyy')!;
-  } */
 
   setFecha(fecha: string): string {
     let date = new Date(fecha);

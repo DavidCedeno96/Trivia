@@ -290,17 +290,10 @@ namespace WebApiRest.Data
             try
             {
                 await sqlConnection.OpenAsync();
-                await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();                
 
-                string info = cmd.Parameters["@info"].Value.ToString();
-                int error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
-
-                response.Info = info.Split(',')[0];
-                response.Error = error;
-                if (info.Contains(','))
-                {
-                    response.Campo = WC.GetTrim(info.Split(',')[1]);
-                }
+                response.Info = cmd.Parameters["@info"].Value.ToString();
+                response.Error = Convert.ToInt16(cmd.Parameters["@error"].Value.ToString());
 
             }
             catch (Exception ex)

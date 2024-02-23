@@ -279,8 +279,14 @@
                         <li role="menuitem">
                           <a
                             class="dropdown-item"
-                            (click)="cambiarPag2('/CrearSala', 'editar', sala.idSala, 0)"
-                            
+                            (click)="
+                              cambiarPag2(
+                                '/CrearSala',
+                                'editar',
+                                sala.idSala,
+                                0
+                              )
+                            "
                             ><img
                               src="assets/Icons/Editar.svg"
                               alt="Icono"
@@ -298,7 +304,7 @@
                               src="assets/Icons/Preguntas.svg"
                               alt="Icono"
                               class="icono-svg2"
-                              style="color: #fff;"
+                              style="color: #fff"
                             />
                             <strong>Banco de preguntas</strong></a
                           >
@@ -336,7 +342,7 @@
                         <li role="menuitem">
                           <a
                             class="dropdown-item"
-                            
+                            (click)="descargarRanking(sala.idSala)"
                             ><img
                               src="assets/Icons/Reporte.svg"
                               alt="Icono"
@@ -554,15 +560,15 @@
                             <a
                               class="link-primary"
                               (click)="
-                                cambiarPag('/EntradaSala', salaItem.idSala)
+                                cambiarPag('/IngresarJuego', salaItem.idSala)
                               "
                               >{{ currentURL }}</a
                             >
                           </div>
-                          <div class="col-12 text-truncate">
+                          <!-- <div class="col-12 text-truncate">
                             <strong>Código de la sala:&nbsp;</strong>
                             <span>{{ currentCodigo }}</span>
-                          </div>
+                          </div> -->
                         </div>
                         <div class="row py-2">
                           <div class="col-12 text-end">

@@ -60,6 +60,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     fecha_modificacion: '',
     fechaActivacion: '',
     fechaCierre: '',
+    fechaCierreLondon: '',
   };
 
   msjChallenger = [

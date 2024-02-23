@@ -12,6 +12,7 @@ export interface Sala {
   fecha_modificacion: string;
   fechaActivacion: string;
   fechaCierre: string;
+  fechaCierreLondon: string;
 }
 
 export interface SalaReciente {

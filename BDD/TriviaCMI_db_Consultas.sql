@@ -162,11 +162,12 @@ exec sp_B_SalaByAll
 @error = ''
 
 exec sp_C_Sala	
-@nombre = 'mi sala CMI',
+@nombre = 'mi sala 23 CMI',
 @imagen = '',
 @descripcion = '',
 @idModoJuego = 2,
-@fechaCierre = '2024',
+@fechaCierre = '2024-02-24 11:00:34',
+@fechaCierreLondon = '2024-02-24 11:00:34',
 @info = '',
 @error = ''
 
@@ -177,6 +178,7 @@ exec sp_U_Sala
 @descripcion = 'desc 1',
 @idModoJuego = 2,
 @fechaCierre = '',
+@fechaCierreLondon = '2024-02-24 11:00:34',
 @info = '', 
 @error = ''
 
@@ -340,9 +342,14 @@ select * from Opcion where idPregunta = 44
 
 -- CAMBIOS ----------------------------------------------------------------------------------
 -- ALTER TABLE Sala ALTER COLUMN nombre varchar(60) not null
+
 -- ALTER TABLE Sala ADD fechaCierre datetime;
 -- update Sala set fechaCierre = GETDATE() + 1
 -- ALTER TABLE Sala ALTER COLUMN fechaCierre datetime not null
+
+--ALTER TABLE Sala ADD fechaCierreLondon datetime;
+--update Sala set fechaCierreLondon = GETDATE() + 1
+--ALTER TABLE Sala ALTER COLUMN fechaCierreLondon datetime not null
 
 -- SPs
 -- sp_B_Sala

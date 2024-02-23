@@ -15,6 +15,7 @@
         public DateTime FechaModificacion { get; set; }
         public DateTime FechaActivacion { get; set; }
         public DateTime FechaCierre { get; set; }
+        public DateTime FechaCierreLondon { get; set; }
     }
 
     public class SalaReciente

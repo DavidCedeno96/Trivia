@@ -9,7 +9,6 @@ export class TimeApiService {
   private apiUrl = 'https://worldtimeapi.org/api/timezone/Europe/London'; // URL de la API de WorldTimeAPI
   private localTimeUrl = 'https://worldtimeapi.org/api/ip'; // Obtener la hora local de la máquina
 
-
   constructor(private http: HttpClient) {}
 
   getLondonTime(): Observable<any> {
@@ -19,8 +18,12 @@ export class TimeApiService {
   // Método para obtener la diferencia de offset entre la zona horaria del usuario y la de Londres
   getOffsetDifference(): Observable<number> {
     // Realizar las solicitudes a las APIs de WorldTimeAPI para obtener los offsets
-    const localOffset$ = this.http.get<any>(this.localTimeUrl).pipe(map(data => data.raw_offset));
-    const londonOffset$ = this.http.get<any>(this.apiUrl).pipe(map(data => data.raw_offset));
+    const localOffset$ = this.http
+      .get<any>(this.localTimeUrl)
+      .pipe(map((data) => data.raw_offset));
+    const londonOffset$ = this.http
+      .get<any>(this.apiUrl)
+      .pipe(map((data) => data.raw_offset));
 
     // Combinar los observables de offset y calcular la diferencia
     return combineLatest([localOffset$, londonOffset$]).pipe(
@@ -32,16 +35,19 @@ export class TimeApiService {
         const offsetDifferenceHours = offsetDifferenceSeconds / 3600;
 
         // Devolver la diferencia de offset en horas
-        console.log(offsetDifferenceHours);
         return offsetDifferenceHours;
       })
     );
   }
 
-  convertToLondonTime(userDateTime: Date): Observable<string>  {
+  convertToLondonTime(userDateTime: Date): Observable<Date> {
     // Realizar las solicitudes a las APIs de WorldTimeAPI para obtener los offsets
-    const localOffset$ = this.http.get<any>(this.localTimeUrl).pipe(map(data => data.raw_offset));
-    const londonOffset$ = this.http.get<any>(this.apiUrl).pipe(map(data => data.raw_offset));
+    const localOffset$ = this.http
+      .get<any>(this.localTimeUrl)
+      .pipe(map((data) => data.raw_offset));
+    const londonOffset$ = this.http
+      .get<any>(this.apiUrl)
+      .pipe(map((data) => data.raw_offset));
 
     // Combinar los observables de offset y calcular la diferencia
     return combineLatest([localOffset$, londonOffset$]).pipe(
@@ -53,15 +59,10 @@ export class TimeApiService {
         const offsetDifferenceHours = offsetDifferenceSeconds / 3600;
 
         // Devolver la diferencia de offset en horas
-        console.log(offsetDifferenceHours);
         userDateTime.setHours(userDateTime.getHours() - offsetDifferenceHours);
-        console.log(userDateTime);
-        console.log("FIN CODIGO");
         //FIN CODIGO
-        return userDateTime.toISOString();
+        return userDateTime;
       })
     );
   }
-
-  
 }
