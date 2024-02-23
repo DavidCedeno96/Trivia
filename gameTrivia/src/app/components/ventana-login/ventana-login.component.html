@@ -45,25 +45,32 @@
                 />
               </div>
               <div class="mb-3 px-md-5">
-                <div class="input-group" style="height: 46px;">
+                <div class="input-group" style="height: 46px">
                   <input
-                  [(ngModel)]="loginUsuario.contrasena"
-                  type="{{ hidePassword ? 'password' : 'text' }}"
-                  class="form-control"
-                  id="password"
-                  placeholder="Ingresa tu contraseña"
-                  name="contrasena"
-                  required>
-                  <div class="input-group-append" >
-                    <span class="input-group-text rounded-eye " (click)="togglePasswordVisibility()" style="height: 46px; position: relative;">
-                        <i class="fa" [ngClass]="{'fa-eye-slash': hidePassword, 'fa-eye': !hidePassword}"></i>
-                        
+                    [(ngModel)]="loginUsuario.contrasena"
+                    type="{{ hidePassword ? 'password' : 'text' }}"
+                    class="form-control"
+                    id="password"
+                    placeholder="Ingresa tu contraseña"
+                    name="contrasena"
+                    required
+                  />
+                  <div class="input-group-append">
+                    <span
+                      class="input-group-text rounded-eye"
+                      (click)="togglePasswordVisibility()"
+                      style="height: 46px; position: relative"
+                    >
+                      <i
+                        class="fa"
+                        [ngClass]="{
+                          'fa-eye-slash': hidePassword,
+                          'fa-eye': !hidePassword
+                        }"
+                      ></i>
                     </span>
+                  </div>
                 </div>
-
-                </div>
-                
-
               </div>
               <div class="mb-3 px-md-5">
                 <div class="form-check custom-checkbox">
@@ -92,14 +99,14 @@
                   Ingresar
                 </button>
               </div>
-              <div class="text-center py-2">
+              <!-- <div class="text-center py-2">
                 <div class="p" style="color: white">
                   ¿No tienes una cuenta?
                   <strong (click)="onClickCambiar()" style="cursor: pointer"
                     >Registrarse</strong
                   >
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
         </div>
