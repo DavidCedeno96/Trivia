@@ -183,6 +183,7 @@ export class ChallengersGameComponent
 
   numIntervaloImg: number = 4;
   countdown: number = 20; // Temporizador principal en segundos
+  tiempoPregunta: number = 20; //TIEMPO BASE PARA LA BD
 
   mainTimerInterval: any;
   userClicked: boolean = false;
@@ -613,7 +614,7 @@ export class ChallengersGameComponent
       this.moverVehiculo();
       this.numPreguntasContestadas++;
       this.puedeResponder = true;
-      this.countdown = 20;
+      this.countdown = this.tiempoPregunta;
     }, 3000); // 3000 milisegundos = 3 segundos
   }
 
@@ -709,7 +710,7 @@ export class ChallengersGameComponent
   startMainTimer() {
     if (!this.isTimerRunning) {
       this.isTimerRunning = true; // Marca que el temporizador está en funcionamiento
-      this.countdown = 20; // Restablece el tiempo en segundos
+      this.countdown = this.tiempoPregunta; // Restablece el tiempo en segundos
       this.mainTimerInterval = setInterval(() => {
         if (!this.userClicked) {
           this.countdown--; // Temporizador principal disminuye en segundos
@@ -733,7 +734,7 @@ export class ChallengersGameComponent
   }
 
   resetTimer() {
-    this.countdown = 20; // Reiniciar el tiempo en segundos
+    this.countdown = this.tiempoPregunta; // Reiniciar el tiempo en segundos
     this.userClicked = false; // Reiniciar el estado del usuario
     this.startMainTimer(); // Iniciar nuevamente el temporizador principal
   }

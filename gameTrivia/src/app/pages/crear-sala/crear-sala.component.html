@@ -73,7 +73,7 @@
         <div class="row g-3">
           <div class="col-12 col-lg-6">
             <!-- Input nombre sala -->
-            <p>Nombre de la sala</p>
+            <p>Nombre de la sala *</p>
             <div class="input-group">
               <input
                 type="text"
@@ -125,8 +125,8 @@
             <input class="calendario " type="datetime-local" name="fecha" id="test1">
                                     
           </div>  -->
-          <div class="col-12 me-auto">
-            <p>Fecha y hora de caducidad del enlace</p>
+          <div class="col-sm-12 col-lg-6 me-auto">
+            <p>Fecha y hora de caducidad del enlace *</p>
             <span class="p-float-label">
               <p-calendar
                 [(ngModel)]="date"
@@ -138,6 +138,24 @@
                 [required]="true"
               ></p-calendar>
             </span>
+          </div>
+          <div class="col-sm-12 col-lg-6 me-auto">
+            
+            <p>Tiempo por pregunta (Segundos)</p>
+            <div class="input-group mb-3" style="max-width: 40%;">
+              
+              <select class="form-select" 
+              id="inputGroupSelect01"
+              (change)="selectTotalOpciones($event)"
+              >
+                <option value="1">15</option>
+                <option value="2">20</option>
+                <option value="3">30</option>
+                <option value="4">40</option>
+                <option value="5">50</option>
+                <option value="6">60</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

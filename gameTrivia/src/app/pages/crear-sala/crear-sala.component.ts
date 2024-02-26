@@ -27,6 +27,8 @@ export class CrearSalaComponent implements OnInit {
   nombreInput: FormControl;
   descripcionInput: FormControl;
 
+  tiempoPregunta = 15;
+
   nuevaSala: Sala = {
     idSala: 1,
     nombre: '',
@@ -269,5 +271,10 @@ export class CrearSalaComponent implements OnInit {
     let date = new Date(fecha);
     let pipe = new DatePipe('en-US');
     return pipe.transform(date, 'yyyy-MM-dd HH:mm:ss')!;
+  }
+
+  selectTotalOpciones(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.tiempoPregunta = Number(selectedValue);
   }
 }
