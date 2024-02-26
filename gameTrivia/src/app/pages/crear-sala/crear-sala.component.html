@@ -140,20 +140,17 @@
             </span>
           </div>
           <div class="col-sm-12 col-lg-6 me-auto">
-            
             <p>Tiempo por pregunta (Segundos)</p>
-            <div class="input-group mb-3" style="max-width: 40%;">
-              
-              <select class="form-select" 
-              id="inputGroupSelect01"
-              (change)="selectTotalOpciones($event)"
+            <div class="input-group mb-3" style="max-width: 40%">
+              <select
+                class="form-select"
+                id="selectTiemXpreg"
+                (change)="selectTiempoXpregunta($event)"
+                [selectedIndex]="indexTiemXpreg()"
               >
-                <option value="1">15</option>
-                <option value="2">20</option>
-                <option value="3">30</option>
-                <option value="4">40</option>
-                <option value="5">50</option>
-                <option value="6">60</option>
+                <option *ngFor="let item of tiemposXPregunta" [value]="item">
+                  {{ item }}
+                </option>
               </select>
             </div>
           </div>

@@ -39,7 +39,8 @@ create table Sala(
 	estado int default 1,
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
-	fechaCierre datetime NOT NULL
+	fechaCierre datetime NOT NULL,
+	tiempoXpreg int default 20 NOT NULL
 );
 
 select * from Sala

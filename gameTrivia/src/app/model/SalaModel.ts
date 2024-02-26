@@ -8,6 +8,7 @@ export interface Sala {
   estado: number;
   totalPreguntas: number;
   cantJugadas: number;
+  tiempoXpregunta: number;
   fecha_creacion: string;
   fecha_modificacion: string;
   fechaActivacion: string;
@@ -33,6 +34,7 @@ export interface Pregunta {
   idPregunta: number;
   nombre: string;
   idSala: number;
+  tiempoXpregunta: number;
   estado: number;
   fecha_creacion: string;
   fecha_modificacion: string;

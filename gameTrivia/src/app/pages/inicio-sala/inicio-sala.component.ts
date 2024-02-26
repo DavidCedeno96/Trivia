@@ -56,6 +56,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     estado: 1,
     totalPreguntas: 0,
     cantJugadas: 0,
+    tiempoXpregunta: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
@@ -63,14 +64,14 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
     fechaCierreLondon: '',
   };
 
-  msjChallenger = [
+  /* msjChallenger = [
     '¡Bienvenido a Challenger!',
     'Contesta correctamente las preguntas para ganar puntos y avanza rápido para llegar primero a la meta. Tienes 20 segundos por pregunta, ¡Diviértete!',
-  ];
-  msjSurvivor = [
+  ]; */
+  /* msjSurvivor = [
     '¡Bienvenido a Survivor!',
     'Responde cada pregunta en un lapso de 12 segundos; si te equivocas serás eliminado.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!',
-  ];
+  ]; */
 
   msjJuego = ['', ''];
 
@@ -145,7 +146,14 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
 
           //Cambiar mensaje de acuerdo al modo del juego
           if (this.miSala.modoJuego == 'Challenger') {
-            this.msjJuego = this.msjChallenger;
+            let msjChallenger = [
+              '¡Bienvenido a Challenger!',
+              'Contesta correctamente las preguntas para ganar puntos y avanza rápido para llegar primero a la meta. Tienes ' +
+                sala.tiempoXpregunta +
+                ' segundos por pregunta, ¡Diviértete!',
+            ];
+
+            this.msjJuego = msjChallenger;
             setInterval(() => {
               if (this.miSala.estado === 0) {
                 //console.log('Reload');
@@ -154,7 +162,14 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
             }, 10000); // 10000 milisegundos (10 segundos)
           }
           if (this.miSala.modoJuego == 'Supervivencia') {
-            this.msjJuego = this.msjSurvivor;
+            let msjSurvivor = [
+              '¡Bienvenido a Survivor!',
+              'Responde cada pregunta en un lapso de ' +
+                sala.tiempoXpregunta +
+                ' segundos; si te equivocas serás eliminado.  El juego comienza al agotarse el temporizador, ¡La victoria es tuya si eres el último en pie!',
+            ];
+
+            this.msjJuego = msjSurvivor;
 
             /* const currentTime = new Date(this.miSala.fechaActivacion);
             this.temporizador2(currentTime); */
@@ -388,7 +403,7 @@ export class InicioSalaComponent implements OnInit, AfterViewInit {
         }
       },
       error: (e) => {
-        console.log(e);
+        console.error(e);
       },
     });
   }

@@ -11,6 +11,7 @@
         public int Estado { get; set; }
         public int TotalPreguntas { get; set; }
         public int CantJugadas { get; set; }
+        public int TiempoXpregunta { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public DateTime FechaActivacion { get; set; }

@@ -27,7 +27,7 @@ export class CrearSalaComponent implements OnInit {
   nombreInput: FormControl;
   descripcionInput: FormControl;
 
-  tiempoPregunta = 15;
+  tiemposXPregunta: number[] = [15, 20, 30, 40, 50, 60];
 
   nuevaSala: Sala = {
     idSala: 1,
@@ -39,6 +39,7 @@ export class CrearSalaComponent implements OnInit {
     estado: 1,
     totalPreguntas: 0,
     cantJugadas: 0,
+    tiempoXpregunta: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
@@ -173,8 +174,12 @@ export class CrearSalaComponent implements OnInit {
         formData.append('nombre', this.nuevaSala.nombre.trim());
         formData.append('descripcion', this.nuevaSala.descripcion.trim());
         formData.append('idModoJuego', this.selectedCard.toString());
+        formData.append(
+          'tiempoXpregunta',
+          this.nuevaSala.tiempoXpregunta.toString()
+        );
         formData.append('fechaCierre', this.nuevaSala.fechaCierre);
-        formData.append('FechaCierreLondon', this.setFecha(dataDate));
+        formData.append('fechaCierreLondon', this.setFecha(dataDate));
         if (this.selectedFile) {
           formData.append('archivo', this.selectedFile);
         }
@@ -202,7 +207,7 @@ export class CrearSalaComponent implements OnInit {
         });
       },
       error: (e) => {
-        console.log(e);
+        console.error(e);
         this.router.navigate(['/Administrador']);
       },
     });
@@ -217,8 +222,12 @@ export class CrearSalaComponent implements OnInit {
         formData.append('nombre', this.nuevaSala.nombre.trim());
         formData.append('descripcion', this.nuevaSala.descripcion.trim());
         formData.append('idModoJuego', this.selectedCard.toString());
+        formData.append(
+          'tiempoXpregunta',
+          this.nuevaSala.tiempoXpregunta.toString()
+        );
         formData.append('fechaCierre', this.nuevaSala.fechaCierre);
-        formData.append('FechaCierreLondon', this.setFecha(dataDate));
+        formData.append('fechaCierreLondon', this.setFecha(dataDate));
         if (this.selectedFile) {
           formData.append('archivo', this.selectedFile);
         }
@@ -227,7 +236,6 @@ export class CrearSalaComponent implements OnInit {
           next: (data: any) => {
             const { info, error, campo } = data.result;
             this.result = info;
-            console.log(info, campo);
             if (error > 0) {
               this.existeError = true;
             } else {
@@ -237,7 +245,7 @@ export class CrearSalaComponent implements OnInit {
             this.constantsService.loading(false);
           },
           error: (e) => {
-            //console.log(e);
+            console.error(e);
             if (e.status === 401) {
               this.router.navigate(['/']);
             }
@@ -245,7 +253,7 @@ export class CrearSalaComponent implements OnInit {
         });
       },
       error: (e) => {
-        console.log(e);
+        console.error(e);
         this.router.navigate(['/Administrador']);
       },
     });
@@ -273,8 +281,16 @@ export class CrearSalaComponent implements OnInit {
     return pipe.transform(date, 'yyyy-MM-dd HH:mm:ss')!;
   }
 
-  selectTotalOpciones(event: Event) {
+  selectTiempoXpregunta(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    this.tiempoPregunta = Number(selectedValue);
+    this.nuevaSala.tiempoXpregunta = Number(selectedValue);
+  }
+
+  indexTiemXpreg(): number {
+    if (this.nuevaSala.tiempoXpregunta) {
+      let n = this.tiemposXPregunta.indexOf(this.nuevaSala.tiempoXpregunta);
+      return n;
+    }
+    return 0;
   }
 }

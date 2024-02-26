@@ -33,6 +33,7 @@ export class IngresarJuegoComponent implements OnInit, AfterViewInit {
     estado: 1,
     totalPreguntas: 0,
     cantJugadas: 0,
+    tiempoXpregunta: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
@@ -139,11 +140,11 @@ export class IngresarJuegoComponent implements OnInit, AfterViewInit {
     if (this.formulario.valid) {
       this.verErrorsInputs = false;
       this.usuario = this.formulario.value;
-      console.log('Enviando el usuario....', this.usuario);
+      //console.log('Enviando el usuario....', this.usuario);
 
       this.usuarioServicio.crearUsuarioJugador(this.usuario).subscribe({
         next: (data: any) => {
-          console.log(data);
+          //console.log(data);
           let { info, error } = data.result;
           this.result = info;
           if (error === 0) {

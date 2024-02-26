@@ -45,6 +45,7 @@ export class AdminComponent implements OnInit {
     estado: 0,
     totalPreguntas: 0,
     cantJugadas: 0,
+    tiempoXpregunta: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
     fechaActivacion: '',
@@ -255,7 +256,6 @@ export class AdminComponent implements OnInit {
       '',
       'Link de la Sala: ' + this.currentURL,
       'Nombre de la Sala: ' + this.salaItem.nombre,
-     
     ];
     const textoAConcatenar = textos.join('\n');
     //this._clipboardService.copy(textoAConcatenar);

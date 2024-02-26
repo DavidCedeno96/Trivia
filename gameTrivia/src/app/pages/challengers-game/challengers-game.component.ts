@@ -129,6 +129,7 @@ export class ChallengersGameComponent
     idPregunta: 0,
     nombre: 'Mi primera Pregunta de prueba',
     idSala: 0,
+    tiempoXpregunta: 0,
     estado: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
@@ -314,6 +315,7 @@ export class ChallengersGameComponent
 
     this.idSala = this.PreguntasList[0].pregunta.idSala;
     this.listaDePreguntas = this.PreguntasList;
+    this.tiempoPregunta = this.PreguntasList[0].pregunta.tiempoXpregunta;
 
     //this.steps = 10;
 

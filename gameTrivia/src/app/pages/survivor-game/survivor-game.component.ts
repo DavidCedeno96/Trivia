@@ -71,6 +71,7 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
     idPregunta: 0,
     nombre: 'Mi primera Pregunta de prueba',
     idSala: 0,
+    tiempoXpregunta: 0,
     estado: 0,
     fecha_creacion: '',
     fecha_modificacion: '',
@@ -305,6 +306,8 @@ export class SurvivorGameComponent implements OnInit, AfterViewInit, OnDestroy {
         const { error, list } = data.result;
         if (error === 0) {
           this.listaDePreguntas = list;
+          this.tiempoPregunta =
+            this.listaDePreguntas[0].pregunta.tiempoXpregunta;
         }
       },
       error: (e) => {
