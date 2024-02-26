@@ -255,7 +255,7 @@ export class AdminComponent implements OnInit {
       '',
       'Link de la Sala: ' + this.currentURL,
       'Nombre de la Sala: ' + this.salaItem.nombre,
-      'Código de Sala: ' + this.currentCodigo,
+     
     ];
     const textoAConcatenar = textos.join('\n');
     //this._clipboardService.copy(textoAConcatenar);
