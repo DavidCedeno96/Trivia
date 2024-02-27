@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebApiRest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec60d62458c3a5ac5cdfd88348be8f7c5dfc6e5d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f497882b70e952e5c8784571995a8261f2dabf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebApiRest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebApiRest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

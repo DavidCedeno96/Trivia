@@ -343,13 +343,6 @@ select * from Opcion where idPregunta = 43
 select * from Opcion where idPregunta = 44
 
 -- CAMBIOS ----------------------------------------------------------------------------------
--- ALTER TABLE Sala ADD tiempoXpreg int default 20 NOT NULL
 
--- sp_B_Sala
--- sp_B_SalaById
--- sp_B_SalaByAll
--- sp_C_Sala
--- sp_U_Sala
--- sp_B_PreguntaById
 
 ------------------------------------------------------------------------------------

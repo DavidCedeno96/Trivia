@@ -32,7 +32,7 @@ create table ModoJuego(
 
 create table Sala(
 	idSala int identity(1,1) primary key,
-	nombre varchar(40) not null,
+	nombre varchar(60) not null,
 	imagen varchar(60),
 	descripcion varchar(200),
 	idModoJuego int references ModoJuego(idModoJuego) not null,
@@ -42,8 +42,6 @@ create table Sala(
 	fechaCierre datetime NOT NULL,
 	tiempoXpreg int default 20 NOT NULL
 );
-
-select * from Sala
 
 create table Usuario_Sala(
 	idUsuario int references Usuario(idUsuario) not null,

@@ -85,8 +85,13 @@
                 required
               />
             </div>
-            <div *ngIf="nombreInput.hasError('maxlength')">
-              Máximo 20 caracteres permitidos.
+            <div
+              class="mt-2 text-center"
+              *ngIf="nombreInput.hasError('maxlength')"
+            >
+              <div class="alert alert-danger" role="alert">
+                Máximo 50 caracteres permitidos.
+              </div>
             </div>
           </div>
           <div class="col-12 col-lg-6">
@@ -115,8 +120,13 @@
                 name="descripcion"
               ></textarea>
             </div>
-            <div *ngIf="descripcionInput.hasError('maxlength')">
-              Máximo 200 caracteres permitidos.
+            <div
+              class="mt-2 text-center"
+              *ngIf="descripcionInput.hasError('maxlength')"
+            >
+              <div class="alert alert-danger" role="alert">
+                Máximo 200 caracteres permitidos.
+              </div>
             </div>
           </div>
 
@@ -216,7 +226,11 @@
           </div>
         </div>
         <div class="text-center mt-3" *ngIf="notSelectCard">
-          <h4 style="color: white">Seleccione el modo de juego</h4>
+          <h4 style="color: white">
+            <div class="alert alert-danger" role="alert">
+              Seleccione el modo de juego
+            </div>
+          </h4>
         </div>
         <div class="container" style="height: 30px"></div>
         <div class="container text-center">

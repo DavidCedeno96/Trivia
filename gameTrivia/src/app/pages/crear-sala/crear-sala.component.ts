@@ -59,7 +59,7 @@ export class CrearSalaComponent implements OnInit {
   ) {
     this.nombreInput = new FormControl('', [
       Validators.required,
-      Validators.maxLength(20),
+      Validators.maxLength(50),
     ]);
     this.descripcionInput = new FormControl('', [
       Validators.required,
@@ -271,6 +271,11 @@ export class CrearSalaComponent implements OnInit {
 
     if (!isValid) {
       this.constantsService.loading(false);
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
     }
     return isValid;
   }
