@@ -39,9 +39,13 @@ create table Sala(
 	estado int default 1,
 	fecha_creacion datetime default getdate(),
 	fecha_modificacion datetime default getdate(),
+	fecha_activacion datetime,
 	fechaCierre datetime NOT NULL,
+	fechaCierreLondon datetime NOT NULL,
 	tiempoXpreg int default 20 NOT NULL
 );
+
+
 
 create table Usuario_Sala(
 	idUsuario int references Usuario(idUsuario) not null,
