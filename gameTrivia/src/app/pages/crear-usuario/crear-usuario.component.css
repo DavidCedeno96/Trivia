@@ -29,10 +29,10 @@ body {
   .btn-primary:active,
   .btn-primary:focus
   {
-    background-color: #F29523; /* Naranja */
+    background-color: #3D5057; /* Naranja */
     padding: 10px 20px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); 
-    color: #3D5057;
+    color: #F29523;
     font-weight: bold;
 
   }
